@@ -1,0 +1,103 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 06/07/2017 00:12
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-three-buildings:before { content: "\f100"; }
+.flaticon-building:before { content: "\f101"; }
+.flaticon-skyline:before { content: "\f102"; }
+.flaticon-woman:before { content: "\f103"; }
+.flaticon-bottles:before { content: "\f104"; }
+.flaticon-fashion-4:before { content: "\f105"; }
+.flaticon-fashion-3:before { content: "\f106"; }
+.flaticon-people-1:before { content: "\f107"; }
+.flaticon-fashion:before { content: "\f108"; }
+.flaticon-finger-with-nail:before { content: "\f109"; }
+.flaticon-business:before { content: "\f10a"; }
+.flaticon-barbershop-1:before { content: "\f10b"; }
+.flaticon-barbershop:before { content: "\f10c"; }
+.flaticon-hair-salon-badge-with-scissors-and-mustache:before { content: "\f10d"; }
+.flaticon-three:before { content: "\f10e"; }
+.flaticon-circle:before { content: "\f10f"; }
+.flaticon-people:before { content: "\f110"; }
+.flaticon-tool-1:before { content: "\f111"; }
+.flaticon-tool:before { content: "\f112"; }
+.flaticon-cut:before { content: "\f113"; }
+.flaticon-short-male-hair-shape:before { content: "\f114"; }
+.flaticon-woman-hair-cut:before { content: "\f115"; }
+.flaticon-hairdresser-with-comb-and-scissors:before { content: "\f116"; }
+.flaticon-hair-salon-badge:before { content: "\f117"; }
+.flaticon-three-bottles-of-hair-salon:before { content: "\f118"; }
+.flaticon-hairdryer-and-comb:before { content: "\f119"; }
+.flaticon-hairdresser-washing-the-hair-of-a-client-with-bubbles-shampoo:before { content: "\f11a"; }
+.flaticon-hair-salon-spray-bottle-and-can:before { content: "\f11b"; }
+.flaticon-male-hair-of-head-and-face-shapes:before { content: "\f11c"; }
+.flaticon-boy-hair-shape:before { content: "\f11d"; }
+.flaticon-female-hair-shape-and-face-silhouette:before { content: "\f11e"; }
+.flaticon-scissor-and-comb:before { content: "\f11f"; }
+    
+    $font-Flaticon-three-buildings: "\f100";
+    $font-Flaticon-building: "\f101";
+    $font-Flaticon-skyline: "\f102";
+    $font-Flaticon-woman: "\f103";
+    $font-Flaticon-bottles: "\f104";
+    $font-Flaticon-fashion-4: "\f105";
+    $font-Flaticon-fashion-3: "\f106";
+    $font-Flaticon-people-1: "\f107";
+    $font-Flaticon-fashion: "\f108";
+    $font-Flaticon-finger-with-nail: "\f109";
+    $font-Flaticon-business: "\f10a";
+    $font-Flaticon-barbershop-1: "\f10b";
+    $font-Flaticon-barbershop: "\f10c";
+    $font-Flaticon-hair-salon-badge-with-scissors-and-mustache: "\f10d";
+    $font-Flaticon-three: "\f10e";
+    $font-Flaticon-circle: "\f10f";
+    $font-Flaticon-people: "\f110";
+    $font-Flaticon-tool-1: "\f111";
+    $font-Flaticon-tool: "\f112";
+    $font-Flaticon-cut: "\f113";
+    $font-Flaticon-short-male-hair-shape: "\f114";
+    $font-Flaticon-woman-hair-cut: "\f115";
+    $font-Flaticon-hairdresser-with-comb-and-scissors: "\f116";
+    $font-Flaticon-hair-salon-badge: "\f117";
+    $font-Flaticon-three-bottles-of-hair-salon: "\f118";
+    $font-Flaticon-hairdryer-and-comb: "\f119";
+    $font-Flaticon-hairdresser-washing-the-hair-of-a-client-with-bubbles-shampoo: "\f11a";
+    $font-Flaticon-hair-salon-spray-bottle-and-can: "\f11b";
+    $font-Flaticon-male-hair-of-head-and-face-shapes: "\f11c";
+    $font-Flaticon-boy-hair-shape: "\f11d";
+    $font-Flaticon-female-hair-shape-and-face-silhouette: "\f11e";
+    $font-Flaticon-scissor-and-comb: "\f11f";

@@ -1,0 +1,43 @@
+<div ui-view="navigation"></div>	
+
+<div id="chatbox">
+
+	    <div id="chatview" class="p1">    	
+	        <div id="profile">
+				<div id="btn-back-wrap" style="align-items: center; display: flex; height:60px; left:0px; margin-left:10px; padding: 10px; position: absolute; top:0px;" >
+					<a id="btn-back" action="action" onclick="window.history.go(-1); return false;" value=""><<a/>
+				</div>
+	            <div id="img-perfil-wrap">
+	            	<div>
+	            		<img src="../../../assets/core/images/no_avatar.jpg" class="floatingImg" style="width: 68px;">
+	            	</div>
+					
+				</div>
+	        
+	            
+	            <p class="animate">{{user_to.name}}</p>
+	            <!-- <span>miro@badev@gmail.com</span> -->
+	        </div>
+
+	        <div id="chat-messages">
+	        </div>
+
+	    </div>
+		
+		
+		<div class="conversation-footer">
+			<form action="/message" method="get" ajax="true" debug="true" class="form_review" id="form-create-review">
+				<div style="text-align:center;">
+					<textarea id="message-text" name="message" id="" cols="30" rows="10" maxlength="160" style="height: 5rem; width:95%;"></textarea>
+					<input type="hidden" name="user_id" value="{{user_id}}">
+					<input type="hidden" name="user_to_id" value="{{user_to.id}}">
+				</div>
+				
+				<div style="text-align:center;">
+					<button id="btn-message" class="btn waves-effect waves-light" type="button" name="action" style="    background-color: #7b7777;">Enviar
+					    	<!-- <i class="material-icons right">send</i> -->
+					</button>
+				</div>
+			</form>
+		</div>
+</div>

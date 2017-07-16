@@ -1,0 +1,39 @@
+<div class="login">
+	<br>
+	<br>
+	<div>
+		<img src="../../assets/core/images/logosalon.png" class="logo">
+	</div>      
+
+	<div style="height:50px;">
+
+	</div>
+
+	<form action="/check" method="post" redirect="perfil" type="json" class="ajax_true">
+
+		<div class="row">
+			<div class="input-field input-color col s12 white-text container">
+				<i class="material-icons prefix">account_circle</i>
+				<input type="text" class="black-text" name="email" value="email@email.com">
+				<label for="icon_prefix white-text">Correo</label>
+			</div>
+			<div class="input-field input-color col s12 white-text container">
+				<i class="material-icons prefix ">lock</i>
+				<input type="password" class="black-text" name="password" value="1024456">
+				<label for="icon_telephone">Contraseña</label>
+			</div>
+			<div class="container">
+				<button class="btn btn-block card-panel teal lighten-2" type="submit" >Entrar
+					<i class="material-icons right">send</i>
+				</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('body').addClass('fondoBody');
+	});
+</script>
+
