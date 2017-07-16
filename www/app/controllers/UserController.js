@@ -14,6 +14,16 @@ app.controller('UserController', ['$scope', '$state', function($scope, $state){
 		if(debug == 'true')
 			console.log('en configuracion del perfsil');
 
+		$scope.cargarImagen = function(id) {
+			navigator.camera.getPicture(successPhoto,errorPhoto,{quality:50});
+		};
+
+		function successPhoto(){
+			alert('funciono')
+		}
+		function errorPhoto(){
+			alert("error");
+		}
 
 	}
 

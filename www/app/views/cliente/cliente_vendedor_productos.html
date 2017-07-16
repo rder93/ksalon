@@ -1,0 +1,45 @@
+<div ui-view="navigation"></div>	
+
+<br>
+
+<style>
+	.pagina-titulo{
+		padding-top: 35px;
+		text-align: center;
+	}
+
+	.pagina-titulo > h2{
+		font-size: 2.5rem!important;
+	}
+
+</style>
+
+<div class="height-100;" style="50px;">
+		
+	<div class="page-content">		
+		
+		<div class="pagina-titulo">
+			<h2>Productos del salon</h2>
+		</div>
+		
+		<div class="col s12 m7"  ng-repeat="producto in productos">
+		    <div class="card horizontal">
+		      	<div class="card-image">
+		        	<img src="../../../assets/core/images/hair_salon.jpg">
+		      	</div>
+		     	<div class="card-stacked">
+		        	<div class="card-content">
+		          		<p>{{producto.descripcion}}</p>
+		        	</div>
+		        	<div class="card-action">
+			          	<span>{{producto.nombre}}</span>
+			        </div>
+		      </div>
+		    </div>
+		</div>
+	
+		
+	</div>	
+
+
+</div>

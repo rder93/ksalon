@@ -1,0 +1,42 @@
+<div ui-view="navigation"></div>	
+
+<br>
+
+<style>
+	.card-profesional{
+		margin: 0px;
+	}
+
+	.card-profesional-wrap{
+		padding-left: 0px!important;
+		padding-right: 0px!important;
+	}
+
+	.profesional-img{
+		width: 100%;
+	}
+
+</style>
+
+<div class="height-100;" style="50px;">
+		
+	<div class="page-content">
+
+		<div class="row" ng-repeat="profesional in profesionales" >
+	        <div class="col s12 m7 card-profesional-wrap">
+	          	<div class="card card-profesional">
+	          		<div class="card-image">
+		              	<img class="profesional-img" src="../../../assets/core/images/hair_salon.jpg">
+		            </div>
+	            	<div class="card-action">
+	              		<a ui-sref="#">{{profesional.nombre}}</a>
+	            	</div>
+	          	</div>
+	        </div>
+	      </div>	
+
+			
+	</div>	
+
+
+</div>

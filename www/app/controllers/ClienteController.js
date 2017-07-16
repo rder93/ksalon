@@ -171,6 +171,104 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 
 
+
+	if($state.current.name == 'cliente_vendedor_opciones'){
+		$scope.peluqueria = {
+				id: 1,
+				nombre: "Ricky's Styles",
+				descripcion: "En Ricky's Styles nos orgullecemos de brindar el mejor servicio para su cabello, reserve con nosotros y mismo!",
+				rol_id: 1,
+				user_id: 1,
+				tipo: {
+					id: 1,
+					nombre: 'Gran Salon'
+				},
+				duenio: {
+					id: 1,
+					nombre: 'Ricardo E'
+
+				}
+		}
+
+		console.log($scope);
+			
+	}
+
+
+	if($state.current.name == 'cliente_vendedor_profesionales'){
+		$scope.profesionales = [
+									{
+										id: 1,
+										nombre: 'Maria Sandoval'
+									},
+									{
+										id: 2,
+										nombre: 'Sofia Nuñez'
+									},
+									{
+										id: 3,
+										nombre: 'Guadalupe Gutierrez'
+									},
+									{
+										id: 1,
+										nombre: 'Maria2 Sandoval'
+									},
+									{
+										id: 2,
+										nombre: 'Sofia2 Nuñez'
+									},
+									{
+										id: 3,
+										nombre: 'Guadalupe2 Gutierrez'
+									},
+									{
+										id: 1,
+										nombre: 'Maria3 Sandoval'
+									},
+									{
+										id: 2,
+										nombre: 'Sofia3 Nuñez'
+									},
+									{
+										id: 3,
+										nombre: 'Guadalupe3 Gutierrez'
+									}
+								]
+
+	}
+
+
+
+	if($state.current.name == 'cliente_vendedor_productos'){
+		$scope.productos = [
+								{
+									id:1,
+									nombre: 'Shampoo Retro',
+									descripcion: 'Nuevo shampoo exportado de Estados Unidos especialmente para el cabello rizado'
+								},
+								{
+									id:2,
+									nombre: 'Acondicionador Lounge Large',
+									descripcion: 'Acondicionador '
+								},
+								{
+									id:3,
+									nombre: 'Pantene X5',
+									descripcion: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi laboriosam, adipisci eum corporis nam dignissimos, alias ut error enim maiores vel pariatur incidunt cum ex. Quae assumenda esse voluptate officiis.'
+								},
+								{
+									id:4,
+									nombre: 'Jabon facial especial',
+									descripcion: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat adipisci animi voluptates, ab et, rerum molestias fugit laudantium iste nostrum cupiditate. Dolore harum sit quibusdam earum neque dignissimos praesentium expedita?'
+								}
+							]
+	}
+
+
+
+
+
+
 		//FUNCIONES PARA ESTE CONTROLLER
 
         function getLatLng(peluquerias){
@@ -194,14 +292,14 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
             markers.push(marker);
 
             google.maps.event.addListener(marker, 'click', function() {
-            	console.log("clicked on map");
-
             	$state.go('cliente_servicio_preview',{
 					id: peluqueria.id,
 				})
-                // window.open(window.location.origin+"/#/car_published/"+car.id);
 
              });
         }
+
+       
+
 
 }])
