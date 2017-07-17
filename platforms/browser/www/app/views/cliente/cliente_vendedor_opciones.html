@@ -1,0 +1,78 @@
+<div ui-view="navigation"></div>	
+
+<br>
+
+<style>
+	/*.ksalonaso{
+		background: url(../../../assets/core/images/fondoksalonazo-1.png)  fixed center center repeat; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}*/
+
+	.opciones-vendedor-foto{
+	  	border-radius: 8px;
+	   	display: block;
+	    margin: auto;
+	    width: 50%;
+	    padding-top: 14%;
+	}
+
+	.opciones-vendedor{
+	  	margin-top: 10%;
+	}
+
+	.opcion-btn{ 	  	
+	  	border: none;
+	  	cursor: pointer;
+	  	font-size: 24px;
+	  	margin-left: 10%;
+	  	text-align: center;
+	 	width: 80%;
+	}
+
+	.opcion-vendedor{
+		margin-bottom: 10px;
+		padding: 5px 0px 5px 0px;
+	}
+
+	.opciones-vendedor-nombre{
+		font-size: 22px;
+		text-align: center;
+	}
+
+
+</style>
+
+<div class="ksalonaso height-100;" style="50px;">
+		
+	<div>
+		<img src="../../../assets/core/images/hair_salon.jpg" class="opciones-vendedor-foto">
+		<div class="opciones-vendedor-nombre">
+			<span>{{peluqueria.nombre}}</span>
+		</div>
+	</div>		
+       
+
+	<div class="opciones-vendedor">
+		
+		<div class="opcion-vendedor">
+			<a ui-sref="cliente_vendedor_profesionales({id:peluqueria.id})" class="waves-effect waves-purple btn black white-text opcion-btn">PROFESIONALES </a>
+		</div>
+
+		<div  class="opcion-vendedor">
+			<a ui-sref="cliente_vendedor_combos({id:peluqueria.id})" class="waves-effect waves-purple btn black white-text opcion-btn">COMBOS </a>
+		</div>
+
+		<div class="opcion-vendedor">
+			<a ui-sref="cliente_vendedor_servicios({id:peluqueria.id})" class="waves-effect waves-purple btn black white-text opcion-btn">SERVICIOS </a>
+		</div>
+		<div class="opcion-vendedor">
+			<a ui-sref="cliente_vendedor_productos({id:peluqueria.id})" class="waves-effect waves-purple btn black white-text opcion-btn">PRODUCTOS </a>
+		</div>
+
+	</div>
+
+
+</div>

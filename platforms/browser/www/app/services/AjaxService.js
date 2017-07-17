@@ -35,7 +35,9 @@ app.service('ajaxService', ['$state', function($state){
  				}
 
  				if (e.auth_user) {
+ 					console.log(e.auth_user),
  					$.sessionStorage.set('user', e.auth_user);
+ 					$.sessionStorage.set('rol', e.rol);
  				}
 
 				loaderAnimation(false);

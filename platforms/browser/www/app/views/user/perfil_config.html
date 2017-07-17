@@ -1,49 +1,50 @@
 <div ui-view="navigation"></div>
 
-<div class="row">
-  <div class="col s12 m12">
-    <div class="card">
-      <div class="card-image">
-        <img src="../../assets/core/images/no_avatar.jpg" alt="" class="perfil" style="border-radius:50%; margin: auto; width:50%;">
-        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">edit</i></a>
-      </div>
-      <div class="card-content">
-        <h4>Ricardo</h4>
-        
-        <div class="row clearfix">
+<form ng-submit="actualizarUsuario()">
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card">
+        <div class="card-image">
+          <img id="contenedorFoto" class="img-responsive perfil" style="display: none;"/>
+          <a class="btn-floating halfway-fab waves-effect waves-light blue" ng-click="cargarImagen()"><i class="material-icons">camera</i></a>
+        </div>
+        <div class="card-content">
+          <h4>Ricardo</h4>
+
+          <div class="row clearfix">
             <div class="row">
               <div class="input-field input-color-card col s12 m12 black-text">
-                <input id="name" type="text" class="validate input-color" value="Ricardo Julio">
+                <input id="name" type="text" class="validate input-color" ng-model='Usuario.nombre'>
                 <label for="name" class="active">Nombre</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field input-color-card col s12 m12 black-text">
-                <input id="email" type="email" class="validate input-color" value="ricardo@gmail.com">
+                <input id="email" type="email" class="validate input-color" ng-model='Usuario.email'>
                 <label for="email" class="active">Email</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field input-color-card col s12 m12">
-                <input id="id" type="text" class="validate input-color" value="489652">
+                <input id="id" type="text" class="validate input-color" ng-model='Usuario.id'>
                 <label for="id" class="active">ID:</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field input-color-card col s12 m12">
-                <input id="ubicacion" type="text" class="validate input-color" value="Venezuela">
+                <input id="ubicacion" type="text" class="validate input-color" ng-model='Usuario.ubicacion'>
                 <label for="ubicacion" class="active">Ubicacion</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field input-color-card col s12 m12">
-                <input id="pasaporte" type="text" class="validate input-color" value="6954176">
+                <input id="pasaporte" type="text" class="validate input-color" ng-model='Usuario.pasaporte'>
                 <label for="pasaporte" class="active">Pasaporte</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field input-color-card col s12 m12">
-                <input id="paypal" type="email" class="validate input-color" value="ricardo@paypal.com">
+                <input id="paypal" type="email" class="validate input-color" ng-model='Usuario.paypal'>
                 <label for="paypal" class="active">Cuenta Paypal</label>
               </div>
             </div>
@@ -57,3 +58,4 @@
     </div>
   </div>
 </div>
+</form>

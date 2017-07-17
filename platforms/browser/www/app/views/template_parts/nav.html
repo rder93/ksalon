@@ -12,7 +12,10 @@
       	<li>
       		<div class="center"><img src="../../../assets/core/images/no_avatar.jpg" class="perfil-menu redondear"></div>
       	</li>
-        <li>
+        <li ng-repeat="opcion in opciones">
+          <a ui-sref="home">{{opcion.nombre}}<i class="material-icons">{{opcion.icono}}</i></a>
+        </li>
+        <!-- <li>
         	<a ui-sref="home">Inicio<i class="material-icons">home</i></a>
     	</li>
         <li>
@@ -29,7 +32,7 @@
         </li>
         <li>
         	<a ui-sref="politicas">Politicas de Uso <i class="material-icons">account_balance</i></a>
-        </li>
+        </li> -->
         <li id="btn-logout" class="logouth">
         	<a href="#">Cerrar Sesion <i class="material-icons">keyboard_return</i></a>
         </li>
