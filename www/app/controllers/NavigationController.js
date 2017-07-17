@@ -21,11 +21,11 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
         $state.go('login');
     });
 	
-	console.log($scope.user.rol.nombre);
+	console.log($scope.user.rol);
 
-	if ($scope.user.rol.nombre!='administrador') {
+	if ($scope.user.rol!=0) {
 		var servicios="";
-		if ($scope.user.rol.nombre != 'Cliente') {
+		if ($scope.user.rol != 4) {
 			servicios= 'Mis Servicios Realizados';
 		}else{
 			servicios='Mis Servicios Contratados';

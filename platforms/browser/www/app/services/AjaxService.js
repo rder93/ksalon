@@ -30,7 +30,12 @@ app.service('ajaxService', ['$state', function($state){
  				if (e.status && e.message) {
  					  Materialize.toast(e.message, 4000);
  					  if (sform.attr('redirect')!=null) {
- 					  	$state.go(sform.attr('redirect'));
+ 					  	if ($.sessionStorage.get('user').rol == 0) {
+ 					  		$state.go('panel_usuarios');
+ 					  	}else{
+ 					  		$state.go(sform.attr('redirect'));
+ 					  	}
+ 					  	
  					  }
  				}
 

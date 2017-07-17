@@ -257,5 +257,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         /*End Jonathan*/
 
+        /*----- RICARDO -------*/
 
+        .state('panel_usuarios',{
+            url: '/admin/panel/usuarios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/admin_lista_usuarios.html',
+                    controller: 'AdminController'
+                },
+                'navigation@cliente_vendedor_perfil':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        /*End RICARDO*/
 });
