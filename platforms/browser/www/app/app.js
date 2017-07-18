@@ -252,6 +252,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('registro', {
+            url: '/registro',
+            views: {
+                '' : { 
+                    templateUrl: path_views+'/register.html',
+                    controller: 'RegistroController'
+                },
+
+                'navigation@registro' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
 
 
