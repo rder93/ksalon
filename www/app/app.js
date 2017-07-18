@@ -266,7 +266,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/admin/admin_lista_usuarios.html',
                     controller: 'AdminController'
                 },
-                'navigation@cliente_vendedor_perfil':{
+                'navigation@panel_usuarios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('add_usuarios',{
+            url: '/admin/add/usuarios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/add_usuarios.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_usuarios':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }

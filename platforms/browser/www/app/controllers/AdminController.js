@@ -1,24 +1,20 @@
-app.controller('AdminController', ['$scope', '$state','$stateParams', '$sessionStorage', function($scope, $state, $stateParams, $sessionStorage){
+app.controller('AdminController', ['$scope', '$state',  '$rootScope', '$stateParams', '$sessionStorage', '$http', function($scope, $state, $rootScope, $stateParams, $sessionStorage, $http){
+	$('.mobile-content').fadeIn(1000);
+
 	var server_uri = $('body').attr('data-server_uri'),
 	debug = $('body').attr('debug');
 
 	$scope.server_uri = server_uri;
 
 	if ($state.current.name == 'panel_usuarios') {
-		var data = [{
-            id: 1,
-            name: 'Ricardo Etcheverry',
-            role: 1
-        },{
-            id: 2,
-            name: 'Jesus Torres',
-            role: 5
-        },{
-            id: 3,
-            name: 'Roiner Hernandez',
-            role: 5
-        }];
-
-        $scope.usuarios = data;
+		$http.get(server_uri+"users/")
+			.then(function(response){
+				console.log(response.data);
+				$scope.usuarios = response.data;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
 	}
+
 }])
