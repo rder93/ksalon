@@ -1,10 +1,10 @@
 <div class="mobile-content" style="display: none;">
     <div ui-view="navigation"></div><br>	
 	<div class="row">
-	    <form class="col s12" style="margin-top: 20px;" ng-submit="newUser()">
+	    <form class="col s12" style="margin-top: 20px;" ng-submit="editUser()">
 	    	<div class="row">
 				<div class="input-field col s12">
-					<select ng-options="rol.nombre for rol in roles track by rol.id" ng-model="new_user.rol_id">
+					<select id="selectRol" ng-options="rol.nombre for rol in roles track by rol.id" ng-model="new_user.rol_id">
 				 		<option value="" disabled selected>Escoge un rol</option>
 					</select>
 			    	<label>Roles</label>

@@ -288,14 +288,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('add_usuarios',{
-            url: '/admin/add/usuarios',
+        .state('add_usuario',{
+            url: '/admin/add/usuario',
             views:{
                 '':{
                     templateUrl: path_views+'/admin/add_usuarios.html',
                     controller: 'AdminController'
                 },
-                'navigation@add_usuarios':{
+                'navigation@add_usuario':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('edit_usuario',{
+            url: '/admin/edit/usuario/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/edit_usuario.html',
+                    controller: 'AdminController'
+                },
+                'navigation@edit_usuario':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
