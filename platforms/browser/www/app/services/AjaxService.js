@@ -28,21 +28,22 @@ app.service('ajaxService', ['$state', function($state){
 				}
  				
  				if (e.status && e.message) {
- 					  Materialize.toast(e.message, 4000);
- 					  
- 					  	if ($.sessionStorage.get('user').rol_id == 0) {
- 					  		$state.go('panel_usuarios');
- 					  	}else{
- 					  		$state.go(sform.attr('redirect'));
- 					  	}
+ 					Materialize.toast(e.message, 4000);
+ 				 	console.log($.sessionStorage);
+				  	if (e.auth_user.rol_id == 0) {
+				  		$state.go('panel_usuarios');
+				  	}else{
+				  		$state.go(sform.attr('redirect'));
+				  	}
  					  	
  					  
  				}
 
  				if (e.auth_user) {
+ 					console.log("1");
  					console.log(e.auth_user),
  					$.sessionStorage.set('user', e.auth_user);
- 					$.sessionStorage.set('rol', e.rol);
+ 					$.sessionStorage.set('rol', e.rol); 					
  				}
 
 				loaderAnimation(false);

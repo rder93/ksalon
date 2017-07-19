@@ -295,7 +295,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/admin/add_usuarios.html',
                     controller: 'AdminController'
                 },
-                'navigation@panel_usuarios':{
+                'navigation@add_usuarios':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
