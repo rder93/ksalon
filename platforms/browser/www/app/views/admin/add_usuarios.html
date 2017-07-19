@@ -1,0 +1,60 @@
+<div class="mobile-content" style="display: none;">
+    <div ui-view="navigation"></div><br>	
+	<div class="row">
+	    <form class="col s12" style="margin-top: 20px;" ng-submit="newUser()">
+	    	<div class="row">
+				<div class="input-field col s12">
+					<select ng-options="rol.nombre for rol in roles track by rol.id" ng-model="new_user.rol_id">
+				 		<option value="" disabled selected>Escoge un rol</option>
+					</select>
+			    	<label>Roles</label>
+				</div>
+				<div class="input-field col s12">
+	    			<input id="correo" type="text" class="validate" ng-model="new_user.name">
+	        		<label for="correo">Nombre</label>
+	        	</div>
+	    		<div class="input-field col s12">
+	    			<input id="correo" type="email" class="validate" ng-model="new_user.email">
+	        		<label for="correo">Correo</label>
+	        	</div>
+	        	<!-- <div class="input-field col s12">
+	    			<input id="correo" type="text" class="validate" ng-model="new_user.location">
+	        		<label for="correo">Ubicación</label>
+	        	</div> -->
+	        	<div class="input-field col s12">
+	        		<div class="col s8">
+	    				<input id="correo" type="text" class="validate" ng-model="new_user.ci">
+	        			<label for="correo">CI</label>
+	    			</div>
+	    			<div class="col s4">
+	    				<a class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">camera_alt</i></a>
+	    			</div>
+	        	</div>
+	        	<div class="input-field col s12">
+	        		<div class="col s8">
+	    				<input id="correo" type="text" class="validate" ng-model="new_user.passport">
+	        			<label for="correo">Pasaporte</label>
+	    			</div>
+	    			<div class="col s4">
+	    				<a class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">camera_alt</i></a>
+	    			</div>
+	        	</div>
+	        	<div class="input-field col s12">
+	        		<input id="ci" type="text" class="validate" ng-model="new_user.paypal">
+	        		<label for="ci">Cuenta PayPal</label>
+	        	</div>
+	      	</div>
+	      	<div style="text-align: center;">
+	      		<button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+		    		<i class="material-icons right">send</i>
+		  		</button>
+	      	</div>
+	      	
+    	</form>
+
+  	</div>
+
+  	<div class="row">
+  		<h2>{{new_user.rol_id.nivel}}</h2>
+  	</div>
+</div>

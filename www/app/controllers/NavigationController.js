@@ -23,9 +23,9 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	
 	console.log($scope.user.rol);
 
-	if ($scope.user.rol!=0) {
+	if ($scope.user.rol_id != 0) {
 		var servicios="";
-		if ($scope.user.rol != 4) {
+		if ($scope.user.rol_id != 4) {
 			servicios= 'Mis Servicios Realizados';
 		}else{
 			servicios='Mis Servicios Contratados';
@@ -33,34 +33,66 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
-			'icono' : 'home'
+			'icono' : 'home',
+			'state' : 'home'
 		},
 		{
 			'nombre':'Sobre Nosotros',
-			'icono' : 'info_outline'
+			'icono' : 'info_outline',
+			'state' : 'home'
 		},
 		{
 			'nombre':'Politicas de Uso',
-			'icono' : 'account_balance'
+			'icono' : 'account_balance',
+			'state' : 'home'
 		},
 		{
 			'nombre':'Transacciones',
-			'icono' : 'swap_horiz'
+			'icono' : 'swap_horiz',
+			'state' : 'home'
 		},
 		{
 			'nombre':'Mis Mensajes',
-			'icono' : 'question_answer'
+			'icono' : 'question_answer',
+			'state' : 'home'
 		},
 		{
 			'nombre':servicios,
-			'icono' : 'format_list_numbered'
+			'icono' : 'format_list_numbered',
+			'state' : 'home'
 		},
 		];
 	}else{
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
-			'icono' : 'home'
+			'icono' : 'home',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Gestión de usuarios',
+			'icono' : 'contacts',
+			'state' : 'panel_usuarios'
+		},
+		{
+			'nombre':'Gestión de categorias',
+			'icono' : 'format_list_numbered',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Pagos, Transacciones, otros',
+			'icono' : 'payment',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Soporte',
+			'icono' : 'question_answer',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Clasificación de salones',
+			'icono' : 'home',
+			'state' : 'home'
 		}
 		];
 	}

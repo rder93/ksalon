@@ -1,6 +1,6 @@
 <div class="mobile-content" style="display: none;">
     <div ui-view="navigation"></div>
-    <div class="row" style="margin-bottom: 5px;">
+    <!-- <div class="row" style="margin-bottom: 5px;">
         <div class="col s12 teal accent-4 z-depth-3" style="height:8vh;color:white;padding: 2.55%;">
             <div class="col s2">
                 <a href="#" class="button-collapse left" onclick="window.history.go(-1); return false;"><i class="material-icons">keyboard_backspace</i></a>
@@ -14,11 +14,11 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
     <div ng-repeat="usuario in usuarios">
-        <div class="row">
+        <div class="row" style="margin-bottom: 0px;">
             <div class="col s12" style="margin-top: 4%;padding: 0;">
-                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.role == 1">
+                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 0">
                     <table>
                         <thead style="border: 0;">
                             <tr>
@@ -38,7 +38,70 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.role == 5">
+                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 1">
+                    <table>
+                        <thead style="border: 0;">
+                            <tr>
+                                <th style="text-align: center;padding: 0;" colspan="4">
+                                    <p style="font-size: 1.2em;margin:0;">{{usuario.name}}</p>
+                                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Salon grande</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 2">
+                    <table>
+                        <thead style="border: 0;">
+                            <tr>
+                                <th style="text-align: center;padding: 0;" colspan="4">
+                                    <p style="font-size: 1.2em;margin:0;">{{usuario.name}}</p>
+                                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Salon pequeño</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 3">
+                    <table>
+                        <thead style="border: 0;">
+                            <tr>
+                                <th style="text-align: center;padding: 0;" colspan="4">
+                                    <p style="font-size: 1.2em;margin:0;">{{usuario.name}}</p>
+                                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Profesional independiente</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 4">
                     <table>
                         <thead style="border: 0;">
                             <tr>
@@ -62,8 +125,9 @@
             </div>
         </div><div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
     </div>
+
     <div class="fixed-action-btn">
-        <a ui-sref="addservices" class="btn-floating btn-large red">
+        <a ui-sref="add_usuarios" class="btn-floating btn-large red">
           <i class="large material-icons">add</i>
         </a>
     </div>

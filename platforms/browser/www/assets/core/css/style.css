@@ -21,6 +21,14 @@
   
 }
 
+.select-wrapper {
+  ul {
+    li > span {
+      color: teal;
+    }
+  }
+}
+
 
 /*.category{
   margin-bottom: 25px;
