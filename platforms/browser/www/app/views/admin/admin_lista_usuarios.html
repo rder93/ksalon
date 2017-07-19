@@ -18,26 +18,6 @@
     <div ng-repeat="usuario in usuarios">
         <div class="row" style="margin-bottom: 0px;">
             <div class="col s12" style="margin-top: 4%;padding: 0;">
-                <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 0">
-                    <table>
-                        <thead style="border: 0;">
-                            <tr>
-                                <th style="text-align: center;padding: 0;" colspan="4">
-                                    <p style="font-size: 1.2em;margin:0;">{{usuario.name}}</p>
-                                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Administrador</p>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="text-align: center;"><a ui-sref="edit_usuario({id:usuario.id})" class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;" ng-if="usuario.rol_id == 1">
                     <table>
                         <thead style="border: 0;">
@@ -51,7 +31,7 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;"><a ui-sref="edit_usuario({id:usuario.id})" class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="askRemove(usuario.id)"><i class="material-icons">delete</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
                                 
@@ -72,7 +52,7 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;"><a ui-sref="edit_usuario({id:usuario.id})" class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="askRemove(usuario.id)"><i class="material-icons">delete</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
                                 
@@ -93,7 +73,7 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;"><a ui-sref="edit_usuario({id:usuario.id})" class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="askRemove(usuario.id)"><i class="material-icons">delete</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
                                 
@@ -114,7 +94,7 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;"><a ui-sref="edit_usuario({id:usuario.id})" class="btn-floating btn-medium waves-effect waves-light yellow darken-4"><i class="material-icons">mode_edit</i></a></td>
-                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="remove(usuario.id);"><i class="material-icons">delete</i></a></td>
+                                <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red" ng-click="askRemove(usuario.id)"><i class="material-icons">delete</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light light-green darken-2"><i class="material-icons">chat</i></a></td>
                                 <td style="text-align: center;"><a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">block</i></a></td>
                                 
@@ -130,6 +110,17 @@
         <a ui-sref="add_usuario" class="btn-floating btn-large red">
           <i class="large material-icons">add</i>
         </a>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h5>Eliminar usuario</h5>
+            <span style="font-size: 12.5px;">Esta seguro que desea eliminar el usuario?</span>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-action modal-close waves-effect waves-green btn green">No</button>
+            <button ng-click="remove(deleteUser.user_id)" class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;">Si</button>
+        </div>
     </div>
 
 </div>

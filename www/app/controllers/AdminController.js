@@ -11,10 +11,32 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 			.then(function(response){
 				console.log(response.data);
 				$scope.usuarios = response.data;
+				$('.modal').modal();
 			})
 			.catch(function(error){
 				console.log(error);
 			});
+
+
+		$scope.askRemove = function (id) {
+			$('#modal1').modal('open');
+			$scope.deleteUser = {
+				user_id : id
+			}
+		}
+
+		$scope.remove = function (id) {
+			console.log('eliminar '+id);
+			$http.delete(server_uri+"users/"+id)
+				.then(function(response){
+					console.log(response.data);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+		}
 	}
 
 	if ($state.current.name == 'add_usuario') {
@@ -36,7 +58,6 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 			.catch(function(error){
 				console.log(error);
 			});
-
 
 		$scope.newUser = function () {
 			$scope.new_user.password = "12345";
@@ -97,14 +118,17 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 		$scope.editUser = function () {
 			// $scope.new_user.rol_id = $scope.new_user.rol_id.nivel;
 			console.log($scope.new_user.rol_id);
+
+			console.log(server_uri+"users/"+$stateParams.id)
 			$http({
-		        url: server_uri+"users/"+$stateParams.id,
-		        method: "PUT",
-		        data: $scope.new_user
-	    	}).then(function(response){
+			        url: server_uri+"users/"+$stateParams.id,
+			        method: "post",
+			        data: $scope.new_user
+	    		})
+				.then(function(response){
 					console.log(response.data);
 					Materialize.toast(response.data.msj, 4000);
-					// $state.go('panel_usuarios');
+					$state.go('panel_usuarios');
 				})
 				.catch(function(error){
 					Materialize.toast(error, 4000);
