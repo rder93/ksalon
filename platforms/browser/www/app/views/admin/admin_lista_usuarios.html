@@ -1,7 +1,13 @@
 <div class="mobile-content" style="display: none;">
     <div ui-view="navigation"></div>
-    <div ng-repeat="usuario in usuarios">
-        <div class="row" style="margin-bottom: 0px;">
+    
+    <div>
+        <form id="searchInput">
+          <div class="input-field" style="margin-top: 0px;">
+            <input type="text" placeholder="Buscar..." ng-model="search" style="padding: 2%;">
+          </div>
+        </form>
+        <div class="row" style="margin-bottom: 0px;" ng-repeat="usuario in usuarios | filter : search">
             <div class="col s12" style="margin-top: 4%;padding: 0;">
                 <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
                     <table>

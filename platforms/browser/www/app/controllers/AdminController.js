@@ -1,5 +1,6 @@
 app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope', '$stateParams', '$sessionStorage', '$http', function($scope, $timeout, $state, $rootScope, $stateParams, $sessionStorage, $http){
 	$('.mobile-content').fadeIn(1000);
+	$('.search-input').fadeIn(1000);
 
 	var server_uri = $('body').attr('data-server_uri'),
 	debug = $('body').attr('debug');
