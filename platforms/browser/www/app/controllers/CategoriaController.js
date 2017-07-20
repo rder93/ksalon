@@ -26,5 +26,53 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
                 console.log(error);
             });
 
+
+        $scope.removeItem = function(id,tipo){
+
+            console.log("id: "+id);
+            console.log("tipo: "+tipo);
+
+            $('#modal1').modal('open');
+            $('#modal1').css({
+                display: 'block',
+                top: '15%'
+            });
+
+
+            $scope.confirmDelete = function(){
+                $scope.btnDisabled = true;
+                console.log("borrando al:"+ id);
+
+                $http({
+                    method: 'DELETE',
+                    url: server_uri+'/services/'+id,
+                    data:id
+                }).then(function successCallback(response) {
+                    console.log(response);
+                    $scope.servicios = response.data.services;
+                    $('#modal1').modal('close');
+                    $('#modal1').css({
+                        display: 'none',
+                        top: '0'
+                    });
+                    $scope.btnDisabled = true;
+
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                    $scope.btnDisabled = true;
+                });
+
+            }
+
+            $scope.cancelDelete = function(){
+                console.log("No quiero borrarlo");
+                $('#modal1').modal('close');
+                $('#modal1').css({
+                    display: 'none',
+                    top: '0'
+                });
+            }
+        }
 	}
 }])
