@@ -1,47 +1,51 @@
 <div class="mobile-content" style="display: none;">
     <div ui-view="navigation"></div><br>	
 	<div class="row">
-	    <form class="col s12" style="margin-top: 20px;" ng-submit="newUser()">
+	    <form class="col s12" style="margin-top: 20px;" ng-submit="editUser()">
 	    	<div class="row">
 				<div class="input-field col s12">
-					<select ng-options="rol.nombre for rol in roles track by rol.id" ng-model="new_user.rol_id">
+					<select id="selectRol" ng-options="rol.nombre for rol in roles track by rol.id" ng-model="new_user.rol_id">
 				 		<option value="" disabled selected>Escoge un rol</option>
 					</select>
 			    	<label>Roles</label>
 				</div>
 				<div class="input-field col s12">
-					<label for="name">Nombre</label>
-	    			<input id="name" type="text" class="validate" ng-model="new_user.name">
+					<label for="correo">Nombre</label>
+	    			<input id="correo" type="text" class="validate" ng-model="new_user.name">
 	        		
 	        	</div>
 	    		<div class="input-field col s12">
-	    			<label for="correo">Correo</label>	
+	    			<label for="correo">Correo</label>
 	    			<input id="correo" type="email" class="validate" ng-model="new_user.email">
 	        		
 	        	</div>
+	        	<!-- <div class="input-field col s12">
+	    			<input id="correo" type="text" class="validate" ng-model="new_user.location">
+	        		<label for="correo">Ubicación</label>
+	        	</div> -->
 	        	<div class="input-field col s12">
 	        		<div class="col s8" style="padding: 0px;">
-	        			<label for="dni">CI</label>
-	    				<input id="dni" type="text" class="validate" ng-model="new_user.dni">
+	        			<label for="correo">CI</label>
+	    				<input id="correo" type="text" class="validate" ng-model="new_user.dni">
 	        			
 	    			</div>
-	    			<div class="col s4">
+	    			<div class="col s4"  style="padding: 0px;">
 	    				<a class="btn-floating btn-medium waves-effect waves-light yellow darken-4" style="top: 7px;"><i class="material-icons">camera_alt</i></a>
 	    			</div>
 	        	</div>
 	        	<div class="input-field col s12">
 	        		<div class="col s8" style="padding: 0px;">
-	        			<label for="passport">Pasaporte</label>
-	    				<input id="passport" type="text" class="validate" ng-model="new_user.passport">
+	        			<label for="correo">Pasaporte</label>
+	    				<input id="correo" type="text" class="validate" ng-model="new_user.passport">
 	        			
 	    			</div>
-	    			<div class="col s4">
+	    			<div class="col s4" style="padding: 0px;">
 	    				<a class="btn-floating btn-medium waves-effect waves-light yellow darken-4" style="top: 7px;"><i class="material-icons">camera_alt</i></a>
 	    			</div>
 	        	</div>
 	        	<div class="input-field col s12">
-	        		<label for="paypal">Cuenta PayPal</label>
-	        		<input id="paypal" type="text" class="validate" ng-model="new_user.paypal">
+	        		<label for="ci">Cuenta PayPal</label>
+	        		<input id="ci" type="text" class="validate" ng-model="new_user.paypal">
 	        		
 	        	</div>
 	      	</div>
