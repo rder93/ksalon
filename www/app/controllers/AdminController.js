@@ -25,9 +25,36 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 			}
 		}
 
+		$scope.askBlock = function (id) {
+			$('#modal2').modal('open');
+			$scope.blockUser = {
+				blockuser_id : id
+			}
+		}
+
+		$scope.askUnblock = function (id) {
+			$('#modal3').modal('open');
+			$scope.blockUser = {
+				blockuser_id : id
+			}
+		}
+
 		$scope.remove = function (id) {
 			console.log('eliminar '+id);
 			$http.delete(server_uri+"users/"+id)
+				.then(function(response){
+					console.log(response.data);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+		}
+
+		$scope.block = function (id) {
+			console.log('Bloquear: '+id);
+			$http.post(server_uri+"change_status/"+id)
 				.then(function(response){
 					console.log(response.data);
 					Materialize.toast(response.data.msj, 4000);
