@@ -1,4 +1,3 @@
-
 var server_uri = $('body').attr('data-server_uri');
 var path_views = './app/views';
 

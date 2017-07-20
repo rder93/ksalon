@@ -17,7 +17,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 
 	$('#btn-logout').click(function(event) {
 		console.log("finalizando sesion")
-        $sessionStorage= null;
+        $.sessionStorage.set('user', null);
         $state.go('login');
     });
 	

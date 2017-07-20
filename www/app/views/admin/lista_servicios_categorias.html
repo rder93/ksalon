@@ -1,10 +1,75 @@
-<p ng-repeat="categoria in categorias" >
-    {{categoria.nombre}}
-</p>
+<div ui-view="navigation"></div>
 
-<br>
-<br>
+<h5 style="text-align: center;">Categorias</h5>
 
-<p ng-repeat="servicio in servicios">
-    {{servicio.nombre}}
-</p>
+<div ng-repeat="categoria in categorias" >
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s12" style="margin-top: 4%;padding: 0;">
+    	    <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
+    	    	<table>
+	    		    <tr>
+	    		        <th style="text-align: center;padding: 0;" colspan="4">
+	    		            <span class="card-title activator grey-text text-darken-4">
+	    		            	{{categoria.nombre}}
+    		            	</span>
+
+    		            	<div class="right">
+    		            		<!-- Right aligned menu below button -->
+    		            		<button id="categoria-{{categoria.id}}"
+    		            		        class="mdl-button mdl-js-button mdl-button--icon">
+    		            		  <i class="material-icons">more_vert</i>
+    		            		</button>
+
+    		            		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    		            		    for="categoria-{{categoria.id}}">
+    		            		  <li class="mdl-menu__item">Editar</li>
+    		            		  <li class="mdl-menu__item">Eliminar</li>
+    		            		</ul>
+    		            	</div>
+	    		        </th>
+	    		    </tr>
+    	    	</table>
+
+			</div>
+        </div>
+    </div>
+
+    <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+</div>
+
+<h5 style="text-align: center;">Servicios</h5>
+
+<div ng-repeat="servicio in servicios" >
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s12" style="margin-top: 4%;padding: 0;">
+    	    <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
+    	    	<table>
+	    		    <tr>
+	    		        <th style="text-align: center;padding: 0;" colspan="4">
+	    		            <span class="card-title activator grey-text text-darken-4">
+	    		            	{{servicio.nombre}}<!-- <i class="material-icons right">more_vert</i> -->
+    		            	</span>
+
+    		            	<div class="right">
+	    		            	<!-- Right aligned menu below button -->
+	    		            	<button id="servicio-{{servicio.id}}"
+	    		            	        class="mdl-button mdl-js-button mdl-button--icon">
+	    		            	  <i class="material-icons">more_vert</i>
+	    		            	</button>
+
+	    		            	<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+	    		            	    for="servicio-{{servicio.id}}">
+	    		            	  <li class="mdl-menu__item">Editar</li>
+	    		            	  <li class="mdl-menu__item">Eliminar</li>
+	    		            	</ul>
+    		            	</div>
+	    		        </th>
+	    		    </tr>
+    	    	</table>
+
+			</div>
+        </div>
+    </div>
+
+    <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+</div>

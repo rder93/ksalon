@@ -32,6 +32,7 @@ app.service('ajaxService', ['$state', function($state){
  				 	console.log($.sessionStorage);
 				  	if (e.auth_user.rol_id == 0) {
 				  		$state.go('panel_usuarios');
+				  		console.log('SOY ADMIN');
 				  	}else{
 				  		$state.go(sform.attr('redirect'));
 				  	}
