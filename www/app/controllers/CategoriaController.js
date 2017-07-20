@@ -10,7 +10,7 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
             alert('activo');
         }
 
-        $http.get(server_uri+'/categories')
+        $http.get(server_uri+'categories/')
             .then(function successCallback(response) {
                 console.log(response.data);
                 $scope.categorias = response.data;
@@ -18,7 +18,7 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
                 console.log(error);
             });
 
-        $http.get(server_uri+'/services')
+        $http.get(server_uri+'services/')
             .then(function successCallback(response) {
                 console.log(response.data);
                 $scope.servicios = response.data;

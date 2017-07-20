@@ -21,7 +21,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
         $state.go('login');
     });
 	
-	console.log($scope.user.rol);
+	console.log($scope.user.rol_id);
 
 	if ($scope.user.rol_id != 0) {
 		var servicios="";
@@ -77,7 +77,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Gestión de categorias',
 			'icono' : 'format_list_numbered',
-			'state' : 'home'
+			'state' : 'panel_servicios_categorias'
 		},
 		{
 			'nombre':'Pagos, Transacciones, otros',

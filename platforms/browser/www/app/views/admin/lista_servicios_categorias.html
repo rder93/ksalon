@@ -1,8 +1,12 @@
 <div ui-view="navigation"></div>
 
 <h5 style="text-align: center;">Categorias</h5>
-
-<div ng-repeat="categoria in categorias" >
+<form id="searchInput">
+    <div class="input-field" style="margin-top: 0px;">
+        <input type="text" placeholder="Buscar categoria" ng-model="search" style="padding: 2%;width: 95.5%;">
+    </div>
+</form>
+<div ng-repeat="categoria in categorias | filter : search" >
     <div class="row" style="margin-bottom: 0px;">
         <div class="col s12" style="margin-top: 4%;padding: 0;">
     	    <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
