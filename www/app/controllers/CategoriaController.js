@@ -8,7 +8,7 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
 
         $http.get(server_uri+'categories')
             .then(function successCallback(response) {
-                $scope.categorias = response.data;
+                $scope.categorias = response.data.categories;
             }, function errorCallback(error) {
             });
 
@@ -17,6 +17,18 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
             input_id.val(id);
             input_nombre = $('#categoria_nombre');
             input_nombre.val(nombre);
+
+        $http.get(server_uri+'services/')
+            .then(function successCallback(response) {
+                console.log(response.data);
+                $scope.servicios = response.data;
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+
+
+        $scope.removeItem = function(id,tipo){
+
 
             $('#modal1').modal('open');
             $('#modal1').css({

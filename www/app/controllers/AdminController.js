@@ -2,22 +2,31 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 	$('.mobile-content').fadeIn(1000);
 	$('.search-input').fadeIn(1000);
 
+
 	var server_uri = $('body').attr('data-server_uri'),
 	debug = $('body').attr('debug');
 
 	$scope.server_uri = server_uri;
 
 	if ($state.current.name == 'panel_usuarios') {
+
+		$scope.usuarios = [];
+
 		$http.get(server_uri+"users/")
 			.then(function(response){
-				console.log(response.data);
 				$scope.usuarios = response.data;
-				$('.modal').modal();
+				
+
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('select').material_select();
+			        console.log($scope.usuarios);
+			    });
+				
 			})
 			.catch(function(error){
 				console.log(error);
 			});
-
 
 		$scope.askRemove = function (id) {
 			$('#modal1').modal('open');
@@ -38,6 +47,10 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 			$scope.blockUser = {
 				blockuser_id : id
 			}
+		}
+
+		$scope.edit = function (id) {
+			alert("editar");
 		}
 
 		$scope.remove = function (id) {

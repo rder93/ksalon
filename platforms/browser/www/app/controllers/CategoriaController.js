@@ -6,17 +6,37 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
 
 	if ($state.current.name == 'panel_categorias') {
 
+<<<<<<< HEAD
         $http.get(server_uri+'categories')
+=======
+        $http.get(server_uri+'categories/')
+>>>>>>> origin/master
             .then(function successCallback(response) {
                 $scope.categorias = response.data;
             }, function errorCallback(error) {
             });
 
+<<<<<<< HEAD
         $scope.editarItem = function(id, nombre) {
             input_id = $('#categoria_id');
             input_id.val(id);
             input_nombre = $('#categoria_nombre');
             input_nombre.val(nombre);
+=======
+        $http.get(server_uri+'services/')
+            .then(function successCallback(response) {
+                console.log(response.data);
+                $scope.servicios = response.data;
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+
+
+        $scope.removeItem = function(id,tipo){
+
+            console.log("id: "+id);
+            console.log("tipo: "+tipo);
+>>>>>>> origin/master
 
             $('#modal1').modal('open');
             $('#modal1').css({
