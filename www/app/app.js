@@ -317,14 +317,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         /*End RICARDO*/
 
-        .state('panel_servicios_categorias',{
-            url: '/admin/panel/servicios_categorias',
+        .state('panel_categorias',{
+            url: '/admin/panel/categorias',
             views:{
                 '':{
-                    templateUrl: path_views+'/admin/lista_servicios_categorias.html',
+                    templateUrl: path_views+'/admin/categorias.html',
                     controller: 'CategoriaController'
                 },
-                'navigation@panel_servicios_categorias':{
+                'navigation@panel_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios',{
+            url: '/admin/panel/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/servicios.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_servicios':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }

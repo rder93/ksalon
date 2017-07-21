@@ -1,0 +1,70 @@
+<div ui-view="navigation"></div>
+<div style="width: 70%;margin: auto;">
+    <form id="searchInput" >
+        <div class="input-field" style="margin-top: 0px;">
+            <input type="text" placeholder="Buscar categoria" ng-model="search" style="padding: 2%;">
+        </div>
+    </form>
+</div>
+
+<h5 style="text-align: center;">Categorias</h5>
+
+<div ng-repeat="categoria in categorias | filter : search" >
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s12" style="margin-top: 4%;padding: 0;">
+    	    <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
+    	    	<table>
+	    		    <tr>
+	    		        <th style="text-align: center;padding: 0; width: 90%" colspan="4">
+	    		            <span class="card-title activator grey-text text-darken-4 left">
+	    		            	{{categoria.nombre}}
+    		            	</span>
+
+    		            	<div class="right">
+    		            		<!-- Right aligned menu below button -->
+    		            		<button id="categoria-{{categoria.id}}"
+    		            		        class="mdl-button mdl-js-button mdl-button--icon">
+    		            		  <i class="material-icons">more_vert</i>
+    		            		</button>
+
+    		            		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    		            		    for="categoria-{{categoria.id}}">
+    		            		  <li class="mdl-menu__item" ng-click="editarItem(categoria.id,categoria.nombre);" >Editar</li>
+    		            		</ul>
+    		            	</div>
+	    		        </th>
+	    		    </tr>
+    	    	</table>
+			</div>
+        </div>
+    </div>
+
+    <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+</div>
+
+
+<div id="modal1" class="modal">
+    <div class="modal-head center">
+        <h6>Editar categoria</h6>
+    </div>
+    <div class="modal-content">
+        <form>
+            <input type="text" name="nombre" id="categoria_nombre">
+            <input type="hidden" name="id" id='categoria_id'>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-action modal-close waves-effect waves-green btn green" ng-click="cancelEdit();" >Cancelar</button>
+        <button ng-click="editarCategoria()" ng-disabled="btnDisabled" class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;">Si</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
