@@ -4,13 +4,15 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
 
 	$scope.server_uri = server_uri;
 
-	if ($state.current.name == 'panel_categorias') {
+    if ($state.current.name == 'panel_categorias') {
 
         $http.get(server_uri+'categories')
-            .then(function successCallback(response) {
-                $scope.categorias = response.data.categories;
-            }, function errorCallback(error) {
-            });
+        .then(function successCallback(response) {
+            $scope.categorias = response.data;
+        }, function errorCallback(error) {
+            console.log('error al obtener las categorias');
+            console.log(error);
+        });
 
         $scope.editarItem = function(id, nombre) {
             input_id = $('#categoria_id');
@@ -18,25 +20,12 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
             input_nombre = $('#categoria_nombre');
             input_nombre.val(nombre);
 
-        $http.get(server_uri+'services/')
-            .then(function successCallback(response) {
-                console.log(response.data);
-                $scope.servicios = response.data;
-            }, function errorCallback(error) {
-                console.log(error);
-            });
-
-
-        $scope.removeItem = function(id,tipo){
-
-
             $('#modal1').modal('open');
             $('#modal1').css({
                 display: 'block',
                 top: '15%'
             });
         
-
             $scope.cancelEdit = function() {
                 $('#modal1').modal('close');
                 $('#modal1').css({
@@ -68,14 +57,13 @@ app.controller('CategoriaController', ['$scope', '$state', '$http', '$stateParam
             }
 
         }
+    }
 
-        function ocultarModal() {
-            $('#modal1').modal('close');
-            $('#modal1').css({
-                display: 'none',
-                top: '0'
-            });
-        }
-        
-	}
-}])
+    function ocultarModal() {
+        $('#modal1').modal('close');
+        $('#modal1').css({
+            display: 'none',
+            top: '0'
+        });
+    }
+}]);
