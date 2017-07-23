@@ -6,6 +6,12 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
 			$scope.Usuario=$.sessionStorage.get('user');
+			if ($scope.Usuario.rol_id==2 || $scope.Usuario.rol_id==3) {
+				$scope.btnSalones=true;
+			}else if ($scope.Usuario.rol_id==4) {
+				$scope.btnClientes=true;
+			}
+
 		}
 
 	}

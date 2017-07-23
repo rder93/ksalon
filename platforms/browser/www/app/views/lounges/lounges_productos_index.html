@@ -1,0 +1,57 @@
+<div ui-view="navigation"></div>
+
+<div class="fixed-action-btn">
+  <a ui-sref="lounges_productos_crear" class="btn-floating btn-large blue" >
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+
+
+  <div id="modalproducto" class="modal red">
+    <div class="modal-content">
+      <h4>¿Seguro que desea eliminar este producto?</h4>
+      <input class="hidden" type="text" ng-model="id_producto">
+    </div>
+    <div class="modal-footer red">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarProducto(id_producto)">Eliminar</button>
+    </div>
+  </div>
+          
+
+<div class="row">
+      <div class="col s12 m12">
+        <div>
+        <table class="bordered">
+            <thead>
+              <tr>
+                <th colspan="2" class="center-align"><h5>Lista de Productos</h5></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="Producto in Productos">
+                <td><i class="flaticon-skyline black-text center"></i></td>
+                <td>
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <h6 class="nombre-comentario">{{Producto.nombre}}</h6>
+                    </div>
+                    <div class="col s6 m6">
+                      <p>Precio: {{Producto.precio}}$</p>
+                    </div>
+                    <div class="col s6 m6 center-align">
+                      <a class="btn-floating waves-effect waves-light orange" ui-sref="lounges_productos_editar"><i class="material-icons">mode_edit</i></a>
+                      <a class="btn-floating waves-effect waves-light red" ng-click="modalProducto(Producto.id)"><i class="material-icons">delete</i></a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+<div>
+

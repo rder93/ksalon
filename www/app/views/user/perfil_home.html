@@ -117,10 +117,18 @@
   </div>
 </div> -->
 
-<div>
+<div ng-show="btnClientes">
   <div class="col s7 offset-s2">
     <a ui-sref="home" class="waves-effect waves-light btn btn-evolutrans btn-block" style="width:100%;position: relative;bottom: 4%; font-size: 1.2rem;">
       Buscar servicios
+    </a>
+  </div>
+</div>
+
+<div ng-show="btnSalones">
+  <div class="col s7 offset-s2">
+    <a ui-sref="lounges_servicios" class="waves-effect waves-light btn btn-evolutrans btn-block" style="width:100%;position: relative;bottom: 4%; font-size: 1.2rem;">
+      Mis Servicios
     </a>
   </div>
 </div>

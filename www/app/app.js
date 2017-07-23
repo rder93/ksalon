@@ -186,6 +186,77 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('lounges_servicios',{
+            url: '/lounges/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/lounges/servicios.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('lounges_profesional_index',{
+            url: '/lounges/profesionales',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesional_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesional_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('lounges_productos_index',{
+            url: '/lounges/productos',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_productos_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_productos_crear',{
+            url: '/lounges/productos/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_productos_crear.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_productos_editar',{
+            url: '/lounges/productos/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_productos_crear.html.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                opciones: 0
+            }
+        })
+
 
 
         /*----- JONATHAN -----*/
@@ -340,3 +411,45 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
