@@ -257,11 +257,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 '' : { 
                     templateUrl: path_views+'/register.html',
                     controller: 'RegistroController'
-                },
-
-                'navigation@registro' : { 
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
                 }
             }
         })
