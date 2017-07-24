@@ -231,7 +231,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lounges/productos/crear',
             views: {
                 '': { 
-                    templateUrl: path_views+'/lounges/lounges_productos_crear.html',
+                    templateUrl: path_views+'/lounges/lounges_productos_form.html',
                     controller: 'LoungeController'
                 },
                 'navigation@lounges_productos_crear' : { 
@@ -244,7 +244,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lounges/productos/editar/:id',
             views: {
                 '':{
-                    templateUrl: path_views+'/lounges/lounges_productos_crear.html.html',
+                    templateUrl: path_views+'/lounges/lounges_productos_form.html',
                     controller: 'LoungeController'
                 },
                 'navigation@lounges_productos_editar':{
@@ -256,7 +256,45 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 opciones: 0
             }
         })
-
+        .state('lounges_servicios_index',{
+            url: '/lounges/listaservicios',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_servicios_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_servicios_crear',{
+            url: '/lounges/servicios/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_servicios_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_servicios_editar',{
+            url: '/lounges/servicios/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_servicios_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+        })
 
 
         /*----- JONATHAN -----*/
