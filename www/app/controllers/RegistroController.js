@@ -1,7 +1,7 @@
 app.controller('RegistroController', ['$scope', '$state', '$http', function($scope, $state, $http){
 	
 	// $('.categoria').material_select();
-
+	$('body').removeClass('fondoBody');
 	$http({
 			method: 'GET',
 			url: server_uri+'/categories',

@@ -41,6 +41,7 @@ app.service('ajaxService', ['$state', function($state){
  				}
 
  				if (e.auth_user) {
+ 					$('body').removeClass('fondoBody');
  					console.log("1");
  					console.log(e.auth_user),
  					$.sessionStorage.set('user', e.auth_user);
