@@ -3,24 +3,27 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
 	$('.modal').modal();
+	$('.dropdown-button').dropdown();
 
 	$scope.Producto={};
-	$http({
-		method: 'GET',
-		url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
+	// $http({
+	// 	method: 'GET',
+	// 	url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
 
-	}).then(function successCallback(response) {
-		$.sessionStorage.set('longe_id', response.data.id);
-	}, function errorCallback(response) {
-		console.log('dio error');
-	});
+	// }).then(function successCallback(response) {
+	// 	$.sessionStorage.set('longe_id', response.data.id);
+	// }, function errorCallback(response) {
+	// 	console.log('dio error');
+	// });
 
 	// $scope.Producto=$.sessionStorage.get('user');
 	
 
 	if($state.current.name == 'lounges_servicios'){
 		if(debug == 'true'){
-			console.log('hola desde los servicios')
+			console.log('hola desde los servicios'+$stateParams.id)
+			$.sessionStorage.set('longe_id', $stateParams.id);
+
 		}
 	}
 
@@ -28,6 +31,95 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 		if(debug == 'true'){
 			console.log('hola desde la vista de ');
 		}
+
+	}
+
+	if($state.current.name == 'lounges_crear'){
+		if(debug == 'true'){
+			$scope.crearLounge=true;
+			$scope.Lounge={};
+
+			$scope.registrarLounge=function(){
+				$scope.Lounge.user_id=$.sessionStorage.get('user').id;
+				$scope.Lounge.category_id=$.sessionStorage.get('user').id-1;
+				console.log($scope.Lounge);
+				$http({
+					method: 'POST',
+					url: server_uri+'/lounges',
+					data:$scope.Lounge
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('lounges_index');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
+		}
+
+	}
+
+	if($state.current.name == 'lounges_index'){
+		if(debug == 'true'){
+			$http({
+				method: 'GET',
+				url: server_uri+'/lounges',
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.Lounges=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$scope.modalLounge=function(id){
+				$scope.id_lounge= id;
+				$('#modalLounge').modal('open');
+			};
+			$scope.eliminarLounge=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/lounges/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+		}
+
+	}
+
+	if($state.current.name == 'lounges_editar'){
+		$scope.Lounge={};
+		$scope.editarLounge=true;
+		$scope.crearLounge=false;
+		$http({
+			method: 'GET',
+			url: server_uri+'/lounges/'+$stateParams.id+'/edit',
+		}).then(function successCallback(response) {
+			console.log(response.data.lounge);
+			$scope.Lounge=response.data.lounge;
+		}, function errorCallback(response) {
+			console.log('dio error');
+		});
+
+		$scope.actualizarLounge=function () {
+			console.log($scope.Lounge);
+			$http({
+				method: 'PUT',
+				url: server_uri+'/lounges/'+$stateParams.id,
+				data:$scope.Lounge
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+			  	$state.go('lounges_index');
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				$state.reload();
+			});
+		};
 
 	}
 
@@ -124,7 +216,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 
 	if($state.current.name == 'lounges_servicios_index'){
 		if(debug == 'true'){
-
 			$http({
 				method: 'GET',
 				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
@@ -156,6 +247,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 	}
 
 	if($state.current.name == 'lounges_servicios_crear'){
+		console.log('estoy aqui');
+		console.log($.sessionStorage.get('longe_id'));
 		if(debug == 'true'){
 			$scope.crearServicio=true;
 			$scope.Servicio={};
@@ -229,6 +322,53 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 				$state.reload();
 			});
 		};
+
+	}
+
+	if($state.current.name == 'lounges_profesionales_crear'){
+		if(debug == 'true'){
+			$scope.crearProfesional=true;
+			$scope.Servicios={};
+			$scope.Profesional={};
+			$scope.Profesional.servicios=[];
+			
+			$http({
+				method: 'GET',
+				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+			}).then(function successCallback(response) {
+				$scope.servs=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+
+			$scope.agregarServicio=function(){
+				$('#modalAgregarServicio').modal('open');
+			};
+
+			$scope.agregarServicioSinUsuario=function(){
+				$http({
+					method: 'GET',
+					url: server_uri+'/verServicioProfesional/'+$scope.Servicio.service_id,
+				}).then(function successCallback(response) {
+					console.log(response.data);
+					$scope.Profesional.servicios.push(response.data);
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+			};
+			
+
+			$scope.modalEliminarServicioSinUsuario= function (id) {
+				$scope.Profesional.servicios.splice(id,1);
+			}
+
+			$scope.registrarProfesional= function(){
+				console.log($scope.Profesional);
+			}
+
+
+		}
 
 	}
 

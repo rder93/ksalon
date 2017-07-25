@@ -1,0 +1,93 @@
+<!-- modals -->
+<div id="modalAgregarServicio" class="modal">
+	<div class="modal-content">
+		<form>
+			<div class="input-field col s12">
+				<label>Servicios Disponibles</label><br><br>
+				<select ng-model="Servicio.service_id" class="browser-default">
+					<option value="" disabled selected>Seleccione un servicio</option>
+					<option ng-repeat="serv in servs" value="{{serv.id}}">{{serv.nombre}}</option>
+				</select>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer teal">
+		<button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click='agregarServicioSinUsuario()'>Agregar</button>
+	</div>
+</div>
+<!-- enmodals -->
+
+<div>
+	<div class="mobile-content">
+		<div ui-view="navigation"></div>
+		<div class="row container">
+			<form class="col s12" style="margin-top: 20px;">
+				<div class="row">
+					<div class="input-field col s12">
+						<label for="name">Nombre</label>
+						<input id="name" type="text" class="validate" ng-model="Profesional.nombre">
+
+					</div>
+					<div class="input-field col s12">
+						<label for="correo">identificacion</label>  
+						<input id="correo" type="number" class="validate" ng-model="Profesional.precio">
+
+					</div>
+					<div class="input-field col s12 hide">
+						<input type="text" class="validate" ng-model="Profesional.lounge_id">
+					</div>
+					<div>
+
+						<table class="bordered">
+							<thead>
+								<tr>
+									<th class="center-align">Lista de Servicios</th>
+									<th><button class="btn blue center-align" ng-click="agregarServicio()">Agregar</button></th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="p_serv in Profesional.servicios">
+									<td><i class="flaticon-skyline black-text center"></i></td>
+									<td>
+										<div class="row">
+											<div>
+												<h6 class="nombre-comentario">{{p_serv.nombre}}</h6>
+											</div>									
+										</div>
+									</td>
+									<td>
+										<div class="col s6 m6 center-align">
+											<a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServicioSinUsuario($index)"><i class="material-icons">delete</i></a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<div ng-show="crearProfesional">
+						<div class="input-field col s12">
+							<div class="center-align">
+								<button ng-click="registrarProfesional()" class="btn waves-effect waves-light" type="submit" name="action">Guardar
+									<i class="material-icons right">send</i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div ng-show="editarProfesional">
+						<div class="input-field col s12">
+							<div class="center-align">
+								<button ng-click="actualizarProfesional()" class="btn waves-effect waves-light" type="submit" name="action">Editar
+									<i class="material-icons right">send</i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>

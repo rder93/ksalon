@@ -3,7 +3,7 @@ var path_views = './app/views';
 
 
 
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize', 'ngMaterial']);
 
 angular.module('myApp.controllers', []);
 
@@ -187,7 +187,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('lounges_servicios',{
-            url: '/lounges/servicios',
+            url: '/lounges/servicios/:id',
             views:{
                 '':{
                     templateUrl: path_views+'/lounges/servicios.html',
@@ -213,7 +213,48 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
+        .state('lounges_index',{
+            url: '/lounges',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_crear',{
+            url: '/lounges/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_editar',{
+            url: '/lounges/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                opciones: 0
+            }
+        })
         .state('lounges_productos_index',{
             url: '/lounges/productos',
             views: {
@@ -295,6 +336,45 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
         })
+        .state('lounges_profesionales_index',{
+            url: '/lounges/listaprofesionales',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_crear',{
+            url: '/lounges/prefesionales/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_editar',{
+            url: '/lounges/profesionales/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+        })
 
 
         /*----- JONATHAN -----*/
@@ -370,6 +450,68 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('tickets',{
+            url: '/tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/tickets.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_detail',{
+            url: '/ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_send',{
+            url: '/ticket_send',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_send.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_send':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
 
 
@@ -418,6 +560,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('panel_gestion',{
+            url: '/admin/panel/gestion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_gestion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transacciones',{
+            url: '/admin/panel/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/transacciones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
         /*End RICARDO*/
 
