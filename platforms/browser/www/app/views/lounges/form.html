@@ -1,0 +1,42 @@
+<div>
+  <div class="mobile-content">
+  <div ui-view="navigation"></div>
+  <div class="row container">
+    <!-- <form class="col s12" style="margin-top: 20px;" ng-submit="registrarLounge()"> -->
+    <form class="col s12" style="margin-top: 20px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="name">Latitud</label>
+          <input id="name" type="text" class="validate" ng-model="Lounge.latitud">
+
+        </div>
+        <div class="input-field col s12">
+          <label for="correo">Altitud</label>  
+          <input id="correo" type="text" class="validate" ng-model="Lounge.altitud">
+
+        </div>
+     
+        <div ng-show="crearLounge">
+          <div class="input-field col s12">
+            <div class="center-align">
+              <button ng-click="registrarLounge()" class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+            </div>
+        </div>
+        <div ng-show="editarLounge">
+          <div class="input-field col s12">
+            <div class="center-align">
+            <button ng-click="actualizarLounge()" class="btn waves-effect waves-light" type="submit" name="action">Editar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+</div>

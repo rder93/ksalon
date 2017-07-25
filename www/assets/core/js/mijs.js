@@ -10,7 +10,6 @@ $(".mat-input").focusout(function(){
   $(this).parent().removeClass("is-active");
 });
 
-console.log('redy');
-$('.modal').modal();
+console.log('ready');
 	
 });

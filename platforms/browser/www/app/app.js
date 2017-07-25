@@ -187,7 +187,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('lounges_servicios',{
-            url: '/lounges/servicios',
+            url: '/lounges/servicios/:id',
             views:{
                 '':{
                     templateUrl: path_views+'/lounges/servicios.html',
@@ -213,7 +213,48 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
+        .state('lounges_index',{
+            url: '/lounges',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_crear',{
+            url: '/lounges/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_editar',{
+            url: '/lounges/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                opciones: 0
+            }
+        })
         .state('lounges_productos_index',{
             url: '/lounges/productos',
             views: {
@@ -290,6 +331,45 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'LoungeController'
                 },
                 'navigation@lounges_servicios_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+        })
+        .state('lounges_profesionales_index',{
+            url: '/lounges/listaprofesionales',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_crear',{
+            url: '/lounges/prefesionales/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_editar',{
+            url: '/lounges/profesionales/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_editar':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
