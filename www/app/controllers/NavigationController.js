@@ -62,7 +62,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'lounges_index'
 		},
 		{
-			'nombre':servicios,
+			'nombre':'servicios',
 			'icono' : 'format_list_numbered',
 			'state' : 'home'
 		},		
@@ -92,7 +92,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre': 'Pagos, Transacciones, otros',
 			'icono' : 'payment',
-			'state' : 'home'
+			'state' : 'panel_gestion'
 		},
 		{
 			'nombre': 'Soporte',

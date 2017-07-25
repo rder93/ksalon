@@ -561,6 +561,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('panel_gestion',{
+            url: '/admin/panel/gestion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_gestion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transacciones',{
+            url: '/admin/panel/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/transacciones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
         /*End RICARDO*/
 
         .state('panel_categorias',{

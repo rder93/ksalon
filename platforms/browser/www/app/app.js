@@ -450,6 +450,68 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('tickets',{
+            url: '/tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/tickets.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_detail',{
+            url: '/ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_send',{
+            url: '/ticket_send',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_send.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_send':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
 
 
@@ -498,6 +560,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('panel_gestion',{
+            url: '/admin/panel/gestion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_gestion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transacciones',{
+            url: '/admin/panel/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/transacciones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
         /*End RICARDO*/
 

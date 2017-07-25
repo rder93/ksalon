@@ -7,6 +7,15 @@
 	
 }*/
 
+.footer-listuser{
+  -webkit-box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
+  box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 
 .fondoBody { 
   background: url(../images/fondoksalonazo-1.png)  fixed center center repeat; 
@@ -397,6 +406,18 @@ margin-left: 20px;
   margin-top: 30px;
   padding: 50px 0px 20px 0px;  
   text-align: center;
+}
+
+.sticky-footer{
+  background-color: #26a69a!important;
+  bottom: 0px;
+  height: 65px!important;
+  position: fixed;
+  width: 100%;
+}
+
+.sticky-footer > a{
+  height: 65px;
 }
 
 /*End Jonathan's styles*/
