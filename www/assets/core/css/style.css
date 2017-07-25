@@ -196,7 +196,7 @@ color: #b5b5b4 !important;
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v22/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
 }
 
 .material-icons {
@@ -397,6 +397,18 @@ margin-left: 20px;
   margin-top: 30px;
   padding: 50px 0px 20px 0px;  
   text-align: center;
+}
+
+.sticky-footer{
+  background-color: #26a69a!important;
+  bottom: 0px;
+  height: 65px!important;
+  position: fixed;
+  width: 100%;
+}
+
+.sticky-footer > a{
+  height: 65px;
 }
 
 /*End Jonathan's styles*/

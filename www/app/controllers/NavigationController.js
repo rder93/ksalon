@@ -57,10 +57,20 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'home'
 		},
 		{
+			'nombre':'Mis Salones',
+			'icono' : 'location_city',
+			'state' : 'lounges_index'
+		},
+		{
 			'nombre':servicios,
 			'icono' : 'format_list_numbered',
 			'state' : 'home'
-		},
+		},		
+		{
+			'nombre':'tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}
 		];
 	}else{
 		$scope.opciones= [

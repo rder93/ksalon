@@ -186,6 +186,195 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('lounges_servicios',{
+            url: '/lounges/servicios/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/lounges/servicios.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('lounges_profesional_index',{
+            url: '/lounges/profesionales',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesional_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesional_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_index',{
+            url: '/lounges',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_crear',{
+            url: '/lounges/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_editar',{
+            url: '/lounges/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                opciones: 0
+            }
+        })
+        .state('lounges_productos_index',{
+            url: '/lounges/productos',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_productos_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_productos_crear',{
+            url: '/lounges/productos/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_productos_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_productos_editar',{
+            url: '/lounges/productos/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_productos_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_productos_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                opciones: 0
+            }
+        })
+        .state('lounges_servicios_index',{
+            url: '/lounges/listaservicios',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_servicios_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_servicios_crear',{
+            url: '/lounges/servicios/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_servicios_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_servicios_editar',{
+            url: '/lounges/servicios/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_servicios_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+        })
+        .state('lounges_profesionales_index',{
+            url: '/lounges/listaprofesionales',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_crear',{
+            url: '/lounges/prefesionales/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_profesionales_editar',{
+            url: '/lounges/profesionales/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_profesionales_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_profesionales_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+        })
 
 
         /*----- JONATHAN -----*/
@@ -257,11 +446,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 '' : { 
                     templateUrl: path_views+'/register.html',
                     controller: 'RegistroController'
-                },
-
-                'navigation@registro' : { 
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
                 }
             }
         })
@@ -317,17 +501,73 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         /*End RICARDO*/
 
-        .state('panel_servicios_categorias',{
-            url: '/admin/panel/servicios_categorias',
+        .state('panel_categorias',{
+            url: '/admin/panel/categorias',
             views:{
                 '':{
-                    templateUrl: path_views+'/admin/lista_servicios_categorias.html',
+                    templateUrl: path_views+'/admin/categorias.html',
                     controller: 'CategoriaController'
                 },
-                'navigation@panel_servicios_categorias':{
+                'navigation@panel_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios',{
+            url: '/admin/panel/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/servicios.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_servicios':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
             }
         })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
