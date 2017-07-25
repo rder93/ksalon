@@ -1,0 +1,271 @@
+<div ui-view="navigation"></div>
+
+	<style>
+		blockquote{
+			border-left:3px solid #4db6ac;
+			margin: 0px;
+		}
+		blockquote::before, blockquote::after{
+			content: none;
+		}
+		blockquote > h2{
+			margin: 0px;
+		}
+		.blockquote-title{
+		    border-bottom: 1px solid;
+		    font-size: 16px;    		
+    		font-weight: bold;
+    	}
+		.collapsible{
+			margin: 0px!important;
+		}
+		.p-factura{
+			font-size:16px; 
+			font-weight:bold; 
+			margin:0px;
+		}
+		.p-factura > span{
+			font-size:14px; 
+			font-weight: normal;
+		}
+		.review-click{
+			color: #26a69a;
+			float: right;
+		}
+		.review-autor{
+			font-size: 1.2rem;
+			font-weight: bold;
+			margin: 0px;
+		}
+		.transaction{
+			border-bottom: 2px solid #26a69a;
+			margin-bottom: 0px!important;
+		}
+		.transaction > div{
+			padding: 0px!important;
+		}
+		.transaction > div > div{
+			margin: 0px!important;
+		}
+		.transacciones-sin-calificaciones{
+			background:#fff; 
+			border-radius:0px; 
+			color: #4db6ac;
+			display:block!important;  
+			width:100%;
+		}
+	</style>
+
+	<div style="background:#fff; padding-bottom:50px;">
+		<div style="height:58px;"></div>
+		<div>
+			<blockquote style="margin-bottom:0px;">
+				<!-- CHECK SI LA TRANSACCION ESTA TERMINADA Y PAGADA -->
+				<div style="height:10px; margin:0 auto; width:85%;" ng-if="user.rol_id != 4 && transaction.user_to_id == user_id && !transaction.seller_review">
+					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+				</div>
+				<div style="height:10px; margin:0 auto; width:85%;" ng-if="user.rol_id == 4 && transaction.user_id == user_id && !transaction.buyer_review">
+					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+				</div>
+				
+				<p style="font-size: 1.5rem; margin-bottom:0px;">Servicio</p>
+				<p class="p-factura">Prestado por: 
+					<span style="font-size:14px; font-weight: normal;">{{transaction.seller.name}}</span>
+				</p>
+				<p class="p-factura">Recibido por: 
+					<span style="font-size:14px; font-weight: normal;">{{transaction.buyer.name}}</span>
+				</p>
+			</blockquote>
+		</div>
+
+		<div style="margin-top:50px;">
+			<blockquote style="margin-bottom:0px;">
+				<p class="blockquote-title">Informacion de la Transaccion</p>
+			</blockquote>
+			<div style="margin:0 auto; width:85%;">
+				<p class="p-factura">
+					<i class="material-icons">keyboard_arrow_right</i>
+					Numero Identificador: <span style="font-size:14px; font-weight: normal;">{{transaction.id}}</span>
+				</p>
+				<!-- <p style="font-size:16px; margin: 0px;">Servicio: <span style="font-size:14px; font-weight: normal;">{{}}</span></p> -->
+			    <p class="p-factura">
+			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	Recibido por: <span style="font-size:14px; font-weight: normal;">{{transaction.buyer.name}}</span>
+			    </p>
+			    <p class="p-factura">
+			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	Monto: <span style="font-size:14px; font-weight: normal;">{{transaction.monto | currency}}</span>
+			    </p>
+			    <p class="p-factura">
+			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	Fecha: <span style="font-size:14px; font-weight: normal;">{{transaction.created_at | date}}</span>
+			    </p>
+			</div>
+		</div>
+			
+		<div style="margin-top:50px;">
+			<blockquote style="margin-bottom:0px;">
+				<p class="blockquote-title">Estado de la Transaccion</p>
+			</blockquote>
+			<div style="height:20px; margin:0 auto; width:85%;">
+				<!-- PENDIENTE: REVISAR LOS ESTADOS DE LAS TRANSACCIONES!!!! -->
+			    <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px;  padding: 10px;">Pagado</span>
+			    <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px;  padding: 10px;">Terminado</span>
+			</div>
+		</div>
+
+		<div style="margin-top:50px;">
+			<blockquote style="margin-bottom:0px;">
+				<p class="blockquote-title">Servicios y/o Productos</p>
+			</blockquote>
+			<div style="height:20px; margin:0 auto; width:85%;">
+				<p>Lista de servicios o productos que el cliente recibio</p>
+			</div>
+		</div>
+
+
+		<div style="margin-top:50px;" ng-if="user.rol_id != 4 && transaction.user_to_id == user_id">
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p clquote="blockout-title">Calificacion del Cliente</p>
+				</blockquote>
+				<div ng-if="transaction.buyer_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.buyer_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.buyer_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment-2"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment-2').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.buyer_review">
+					<p style="text-align:center;">El cliente aun no ha calificado esta transaccion</p>
+				</div>
+			</div>
+
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p class="blockquote-title">Tu Calificacion del servicio</p>
+				</blockquote>
+				<div ng-if="transaction.seller_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.seller_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.seller_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment-1"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment-1').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.seller_review">
+					<p style="text-align:center;">Aun no has calificado esta transaccion</p>
+				</div>
+			</div>
+
+			
+		</div>
+
+
+
+		<div style="margin-top:50px;" ng-if="user.rol_id==4 && transaction.user_id == user_id">
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p class="blockquote-title">Tu Calificacion del servicio</p>
+				</blockquote>
+				<div ng-if="transaction.buyer_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.buyer_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.buyer_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.buyer_review">
+					<p style="text-align:center;">Aun no hs calificado esta transaccion</p>
+				</div>
+			</div>
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p class="blockquote-title">Calificacion del vendedor</p>
+				</blockquote>
+				<div ng-if="transaction.seller_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1"  style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.seller_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.seller_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.seller_review">
+					<p style="text-align:center;">El vendedor aun no ha calificado esta transaccion</p>
+				</div>
+			</div>
+		</div>
+
+	
+	</div>

@@ -416,8 +416,9 @@ margin-left: 20px;
   width: 100%;
 }
 
-.sticky-footer > a{
+.sticky-footer > a, .sticky-footer > button{
   height: 65px;
+  width: 100%;
 }
 
 /*End Jonathan's styles*/

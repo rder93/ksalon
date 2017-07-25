@@ -1,40 +1,156 @@
 <div ui-view="navigation"></div>
-<br>
-<div class="row container">
-	<table class="bordered">
-		<thead>
-			<tr>
-				<th class="center-align"><h3>Transacciones</h3></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<p>Servicio: *CORTE DE CABELLO: del usuario</p>
-					<p>Gran Salon por un coste 100 USD</p>
-					<br>
-					<p>Estado: PAGADO - Paypal</p>
-					<p>Estado del Servicio: Terminado</p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p>Servicio: *SECADO DE CABELLO: del usuario</p>
-					<p>Profesional Independiente por un coste 30 USD</p>
-					<br>
-					<p>Estado: PAGADO - EFECTIVO $</p>
-					<p>Estado del Servicio: Terminado</p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p>Servicio: *Manicure: del usuario</p>
-					<p>Gran Salon por un coste 600 USD</p>
-					<br>
-					<p>Estado: PAGADO - Efectivo $</p>
-					<p>Estado del Servicio: Terminado</p>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+
+	<style>
+		blockquote{
+			border-left:3px solid #4db6ac;
+			margin: 0px;
+		}
+		blockquote::before, blockquote::after{
+			content: none;
+		}
+		blockquote > h2{
+			margin: 0px;
+		}
+		.collapsible{
+			margin: 0px!important;
+		}
+		.review-click{
+			color: #26a69a;
+			float: right;
+		}
+		.transaction{
+			border-bottom: 2px solid #26a69a;
+			margin-bottom: 0px!important;
+		}
+		.transaction > div{
+			padding: 0px!important;
+		}
+		.transaction > div > div{
+			margin: 0px!important;
+		}
+		.transacciones-sin-calificaciones{
+			background:#fff; 
+			border-radius:0px; 
+			color: #4db6ac;
+			display:block!important;  
+			width:100%;
+		}
+	</style>
+
+
+<div>
+	<div style="height:58px;"></div>
+
+	<div ng-if="nonReviews>0">
+			<a class="btn btn-floating pulse transacciones-sin-calificaciones" ui-sref="transacciones_sin_calificacion" >
+				{{nonReviews}} Transacciones sin calificar
+			</a>
+	</div>
+		
+	<div class="transactions-wrap">
+
+		<div class="row transaction" ng-repeat="item in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}"  ng-if="item.id" ng-switch="user.rol_id" >
+				
+			<div class="col s12 m7" style="padding: 0px;"  ng-if="user.rol_id !=4 && item.user_to_id == user_id">
+				<div class="card">
+					<div>
+						<blockquote style="margin-bottom:0px;">
+							<h2 style="font-size: 1.5rem; margin-bottom:0px;">
+								Servicio de {{item.car.category.service.name}}
+								<a class="review-click" ng-if="!item.review" ui-sref="calificacion_nueva({id:item.id})">
+									Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i>
+								</a>
+							</h2>
+						</blockquote>	
+		          	</div>
+					<div class="card-content">
+			             	<p style="font-weight: bold;">Servicio: <span style="font-weight: normal;"></span></p>
+			             	<p style="font-weight: bold;">Cliente: <span style="font-weight: normal;">Nombre de cliente</span></p>
+			             	<p style="font-weight: bold;">Monto: <span style="font-weight: normal;">{{item.monte}}</span></p>
+			             	<br>
+			        </div>
+			        <div class="card-action" style="padding:0px!important;">
+			            <ul class="collapsible" data-collapsible="accordion">
+							<li>
+							    <div class="collapsible-header"><i class="material-icons">add</i>Opciones
+										<span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Pagado</span>
+				             			<!-- <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Terminado</span>  -->
+							    </div>
+							    <div class="collapsible-body">
+							      		<a ui-sref="transaccion_detalle({id:item.id})">Ver detalles</a>
+							      		
+							      		<a ui-sref="seller_message({id:item.seller_id,transaction_id:item.id})" ng-if="user.role != 5">Mensajeria</a>
+										<a ui-sref="seller_message({id:item.buyer_id,transaction_id:item.id})" ng-if="user.role == 5">Mis Mensajeria</a>
+							      		<!-- <a ui-sref="seller_message({id:conver.send_by.id,transaction_id:conver.transaction_id})" ng-if="conver.send_by.id != user_id">  -->
+							    </div>
+							</li>
+						</ul>			              						          
+			        </div>
+			    </div>
+			</div>
+
+
+
+			<div class="col s12 m7" ng-if="user.rol_id == 4  &&  item.user_id == user.id">
+				<div class="card">
+					<div>
+						<blockquote style="margin-bottom:0px;">
+							<h2 style="font-size: 1.5rem; margin-bottom:0px;">
+								<a class="review-click" ng-if="!item.review" ui-sref="transaction_create_review({id:item.id,car:item.car.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+							</h2>
+						</blockquote>	
+		          	</div>
+					<div class="card-content">
+			            <p style="font-weight: bold;">Vendedor: <span style="font-weight: normal;">{{item.seller.name}}</span></p>
+			            <p style="font-weight: bold;">Monto: <span style="font-weight: normal;">{{item.monto | currency}}</span></p>
+			            <br>
+			        </div>
+			        <div class="card-action" style="padding:0px!important;">
+			            <ul class="collapsible" data-collapsible="accordion">
+							<li>
+							    <div class="collapsible-header"><i class="material-icons">add</i>Opciones
+									<span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Pagado</span>
+				             		<!-- <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Terminado</span>  -->
+							    </div>
+							    <div class="collapsible-body">
+							      	<a ui-sref="transaccion_detalle({id:item.id})">Ver detalles</a>							      		
+							      	<!-- <a ui-sref="seller_message({id:item.seller_id,transaction_id:item.id})" ng-if="user.role != 5">Mensajeria</a> -->
+							    </div>
+							</li>
+						</ul>			              						            
+			        </div>
+			    </div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<script>
+		$(document).ready(function(){
+			$('.collapsible').collapsible();
+		});
+	</script>
+
+</div>
+
+
+
+<div class="row"  style="padding:25px 0px 25px; 0px">
+		<div class="col s12" style="text-align: center;">
+			
+		<button class="waves-effect waves-light btn"  style="padding: 0 1rem;"  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+			<span ng-if="currentPage > 0">{{currentPage}}</span>
+		</button>
+
+		<span class="waves-effect waves-light btn"  style="padding: 0 1rem;">
+			{{currentPage+1}}/{{numberOfPages()+1}}
+		</span>
+
+		<button class="waves-effect waves-light btn"  style="padding: 0 1rem;"  ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+			<span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+		</button>
+
+	</div>
 </div>
