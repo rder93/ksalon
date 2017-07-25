@@ -11,8 +11,8 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	$scope.user = $.sessionStorage.get('user');
 	// $scope.pagename = 'INICIO';
 	if (!$.sessionStorage.get('user')) {
-		console.log("aqui")
 		$state.go('login');
+		return false;
 	}
 
 	$('#btn-logout').click(function(event) {
