@@ -450,6 +450,68 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('tickets',{
+            url: '/tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/tickets.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_detail',{
+            url: '/ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_send',{
+            url: '/ticket_send',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_send.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_send':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
 
 

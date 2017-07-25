@@ -354,4 +354,16 @@ margin-left: 20px;
   text-align: center;
 }
 
+.sticky-footer{
+  background-color: #26a69a!important;
+  bottom: 0px;
+  height: 65px!important;
+  position: fixed;
+  width: 100%;
+}
+
+.sticky-footer > a{
+  height: 65px;
+}
+
 /*End Jonathan's styles*/

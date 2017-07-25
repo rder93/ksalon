@@ -65,7 +65,12 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'nombre':servicios,
 			'icono' : 'format_list_numbered',
 			'state' : 'home'
-		},
+		},		
+		{
+			'nombre':'tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}
 		];
 	}else{
 		$scope.opciones= [

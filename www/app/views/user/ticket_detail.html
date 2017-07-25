@@ -1,0 +1,150 @@
+<div ui-view="navigation"></div>
+
+	<style>
+			.mini-circle {
+				/*background-color: #999;*/
+				/*border: 2px solid #999;*/
+				/*border-radius: 100%;*/
+				color: #999;
+				line-height: 35px;
+				margin: auto;
+				margin-top: 45px;
+				position: relative;  
+				width: 25px;  
+				text-align: center;   
+				z-index: 2;
+
+
+
+				border-left: 15px solid transparent;
+				border-right: 15px solid transparent;
+				 
+				border-top: 15px solid #999;
+			}
+			.mini-circle:first-child {
+				margin-top: 0;
+				display: none;
+			}
+			.mini-circle:before {
+				border: 3px solid #999;
+				content: '';
+				display: block;
+				height: 50px;
+				left: 50%;
+				margin-left: -3px;
+				position: absolute;  
+				top: -60px;
+				width: 0;  
+				z-index: 1;  
+			}
+			.mini-circle:first-child:before {
+				display: none;
+			}
+
+			.ticket-content-wrap{
+				/*border-bottom: 1px solid lightgray;*/
+				color: #000;
+				font-size: 12px;
+				margin-top:25px;
+    			/*padding-bottom: 25px;*/
+			}
+
+			.ticket-h4{
+				font-size:18px;
+				font-weight: bold;
+				line-height: 50%;
+			}
+
+			.ticket-span{
+				font-size:11px; 
+				font-weight:normal;
+				text-align: justify;
+			}
+
+			.ticket-status{
+				padding-top: 5px;
+			}
+
+			.ticket-status-id{
+				font-size: 18px;
+				font-style: italic;
+				float: right;
+				margin-right: 15px;
+			}
+
+			.ticket-subject{
+				font-size: 18px;
+				font-weight: 700;
+				margin: 0px;
+			}
+
+		</style>
+
+	<div>
+		<div style="height:58px;"></div>
+		
+		<div class="ticket-status">
+			<div class="chip" ng-if="!ticket.thread">
+				<img src="../../../assets/core/images/pending.png">
+				Pendiente
+			</div>
+			<div class="chip" ng-if="ticket.thread">
+				<img src="../../../assets/core/images/done.png">
+				Respondido
+			</div>
+			<span class="ticket-status-id">Ticket #{{ticket.id}}</span>
+		</div>
+
+		<div style="margin:auto; width:95%;">
+			<div>
+				<!-- <h4 style="font-size:18px; font-weight: bold;">Asunto:</h4> -->
+				<p class="ticket-subject">Asunto: {{ticket.subject}}</p>
+				<span class="ticket-span">
+					Por {{ticket.creator.name}}, {{ticket.created_at | date}}
+				</span>
+
+			</div>
+
+			<div class="ticket-content-wrap">
+				<span >
+					{{ticket.content}}
+				</span>
+
+				<div style="border-bottom:1px solid lightgray; margin:auto; padding-bottom:10px; width:60%;"></div>
+			</div>
+
+			<div class="ticket-connecting">
+				<div class="mini-circle"></div>
+				<div class="mini-circle"></div>
+			</div>
+			
+			
+			<div>
+				<p class="ticket-title">Respuesta</p>
+				
+				<div ng-if="ticket.thread">
+					<div>
+						<span>
+							{{ticket.thread.content}}
+						</span>
+					</div>
+
+					<div>
+						<span class="ticket-span">
+							Por: {{ticket.thread.sender.name}}, {{ticket.thread.created_at | date}}
+						</span>
+					</div>
+				</div>
+
+				<div ng-if="!ticket.thread">
+					<span>
+						Su ticket aun no ha sido respondido
+					</span>
+				</div>
+			</div>
+
+		</div>
+
+		
+
+	</div>
