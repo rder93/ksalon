@@ -3,7 +3,7 @@ var path_views = './app/views';
 
 
 
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize', 'ngMaterial']);
 
 angular.module('myApp.controllers', []);
 

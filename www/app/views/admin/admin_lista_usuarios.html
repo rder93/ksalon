@@ -12,7 +12,30 @@
                         <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 4">Cliente</p>
                     </div>
 
-                    <div class="input-field col s5">
+                    <a href="javascript:;" class="toggle" id="menu-toggle1">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="menu" data-menu data-menu-toggle="#menu-toggle1">
+                        <li>
+                          <a href="#">Duis aute irure dolor</a>
+                        </li>
+                        <li class="menu-separator"></li>
+                        <li>
+                          <a href="#">Lorem ipsum dolor sit amet</a>
+                        </li>
+                        <li>
+                          <a href="#">Consectetur adipisicing elit</a>
+                        </li>
+                        <li>
+                          <a href="#">Tempor incididunt ut</a>
+                        </li>
+                        <li class="menu-separator"></li>
+                        <li>
+                          <a href="#">Excepteur sint</a>
+                        </li>
+                    </ul>
+
+                    <!-- <div class="input-field col s5">
                         <select id="selectRol" ng-model="optionSelected">
                             <option value="" disabled selected>Opciones</option>
                             <option value="{{usuario.id}}">Editar</option>
@@ -21,7 +44,7 @@
                             <option value="{{usuario.id}}" ng-if="usuario.status == 1">Bloquear</option>
                             <option value="{{usuario.id}}" ng-if="usuario.status == 0">Desbloquear</option>
                         </select>
-                    </div>
+                    </div> -->
 
                      <!-- <a class='dropdown-button btn-floating btn' data-beloworigin="true" href='javascript:void(0)' data-activates='dropdown1'><i class="material-icons">arrow_drop_down</i></a> -->
                     <!-- <a class='dropdown-button btn-floating btn' href='javascript:void(0)' data-activates='dropdown1' style="float: right;"><i class="material-icons">arrow_drop_down</i></a>

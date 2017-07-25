@@ -65,32 +65,32 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	}else{
 		$scope.opciones= [
 		{
-			'nombre':'Inicio',
+			'nombre': 'Inicio',
 			'icono' : 'home',
 			'state' : 'home'
 		},
 		{
-			'nombre':'Gestión de usuarios',
+			'nombre': 'Gestión de usuarios',
 			'icono' : 'contacts',
 			'state' : 'panel_usuarios'
 		},
 		{
-			'nombre':'Gestión de categorias',
+			'nombre': 'Gestión de categorias',
 			'icono' : 'format_list_numbered',
 			'state' : 'panel_servicios_categorias'
 		},
 		{
-			'nombre':'Pagos, Transacciones, otros',
+			'nombre': 'Pagos, Transacciones, otros',
 			'icono' : 'payment',
 			'state' : 'home'
 		},
 		{
-			'nombre':'Soporte',
+			'nombre': 'Soporte',
 			'icono' : 'question_answer',
 			'state' : 'home'
 		},
 		{
-			'nombre':'Clasificación de salones',
+			'nombre': 'Clasificación de salones',
 			'icono' : 'home',
 			'state' : 'home'
 		}
