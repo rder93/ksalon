@@ -2,6 +2,7 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 	var server_uri = $('body').attr('data-server_uri'),
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
+	var fotos_uri = $('body').attr('data-fotos_uri');
 
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
@@ -9,6 +10,9 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
     	 		$state.go('login');
     		}
 			$scope.Usuario=$.sessionStorage.get('user');
+			$scope.thumbnail = {
+				dataUrl: fotos_uri+$scope.Usuario.avatar
+			};
 			if ($scope.Usuario.rol_id==2 || $scope.Usuario.rol_id==3) {
 				$scope.btnSalones=true;
 			}else if ($scope.Usuario.rol_id==4) {
