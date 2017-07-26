@@ -7,12 +7,13 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		}
 	);
 
-
+	var fotos_uri = $('body').attr('data-fotos_uri');
 	$scope.user = $.sessionStorage.get('user');
+	$scope.foto_menu= fotos_uri+$scope.user.avatar;
 	// $scope.pagename = 'INICIO';
 	if (!$.sessionStorage.get('user')) {
-		console.log("aqui")
 		$state.go('login');
+		return false;
 	}
 
 	$('#btn-logout').click(function(event) {
@@ -49,7 +50,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Transacciones',
 			'icono' : 'swap_horiz',
-			'state' : 'home'
+			'state' : 'transacciones'
 		},
 		{
 			'nombre':'Mis Mensajes',

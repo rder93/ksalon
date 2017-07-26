@@ -2,13 +2,20 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 	var server_uri = $('body').attr('data-server_uri'),
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
+	var fotos_uri = $('body').attr('data-fotos_uri');
 
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
 			if (!$.sessionStorage.get('user')) {
+				console.log("no ha iniciado sesion");
     	 		$state.go('login');
+    	 		return false;
     		}
+
 			$scope.Usuario=$.sessionStorage.get('user');
+			$scope.thumbnail = {
+				dataUrl: fotos_uri+$scope.Usuario.avatar
+			};
 			if ($scope.Usuario.rol_id==2 || $scope.Usuario.rol_id==3) {
 				$scope.btnSalones=true;
 			}else if ($scope.Usuario.rol_id==4) {
@@ -21,6 +28,7 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 
 	if($state.current.name == 'perfil_config'){
 		if(debug == 'true')
+		$scope.Usuario={};	
 			console.log('en configuracion del perfil');
 
 		$scope.cargarImagen = function(id) {
@@ -42,8 +50,11 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 			});
 		};
 
-		function successPhoto(){
-			alert('funciono')
+		function successPhoto(url){
+			$("#contenedorFoto").attr("src",url);
+    		$("#contenedorFoto").show();
+    		$scope.Usuario.foto=url;
+    		alert($scope.Usuario);
 		}
 		function errorPhoto(){
 			alert("error");
