@@ -30,6 +30,7 @@ app.service('ajaxService', ['$state', function($state){
  				if (e.status && e.message) {
  					Materialize.toast(e.message, 4000);
  				 	console.log($.sessionStorage);
+ 				 	alert(e.auth_user.rol_id);
 				  	if (e.auth_user.rol_id == 0) {
 				  		$state.go('panel_usuarios');
 				  		console.log('SOY ADMIN');

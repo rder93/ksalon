@@ -1,0 +1,87 @@
+<div ui-view="navigation"></div>
+	
+	<style>
+		label{
+			font-size: 1rem;
+		}
+		.form_review{
+			padding-top: 50px;
+		}
+		.review-experience{
+			margin-top: 50px;
+		}
+		.review-stars{
+			text-align: center;
+		}
+		.review-stars > p{
+			font-size: 24px;
+			text-align: center;
+		}
+	</style>
+
+
+<div>	
+	<div style="height:58px;"></div>
+
+	<form route="/rating_create" method="get" ajax="true" debug="true" class="form_review" id="form-create-review">
+		<div>
+			<div class="review-stars">
+				<p>Puntuacion de servicio</p>
+				<div class="starrr"></div>
+				<input type="hidden" name="puntaje" id="starrrs">
+				<div ng-if="user.rol_id != 4 && user.rol_id != 0">
+					<input type="hidden" name="user_to_id" value="{{transaction.buyer_id}}">
+					<input type="hidden" name="user_id"  value="{{transaction.seller_id}}">
+				</div>	
+				<div ng-if="user.rol_id == 4">
+					<input type="hidden" name="user_to_id" value="{{transaction.user_to_id}}">
+					<input type="hidden" name="user_id"  value="{{transaction.user_id}}">
+				</div>	
+				<input type="hidden" name="transaction_id" value="{{transaction.id}}">
+
+				<script>
+					$('.starrr').starrr();
+
+					$('.starrr').on('starrr:change', function(e, value){
+					  $('#starrrs').val(value);
+					})
+
+
+				</script>
+			</div>
+
+			<div class="review-experience">
+				<label for="">Comentarios sobre tu experiencia</label>
+				<textarea id="calificacion-comentario" name="comentario" id="" cols="30" rows="10" style="min-height: 130px;" maxlength="160" data-length="160"></textarea>
+			</div>
+			
+			<div class="sticky-footer" style="text-align: center;">
+				<button class="btn" id="btn-send-review"  ng-click="enviar_calificacion();"><span>Enviar</span></button>
+			</div>
+			
+		
+		</div>
+	
+	</form>
+
+
+	<div id="modal" class="modal" style="left:50%!important; top: 50%; transform: translate(-50%, -50%); ">
+	    <div class="modal-content">
+	        <h5>Enviar</h5>
+	        <span style="font-size: 12.5px;">¿Seguro de enviar esta calificacion?</span>
+	    </div>
+	    <div class="modal-footer">
+	        <button ng-click="confirmar_envio();" ng-disabled="btnDisabled" class="modal-action modal-close waves-effect waves-green btn" >Si</button>
+	        <button class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;" ng-click="cancelar_envio();" >No</button>
+	        
+	    </div>
+	</div>
+
+
+</div>
+
+<script>
+	$(document).ready(function() {
+	    $('textarea#calificacion-comentario').characterCounter();
+	  });
+</script>

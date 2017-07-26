@@ -12,8 +12,8 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	$scope.foto_menu= fotos_uri+$scope.user.avatar;
 	// $scope.pagename = 'INICIO';
 	if (!$.sessionStorage.get('user')) {
-		console.log("aqui")
 		$state.go('login');
+		return false;
 	}
 
 	$('#btn-logout').click(function(event) {
@@ -63,40 +63,45 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'lounges_index'
 		},
 		{
-			'nombre':servicios,
+			'nombre':'servicios',
 			'icono' : 'format_list_numbered',
 			'state' : 'home'
-		},
+		},		
+		{
+			'nombre':'tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}
 		];
 	}else{
 		$scope.opciones= [
 		{
-			'nombre':'Inicio',
+			'nombre': 'Inicio',
 			'icono' : 'home',
 			'state' : 'home'
 		},
 		{
-			'nombre':'Gestión de usuarios',
+			'nombre': 'Gestión de usuarios',
 			'icono' : 'contacts',
 			'state' : 'panel_usuarios'
 		},
 		{
-			'nombre':'Gestión de categorias',
+			'nombre': 'Gestión de categorias',
 			'icono' : 'format_list_numbered',
 			'state' : 'panel_servicios_categorias'
 		},
 		{
-			'nombre':'Pagos, Transacciones, otros',
+			'nombre': 'Pagos, Transacciones, otros',
 			'icono' : 'payment',
-			'state' : 'home'
+			'state' : 'panel_gestion'
 		},
 		{
-			'nombre':'Soporte',
+			'nombre': 'Soporte',
 			'icono' : 'question_answer',
 			'state' : 'home'
 		},
 		{
-			'nombre':'Clasificación de salones',
+			'nombre': 'Clasificación de salones',
 			'icono' : 'home',
 			'state' : 'home'
 		}

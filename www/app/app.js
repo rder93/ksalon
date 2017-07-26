@@ -3,7 +3,7 @@ var path_views = './app/views';
 
 
 
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.materialize', 'ngMaterial']);
 
 angular.module('myApp.controllers', []);
 
@@ -450,6 +450,128 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('tickets',{
+            url: '/tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/tickets.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_detail',{
+            url: '/ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+        .state('ticket_send',{
+            url: '/ticket_send',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/ticket_send.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@ticket_send':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+
+        .state('transacciones',{
+            url: '/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transacciones.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transacciones_sin_calificacion',{
+            url: '/transacciones_sin_calificacion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transacciones_sin_calificacion.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transacciones_sin_calificacion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transaccion_detalle',{
+            url: '/transaccion_detalle/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transaccion_detalle.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transaccion_detalle':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('calificacion_nueva',{
+            url: '/calificacion_nueva/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/calificacion_nueva.html',
+                    controller: 'CalificacionController'
+                },
+                'navigation@calificacion_nueva':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+
 
 
 
@@ -498,6 +620,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('panel_gestion',{
+            url: '/admin/panel/gestion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_gestion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        // .state('transacciones',{
+        //     url: '/admin/panel/transacciones',
+        //     views:{
+        //         '':{
+        //             templateUrl: path_views+'/admin/transacciones.html',
+        //             controller: 'AdminController'
+        //         },
+        //         'navigation@transacciones':{
+        //             templateUrl: path_views+'/template_parts/nav.html',
+        //             controller: 'NavigationController'
+        //         }
+        //     }
+        // })
+
 
         /*End RICARDO*/
 
