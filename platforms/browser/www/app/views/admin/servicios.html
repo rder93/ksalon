@@ -3,7 +3,7 @@
 <div style="width: 70%;margin: auto;">
     <form id="searchInput" >
         <div class="input-field" style="margin-top: 0px;">
-            <input type="text" placeholder="Buscar categoria" ng-model="search" style="padding: 2%;">
+            <input type="text" placeholder="Buscar servicios" ng-model="search" style="padding: 2%;">
         </div>
     </form>
 </div>
@@ -19,11 +19,19 @@
                     <tr>
                         <th style="text-align: center;padding: 0; width: 90%" colspan="4">
                             <span class="card-title activator grey-text text-darken-4 left">
-                                {{servicio.nombre}}<!-- <i class="material-icons right">more_vert</i> -->
+                                {{servicio.nombre}}
                             </span>
 
-                            <div class="right">
-                                <!-- Right aligned menu below button -->
+                            <div class="right" style="margin-right: 15px;">
+                                <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='servicio--{{servicio.id}}' id="servicio-{{servicio.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                                <ul id='servicio--{{servicio.id}}' class='dropdown-content' for="servicio-{{servicio.id}}">
+                                    <li><a href="javascript:void(0)" ng-click="editarItem(servicio.id, servicio.nombre);">Editar</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="removeItem(servicio.id,'/service');">Eliminar</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- <div class="right">
+                                
                                 <button id="servicio-{{servicio.id}}"
                                         class="mdl-button mdl-js-button mdl-button--icon">
                                   <i class="material-icons">more_vert</i>
@@ -34,7 +42,7 @@
                                   <li class="mdl-menu__item" ng-click="editarItem(servicio.id, servicio.nombre);">Editar</li>
                                   <li class="mdl-menu__item" ng-click="removeItem(servicio.id,'/service');">Eliminar</li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </th>
                     </tr>
                 </table>

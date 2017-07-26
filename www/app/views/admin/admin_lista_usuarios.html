@@ -1,7 +1,7 @@
 
 <div ui-view="navigation"></div>
 
-<div ng-repeat="usuario in usuarios">
+<div ng-repeat="usuario in usuarios | filter : search">
     <div class="row" style="margin-bottom: 0px;">
         <div class="col s12" style="color:black;margin-bottom: 5px;margin-top: 4%;padding: 0;">
                 <div class="col s7">
@@ -12,22 +12,54 @@
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 4">Cliente</p>
                 </div>
 
-                <div class="right">
-                    <!-- Right aligned menu below button -->
-                    <button id="categoria"
+                <!-- <div class="right">
+                    
+                    <button id="usuario-{{usuario.id}}"
                             class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="material-icons">more_vert</i>
                     </button>
 
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="categoria">
-                      <li class="mdl-menu__item">Editar</li>
+                        for="usuario-{{usuario.id}}">
+                        <li>
+                            <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">Mensaje</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)">Bloquear</a>
+                            <a href="javascript:void(0)" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)">Desbloquear</a>
+                        </li>
+                    </ul>
+                </div> -->
+                
+                <div class="right" style="margin-right: 15px;">
+                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='usuario--{{usuario.id}}' id="usuario-{{usuario.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                    <ul id='usuario--{{usuario.id}}' class='dropdown-content' for="usuario-{{usuario.id}}">
+                        <li>
+                            <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">Mensaje</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)">Bloquear</a>
+                            <a href="javascript:void(0)" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)">Desbloquear</a>
+                        </li>
                     </ul>
                 </div>
+                
 
                  <!-- <a class='dropdown-button btn-floating btn' data-beloworigin="true" href='javascript:void(0)' data-activates='dropdown1'><i class="material-icons">arrow_drop_down</i></a> -->
-                <!-- <a class='dropdown-button btn-floating btn' href='javascript:void(0)' data-activates='dropdown1' style="float: right;"><i class="material-icons">arrow_drop_down</i></a>
-                <ul id='dropdown1' class='dropdown-content'>
+                <!-- <a id="usuario-{{usuario.id}}" class='dropdown-button btn-floating btn' href='javascript:void(0)' data-activates='dropdown1' style="float: right;"><i class="material-icons">arrow_drop_down</i></a>
+                <ul id='dropdown1' class='dropdown-content' for="usuario-{{usuario.id}}">
                     <li>
                         <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
                     </li>
@@ -83,7 +115,7 @@
     <div class="col s8">
         <form id="searchInput">
               <div class="input-field" style="margin-top: 0px;">
-                <input type="text" placeholder="Buscar..." ng-model="search" style="padding: 2%;width: 70%;">
+                <input type="text" placeholder="Buscar..." ng-model="search.name" style="padding: 2%;width: 70%;">
               </div>
             </form>
     </div>

@@ -87,7 +87,12 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre': 'Gestión de categorias',
 			'icono' : 'format_list_numbered',
-			'state' : 'panel_servicios_categorias'
+			'state' : 'panel_categorias'
+		},
+		{
+			'nombre': 'Gestión de servicios',
+			'icono' : 'format_list_numbered',
+			'state' : 'panel_servicios'
 		},
 		{
 			'nombre': 'Pagos, Transacciones, otros',
