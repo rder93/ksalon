@@ -635,6 +635,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+<<<<<<< HEAD
         .state('profesional_servicios',{
             url: '/profesional/servicios/:id',
             views:{
@@ -651,6 +652,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         
 
 
+=======
+>>>>>>> origin/master
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
         //     views:{

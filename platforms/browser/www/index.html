@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<!--
+	<meta http-equiv="Content-Security-Policy" content="
+ 	default-src * 'unsafe-inline'; 
+	style-src 'self' 'unsafe-inline'; 
+	media-src *; 
+	img-src *" /> 
+	-->
+
+	<!--
+	<meta http-equiv="Content-Security-Policy" content="
+	default-src *; 
+	style-src 'self' http://* 'unsafe-inline'; 
+	script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+	-->
+
+	<!-- <meta http-equiv="Content-Security-Policy" content="
+		default-src *; 
+		style-src 'self' * 'unsafe-inline'; 
+		script-src 'self' * 'unsafe-inline' 'unsafe-eval';
+		media-src *; 
+		img-src *;
+	"> -->
+
+	<title>..:: Ksalon ::..</title>
+	<link rel="stylesheet" type="text/css" href="assets/core/font/flaticon.css">
+	<link rel="stylesheet" type="text/css" href="assets/core/icono_ksalon/flaticon.css">
+	<link rel="stylesheet" type="text/css" href="assets/core/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/materialize/css/materialize.min.css">
+	<link rel="stylesheet" href="assets/jquery/dropzone.css">
+	<link rel="stylesheet" href="assets/owlcarousel/assets/owl.carousel.css">
+	<link rel="stylesheet" href="assets/owlcarousel/assets/owl.theme.default.css">
+	<!-- <link rel="stylesheet" href="assets/core/css/app.css"> -->
+	<link rel="stylesheet" href="assets/core/css/chat-styles.css">
+	<link rel="stylesheet" href="assets/core/css/style.css">
+
+	<link rel="stylesheet" href="assets/materialize/css/material.min.css">
+
+	<link href="assets/loading/style.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/core/css/material-icons.css">
+
+</head>
+
+<!-- <body data-server_uri='http://192.168.1.105:8000' debug='true'>  -->
+	<body data-server_uri='http://127.0.0.1:8000/api/' data-fotos_uri='http://localhost/ksalonazo/ksalon/public/imagenes/' debug='true'>
+		<div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+
+		<div class="progress" style="display: none;">
+			<div class="indeterminate"></div>
+		</div>
+
+	<div ui-view></div>	
+
+
+
+
+
+	
+	<!-- Cordova -->
+	<script type="text/javascript" src="cordova.js"></script>
+
+	<!-- Archivos necesarios, como librerias -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCquSX6Tdj2_zNE2dczYdppdIq-Z6LBv-E"
+    async defer></script>
+	<script src="assets/jquery/jquery-2.2.4.js"></script>
+	<script src="assets/jquery/moment.js"></script>
+	<script src="assets/jquery/jquery.storageapi.js"></script>
+	<script src="assets/jquery/dropzone.js"></script>
+	<script src="assets/jquery/starrr.js"></script>
+	<script src="assets/owlcarousel/owl.carousel.js"></script>
+	<script src="assets/materialize/js/materialize.js"></script>
+	<script defer src="assets/materialize/js/material.min.js"></script>
+	<script src="assets/angularjs/angular.js"></script>
+	<script src="assets/angularjs/angular-ui-router.js"></script>
+	<script src="assets/angularjs/angular-materialize.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+	  <!-- Angular Material Library -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="assets/angularjs/ngStorage.min.js"></script>
+
+	<!-- Waves Effect Plugin Js -->
+    <script src="assets/loading/waves.min.js"></script>
+    
+    <!-- Custom Js -->
+    <script src="assets/loading/admin.js"></script>
+	
+	<!-- Init -->
+	<script src="app/helpers/main_helpers.js"></script>
+	<script src="app/app.js"></script>
+	<!-- Controllers -->
+	<script src="app/controllers/AdminController.js"></script>
+	<script src="app/controllers/AuthController.js"></script>
+	<script src="app/controllers/MainController.js"></script>
+	<script src="app/controllers/NavigationController.js"></script>
+	<script src="app/controllers/LoungeController.js"></script>
+	<script src="app/controllers/UserController.js"></script>
+	<script src="app/controllers/MessagesController.js"></script>
+	<script src="app/controllers/ClienteController.js"></script>
+	<script src="app/controllers/CategoriaController.js"></script>
+	<script src="app/controllers/ServicioController.js"></script>
+	<script src="app/controllers/RegistroController.js"></script>
+	<script src="app/controllers/TicketsController.js"></script>
+	<script src="app/controllers/TransactionsController.js"></script>
+	<script src="app/controllers/CalificacionController.js"></script>
+	<!-- Services -->
+	<script src="app/services/AjaxService.js"></script>
+	
+
+</body>
+
+</html>
