@@ -514,6 +514,66 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 
+        .state('transacciones',{
+            url: '/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transacciones.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transacciones_sin_calificacion',{
+            url: '/transacciones_sin_calificacion',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transacciones_sin_calificacion.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transacciones_sin_calificacion':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('transaccion_detalle',{
+            url: '/transaccion_detalle/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/transaccion_detalle.html',
+                    controller: 'TransactionsController'
+                },
+                'navigation@transaccion_detalle':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('calificacion_nueva',{
+            url: '/calificacion_nueva/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/calificacion_nueva.html',
+                    controller: 'CalificacionController'
+                },
+                'navigation@calificacion_nueva':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+
+
+
 
         /*End Jonathan*/
 
@@ -575,19 +635,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('transacciones',{
-            url: '/admin/panel/transacciones',
+        .state('profesional_servicios',{
+            url: '/profesional/servicios/:id',
             views:{
                 '':{
-                    templateUrl: path_views+'/admin/transacciones.html',
-                    controller: 'AdminController'
+                    templateUrl: path_views+'/profesional/servicios.html',
+                    controller: 'ProfesionalController'
                 },
-                'navigation@transacciones':{
+                'navigation@profesional_servicios':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
             }
         })
+        
+
+
+        // .state('transacciones',{
+        //     url: '/admin/panel/transacciones',
+        //     views:{
+        //         '':{
+        //             templateUrl: path_views+'/admin/transacciones.html',
+        //             controller: 'AdminController'
+        //         },
+        //         'navigation@transacciones':{
+        //             templateUrl: path_views+'/template_parts/nav.html',
+        //             controller: 'NavigationController'
+        //         }
+        //     }
+        // })
 
 
         /*End RICARDO*/

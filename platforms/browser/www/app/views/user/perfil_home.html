@@ -4,7 +4,7 @@
   <div class="col s12 m12">
     <div class="card">
       <div class="card-image">
-        <img src="../../assets/core/images/no_avatar.jpg" alt="" class="perfil">
+        <img ng-src="{{ thumbnail.dataUrl }}" class="perfil" />
         <div class="container"><h4 class="text-black">{{Usuario.name}}</h4></div>
       </div>
       <div class="card-content center-align"  style="font-size: 2em;">
@@ -128,6 +128,14 @@
 <div ng-show="btnSalones">
   <div class="col s7 offset-s2">
     <a ui-sref="lounges_servicios" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
+      Mis Servicios
+    </a>
+  </div>
+</div>
+
+<div ng-show="btnProfesional">
+  <div class="col s7 offset-s2">
+    <a ui-sref="profesional_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
       Mis Servicios
     </a>
   </div>

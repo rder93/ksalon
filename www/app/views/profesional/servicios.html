@@ -1,0 +1,41 @@
+<div ui-view="navigation"></div>
+
+<div style="width: 70%;margin: auto;">
+    <form id="searchInput" >
+        <div class="input-field" style="margin-top: 0px;">
+            <input type="text" placeholder="Buscar servicios" ng-model="search" style="padding: 2%;">
+        </div>
+    </form>
+</div>
+
+
+<h5 style="text-align: center;">Servicios</h5>
+
+<div ng-repeat="servicio in servicios" >
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s12" style="margin-top: 4%;padding: 0;">
+            <div class="col s12" style="color:black;text-align: center;margin-bottom: 5px;">
+                <table>
+                    <tr>
+                        <th style="text-align: center;padding: 0; width: 90%" colspan="4">
+                            <span class="card-title activator grey-text text-darken-4 left">
+                                {{servicio.nombre}}
+                            </span>
+
+                            <div class="right" style="margin-right: 15px;">
+                                <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='servicio--{{servicio.id}}' id="servicio-{{servicio.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                                <ul id='servicio--{{servicio.id}}' class='dropdown-content' for="servicio-{{servicio.id}}">
+                                    <li><a href="javascript:void(0)" ng-click="editarItem(servicio.id, servicio.nombre);">Editar</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="removeItem(servicio.id,'/service');">Eliminar</a></li>
+                                </ul>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+</div>

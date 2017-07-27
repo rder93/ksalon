@@ -11,31 +11,6 @@
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 3">Profesional independiente</p>
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 4">Cliente</p>
                 </div>
-
-                <!-- <div class="right">
-                    
-                    <button id="usuario-{{usuario.id}}"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                    </button>
-
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="usuario-{{usuario.id}}">
-                        <li>
-                            <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">Mensaje</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)">Bloquear</a>
-                            <a href="javascript:void(0)" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)">Desbloquear</a>
-                        </li>
-                    </ul>
-                </div> -->
                 
                 <div class="right" style="margin-right: 15px;">
                     <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='usuario--{{usuario.id}}' id="usuario-{{usuario.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>

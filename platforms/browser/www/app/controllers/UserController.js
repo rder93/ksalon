@@ -16,10 +16,12 @@ app.controller('UserController', ['$scope', '$state', '$http', function($scope, 
 			$scope.thumbnail = {
 				dataUrl: fotos_uri+$scope.Usuario.avatar
 			};
-			if ($scope.Usuario.rol_id==2 || $scope.Usuario.rol_id==3) {
+			if ($scope.Usuario.rol_id==2) {
 				$scope.btnSalones=true;
 			}else if ($scope.Usuario.rol_id==4) {
 				$scope.btnClientes=true;
+			}else if ($scope.Usuario.rol_id == 3){
+				$scope.btnProfesional = true;
 			}
 
 		}

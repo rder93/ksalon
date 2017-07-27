@@ -635,6 +635,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('profesional_servicios',{
+            url: '/profesional/servicios/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/servicios.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        
+
+
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
         //     views:{
