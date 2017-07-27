@@ -21,13 +21,13 @@
 	script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
 	-->
 
-	<meta http-equiv="Content-Security-Policy" content="
+	<!-- <meta http-equiv="Content-Security-Policy" content="
 		default-src *; 
 		style-src 'self' * 'unsafe-inline'; 
 		script-src 'self' * 'unsafe-inline' 'unsafe-eval';
 		media-src *; 
 		img-src *;
-	">
+	"> -->
 
 	<title>..:: Ksalon ::..</title>
 	<link rel="stylesheet" type="text/css" href="assets/core/font/flaticon.css">
@@ -49,8 +49,7 @@
 </head>
 
 <!-- <body data-server_uri='http://192.168.1.105:8000' debug='true'>  -->
-	<body data-server_uri='http://192.168.1.106:8000/api/' debug='true'>
-	
+	<body data-server_uri='http://127.0.0.1:8000/api/' data-fotos_uri='http://localhost/ksalonazo/ksalon/public/imagenes/' debug='true'>
 		<div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
@@ -89,6 +88,7 @@
 	<script src="assets/jquery/moment.js"></script>
 	<script src="assets/jquery/jquery.storageapi.js"></script>
 	<script src="assets/jquery/dropzone.js"></script>
+	<script src="assets/jquery/starrr.js"></script>
 	<script src="assets/owlcarousel/owl.carousel.js"></script>
 	<script src="assets/materialize/js/materialize.js"></script>
 	<script defer src="assets/materialize/js/material.min.js"></script>
@@ -125,6 +125,8 @@
 	<script src="app/controllers/ServicioController.js"></script>
 	<script src="app/controllers/RegistroController.js"></script>
 	<script src="app/controllers/TicketsController.js"></script>
+	<script src="app/controllers/TransactionsController.js"></script>
+	<script src="app/controllers/CalificacionController.js"></script>
 	<!-- Services -->
 	<script src="app/services/AjaxService.js"></script>
 	

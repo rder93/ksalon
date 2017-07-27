@@ -7,15 +7,6 @@
 	
 }*/
 
-.footer-listuser{
-  -webkit-box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
-  box-shadow: -2px 2px 9px 0px rgba(0,0,0,0.75);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
 
 .fondoBody { 
   background: url(../images/fondoksalonazo-1.png)  fixed center center repeat; 
@@ -28,75 +19,6 @@
 
 .login{
   
-}
-
-.select-wrapper {
-  ul {
-    li > span {
-      color: teal;
-    }
-  }
-}
-
-/* Dropdown Button */
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
-input::-webkit-input-placeholder {
-color: #b5b5b4 !important;
-}
- 
-input:-moz-placeholder { /* Firefox 18- */
-color: #b5b5b4 !important;  
-}
- 
-input::-moz-placeholder {  /* Firefox 19+ */
-color: #b5b5b4 !important;  
-}
- 
-input:-ms-input-placeholder {  
-color: #b5b5b4 !important;  
 }
 
 
@@ -205,7 +127,7 @@ color: #b5b5b4 !important;
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v22/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
 }
 
 .material-icons {
@@ -367,57 +289,3 @@ margin-left: 20px;
   height: 100%;
   width: 100%;
 }
-
-
-
-
-/*Jonathan's Styles*/
-
-.fa{
-  font-size: 18px;
-}
-
-.fa-star{
-  color: gold;
-}
-
-.form-categorias{
-  margin: 0 auto;
-  width: 75%;
-}
-
-.form-categorias-footer{
-  bottom:0px;
-  height: 10vh;
-  position: fixed;
-  width: 100%;
-}
-.form-categorias-footer > button, .form-categorias-footer > a{
-  height: 10vh;
-}
-
-
-.page-content{
-  height: 82vh;
-}
-
-.page-description{  
-  font-size: 16px;
-  margin-top: 30px;
-  padding: 50px 0px 20px 0px;  
-  text-align: center;
-}
-
-.sticky-footer{
-  background-color: #26a69a!important;
-  bottom: 0px;
-  height: 65px!important;
-  position: fixed;
-  width: 100%;
-}
-
-.sticky-footer > a{
-  height: 65px;
-}
-
-/*End Jonathan's styles*/

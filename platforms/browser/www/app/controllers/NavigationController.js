@@ -50,7 +50,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Transacciones',
 			'icono' : 'swap_horiz',
-			'state' : 'home'
+			'state' : 'transacciones'
 		},
 		{
 			'nombre':'Mis Mensajes',
