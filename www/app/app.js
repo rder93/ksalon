@@ -375,19 +375,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('lounges_servicios_profesionales_crear',{
-            url: '/lounges/profesionales/servicios',
+        .state('lounges_certificados_profesionales_index',{
+            url: '/lounges/profesionales/certificados/:id',
             views: {
                 '': { 
-                    templateUrl: path_views+'/lounges/lounges_servicios_profesionales_form.html',
+                    templateUrl: path_views+'/lounges/lounges_certificados_profesionales_index.html',
                     controller: 'LoungeController'
                 },
-                'navigation@lounges_servicios_profesionales_crear' : { 
+                'navigation@lounges_certificados_profesionales_index' : { 
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
             }
         })
+        
 
         /*----- JONATHAN -----*/
         .state('cliente_servicio_categorias',{

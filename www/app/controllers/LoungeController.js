@@ -21,7 +21,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	if($state.current.name == 'lounges_servicios'){
 		if(debug == 'true'){
-			console.log('hola desde los servicios'+$stateParams.id)
 			$.sessionStorage.set('longe_id', $stateParams.id);
 
 		}
@@ -146,7 +145,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					method: 'DELETE',
 					url: server_uri+'/products/'+id,
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
 				}, function errorCallback(response) {
@@ -165,13 +163,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.Producto.lounge_id=$.sessionStorage.get('longe_id');
 
 			$scope.registrarProducto=function(){
-				console.log($scope.Producto);
 				$http({
 					method: 'POST',
 					url: server_uri+'/products',
 					data:$scope.Producto
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_productos_index');
 				}, function errorCallback(response) {
@@ -191,20 +187,17 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			method: 'GET',
 			url: server_uri+'/products/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
-			console.log(response.data);
 			$scope.Producto=response.data;
 		}, function errorCallback(response) {
 			console.log('dio error');
 		});
 
 		$scope.actualizarProducto=function () {
-			console.log($scope.Producto);
 			$http({
 				method: 'PUT',
 				url: server_uri+'/products/'+$stateParams.id,
 				data:$scope.Producto
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				Materialize.toast(response.data.msj, 4000);
 			  	$state.go('lounges_productos_index');
 			}, function errorCallback(response) {
@@ -221,7 +214,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				method: 'GET',
 				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				$scope.Servicios=response.data;
 			}, function errorCallback(response) {
 				console.log('dio error');
@@ -236,7 +228,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					method: 'DELETE',
 					url: server_uri+'/loungeServices/'+id,
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
 				}, function errorCallback(response) {
@@ -248,8 +239,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	}
 
 	if($state.current.name == 'lounges_servicios_crear'){
-		console.log('estoy aqui');
-		console.log($.sessionStorage.get('longe_id'));
 		if(debug == 'true'){
 			$scope.crearServicio=true;
 			$scope.Servicio={};
@@ -270,7 +259,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					url: server_uri+'/loungeServices',
 					data:$scope.Servicio
 				}).then(function successCallback(response) {
-					console.log(response);
+
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_servicios_index');
 				}, function errorCallback(response) {
@@ -516,8 +505,21 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				method: 'GET',
 				url: server_uri+'/professionalServices/'+$stateParams.id,
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				$scope.profesional_servicios=response.data;
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			    });
 			}, function errorCallback(response) {
 				console.log('dio error');
 			});
@@ -630,6 +632,158 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}
 	}
 
+	if($state.current.name == 'lounges_certificados_profesionales_index'){
+		if(debug == 'true'){
+
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
+
+			$http({
+					method: 'GET',
+					url: server_uri+'/certificates/'+$stateParams.id,
+				}).then(function successCallback(response) {
+					$scope.certificates=response.data;
+					$timeout(function(){
+						$('.modal').modal();
+						$('.dropdown-button').dropdown({
+							inDuration: 300,
+							outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					  });
+					});
+				}, function errorCallback(response) {
+					console.log('dio error');
+			});
+
+			$scope.modalAgregarCertificado=function(){
+				$('#modalCertificado').modal('open');
+				$scope.agregarCert=true;
+				$scope.editarCert=false;
+				$scope.cert={};
+				$scope.cert.professional_id=$stateParams.id;
+				var fotos_uri = $('body').attr('data-fotos_uri');
+				$http({
+					method: 'GET',
+					url: server_uri+'/imagen_defecto2',
+				}).then(function successCallback(response) {
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.path
+					};
+				    // this callback will be called asynchronously
+				    // when the response is available
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+
+			};
+
+			$scope.agregarCertificado=function(){
+				var fd = new FormData();
+				  var cert=$scope.cert;
+				  console.log(cert);
+				  for ( var key in cert ) {
+				  	fd.append(key, cert[key]);
+				  }
+
+				  $http.post(server_uri+'/certificates', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.reload();
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	$state.reload();
+				  });
+			}
+
+			$scope.editarCertificado=function(id){
+				$scope.crearCertificado=false;
+				$scope.editarCert=true;
+				$scope.cert={};
+				$('#modalCertificado').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'/certificates/'+id+'/edit',
+				}).then(function successCallback(response) {
+					var fotos_uri = $('body').attr('data-fotos_uri');
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+					$scope.cert=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+			}
+
+			$scope.actualizarCerfiticado=function(id){
+				var fd = new FormData();
+				  var cert=$scope.cert;
+				  console.log(cert);
+				  for ( var key in cert ) {
+				  	fd.append(key, cert[key]);
+				  }
+
+				 $http.post(server_uri+'/updateCertificate', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.reload();
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	// $state.reload();
+				  });
+			}
+
+			$scope.modalEliminarCertificado=function(id){
+				$scope.id_certificate=id;
+				$('#modalEliminarCertificado').modal('open');
+			}
+
+			$scope.eliminarServicio=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/certificates/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+
+		}
+	}
 
 
 

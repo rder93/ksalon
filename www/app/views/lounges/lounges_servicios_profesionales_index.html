@@ -62,15 +62,23 @@
 
             <tbody>
               <tr ng-repeat="profesional_servicio in profesional_servicios">
-                <td><i class="flaticon-skyline black-text center"></i></td>
                 <td>
                   <div class="row">
-                    <div class="col s6 m6">
-                      <h6 class="nombre-comentario">{{profesional_servicio.nombre}}</h6>
+                    <div class="center-align">
+                      <h6 class="nombre-comentario center-align">{{profesional_servicio.nombre}}</h6>
                     </div>
-                    <div class="col s6 m6 center-align">
-                      <a ng-click="editarServicio(profesional_servicio.id)" class="btn-floating waves-effect waves-light orange"><i class="material-icons">mode_edit</i></a>
-                      <a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServicio(profesional_servicio.id)"><i class="material-icons">delete</i></a>
+                  </div>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col s10">
+                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{profesional_servicio.id}}'><i class="material-icons">more_vert</i></button>
+
+                      <!-- Dropdown Structure -->
+                      <ul id='{{profesional_servicio.id}}' class='dropdown-content'>
+                        <li><a ng-click="editarServicio(profesional_servicio.id)">Editar</a></li>
+                        <li><a ng-click="modalEliminarServicio(profesional_servicio.id)">Eliminar</a></li>
+                      </ul>
                     </div>
                   </div>
                 </td>
