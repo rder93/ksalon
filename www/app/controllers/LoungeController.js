@@ -509,69 +509,127 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	if($state.current.name == 'lounges_servicios_profesionales_index'){
 		if(debug == 'true'){
 			$.sessionStorage.set('profesional_id', $stateParams.id);
-			// $http({
-			// 	method: 'GET',
-			// 	url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
-			// }).then(function successCallback(response) {
-			// 	console.log(response.data);
-			// 	$scope.Servicios=response.data;
-			// }, function errorCallback(response) {
-			// 	console.log('dio error');
-			// });
-
-			// $scope.modalServicio=function(id){
-			// 	$scope.id_servicio= id;
-			// 	$('#modalservicio').modal('open');
-			// };
-			// $scope.eliminarServicio=function(id){
-			// 	$http({
-			// 		method: 'DELETE',
-			// 		url: server_uri+'/loungeServices/'+id,
-			// 	}).then(function successCallback(response) {
-			// 		console.log(response);
-			// 		Materialize.toast(response.data.msj, 4000);
-			// 		$state.reload();
-			// 	}, function errorCallback(response) {
-			// 		Materialize.toast(error, 4000);
-			// 		// $state.go('lounges_productos_crear');
-			// 	});
-			// }
-		}
-	}
-
-	if($state.current.name == 'lounges_servicios_profesionales_crear'){
-		if(debug == 'true'){
-			console.log($.sessionStorage.get('lounge_id'));
-			$scope.crearServicio=true;
 			$scope.profesional_servicio={};
-			$scope.profesional_servicio.professional_id=$.sessionStorage.get('profesional_id');
+			// $scope.profesional_servicio.professional_id=$.sessionStorage.get('profesional_id');
 
-			// $http({
-			// 	method: 'GET',
-			// 	url: server_uri+'/loungeServices/'+,
-			// }).then(function successCallback(response) {
-			// 	$scope.servs=response.data;
-			// }, function errorCallback(response) {
-			// 	console.log('dio error');
-			// });
+			$http({
+				method: 'GET',
+				url: server_uri+'/professionalServices/'+$stateParams.id,
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.profesional_servicios=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
 
-			// $scope.registrarServicio=function(){
-			// 	$http({
-			// 		method: 'POST',
-			// 		url: server_uri+'/loungeServices',
-			// 		data:$scope.Servicio
-			// 	}).then(function successCallback(response) {
-			// 		console.log(response);
-			// 		Materialize.toast(response.data.msj, 4000);
-			// 		$state.go('lounges_servicios_index');
-			// 	}, function errorCallback(response) {
-			// 		Materialize.toast(error, 4000);
-			// 		$state.reload();
-			// 	});
-			// };
+			$scope.modalAgregarServicio=function(){
+				console.log('profesional'+$stateParams.id);
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				}).then(function successCallback(response) {
+					console.log(response.data);
+					$scope.servicios=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+
+				$scope.profesional_serv={};
+				$scope.profesional_serv.professional_id=$stateParams.id;
+				$scope.crearServicio=true;
+				$scope.editarServ=false;
+				$('#modalServicio').modal('open');
+			};
+
+			$scope.agregarServicio=function(){
+
+				$http({
+					method: 'POST',
+					url: server_uri+'/professionalServices',
+					data:$scope.profesional_serv
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			}
+
+			$scope.editarServicio=function(id){
+				console.log('el id es'+id);
+				$scope.servicios={}
+				$scope.crearServicio=false;
+				$scope.editarServ=true;
+				$('#modalServicio').modal('open');
+				$scope.id_servicio=id;
+
+				$http({
+					method: 'GET',
+					url: server_uri+'/professionalServices/'+id+'/edit',
+				}).then(function successCallback(response) {
+					$scope.profesional_serv=response.data;
+					$scope.profesional_serv.service_id = {id: $scope.profesional_serv.service_id};
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+				
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				}).then(function successCallback(response) {
+					for (var i = response.data.length - 1; i >= 0; i--) {
+						response.data[i].id=response.data[i].service_id;
+					}
+					$scope.servicios=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+
+			
+				
+			}
+
+			$scope.actualizarServicio=function(id){
+				$scope.profesional_serv.service_id=$scope.profesional_serv.service_id.id;
+				console.log($scope.profesional_serv.service_id);
+				$http({
+					method: 'PUT',
+					url: server_uri+'/professionalServices/'+id,
+					data:$scope.profesional_serv
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
+
+			$scope.modalEliminarServicio=function(id){
+				$scope.id_servicio=id;
+				$('#modalEliminarServicio').modal('open');
+			}
+
+			$scope.eliminarServicio=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/professionalServices/'+id,
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+			
 		}
-
 	}
+
 
 
 

@@ -1,1 +1,53 @@
-<h1>Hola desde el formulario</h1>
+<div ui-view="navigation"></div>
+<div class="container">
+  <div class="mobile-content">
+  <div class="row">
+    <!-- <form class="col s12" style="margin-top: 20px;" ng-submit="registrarProducto()"> -->
+    <form class="col s12" style="margin-top: 20px;">
+      <div class="row">
+        <div class="input-field col s12 hide">
+          <input id="name" type="text" class="validate" ng-model="Servicio.lounge_id">
+        </div>
+        <div class="input-field col s12">
+          <label for="correo">precio</label>  
+          <input id="correo" type="number" class="validate" ng-model="Servicio.precio">
+
+        </div>
+
+        <div ng-show="crearServicio">
+          <div class="input-field col s12">
+            <label>Servicios Disponibles</label><br><br>
+            <select ng-model="Servicio.service_id" class="browser-default">
+              <option value="" disabled selected>Seleccione un servicio</option>
+              <option ng-repeat="servicio in servicios" value="{{servicio.id}}">{{servicio.nombre}}</option>
+            </select>
+          </div>
+          <div class="input-field col s12">
+            <div class="center-align">
+              <button ng-click="registrarServicio()" class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+            </div>
+        </div>
+        <div ng-show="editarServicio">
+          <div class="input-field col s12">
+            <label>Servicios Disponibles</label><br><br>
+            <select class="browser-default"
+            ng-options="option.nombre for option in servicios track by option.id"
+            ng-model="profesional_servicio.service_id"></select>
+          </div>
+          <div class="input-field col s12">
+            <div class="center-align">
+            <button ng-click="actualizarServicio()" class="btn waves-effect waves-light" type="submit" name="action">Editar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+</div>
