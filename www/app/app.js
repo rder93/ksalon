@@ -648,9 +648,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('add_servicios',{
+            url: '/profesional/add/servicios/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/add_servicios.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@add_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         
-
-
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
         //     views:{

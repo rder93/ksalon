@@ -31,48 +31,89 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		}else{
 			servicios='Mis Servicios Contratados';
 		}
-		$scope.opciones= [
-		{
-			'nombre':'Inicio',
-			'icono' : 'home',
-			'state' : 'home'
-		},
-		{
-			'nombre':'Sobre Nosotros',
-			'icono' : 'info_outline',
-			'state' : 'home'
-		},
-		{
-			'nombre':'Politicas de Uso',
-			'icono' : 'account_balance',
-			'state' : 'home'
-		},
-		{
-			'nombre':'Transacciones',
-			'icono' : 'swap_horiz',
-			'state' : 'transacciones'
-		},
-		{
-			'nombre':'Mis Mensajes',
-			'icono' : 'question_answer',
-			'state' : 'home'
-		},
-		{
-			'nombre':'Mis Salones',
-			'icono' : 'location_city',
-			'state' : 'lounges_index'
-		},
-		{
-			'nombre':'servicios',
-			'icono' : 'format_list_numbered',
-			'state' : 'home'
-		},		
-		{
-			'nombre':'tickets',
-			'icono' :'border_color',
-			'state' :'tickets'
+
+		if($scope.user.rol_id == 3){
+			$scope.opciones= [
+			{
+				'nombre':'Inicio',
+				'icono' : 'home',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Sobre Nosotros',
+				'icono' : 'info_outline',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Politicas de Uso',
+				'icono' : 'account_balance',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Transacciones',
+				'icono' : 'swap_horiz',
+				'state' : 'transacciones'
+			},
+			{
+				'nombre':'Mis Mensajes',
+				'icono' : 'question_answer',
+				'state' : 'home'
+			},
+			{
+				'nombre': servicios,
+				'icono' : 'format_list_numbered',
+				'state' : 'home'
+			},		
+			{
+				'nombre':'Boton ON/OFF',
+				'icono' :'border_color',
+				'state' :'tickets'
+			}
+			];
+		}else{
+			$scope.opciones= [
+			{
+				'nombre':'Inicio',
+				'icono' : 'home',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Sobre Nosotros',
+				'icono' : 'info_outline',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Politicas de Uso',
+				'icono' : 'account_balance',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Transacciones',
+				'icono' : 'swap_horiz',
+				'state' : 'transacciones'
+			},
+			{
+				'nombre':'Mis Mensajes',
+				'icono' : 'question_answer',
+				'state' : 'home'
+			},
+			{
+				'nombre':'Mis Salones',
+				'icono' : 'location_city',
+				'state' : 'lounges_index'
+			},
+			{
+				'nombre':'Servicios',
+				'icono' : 'format_list_numbered',
+				'state' : 'home'
+			},		
+			{
+				'nombre':'Tickets',
+				'icono' :'border_color',
+				'state' :'tickets'
+			}
+			];
 		}
-		];
 	}else{
 		$scope.opciones= [
 		{
