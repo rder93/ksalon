@@ -200,19 +200,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('lounges_profesional_index',{
-            url: '/lounges/profesionales',
-            views: {
-                '': { 
-                    templateUrl: path_views+'/lounges/lounges_profesional_index.html',
-                    controller: 'LoungeController'
-                },
-                'navigation@lounges_profesional_index' : { 
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
         .state('lounges_index',{
             url: '/lounges',
             views: {
@@ -375,7 +362,33 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
         })
-
+        .state('lounges_servicios_profesionales_index',{
+            url: '/lounges/profesionales/servicios/:id',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_servicios_profesionales_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_servicios_profesionales_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_certificados_profesionales_index',{
+            url: '/lounges/profesionales/certificados/:id',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_certificados_profesionales_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_certificados_profesionales_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        
 
         /*----- JONATHAN -----*/
         .state('cliente_servicio_categorias',{

@@ -41,7 +41,7 @@
                       <p>Precio: {{Producto.precio}}$</p>
                     </div>
                     <div class="col s6 m6 center-align">
-                      <a ui-sref="lounges_productos_editar({id:1})" class="btn-floating waves-effect waves-light orange" ui-sref="lounges_productos_editar"><i class="material-icons">mode_edit</i></a>
+                      <a ui-sref="lounges_productos_editar({id:{{Producto.id}}})" class="btn-floating waves-effect waves-light orange" ui-sref="lounges_productos_editar"><i class="material-icons">mode_edit</i></a>
                       <a class="btn-floating waves-effect waves-light red" ng-click="modalProducto(Producto.id)"><i class="material-icons">delete</i></a>
                     </div>
                   </div>

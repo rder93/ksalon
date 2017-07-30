@@ -1,10 +1,10 @@
-app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', function($scope, $state, $http,$stateParams){
+app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','$timeout', function($scope, $state, $http,$stateParams,$timeout){
 	var server_uri = $('body').attr('data-server_uri'),
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
+	$('.mobile-content').fadeIn(1000);
+	$('.search-input').fadeIn(1000);
 	$('.modal').modal();
-	$('.dropdown-button').dropdown();
-
 	$scope.Producto={};
 	// $http({
 	// 	method: 'GET',
@@ -21,17 +21,9 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 
 	if($state.current.name == 'lounges_servicios'){
 		if(debug == 'true'){
-			console.log('hola desde los servicios'+$stateParams.id)
 			$.sessionStorage.set('longe_id', $stateParams.id);
 
 		}
-	}
-
-	if($state.current.name == 'lounges_profesional_index'){
-		if(debug == 'true'){
-			console.log('hola desde la vista de ');
-		}
-
 	}
 
 	if($state.current.name == 'lounges_crear'){
@@ -41,14 +33,12 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 
 			$scope.registrarLounge=function(){
 				$scope.Lounge.user_id=$.sessionStorage.get('user').id;
-				$scope.Lounge.category_id=$.sessionStorage.get('user').id-1;
-				console.log($scope.Lounge);
+				$scope.Lounge.category_id=$.sessionStorage.get('user').rol_id-1;
 				$http({
 					method: 'POST',
 					url: server_uri+'/lounges',
 					data:$scope.Lounge
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_index');
 				}, function errorCallback(response) {
@@ -66,8 +56,21 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 				method: 'GET',
 				url: server_uri+'/lounges',
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				$scope.Lounges=response.data;
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			    });
 			}, function errorCallback(response) {
 				console.log('dio error');
 			});
@@ -76,6 +79,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 				$scope.id_lounge= id;
 				$('#modalLounge').modal('open');
 			};
+
 			$scope.eliminarLounge=function(id){
 				$http({
 					method: 'DELETE',
@@ -87,7 +91,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 					Materialize.toast(error, 4000);
 					// $state.go('lounges_productos_crear');
 				});
-			}
+			};
 		}
 
 	}
@@ -100,14 +104,12 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 			method: 'GET',
 			url: server_uri+'/lounges/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
-			console.log(response.data.lounge);
 			$scope.Lounge=response.data.lounge;
 		}, function errorCallback(response) {
 			console.log('dio error');
 		});
 
 		$scope.actualizarLounge=function () {
-			console.log($scope.Lounge);
 			$http({
 				method: 'PUT',
 				url: server_uri+'/lounges/'+$stateParams.id,
@@ -125,12 +127,10 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 
 	if($state.current.name == 'lounges_productos_index'){
 		if(debug == 'true'){
-			console.log($.sessionStorage.get('longe_id'));
 			$http({
 				method: 'GET',
 				url: server_uri+'/products/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				$scope.Productos=response.data;
 			}, function errorCallback(response) {
 				console.log('dio error');
@@ -145,7 +145,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 					method: 'DELETE',
 					url: server_uri+'/products/'+id,
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
 				}, function errorCallback(response) {
@@ -164,13 +163,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 			$scope.Producto.lounge_id=$.sessionStorage.get('longe_id');
 
 			$scope.registrarProducto=function(){
-				console.log($scope.Producto);
 				$http({
 					method: 'POST',
 					url: server_uri+'/products',
 					data:$scope.Producto
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_productos_index');
 				}, function errorCallback(response) {
@@ -190,20 +187,17 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 			method: 'GET',
 			url: server_uri+'/products/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
-			console.log(response.data);
 			$scope.Producto=response.data;
 		}, function errorCallback(response) {
 			console.log('dio error');
 		});
 
 		$scope.actualizarProducto=function () {
-			console.log($scope.Producto);
 			$http({
 				method: 'PUT',
 				url: server_uri+'/products/'+$stateParams.id,
 				data:$scope.Producto
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				Materialize.toast(response.data.msj, 4000);
 			  	$state.go('lounges_productos_index');
 			}, function errorCallback(response) {
@@ -220,7 +214,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 				method: 'GET',
 				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				$scope.Servicios=response.data;
 			}, function errorCallback(response) {
 				console.log('dio error');
@@ -235,7 +228,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 					method: 'DELETE',
 					url: server_uri+'/loungeServices/'+id,
 				}).then(function successCallback(response) {
-					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
 				}, function errorCallback(response) {
@@ -247,8 +239,6 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 	}
 
 	if($state.current.name == 'lounges_servicios_crear'){
-		console.log('estoy aqui');
-		console.log($.sessionStorage.get('longe_id'));
 		if(debug == 'true'){
 			$scope.crearServicio=true;
 			$scope.Servicio={};
@@ -269,7 +259,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 					url: server_uri+'/loungeServices',
 					data:$scope.Servicio
 				}).then(function successCallback(response) {
-					console.log(response);
+
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_servicios_index');
 				}, function errorCallback(response) {
@@ -325,55 +315,491 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams', 
 
 	}
 
-	if($state.current.name == 'lounges_profesionales_crear'){
-		if(debug == 'true'){
-			$scope.crearProfesional=true;
-			$scope.Servicios={};
-			$scope.Profesional={};
-			$scope.Profesional.servicios=[];
+	if($state.current.name == 'lounges_profesionales_index'){
+			$scope.urlFoto = $('body').attr('data-fotos_uri');
+			$scope.profesionales
 			
+			console.log($scope.urlFoto);
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'/professionals/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
-				$scope.servs=response.data;
+				$scope.profesionales=response.data;
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			        console.log($scope.usuarios);
+			    });
+				
 			}, function errorCallback(response) {
 				console.log('dio error');
 			});
 
-
-			$scope.agregarServicio=function(){
-				$('#modalAgregarServicio').modal('open');
+			$scope.modalProfesional=function(id){
+				$scope.id_profesional= id;
+				$('#modalprofesional').modal('open');
 			};
-
-			$scope.agregarServicioSinUsuario=function(){
+			$scope.eliminarProfesional=function(id){
 				$http({
-					method: 'GET',
-					url: server_uri+'/verServicioProfesional/'+$scope.Servicio.service_id,
+					method: 'DELETE',
+					url: server_uri+'/professionals/'+id,
 				}).then(function successCallback(response) {
-					console.log(response.data);
-					$scope.Profesional.servicios.push(response.data);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
 				}, function errorCallback(response) {
-					console.log('dio error');
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
 				});
+			}
+
+	}
+
+	if($state.current.name == 'lounges_profesionales_crear'){
+		if(debug == 'true'){
+			$scope.crearProfesional=true;
+			$scope.Profesional={};
+			$scope.Profesional.lounge_id=$.sessionStorage.get('longe_id');
+			var fotos_uri = $('body').attr('data-fotos_uri');
+			$http({
+				method: 'GET',
+				url: server_uri+'/imagen_defecto',
+			}).then(function successCallback(response) {
+				$scope.thumbnail = {
+					dataUrl: fotos_uri+response.data.path
+				};
+			    // this callback will be called asynchronously
+			    // when the response is available
+			}, function errorCallback(response) {
+				console.log('dio error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
 			};
-			
 
-			$scope.modalEliminarServicioSinUsuario= function (id) {
-				$scope.Profesional.servicios.splice(id,1);
-			}
+			$scope.registrarProfesional = function() {
 
-			$scope.registrarProfesional= function(){
-				console.log($scope.Profesional);
-			}
+				var fd = new FormData();
+				  var profesional=$scope.Profesional;
+				  for ( var key in profesional ) {
+				  	fd.append(key, profesional[key]);
+				  }
 
+				 console.log(fd);
+				  $http.post(server_uri+'/professionals', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.go('lounges_profesionales_index');
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	$state.reload();
+				  });
+			};
 
 		}
 
 	}
 
+	if($state.current.name == 'lounges_profesionales_editar'){
+		if(debug == 'true'){
+			$scope.editarProfesional=true;
+			$scope.Profesional={};
+			var fotos_uri = $('body').attr('data-fotos_uri');
+			$http({
+				method: 'GET',
+				url: server_uri+'/professionals/'+$stateParams.id+'/edit',
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.thumbnail = {
+					dataUrl: fotos_uri+response.data.professional.foto
+				};
+				$scope.Profesional=response.data.professional;
+			    // this callback will be called asynchronously
+			    // when the response is available
+			}, function errorCallback(response) {
+				console.log('dio error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
+
+			$scope.actualizarPersonal = function() {
+
+				var fd = new FormData();
+				  var profesional=$scope.Profesional;
+				  for ( var key in profesional ) {
+				  	fd.append(key, profesional[key]);
+				  }
+
+				 $http.post(server_uri+'/updateProfessional', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.go('lounges_profesionales_index');
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	$state.reload();
+				  });
+			};
+
+		}
+
+	}
+
+	// lounges_servicios_profesionales_index
+	if($state.current.name == 'lounges_servicios_profesionales_index'){
+		if(debug == 'true'){
+			$.sessionStorage.set('profesional_id', $stateParams.id);
+			$scope.profesional_servicio={};
+			// $scope.profesional_servicio.professional_id=$.sessionStorage.get('profesional_id');
+
+			$http({
+				method: 'GET',
+				url: server_uri+'/professionalServices/'+$stateParams.id,
+			}).then(function successCallback(response) {
+				$scope.profesional_servicios=response.data;
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			    });
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$scope.modalAgregarServicio=function(){
+				console.log('profesional'+$stateParams.id);
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				}).then(function successCallback(response) {
+					console.log(response.data);
+					$scope.servicios=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+
+				$scope.profesional_serv={};
+				$scope.profesional_serv.professional_id=$stateParams.id;
+				$scope.crearServicio=true;
+				$scope.editarServ=false;
+				$('#modalServicio').modal('open');
+			};
+
+			$scope.agregarServicio=function(){
+
+				$http({
+					method: 'POST',
+					url: server_uri+'/professionalServices',
+					data:$scope.profesional_serv
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			}
+
+			$scope.editarServicio=function(id){
+				console.log('el id es'+id);
+				$scope.servicios={}
+				$scope.crearServicio=false;
+				$scope.editarServ=true;
+				$('#modalServicio').modal('open');
+				$scope.id_servicio=id;
+
+				$http({
+					method: 'GET',
+					url: server_uri+'/professionalServices/'+id+'/edit',
+				}).then(function successCallback(response) {
+					$scope.profesional_serv=response.data;
+					$scope.profesional_serv.service_id = {id: $scope.profesional_serv.service_id};
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+				
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				}).then(function successCallback(response) {
+					for (var i = response.data.length - 1; i >= 0; i--) {
+						response.data[i].id=response.data[i].service_id;
+					}
+					$scope.servicios=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+
+			
+				
+			}
+
+			$scope.actualizarServicio=function(id){
+				$scope.profesional_serv.service_id=$scope.profesional_serv.service_id.id;
+				console.log($scope.profesional_serv.service_id);
+				$http({
+					method: 'PUT',
+					url: server_uri+'/professionalServices/'+id,
+					data:$scope.profesional_serv
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
+
+			$scope.modalEliminarServicio=function(id){
+				$scope.id_servicio=id;
+				$('#modalEliminarServicio').modal('open');
+			}
+
+			$scope.eliminarServicio=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/professionalServices/'+id,
+				}).then(function successCallback(response) {
+					console.log(response);
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+			
+		}
+	}
+
+	if($state.current.name == 'lounges_certificados_profesionales_index'){
+		if(debug == 'true'){
+
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
+
+			$http({
+					method: 'GET',
+					url: server_uri+'/certificates/'+$stateParams.id,
+				}).then(function successCallback(response) {
+					$scope.certificates=response.data;
+					$timeout(function(){
+						$('.modal').modal();
+						$('.dropdown-button').dropdown({
+							inDuration: 300,
+							outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					  });
+					});
+				}, function errorCallback(response) {
+					console.log('dio error');
+			});
+
+			$scope.modalAgregarCertificado=function(){
+				$('#modalCertificado').modal('open');
+				$scope.agregarCert=true;
+				$scope.editarCert=false;
+				$scope.cert={};
+				$scope.cert.professional_id=$stateParams.id;
+				var fotos_uri = $('body').attr('data-fotos_uri');
+				$http({
+					method: 'GET',
+					url: server_uri+'/imagen_defecto2',
+				}).then(function successCallback(response) {
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.path
+					};
+				    // this callback will be called asynchronously
+				    // when the response is available
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
 
 
+			};
+
+			$scope.agregarCertificado=function(){
+				var fd = new FormData();
+				  var cert=$scope.cert;
+				  console.log(cert);
+				  for ( var key in cert ) {
+				  	fd.append(key, cert[key]);
+				  }
+
+				  $http.post(server_uri+'/certificates', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.reload();
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	$state.reload();
+				  });
+			}
+
+			$scope.editarCertificado=function(id){
+				$scope.crearCertificado=false;
+				$scope.editarCert=true;
+				$scope.cert={};
+				$('#modalCertificado').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'/certificates/'+id+'/edit',
+				}).then(function successCallback(response) {
+					var fotos_uri = $('body').attr('data-fotos_uri');
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+					$scope.cert=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+			}
+
+			$scope.actualizarCerfiticado=function(id){
+				var fd = new FormData();
+				  var cert=$scope.cert;
+				  console.log(cert);
+				  for ( var key in cert ) {
+				  	fd.append(key, cert[key]);
+				  }
+
+				 $http.post(server_uri+'/updateCertificate', fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.reload();
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	// $state.reload();
+				  });
+			}
+
+			$scope.modalEliminarCertificado=function(id){
+				$scope.id_certificate=id;
+				$('#modalEliminarCertificado').modal('open');
+			}
+
+			$scope.eliminarServicio=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/certificates/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+
+		}
+	}
+
+
+
+
+}])
+.directive('uploaderModel', ["$parse", function ($parse) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement, iAttrs) 
+		{
+			iElement.on("change", function(e)
+			{
+				$parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+			});
+		}
+	};
 }]);
 
 // cliente_servicio_categorias({id:1})

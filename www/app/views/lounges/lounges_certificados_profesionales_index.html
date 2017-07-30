@@ -1,0 +1,91 @@
+<div ui-view="navigation"></div>
+
+<div class="fixed-action-btn">
+  <button ng-click="modalAgregarCertificado()" class="btn-floating btn-large blue" >
+    <i class="large material-icons">add</i>
+  </button>
+</div>
+
+
+  <div id="modalEliminarCertificado" class="modal red">
+    <div class="modal-content">
+      <h4>¿Seguro que desea eliminar este servicio?</h4>
+      <input class="hidden" type="text" ng-model="id_certificate">
+    </div>
+    <div class="modal-footer red">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarServicio(id_certificate)">Eliminar</button>
+    </div>
+  </div>
+
+  <div id="modalCertificado" class="modal">
+    <div class="modal-content">
+      <form>
+      	<div class="row">
+      		<input type="text" class="col s12 hide" ng-model="cert.professional_id">
+      		<img class="col s12" ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
+      		<div class="file-field">
+      			<div class="btn-floating halfway-fab waves-effect waves-light blue">
+      				<i class="material-icons">camera</i>
+      				<input type="file" name file id="file" uploader-model="cert.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+      			</div>
+      			<div class="file-path-wrapper">
+      				<input class="file-path validate hide" type="text">
+      			</div>
+      		</div>
+      		<div class="input-field col s12">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" class="validate" ng-model="cert.nombre">
+             </div>
+      	</div>
+      </form>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      	<button ng-if="agregarCert" class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="agregarCertificado()">Agregar</button>
+      	<button ng-if="editarCert" class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="actualizarCerfiticado(cert.id)">Editar</button>
+    </div>
+  </div>
+          
+
+<div class="row">
+      <div class="col s12 m12">
+        <div>
+        <table class="bordered">
+            <thead>
+              <tr>
+                <th colspan="2" class="center-align"><h5>Lista de Certificados</h5></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="certificate in certificates">
+                <td>
+                  <div class="row">
+                    <div class="center-align">
+                      <h6 class="nombre-comentario center-align">{{certificate.nombre}}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col s10">
+                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{certificate.id}}'><i class="material-icons">more_vert</i></button>
+
+                      <!-- Dropdown Structure -->
+                      <ul id='{{certificate.id}}' class='dropdown-content'>
+                        <li><a ng-click="editarCertificado(certificate.id)">Editar</a></li>
+                        <li><a ng-click="modalEliminarCertificado(certificate.id)">Eliminar</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+<div>
+
