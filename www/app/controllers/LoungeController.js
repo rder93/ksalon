@@ -769,6 +769,26 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$('#modalEliminarCertificado').modal('open');
 			}
 
+			$scope.modalVerCertificado=function(id){
+				$scope.cert={};
+				$('#modalVerCertificado').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'/certificates/'+id+'/edit',
+				}).then(function successCallback(response) {
+					var fotos_uri = $('body').attr('data-fotos_uri');
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+					$scope.cert=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+			}
+
 			$scope.eliminarServicio=function(id){
 				$http({
 					method: 'DELETE',
@@ -783,6 +803,230 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}
 
 		}
+	}
+
+	if($state.current.name == 'lounges_combos_index'){
+		if(debug == 'true'){
+			console.log('hola desde el index');
+			$http({
+				method: 'GET',
+				url: server_uri+'/loungeCombos/'+$.sessionStorage.get('longe_id'),
+			}).then(function successCallback(response) {
+				$scope.combos=response.data;
+				$timeout(function(){
+					$('.modal').modal();
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			    });
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$scope.modalEliminarCombo=function(id){
+				$scope.combo_id= id;
+				$('#modalEliminarCombo').modal('open');
+			};
+			$scope.eliminarCombo=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/loungeCombos/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+		}
+	}
+
+	if($state.current.name == 'lounges_combos_crear'){
+		if(debug == 'true'){
+			$scope.crearCombo=true;
+			console.log('hola desde el form');
+			$scope.combo={};
+			$scope.listaServicios=[];
+			var arreglo=[];
+			$scope.combo.lounge_id=$.sessionStorage.get('longe_id');
+			$scope.serv={};
+
+			$scope.modalServ=function(){
+				$scope.serv={}
+				console.log('hola')
+				$scope.crearServicio=true;
+				$('#modalServ').modal('open');
+			}
+
+			$http({
+				method: 'GET',
+				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+			}).then(function successCallback(response) {
+				$scope.servicios=response.data;
+				console.log(response.data);
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$scope.agregarServicio=function() {
+				console.log($scope.serv.lounge_service_id);
+				$http({
+					method: 'GET',
+					url: server_uri+'/verServicioProfesional/'+$scope.serv.lounge_service_id,
+				}).then(function successCallback(response) {
+					console.log(response.data);
+					$scope.listaServicios.push(response.data);
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+				
+				console.log($scope.listaServicios);
+			};
+
+			$scope.eliminarServicioCombo=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.listaServicios.length - 1; i >= 0; i--) {
+					if ($scope.listaServicios[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.listaServicios.splice(indice,1);
+
+			}
+
+			$scope.registrarCombo=function(){
+				var miCombo=[];
+				miCombo.push($scope.combo);
+				miCombo.push($scope.listaServicios);
+				$http({
+					method: 'POST',
+					url: server_uri+'/loungeCombos',
+					data:miCombo
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					// $state.go('lounges_productos_index');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			};
+		}
+
+	}
+
+	if($state.current.name == 'lounges_combos_editar'){
+		console.log('hola desde el formulario de editar');
+		$scope.combo={};
+		$scope.listaServicios=[];
+		$http({
+			method: 'GET',
+			url: server_uri+'/loungeCombos/'+$stateParams.id+'/edit',
+		}).then(function successCallback(response) {
+			$scope.combo=response.data;
+		}, function errorCallback(response) {
+			console.log('dio error');
+		});
+
+		$http({
+			method: 'GET',
+			url: server_uri+'/detailLoungeCombo/'+$stateParams.id,
+		}).then(function successCallback(response) {
+			$scope.listaServicios=response.data;
+		}, function errorCallback(response) {
+			console.log('dio error');
+		});
+
+		$scope.modalServ=function(){
+			$scope.serv={}
+			$('#modalServ').modal('open');
+		}
+
+		$http({
+			method: 'GET',
+			url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+		}).then(function successCallback(response) {
+			$scope.servicios=response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			console.log('dio error');
+		});
+
+		$scope.agregarServicio=function() {
+			console.log($scope.serv);
+			detalleCombo={
+				'combo_lounge_id' : $stateParams.id,
+				'lounge_service_id' : $scope.serv.lounge_service_id
+			}
+			$http({
+				method: 'POST',
+				url: server_uri+'/detailLoungeCombo',
+				data:detalleCombo
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+			  	$state.reload();
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				$state.reload();
+			});
+		};
+
+		$scope.modalEliminarServ=function(id){
+			$scope.detail_id=id;
+			$('#modalEliminarServ').modal('open');
+		};
+
+		$scope.eliminarDetailCombo=function(id){
+			$http({
+					method: 'DELETE',
+					url: server_uri+'/detailLoungeCombo/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+		};
+
+		$scope.actualizarCombo=function(id){
+			$http({
+				method: 'PUT',
+				url: server_uri+'/loungeCombos/'+id,
+				data:$scope.combo
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+			  	$state.go('lounges_combos_index');
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				$state.reload();
+			});
+		}
+
+	// 	$scope.actualizarProducto=function () {
+	// 		$http({
+	// 			method: 'PUT',
+	// 			url: server_uri+'/products/'+$stateParams.id,
+	// 			data:$scope.Producto
+	// 		}).then(function successCallback(response) {
+	// 			Materialize.toast(response.data.msj, 4000);
+	// 		  	$state.go('lounges_productos_index');
+	// 		}, function errorCallback(response) {
+	// 			Materialize.toast(error, 4000);
+	// 			$state.reload();
+	// 		});
+	// 	};
+
 	}
 
 
