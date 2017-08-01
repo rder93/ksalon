@@ -847,6 +847,29 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					// $state.go('lounges_productos_crear');
 				});
 			}
+
+			$scope.modalVerCombo=function(id){
+				$scope.combo={};
+				$scope.listaServicios=[];
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungeCombos/'+id+'/edit',
+				}).then(function successCallback(response) {
+					$scope.combo=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+
+				$http({
+					method: 'GET',
+					url: server_uri+'/detailLoungeCombo/'+id,
+				}).then(function successCallback(response) {
+					$scope.listaServicios=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+				$('#modalVerCombo').modal('open');
+			}
 		}
 	}
 
@@ -915,7 +938,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					data:miCombo
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
-					// $state.go('lounges_productos_index');
+					$state.go('lounges_combos_index');
 				}, function errorCallback(response) {
 					Materialize.toast(error, 4000);
 					// $state.go('lounges_productos_crear');

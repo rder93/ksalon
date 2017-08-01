@@ -17,6 +17,29 @@
       <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarCombo(combo_id)">Eliminar</button>
     </div>
   </div>
+
+
+  <!-- Modal Structure -->
+  <div id="modalVerCombo" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <div>
+        <h4 class="center-align">{{combo.descripcion}}</h4>
+        <h5 class="center-align">{{combo.precio}} $</h5>
+      </div>
+      <div class="container">
+          <table class="bordered">
+            <tbody>
+              <tr ng-repeat="list in listaServicios">
+                <td class="center-align">{{list.nombre}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cerrar</button>
+    </div>
+  </div>
           
 
 <div class="row container">
@@ -39,7 +62,7 @@
                     <ul id='{{combo.id}}' class='dropdown-content'>
                       <li><a ui-sref="lounges_combos_editar({id:combo.id})">Editar</a></li>
                       <li><a ng-click="modalEliminarCombo(combo.id)">Eliminar</a></li>
-                      <li><a ui-sref="modalVerCombo({id:combo.id})">Ver Combo</a></li>
+                      <li><a ng-click="modalVerCombo(combo.id)">Ver Combo</a></li>
                     </ul>
                 </td>
               </tr>
