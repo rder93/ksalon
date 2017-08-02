@@ -34,6 +34,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.registrarLounge=function(){
 				$scope.Lounge.user_id=$.sessionStorage.get('user').id;
 				$scope.Lounge.category_id=$.sessionStorage.get('user').rol_id-1;
+				console.log($scope.Lounge);
 				$http({
 					method: 'POST',
 					url: server_uri+'/lounges',
@@ -46,6 +47,46 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					$state.reload();
 				});
 			};
+
+
+
+						//Markers, es el array donde estaran guardados los marcadores.
+				var markers = [];
+			  //Aqui pones/creas el mapa en el div con id map
+			  map = new google.maps.Map(document.getElementById('map'), {
+			  	center: {lat: -34.397, lng: 150.644},
+			  	zoom: 8
+			  })
+
+			    google.maps.event.addListener(map, "click", function (e, a) {
+
+			    	var latLng = e.latLng;
+
+			    	for (var i = 0; i < markers.length; i++) {
+			          markers[i].setMap(null); //Remove the marker from the map
+			      }
+
+			      placeMarker(latLng);
+
+			      address = {
+			      	lat : latLng.lat(),
+			      	lng : latLng.lng()
+			      };
+			      $scope.Lounge.latitud=latLng.lat();
+			      $scope.Lounge.altitud=latLng.lng();
+			      console.log($scope.Lounge);
+
+			  });
+
+
+			    //eesta es la funcion que pone el marcador en el mapa
+			    function placeMarker(location) {
+			    	var marker = new google.maps.Marker({
+			    		position: location, 
+			    		map: map
+			    	});
+			    	markers.push(marker);
+			    }
 		}
 
 	}
@@ -105,6 +146,43 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			url: server_uri+'/lounges/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			$scope.Lounge=response.data.lounge;
+
+			var markers = [];
+			  //Aqui pones/creas el mapa en el div con id map
+			  map = new google.maps.Map(document.getElementById('map'), {
+			  	center: {lat: parseInt($scope.Lounge.latitud), lng: parseInt($scope.Lounge.altitud)},
+			  	zoom: 8
+			  })
+
+			  google.maps.event.addListener(map, "click", function (e, a) {
+
+			  	var latLng = e.latLng;
+
+			  	for (var i = 0; i < markers.length; i++) {
+			          markers[i].setMap(null); //Remove the marker from the map
+			      }
+
+			      placeMarker(latLng);
+
+			      address = {
+			      	lat : latLng.lat(),
+			      	lng : latLng.lng()
+			      };
+			      $scope.Lounge.latitud=latLng.lat();
+			      $scope.Lounge.altitud=latLng.lng();
+
+			  });
+
+
+			    //eesta es la funcion que pone el marcador en el mapa
+			    function placeMarker(location) {
+			    	var marker = new google.maps.Marker({
+			    		position: location, 
+			    		map: map
+			    	});
+			    	markers.push(marker);
+			    }
+
 		}, function errorCallback(response) {
 			console.log('dio error');
 		});
@@ -122,6 +200,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$state.reload();
 			});
 		};
+
 
 	}
 
