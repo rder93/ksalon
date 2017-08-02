@@ -1,0 +1,69 @@
+<div ui-view="navigation"></div>
+<div class="row">
+    <br>
+    <div class="fixed-action-btn">
+    <a ng-click="modalServ()" class="btn-floating btn-large blue" >
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+
+    <!-- Modal Structure -->
+  <div id="modalServ" class="modal">
+    <div class="modal-content">
+      <h5>Servicios Disponibles</h5>
+      <select ng-options="servicio.service.nombre for servicio in servicios track by servicio.id" ng-model="serv.independent_service" class="browser-default">
+        <option value="" disabled selected>Escoge un Servicio</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+        <button  class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="agregarServicio()">Agregar</button>
+    </div>
+  </div>
+
+
+
+    <h4 class="center-align">Registrar Combo</h4>
+    <form class="col s12" style="margin-top: 20px;">
+      <div class="row">
+        <input type="text" name="" ng-model="combo.independent_id" class="hide">
+        <div class="input-field col s12">
+          <label for="name">Descripcion</label>
+          <input id="name" type="text" class="validate" ng-model="combo.descripcion">
+
+        </div>
+        <div class="input-field col s12">
+          <label for="name">Precio</label>
+          <input id="name" type="text" class="validate" ng-model="combo.precio">
+
+        </div>  
+        <div class="container">
+          <table class="bordered">
+            <tbody>
+              <tr ng-repeat="list in listaServicios">
+                <td>{{list.service.nombre}}</td>
+                <td><a class="btn-floating waves-effect waves-light red" ng-click="eliminarServicioCombo(list.id)"><i class="material-icons">delete</i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-show="crearCombo">
+          <div class="input-field col s12">
+            <div class="center-align">
+              <button ng-click="registrarCombo()" class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+            </div>
+        </div>
+        <div ng-show="editarProducto">
+          <div class="input-field col s12">
+            <div class="center-align">
+            <button ng-click="actualizarCombo()" class="btn waves-effect waves-light" type="submit" name="action">Editar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+</div>

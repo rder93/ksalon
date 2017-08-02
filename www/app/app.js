@@ -702,11 +702,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('add_servicios',{
+        .state('profesional_servicios_crear',{
             url: '/profesional/add/servicios/:id',
             views:{
                 '':{
-                    templateUrl: path_views+'/profesional/add_servicios.html',
+                    templateUrl: path_views+'/profesional/profesional_servicios_crear.html',
                     controller: 'ProfesionalController'
                 },
                 'navigation@add_servicios':{
@@ -716,14 +716,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('add_comboServices',{
-            url: '/profesional/add/combo/servicios/:id',
+        .state('profesional_combos',{
+            url: '/profesional/combos/:id',
             views:{
                 '':{
-                    templateUrl: path_views+'/profesional/add_combo_servicios.html',
+                    templateUrl: path_views+'/profesional/profesional_combos.html',
                     controller: 'ProfesionalController'
                 },
-                'navigation@add_comboServices':{
+                'navigation@profesional_combos':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('profesional_combos_crear',{
+            url: '/profesional/combos/create/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/profesional_combos_crear.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_combos_crear':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('profesional_combos_editar',{
+            url: '/profesional/combos/edit/:id/:id_combo',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/profesional_combos_editar.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_combos_editar':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
