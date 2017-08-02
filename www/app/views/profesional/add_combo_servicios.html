@@ -13,14 +13,12 @@
     			<input id="precio" type="text" class="validate" ng-model="new_service.precio">
         	</div>
       	</div>
-      	<div class="row" style="text-align: center;">
+      	<div style="text-align: center;">
       		<button class="btn waves-effect waves-light" type="submit" name="action">Guardar
 	    		<i class="material-icons right">send</i>
 	  		</button>
-
-      	</div>
-      	<div class="row" style="text-align: center;">
-      		<a ui-sref="add_comboServices({id:usuario_id})" class="btn waves-effect waves-light" type="submit" name="action">Crear combos</a>
+	  		<a ui-sref="add_comboServices({id:usuario_id})" class="btn waves-effect waves-light" type="submit" name="action">Crear combos
+	  		</a>
       	</div>
 	</form>
 	</div>

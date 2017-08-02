@@ -675,6 +675,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('add_comboServices',{
+            url: '/profesional/add/combo/servicios/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/add_combo_servicios.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@add_comboServices':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
