@@ -1,21 +1,26 @@
 app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', function($scope, $state, $http, $timeout){
 	var fotos_uri = $('body').attr('data-fotos_uri');
+	
 	console.log(fotos_uri);
-	$http({
-			method: 'GET',
-			url: server_uri+'/imagen_defecto',
-		}).then(function successCallback(response) {
-			console.log(response.data);
-			$scope.thumbnail = {
-				dataUrl: fotos_uri+response.data.path
-			};
+
+	if($state.current.name == 'registro'){
+		if(debug == 'true'){
+			
+			$http({
+				method: 'GET',
+				url: server_uri+'/imagen_defecto',
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.thumbnail = {
+					dataUrl: fotos_uri+response.data.path
+				};
 		    // this callback will be called asynchronously
 		    // when the response is available
 		}, function errorCallback(response) {
 			console.log('dio error');
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
-	});
+		});
 
 	// $scope.thumbnail = {
 	// 	dataUrl: '../../../assets/core/images/no_avatar.jpg'
@@ -41,11 +46,11 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 	// $('.categoria').material_select();
 	$('body').removeClass('fondoBody');
 	$http({
-			method: 'GET',
-			url: server_uri+'/categories',
-		}).then(function successCallback(response) {
-			console.log(response.data);
-			$scope.categories=response.data;
+		method: 'GET',
+		url: server_uri+'/categories',
+	}).then(function successCallback(response) {
+		console.log(response.data);
+		$scope.categories=response.data;
 		    // this callback will be called asynchronously
 		    // when the response is available
 		}, function errorCallback(response) {
@@ -76,7 +81,7 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 		  // fd.append('email')
 		  var usuario=$scope.Usuario;
 		  for ( var key in usuario ) {
-    		fd.append(key, usuario[key]);
+		  	fd.append(key, usuario[key]);
 		  }
 		  console.log(fd);
 
@@ -86,14 +91,16 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 		  	headers: {'Content-Type': undefined },
 		  	transformRequest: angular.identity
 		  }).then(function successCallback(response) {
-		  	 	Materialize.toast(response.data.msj, 4000);
-				$state.go('login');
-		}, function errorCallback(response) {
-			Materialize.toast(error, 4000);
-			$state.reload();
-		});
-	};
-
+		  	Materialize.toast(response.data.msj, 4000);
+		  	$state.go('login');
+		  }, function errorCallback(response) {
+		  	Materialize.toast(error, 4000);
+		  	$state.reload();
+		  });
+		};
+		}
+	}
+	
 
 }])
 .directive('uploaderModel', ["$parse", function ($parse) {
