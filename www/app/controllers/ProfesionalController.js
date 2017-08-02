@@ -1,5 +1,4 @@
 app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$rootScope', '$stateParams', '$sessionStorage', '$http', function($scope, $timeout, $state, $rootScope, $stateParams, $sessionStorage, $http){
-	$('.mobile-content').fadeIn(1000);
 	$('.search-input').fadeIn(1000);
 
 	$scope.usuario_id = $stateParams.id;
@@ -113,7 +112,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 	}
 
-	if ($state.current.name == 'add_servicios') {
+	if ($state.current.name == 'profesional_servicios_crear') {
 
 		$scope.new_service = {
 	        	"id_service":""
@@ -152,6 +151,244 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		}
 
 	}
-	
+
+	if ($state.current.name == 'profesional_combos') {
+
+		$scope.independent_id = $stateParams.id;
+
+		$http.get(server_uri+'professionalCombos/'+$stateParams.id)
+		    .then(function successCallback(response) {
+		    	console.log(response.data);
+		    	$scope.combos = response.data;
+		        $timeout(function(){
+		        	$('.modal').modal();
+					$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+			    });
+		    }, function errorCallback(error) {
+		    	Materialize.toast(error, 4000);
+		    });
+
+		$scope.modalEliminarCombo=function(id){
+				$scope.combo_id= id;
+				$('#modalEliminarCombo').modal('open');
+			};
+			$scope.eliminarCombo=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/professionalCombos/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			}
+
+		$scope.modalVerCombo=function(id){
+			$scope.combo={};
+			$scope.listaServicios=[];
+			$http({
+				method: 'GET',
+				url: server_uri+'/professionalCombos/'+id+'/edit',
+			}).then(function successCallback(response) {
+				$scope.combo=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$http({
+				method: 'GET',
+				url: server_uri+'/detailProfessionalCombo/'+id,
+			}).then(function successCallback(response) {
+				$scope.listaServicios=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+			$('#modalVerCombo').modal('open');
+		}
+
+	}
+
+	if($state.current.name == 'profesional_combos_crear'){
+
+		$scope.crearCombo=true;
+		console.log('hola desde el form');
+		$scope.combo={};
+		$scope.listaServicios=[];
+		var arreglo=[];
+		$scope.combo.user_id=$stateParams.id;
+		$scope.serv={};
+
+		$http.get(server_uri+'independent/'+$stateParams.id+'/services')
+		    .then(function successCallback(response) {
+		    	console.log(response.data);
+		        $scope.servicios = response.data;
+		        $timeout(function(){
+		        	$('.modal').modal();
+			       	$('select').material_select();
+			    });
+		    }, function errorCallback(error) {
+		    	Materialize.toast("Problemas de conexión...", 4000);
+		    });
+
+		$scope.modalServ=function(){
+			$scope.serv={}
+			console.log('hola')
+			$scope.crearServicio=true;
+			$('#modalServ').modal('open');
+		}
+
+		$scope.agregarServicio=function() {
+			console.log($scope.serv.independent_service.id);
+			$http({
+				method: 'GET',
+				url: server_uri+'/verServicioIndependiente/'+$scope.serv.independent_service.id,
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.listaServicios.push(response.data);
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+			
+			console.log($scope.listaServicios);
+		};
+
+		$scope.eliminarServicioCombo=function(id){
+			// console.log(id);
+			var indice=0;
+			for (var i = $scope.listaServicios.length - 1; i >= 0; i--) {
+				if ($scope.listaServicios[i].id==id) {
+					indice=i;
+				}
+			}
+			// console.log(indice);
+			$scope.listaServicios.splice(indice,1);
+
+		}
+
+		$scope.registrarCombo = function(){
+			var miCombo=[];
+			miCombo.push($scope.combo);
+			miCombo.push($scope.listaServicios);
+			$http({
+				method: 'POST',
+				url: server_uri+'/professionalCombos',
+				data:miCombo
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+				$state.go('profesional_combos',{id:$stateParams.id});
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				// $state.go('lounges_productos_crear');
+			});
+		};
+	}
+
+	if($state.current.name == 'profesional_combos_editar'){
+		console.log('hola desde el formulario de editar');
+		$scope.combo={};
+		$scope.listaServicios=[];
+		console.log($stateParams.id_combo)
+		$http({
+			method: 'GET',
+			url: server_uri+'/professionalCombos/'+$stateParams.id_combo+'/edit',
+			}).then(function successCallback(response) {
+				$scope.combo=response.data;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+		$http({
+			method: 'GET',
+			url: server_uri+'/detailProfessionalCombo/'+$stateParams.id_combo,
+		}).then(function successCallback(response) {
+			$scope.listaServicios=response.data;
+		}, function errorCallback(response) {
+			console.log('dio error');
+		});
+
+
+		$http.get(server_uri+'independent/'+$stateParams.id+'/services')
+		    .then(function successCallback(response) {
+		    	console.log(response.data);
+		        $scope.servicios = response.data;
+		        $timeout(function(){
+		        	$('.modal').modal();
+			       	$('select').material_select();
+			    });
+		    }, function errorCallback(error) {
+		    	Materialize.toast("Problemas de conexión...", 4000);
+		    });
+
+		$scope.modalServ=function(){
+			$scope.serv={}
+			$('#modalServ').modal('open');
+		}
+
+		$scope.agregarServicio=function() {
+			console.log($scope.serv);
+			detalleCombo={
+				'combo_professional_id' : $stateParams.id_combo,
+				'professional_service_id' : scope.serv.independent_service.id
+			}
+			$http({
+				method: 'POST',
+				url: server_uri+'/detailProfessionalCombo',
+				data:detalleCombo
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+			  	$state.reload();
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				$state.reload();
+			});
+		};
+
+		$scope.modalEliminarServ=function(id){
+			$scope.detail_id=id;
+			$('#modalEliminarServ').modal('open');
+		};
+
+		$scope.eliminarDetailCombo=function(id){
+			$http({
+					method: 'DELETE',
+					url: server_uri+'/detailProfessionalCombo/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+		};
+
+		$scope.actualizarCombo=function(id){
+			$http({
+				method: 'PUT',
+				url: server_uri+'/professionalCombos/'+id,
+				data:$scope.combo
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+			  	$state.go('profesional_combos');
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				$state.reload();
+			});
+		}
+
+	}
+
+
 
 }])
