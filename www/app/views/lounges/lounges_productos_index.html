@@ -31,7 +31,7 @@
 
             <tbody>
               <tr ng-repeat="Producto in Productos">
-                <td><i class="flaticon-skyline black-text center"></i></td>
+                <td><i class="agrandar flaticon-three-bottles-of-hair-salon black-text center"></i></td>
                 <td>
                   <div class="row">
                     <div class="col s12 m12">
@@ -40,11 +40,20 @@
                     <div class="col s6 m6">
                       <p>Precio: {{Producto.precio}}$</p>
                     </div>
-                    <div class="col s6 m6 center-align">
+                    <!-- <div class="col s6 m6 center-align">
                       <a ui-sref="lounges_productos_editar({id:{{Producto.id}}})" class="btn-floating waves-effect waves-light orange" ui-sref="lounges_productos_editar"><i class="material-icons">mode_edit</i></a>
                       <a class="btn-floating waves-effect waves-light red" ng-click="modalProducto(Producto.id)"><i class="material-icons">delete</i></a>
-                    </div>
+                    </div> -->
                   </div>
+                </td>
+                <td>
+                  <button class='dropdown-button btn-floating waves-effect waves-light secondary-content left-align' data-activates='{{Producto.id}}'><i class="material-icons">more_vert</i></button>
+
+                  <!-- Dropdown Structure -->
+                  <ul id='{{Producto.id}}' class='dropdown-content left-align'>
+                    <li><a ui-sref="lounges_productos_editar({id:{{Producto.id}}})">Editar</a></li>
+                    <li><a ng-click="modalProducto(Producto.id)">Eliminar</li>
+                  </ul>
                 </td>
               </tr>
             </tbody>
