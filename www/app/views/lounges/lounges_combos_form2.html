@@ -1,0 +1,81 @@
+<div>
+  <div class="mobile-content">
+  <div ui-view="navigation"></div>
+  <div class="row">
+    <!-- <form class="col s12" style="margin-top: 20px;" ng-submit="registrarProducto()"> -->
+    <br>
+    <div class="fixed-action-btn">
+    <a ng-click="modalServ()" class="btn-floating btn-large blue" >
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+
+    <!-- Modal Structure -->
+  <div id="modalServ" class="modal">
+    <div class="modal-content">
+      <div class="input-field col s12">
+            <label>Servicios Disponibles</label><br><br>
+            <select ng-model="serv.lounge_service_id" class="browser-default">
+              <option value="" disabled selected>Seleccione un servicio</option>
+              <option ng-repeat="servicio in servicios" value="{{servicio.id}}">{{servicio.nombre}}</option>
+            </select>
+          </div>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+        <button  class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="agregarServicio()">Agregar</button>
+    </div>
+  </div>
+
+  <div id="modalEliminarServ" class="modal red">
+    <div class="modal-content">
+      <h4>¿Seguro que desea eliminar este salon?</h4>
+      <input class="hide" type="text" ng-model="detail_id">
+    </div>
+    <div class="modal-footer red">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarDetailCombo(detail_id)">Eliminar</button>
+    </div>
+  </div>
+
+
+
+    <h4 class="center-align">Editar Combo</h4>
+    <form class="col s12" style="margin-top: 20px;">
+      <div class="row">
+        <input type="text" name="" ng-model="combo.lounge_id" class="hide">
+        <div class="input-field col s12">
+          <label for="name">Descripcion</label>
+          <input id="name" type="text" class="validate" ng-model="combo.descripcion">
+
+        </div>
+        <div class="input-field col s12">
+          <label for="name">Precio</label>
+          <input id="name" type="text" class="validate" ng-model="combo.precio">
+
+        </div>  
+        <div class="container">
+          <table class="bordered">
+            <tbody>
+              <tr ng-repeat="list in listaServicios">
+                <td>{{list.nombre}}</td>
+                <td><a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServ(list.id)"><i class="material-icons">delete</i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="input-field col s12">
+            <div class="center-align">
+            <button ng-click="actualizarCombo(combo.id)" class="btn waves-effect waves-light" type="submit" name="action">Editar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+</div>

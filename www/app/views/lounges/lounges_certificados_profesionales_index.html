@@ -46,6 +46,25 @@
       	<button ng-if="editarCert" class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="actualizarCerfiticado(cert.id)">Editar</button>
     </div>
   </div>
+
+  <div id="modalVerCertificado" class="modal">
+    <div class="modal-content">
+      <form>
+      	<div class="row">
+      		<img class="col s12" ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
+      		<div class="input-field col s12">
+                <label for="name">Nombre</label>
+                <br>
+                <br>
+                <h4>{{cert.nombre}}</h4>
+             </div>
+      	</div>
+      </form>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cerrar</button>
+    </div>
+  </div>
           
 
 <div class="row">
@@ -76,6 +95,7 @@
                       <ul id='{{certificate.id}}' class='dropdown-content'>
                         <li><a ng-click="editarCertificado(certificate.id)">Editar</a></li>
                         <li><a ng-click="modalEliminarCertificado(certificate.id)">Eliminar</a></li>
+                        <li><a ng-click="modalVerCertificado(certificate.id)">Ver Cerfiticado</a></li>
                       </ul>
                     </div>
                   </div>

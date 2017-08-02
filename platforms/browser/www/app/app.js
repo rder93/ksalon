@@ -388,6 +388,46 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('lounges_combos_index',{
+            url: '/lounges/combos',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_combos_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_combos_index' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('lounges_combos_crear',{
+            url: '/lounges/combos/crear',
+            views: {
+                '': { 
+                    templateUrl: path_views+'/lounges/lounges_combos_form.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_combos_crear' : { 
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+        .state('lounges_combos_editar',{
+            url: '/lounges/combos/editar/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_combos_form2.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_combos_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         
 
         /*----- JONATHAN -----*/
