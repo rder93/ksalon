@@ -23,133 +23,185 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
     });
 	
 	console.log($scope.user.rol_id);
-
-	if ($scope.user.rol_id != 0) {
-		var servicios="";
-		if ($scope.user.rol_id != 4) {
-			servicios= 'Mis Servicios Realizados';
-		}else{
-			servicios='Mis Servicios Contratados';
-		}
-
-		if($scope.user.rol_id == 3){
-			$scope.opciones= [
-			{
-				'nombre':'Inicio',
-				'icono' : 'home',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Sobre Nosotros',
-				'icono' : 'info_outline',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Politicas de Uso',
-				'icono' : 'account_balance',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Transacciones',
-				'icono' : 'swap_horiz',
-				'state' : 'transacciones'
-			},
-			{
-				'nombre':'Mis Mensajes',
-				'icono' : 'question_answer',
-				'state' : 'home'
-			},
-			{
-				'nombre': servicios,
-				'icono' : 'format_list_numbered',
-				'state' : 'home'
-			},		
-			{
-				'nombre':'Boton ON/OFF',
-				'icono' :'border_color',
-				'state' :'tickets'
-			}
-			];
-		}else{
-			$scope.opciones= [
-			{
-				'nombre':'Inicio',
-				'icono' : 'home',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Sobre Nosotros',
-				'icono' : 'info_outline',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Politicas de Uso',
-				'icono' : 'account_balance',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Transacciones',
-				'icono' : 'swap_horiz',
-				'state' : 'transacciones'
-			},
-			{
-				'nombre':'Mis Mensajes',
-				'icono' : 'question_answer',
-				'state' : 'home'
-			},
-			{
-				'nombre':'Mis Salones',
-				'icono' : 'location_city',
-				'state' : 'lounges_index'
-			},
-			{
-				'nombre':'Servicios',
-				'icono' : 'format_list_numbered',
-				'state' : 'home'
-			},		
-			{
-				'nombre':'Tickets',
-				'icono' :'border_color',
-				'state' :'tickets'
-			}
-			];
-		}
-	}else{
+	if ($scope.user.rol_id == 1) { /*Parte del administrador*/
 		$scope.opciones= [
 		{
-			'nombre': 'Inicio',
+			'nombre':'Inicio',
 			'icono' : 'home',
 			'state' : 'home'
 		},
 		{
-			'nombre': 'Gestión de usuarios',
-			'icono' : 'contacts',
-			'state' : 'panel_usuarios'
+			'nombre':'Sobre Nosotros',
+			'icono' : 'info_outline',
+			'state' : 'about'
 		},
 		{
-			'nombre': 'Gestión de categorias',
-			'icono' : 'format_list_numbered',
-			'state' : 'panel_categorias'
+			'nombre':'Politicas de Uso',
+			'icono' : 'account_balance',
+			'state' : 'politicas'
 		},
 		{
-			'nombre': 'Gestión de servicios',
-			'icono' : 'format_list_numbered',
-			'state' : 'panel_servicios'
+			'nombre':'Mis Salones',
+			'icono' : 'location_city',
+			'state' : 'lounges_index'
 		},
 		{
-			'nombre': 'Pagos, Transacciones, otros',
-			'icono' : 'payment',
-			'state' : 'panel_gestion'
+			'nombre':'Transacciones',
+			'icono' : 'swap_horiz',
+			'state' : 'transacciones'
 		},
 		{
-			'nombre': 'Soporte',
+			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
 			'state' : 'home'
 		},
 		{
-			'nombre': 'Clasificación de salones',
+			'nombre': 'Mis Servicios Realizados',
+			'icono' : 'format_list_numbered',
+			'state' : 'home'
+		},		
+		];
+	}else if ($scope.user.rol_id == 2) { /*Parte de grandes salones*/
+		$scope.opciones= [
+		{
+			'nombre':'Inicio',
 			'icono' : 'home',
 			'state' : 'home'
+		},
+		{
+			'nombre':'Sobre Nosotros',
+			'icono' : 'info_outline',
+			'state' : 'about'
+		},
+		{
+			'nombre':'Politicas de Uso',
+			'icono' : 'account_balance',
+			'state' : 'politicas'
+		},
+		{
+			'nombre':'Mis Salones',
+			'icono' : 'location_city',
+			'state' : 'lounges_index'
+		},
+		{
+			'nombre':'Transacciones',
+			'icono' : 'swap_horiz',
+			'state' : 'transacciones'
+		},
+		{
+			'nombre':'Mis Mensajes',
+			'icono' : 'question_answer',
+			'state' : 'home'
+		},		
+		];
+	}
+	else if ($scope.user.rol_id == 3) { /*parte de pequeños salones*/
+		$scope.opciones= [
+		{
+			'nombre':'Inicio',
+			'icono' : 'home',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Sobre Nosotros',
+			'icono' : 'info_outline',
+			'state' : 'about'
+		},
+		{
+			'nombre':'Politicas de Uso',
+			'icono' : 'account_balance',
+			'state' : 'politicas'
+		},
+		{
+			'nombre':'Mis Salones',
+			'icono' : 'location_city',
+			'state' : 'lounges_index'
+		},
+		{
+			'nombre':'Transacciones',
+			'icono' : 'swap_horiz',
+			'state' : 'transacciones'
+		},
+		{
+			'nombre':'Mis Mensajes',
+			'icono' : 'question_answer',
+			'state' : 'home'
+		},		
+		];
+	}else if($scope.user.rol_id == 4){  /*parte de profesionales independietes*/
+		$scope.opciones= [
+		{
+			'nombre':'Inicio',
+			'icono' : 'home',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Sobre Nosotros',
+			'icono' : 'info_outline',
+			'state' : 'about'
+		},
+		{
+			'nombre':'Politicas de Uso',
+			'icono' : 'account_balance',
+			'state' : 'politicas'
+		},
+		{
+			'nombre':'Transacciones',
+			'icono' : 'swap_horiz',
+			'state' : 'transacciones'
+		},
+		{
+			'nombre':'Mis Mensajes',
+			'icono' : 'question_answer',
+			'state' : 'home'
+		},
+		{
+			'nombre': 'Mis Servicios Realizados',
+			'icono' : 'format_list_numbered',
+			'state' : 'home'
+		},		
+		{
+			'nombre':'Boton ON/OFF',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}
+		];
+	}else if($scope.user.rol_id == 4){ /*parte del cliente*/
+		$scope.opciones= [
+		{
+			'nombre':'Inicio',
+			'icono' : 'home',
+			'state' : 'home'
+		},
+		{
+			'nombre':'Sobre Nosotros',
+			'icono' : 'info_outline',
+			'state' : 'about'
+		},
+		{
+			'nombre':'Politicas de Uso',
+			'icono' : 'account_balance',
+			'state' : 'politicas'
+		},
+		{
+			'nombre':'Transacciones',
+			'icono' : 'swap_horiz',
+			'state' : 'transacciones'
+		},
+		{
+			'nombre':'Mis Mensajes',
+			'icono' : 'question_answer',
+			'state' : 'home'
+		},
+		{
+			'nombre': 'Mis Servicios Realizados',
+			'icono' : 'format_list_numbered',
+			'state' : 'home'
+		},		
+		{
+			'nombre':'Boton ON/OFF',
+			'icono' :'border_color',
+			'state' :'tickets'
 		}
 		];
 	}
