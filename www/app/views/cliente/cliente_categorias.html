@@ -1,3 +1,14 @@
+<style type="text/css">
+	.servicios-cliente{
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	label .nombre-servicio{
+		font-size: 1.2em;
+	}
+
+</style>
 
 <div ui-view="navigation"></div>	
 
@@ -6,38 +17,28 @@
 <div class="height-100;" style="50px;">
 		
 	<div class="page-content">		
-		<div class="page-description">
+		<div class="page-description center">
 			<p>Seleccione las opciones de su preferencia</p>
 		</div>
 		
 		<div class="form-categorias">
-
 			<form action="#">
-
-			    <p>
-			      	<input type="checkbox" name="categoria" value="1"/ style="position: inherit;">
-			      	<label for="test6">Secado</label>
-			    </p>
-			    <p>
-			      	<input type="checkbox" name="categoria" value="2"/ style="position: inherit;">
-			      	<label for="test6">Lavado</label>
-			    </p>
-			    <p>
-			      	<input type="checkbox" name="categoria"/ value="3" style="position: inherit;">
-			      	<label for="test6">Corte de Cabello</label>
-			    </p>
-			    <p>
-			      	<input type="checkbox"/ name="categoria" value="4" style="position: inherit;">
-			      	<label for="test6">Manicure</label>
-			    </p>						
-
+			    <div ng-repeat="servicio in servicios" class="servicios-cliente">
+			      	<!-- Disabled Switch -->
+					<div class="switch">
+						<label>
+			      			<input type="checkbox" name="categoria" value="{{servicio.id}}"/ style="position: inherit;">							
+							<span class="lever"></span>
+					      	<label for="test6" class="nombre-servicio">{{servicio.nombre}}</label>
+					    </label>
+				  	</div>
+			    </div>
 			</form>
-
 		</div>
 			
 	</div>	
 
-
+	<br>
 	<div class="form-categorias-footer">
 		<button class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" ng-click="buscar_categorias();">
 				Buscar

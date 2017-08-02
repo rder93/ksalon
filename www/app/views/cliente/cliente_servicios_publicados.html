@@ -4,71 +4,49 @@
 <br>
 
 <div class="height-100;" style="margin-top:50px;">
-  
-  
   <div>
     <div class="col s12" style=" min-height:300px;">
       <h2 style="font-size:18px; text-align:center;">Seleccione en el mapa.</h2>
       <div id="map" style="min-height:300px;"> </div>
     </div>
   </div>
-
-
-
-
 </div>
 
-
-
-
-
 <div>
+  <div class=" s12 m12">
+    <!-- <div class="card-panel"> -->
+    <table class="bordered">
+        <thead>
+          <tr>
+            <th colspan="2" class="center-align"><p>Ultimos Salones Publicados</p></th>
+          </tr>
+        </thead>
 
-      <div class=" s12 m12">
-        <!-- <div class="card-panel"> -->
-        <table class="bordered">
-            <thead>
-              <tr>
-                <th colspan="2" class="center-align"><p>Ultimos Salones Publicados</p></th>
-              </tr>
-            </thead>
+        <tbody>
 
-            <tbody>
+          <tr ng-repeat="p in peluquerias">
+            <td><i class="flaticon-skyline black-text center"></i></td>
+            <td>
+              <div class="row">
+                <div class="col s12 m12">
+                  <h6 class="nombre-comentario">{{p.nombre}}</h6>
+                </div>
+                <div class="col s6 m6">
+                  <p>Secado de cabello</p>
+                  <p>Cotizacion</p>
+                </div>
+                <div class="col s6 m6">
+                  <a ui-sref="cliente_servicio_preview({id:p.id})">Mas Informacion</a>
+                </div>
+              </div>
+            </td>
+          </tr>
 
-              <tr ng-repeat="p in peluquerias">
-                <td><i class="flaticon-skyline black-text center"></i></td>
-                <td>
-                  <div class="row">
-                    <div class="col s12 m12">
-                      <h6 class="nombre-comentario">{{p.name}}</h6>
-                    </div>
-                    <div class="col s6 m6">
-                      <p>Secado de cabello</p>
-                      <p>Cotizacion</p>
-                    </div>
-                    <div class="col s6 m6">
-                      <a ui-sref="cliente_servicio_preview({id:p.id})">Mas Informacion</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-        <!-- </div> -->
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
+        </tbody>
+      </table>
+    <!-- </div> -->
+  </div>
+</div>
 
 <!-- <div>
       <div class=" s12 m12">
