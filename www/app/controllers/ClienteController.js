@@ -1,4 +1,4 @@
-app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessionStorage', function($scope, $state, $stateParams, $sessionStorage){
+app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessionStorage', '$http', function($scope, $state, $stateParams, $sessionStorage, $http){
 
 	var server_uri = $('body').attr('data-server_uri'),
 	debug = $('body').attr('debug');
@@ -10,6 +10,14 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 		if(debug == 'true')
 			console.log('en categorias siendo cliente');
 
+		$http.get(server_uri+'services')
+		    .then(function successCallback(response) {
+		        $scope.servicios = response.data;
+		        console.log($scope.servicios);		        
+		    }, function errorCallback(error) {
+		    	console.log('error al obtener las categorias')
+		    });
+
 
 		$scope.buscar_categorias = function(){
 			var form = $('form');
@@ -18,10 +26,10 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			console.log("ido");
 			console.log(inputs);
 
-				$state.go('cliente_servicios_publicados',{
-					id: $stateParams.id,
-					opciones: inputs
-				})
+			$state.go('cliente_servicios_publicados',{
+				id: $stateParams.id,
+				opciones: inputs
+			})
 
 		}
 	}
@@ -66,8 +74,15 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
         	}
         ];
 
+        $http.get(server_uri+'lounges')
+            .then(function successCallback(response) {
+                $scope.peluquerias = response.data;
+                console.log($scope.peluquerias);		        
+            }, function errorCallback(error) {
+            	console.log('error al obtener los salones')
+            });
 
-         getLatLng($scope.peluquerias);
+		getLatLng($scope.peluquerias);
 	}
 
 
