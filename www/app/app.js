@@ -12,6 +12,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     
     $stateProvider
         .state('home', {
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/home',
             views: {
                 '' : { 
@@ -27,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('login', {
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/login',
             views: {
                 '' : { 
@@ -37,6 +45,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('about',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/about',
             views: {
                 '': { 
@@ -51,6 +63,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('politicas',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/politicas',
             views: {
                 '': { 
@@ -65,6 +81,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('perfil',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/perfil',
             views: {
                 '': { 
@@ -79,6 +99,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('perfil_config',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/perfil/config',
             views: {
                 '': { 
@@ -93,6 +117,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('my_messages',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/my_messages',
             views:{
                 '':{
@@ -107,6 +135,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('chat',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/conversation/:id',
             views:{
                 '':{
@@ -120,6 +152,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('servicios',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/servicios',
             views: {
                 '': { 
@@ -134,6 +170,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('servicios_publicaciones',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/servicios/publicaciones',
             views: {
                 '': { 
@@ -147,6 +187,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('clientes_transacciones',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/clientes/transacciones',
             views: {
                 '': { 
@@ -160,6 +204,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('clientes_servicios_contratados',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/clientes/servicios_contratados',
             views: {
                 '': { 
@@ -173,6 +221,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('combos',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/combos',
             views: {
                 '': { 
@@ -187,6 +239,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('lounges_servicios',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/servicios/:id',
             views:{
                 '':{
@@ -201,6 +257,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('lounges_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges',
             views: {
                 '': { 
@@ -214,6 +274,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/crear',
             views: {
                 '': { 
@@ -227,6 +291,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/editar/:id',
             views: {
                 '':{
@@ -243,6 +311,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_productos_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/productos',
             views: {
                 '': { 
@@ -256,6 +328,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_productos_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/productos/crear',
             views: {
                 '': { 
@@ -269,6 +345,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_productos_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/productos/editar/:id',
             views: {
                 '':{
@@ -285,6 +365,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_servicios_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/listaservicios',
             views: {
                 '': { 
@@ -298,6 +382,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_servicios_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/servicios/crear',
             views: {
                 '': { 
@@ -311,6 +399,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_servicios_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/servicios/editar/:id',
             views: {
                 '':{
@@ -324,6 +416,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             },
         })
         .state('lounges_profesionales_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/listaprofesionales',
             views: {
                 '': { 
@@ -337,6 +433,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_profesionales_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/prefesionales/crear',
             views: {
                 '': { 
@@ -350,6 +450,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_profesionales_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/profesionales/editar/:id',
             views: {
                 '':{
@@ -363,6 +467,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             },
         })
         .state('lounges_servicios_profesionales_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/profesionales/servicios/:id',
             views: {
                 '': { 
@@ -376,6 +484,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_certificados_profesionales_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/profesionales/certificados/:id',
             views: {
                 '': { 
@@ -389,6 +501,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_combos_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/combos',
             views: {
                 '': { 
@@ -403,6 +519,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('lounges_combos_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/combos/crear',
             views: {
                 '': { 
@@ -416,6 +536,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('lounges_combos_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/lounges/combos/editar/:id',
             views: {
                 '':{
@@ -432,6 +556,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         /*----- JONATHAN -----*/
         .state('cliente_servicio_categorias',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/cliente_servicio_categorias/:id',
             views: {
                 '':{
@@ -448,6 +576,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
         .state('cliente_servicios_publicados',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/cliente_servicios_publicados/:id',
             views: {
                 '':{
@@ -466,6 +598,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
         .state('cliente_servicio_preview',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/cliente_servicio_preview/:id',
             views:{
                 '':{
@@ -480,6 +616,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('cliente_vendedor_perfil',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/cliente_vendedor_perfil/:id',
             views:{
                 '':{
@@ -494,6 +634,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('registro', {
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/registro',
             views: {
                 '' : { 
@@ -507,6 +651,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/tickets',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
+                location.reload(); 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -528,6 +673,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/ticket_detail/:id',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
+                location.reload(); 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -549,6 +695,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/ticket_send',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
+                location.reload(); 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -568,6 +715,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
         .state('transacciones',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/transacciones',
             views:{
                 '':{
@@ -582,6 +733,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('transacciones_sin_calificacion',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/transacciones_sin_calificacion',
             views:{
                 '':{
@@ -596,6 +751,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('transaccion_detalle',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/transaccion_detalle/:id',
             views:{
                 '':{
@@ -610,6 +769,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('calificacion_nueva',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/calificacion_nueva/:id',
             views:{
                 '':{
@@ -633,6 +796,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         /*----- RICARDO -------*/
 
         .state('panel_usuarios',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/panel/usuarios',
             views:{
                 '':{
@@ -647,6 +814,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('add_usuario',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/add/usuario',
             views:{
                 '':{
@@ -661,6 +832,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('edit_usuario',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/edit/usuario/:id',
             views:{
                 '':{
@@ -675,6 +850,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('panel_gestion',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/panel/gestion',
             views:{
                 '':{
@@ -689,6 +868,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('profesional_servicios',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/profesional/servicios/:id',
             views:{
                 '':{
@@ -703,6 +886,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('profesional_servicios_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/profesional/add/servicios/:id',
             views:{
                 '':{
@@ -717,6 +904,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('profesional_combos',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/profesional/combos/:id',
             views:{
                 '':{
@@ -731,6 +922,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('profesional_combos_crear',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/profesional/combos/create/:id',
             views:{
                 '':{
@@ -745,6 +940,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('profesional_combos_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/profesional/combos/edit/:id/:id_combo',
             views:{
                 '':{
@@ -776,6 +975,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         /*End RICARDO*/
 
         .state('panel_categorias',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/panel/categorias',
             views:{
                 '':{
@@ -790,6 +993,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('panel_servicios',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
             url: '/admin/panel/servicios',
             views:{
                 '':{
