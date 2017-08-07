@@ -576,15 +576,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
         .state('cliente_servicios_publicados',{
-<<<<<<< HEAD
             url: '/cliente_servicios_publicados/:categoria_id',
-=======
             onExit: function() 
             { 
                 location.reload(); 
             },
-            url: '/cliente_servicios_publicados/:id',
->>>>>>> origin/master
             views: {
                 '':{
                     templateUrl: path_views+'/cliente/cliente_servicios_publicados.html',
