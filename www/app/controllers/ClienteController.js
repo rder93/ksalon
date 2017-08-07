@@ -144,14 +144,15 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 		$http.get(server_uri+'lounges/'+$stateParams.id+'/edit')
             .then(function successCallback(response) {
-                $scope.peluqueria = response.data;
+                $scope.peluqueria = response.data.lounge;
                 console.log('todo calidad');		        
                 console.log($scope.peluqueria);		        
+                console.log("nombre peluqueria: "+$scope.peluqueria.nombre);		        
             }, function errorCallback(error) {
             	console.log('error al obtener los del salon')
             });
 
-
+/*
 		$scope.servicio = 
 			{
 				descripcion: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde excepturi tempora nulla, totam porro perspiciatis nihil quidem quo fugit impedit, doloremque ipsam doloribus fuga omnis voluptas error quis! Ea, nam.',
@@ -175,7 +176,7 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 				}
 				
 			};
-
+*/
 		
 	}
 

@@ -8,22 +8,26 @@
 	<div class="page-content">		
 		<div class="page-description" style="padding:0px; ">
 			<h4 style="margin:0px;">Secado de Cabello</h4>
-			<p>Publicado por: Ricardo E.</p>
+			<p>Publicado por: {{peluqueria.nombre_usuario}}</p>
 		</div>	
 
 		<div>
 			<img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;">
 		</div>
-		<div>
+		<!-- <div>
 			<p style=" margin: auto; text-align: justify; width: 95%;">
-				{{servicio.descripcion}}
+				{{peluqueria.descripcion}}
 			</p>
-		</div>
+		</div> -->
 		
 		<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
-			<p style="font-size:16px; font-weight:bold; ">{{servicio.peluqueria.nombre}}</p>
-			<p>{{servicio.peluqueria.descripcion}}</p>
-			<a ui-sref="cliente_vendedor_perfil({id:servicio.peluqueria.id})">Ver Perfil de este {{servicio.peluqueria.tipo.nombre}}!!</a>
+			<p style="font-size:16px; font-weight:bold; ">
+				{{ peluqueria.nombre }}
+			</p>
+			<p>
+				{{ peluqueria.descripcion }}
+			</p>
+			<a ui-sref="cliente_vendedor_perfil({id: peluqueria.id})">Ver Perfil de este {{ peluqueria.nombre_categoria}}!!</a>
 		</div>
 
 		<div>
