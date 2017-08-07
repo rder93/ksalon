@@ -576,11 +576,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
         .state('cliente_servicios_publicados',{
+            url: '/cliente_servicios_publicados/:categoria_id',
             onExit: function() 
             { 
                 location.reload(); 
             },
-            url: '/cliente_servicios_publicados/:id',
             views: {
                 '':{
                     templateUrl: path_views+'/cliente/cliente_servicios_publicados.html',
@@ -592,7 +592,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
             params: {
-                opciones: 0
+                servicios: 0
             }
         })
 
