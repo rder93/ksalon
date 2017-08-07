@@ -66,7 +66,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Inicio',
 			'icono' : 'home',
-			'state' : 'home'
+			'state' : 'perfil'
 		},
 		{
 			'nombre':'Sobre Nosotros',
@@ -100,7 +100,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Inicio',
 			'icono' : 'home',
-			'state' : 'home'
+			'state' : 'perfil'
 		},
 		{
 			'nombre':'Sobre Nosotros',

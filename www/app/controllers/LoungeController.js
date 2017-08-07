@@ -148,14 +148,22 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.Lounge=response.data.lounge;
 
 			var markers = [];
-			  //Aqui pones/creas el mapa en el div con id map
-			  map = new google.maps.Map(document.getElementById('map'), {
-			  	center: {lat: parseInt($scope.Lounge.latitud), lng: parseInt($scope.Lounge.altitud)},
-			  	zoom: 8
-			  })
+
+			  var myLatLng = {lat: parseInt($scope.Lounge.latitud), lng: parseInt($scope.Lounge.altitud)};
+
+			  var map = new google.maps.Map(document.getElementById('map'), {
+			  	zoom: 8,
+			  	center: myLatLng
+			  });
+
+			  var marker = new google.maps.Marker({
+			  	position: myLatLng,
+			  	map: map,
+			  	title: 'Hello World!'
+			  });
 
 			  google.maps.event.addListener(map, "click", function (e, a) {
-
+				marker.setMap(null);
 			  	var latLng = e.latLng;
 
 			  	for (var i = 0; i < markers.length; i++) {
@@ -170,7 +178,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			      };
 			      $scope.Lounge.latitud=latLng.lat();
 			      $scope.Lounge.altitud=latLng.lng();
-
+				console.log($scope.Lounge);
 			  });
 
 
@@ -188,6 +196,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		});
 
 		$scope.actualizarLounge=function () {
+			console.log($scope.Lounge);
 			$http({
 				method: 'PUT',
 				url: server_uri+'/lounges/'+$stateParams.id,
