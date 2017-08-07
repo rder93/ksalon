@@ -15,6 +15,9 @@
     <div class="row" style="margin-bottom: 0px;">
         <div class="col s12" style="margin-top: 4%;padding: 0;">
             <div class="col s12" style="color:black;margin-bottom: 5px;">
+                <div class="col s2" style="padding: 0px;">
+                    <img src="{{ thumbnail + servicio.foto }}" alt="" class="circle responsive-img">
+                </div>
                 <div class="col s7">
                     <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{servicio.service.nombre}}</p>
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Cotización: {{servicio.precio | number:2 }} Bs.</p>
@@ -26,8 +29,6 @@
                         <li><a href="javascript:void(0)" ng-click="removeItem(servicio.id,'/service');">Eliminar</a></li>
                     </ul>
                 </div>
-                
-
             </div>
         </div>
     </div>
@@ -92,7 +93,7 @@
     </div>
     <div class="col s4">
         <div class="fixed-action-btn" style="bottom: 10px;">
-            <a ui-sref="add_servicios({id:usuario_id})" class="btn-floating btn-large red">
+            <a ui-sref="profesional_servicios_crear({id:usuario_id})" class="btn-floating btn-large red">
               <i class="large material-icons">add</i>
             </a>
         </div>

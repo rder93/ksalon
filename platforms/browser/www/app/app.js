@@ -896,7 +896,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/profesional/profesional_servicios_crear.html',
                     controller: 'ProfesionalController'
                 },
-                'navigation@add_servicios':{
+                'navigation@profesional_servicios_crear':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }

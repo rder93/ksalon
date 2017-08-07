@@ -1,6 +1,20 @@
 <div ui-view="navigation"></div>
 <div class="row">
-    <form class="col s12" style="margin-top: 20px;" ng-submit="newService()">
+    <form class="col s12" style="margin-top: 20px;" ng-submit="newService()" enctype="multipart/form-data">
+    	<div class="row">
+    		<div class="col s12">
+    			<img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px;width: 100%;" />
+	          	<div class="file-field">
+	            	<div class="btn-floating halfway-fab waves-effect waves-light blue">
+		              	<i class="material-icons">camera</i>
+		              	<input type="file" name="file" id="file" uploader-model="new_service.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+		            </div>
+	            	<div class="file-path-wrapper">
+	              	<input class="file-path validate hide" type="text">
+	            	</div>
+	          	</div>
+    		</div>
+        </div><br>
     	<div class="row">
 			<div class="input-field col s12">
 				<select ng-options="servicio.nombre for servicio in listaServicios track by servicio.id" ng-model="new_service.id_service">

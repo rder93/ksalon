@@ -3,7 +3,8 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 	$scope.usuario_id = $stateParams.id;
 
-	var server_uri = $('body').attr('data-server_uri'),
+	var server_uri = $('body').attr('data-server_uri');
+	var fotos_uri = $('body').attr('data-fotos_uri');
 	debug = $('body').attr('debug');
 
 	$scope.server_uri = server_uri;
@@ -14,6 +15,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		    .then(function successCallback(response) {
 		    	console.log(response.data);
 		        $scope.servicios = response.data;
+		        $scope.thumbnail = fotos_uri;
 		        $timeout(function(){
 		        	$('.modal').modal();
 					$('.dropdown-button').dropdown({
@@ -133,22 +135,87 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		    	Materialize.toast(error, 4000);
 		    });
 
+		$http({
+			method: 'GET',
+			url: server_uri+'/imagen_defecto2',
+		}).then(function successCallback(response) {
+			console.log(response.data);
+			$scope.thumbnail = {
+				dataUrl: fotos_uri+response.data.path
+			};
+		    // this callback will be called asynchronously
+		    // when the response is available
+		}, function errorCallback(response) {
+			console.log('Problemas de conexión...');
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		});
 
+		$scope.fileReaderSupported = window.FileReader != null;
+		$scope.photoChanged = function(files){
+			if (files != null) {
+				var file = files[0];
+				if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+					$timeout(function() {
+						var fileReader = new FileReader();
+						fileReader.readAsDataURL(file);
+						fileReader.onload = function(e) {
+							$timeout(function(){
+								$scope.thumbnail.dataUrl = e.target.result;
+							});
+						}
+					});
+				}
+			}
+		};
 
 		$scope.newService = function(){
 
+
+
+			
+
+
 			$scope.new_service.id_user = $stateParams.id;
-			console.log($scope.new_service);
-			$http.post(server_uri+'independent/services/', $scope.new_service)
-			    .then(function successCallback(response) {
-			    	console.log(response.data);
-			        Materialize.toast(response.data.msj, 4000);
-			        $state.go('profesional_servicios',{id:$stateParams.id});
-			    }, function errorCallback(error) {
-			    	Materialize.toast(error, 4000);
-			    });
+			console.log($scope.new_service.foto.name);
+
+			var fd = new FormData();
+			  //Take the first selected file
+			  // fd.append("file", $scope.Usuario.foto);
+			  // fd.append("name", $scope.Usuario.name);
+			  // fd.append('email')
+			  var servicio = [];
+			  servicio = $scope.new_service;
+			  for ( var key in servicio ) {
+			  	fd.append(key, servicio[key]);
+			  }
+			  console.log(fd);
+
+
+			  $http.post(server_uri+'independent/services/', fd, {
+			  	withCredentials: true,
+			  	headers: {'Content-Type': undefined },
+			  	transformRequest: angular.identity
+			  }).then(function successCallback(response) {
+			  	Materialize.toast(response.data.msj, 4000);
+			  	// $state.go('login');
+			  }, function errorCallback(response) {
+			  	Materialize.toast(error, 4000);
+			  	// $state.reload();
+			  });
+
+			// $http.post(server_uri+'independent/services/', $scope.new_service)
+			//     .then(function successCallback(response) {
+			//     	console.log(response.data);
+			//         // Materialize.toast(response.data.msj, 4000);
+			//         // $state.go('profesional_servicios',{id:$stateParams.id});
+			//     }, function errorCallback(error) {
+			//     	Materialize.toast(error, 4000);
+			//     });
 
 		}
+
+
 
 	}
 
@@ -362,15 +429,15 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 		$scope.eliminarDetailCombo=function(id){
 			$http({
-					method: 'DELETE',
-					url: server_uri+'/detailProfessionalCombo/'+id,
-				}).then(function successCallback(response) {
-					Materialize.toast(response.data.msj, 4000);
-					$state.reload();
-				}, function errorCallback(response) {
-					Materialize.toast(error, 4000);
-					// $state.go('lounges_productos_crear');
-				});
+				method: 'DELETE',
+				url: server_uri+'/detailProfessionalCombo/'+id,
+			}).then(function successCallback(response) {
+				Materialize.toast(response.data.msj, 4000);
+				$state.reload();
+			}, function errorCallback(response) {
+				Materialize.toast(error, 4000);
+				// $state.go('lounges_productos_crear');
+			});
 		};
 
 		$scope.actualizarCombo=function(id){
@@ -386,9 +453,18 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 				$state.reload();
 			});
 		}
-
 	}
 
-
-
+}])
+.directive('uploaderModel', ["$parse", function ($parse) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement, iAttrs) 
+		{
+			iElement.on("change", function(e)
+			{
+				$parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+			});
+		}
+	};
 }])
