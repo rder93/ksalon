@@ -24,19 +24,21 @@
 
         <tbody>
 
-          <tr ng-repeat="p in peluquerias">
+          <tr ng-repeat="peluqueria in peluquerias">
             <td><i class="flaticon-skyline black-text center"></i></td>
             <td>
               <div class="row">
                 <div class="col s12 m12">
-                  <h6 class="nombre-comentario">{{p.nombre}}</h6>
+                  <h6 class="nombre-comentario">{{ peluqueria[0].nombre_salon }}</h6>
                 </div>
                 <div class="col s6 m6">
-                  <p>Secado de cabello</p>
-                  <p>Cotizacion</p>
+                  <p ng-repeat="servicio in peluqueria">
+                    {{ servicio.nombre_servicio }}
+                  </p>
+                  <!-- <p>Cotizacion</p> -->
                 </div>
                 <div class="col s6 m6">
-                  <a ui-sref="cliente_servicio_preview({id:p.id})">Mas Informacion</a>
+                  <a ui-sref="cliente_servicio_preview({id:peluqueria[0].lounge_id})">Mas Informacion</a>
                 </div>
               </div>
             </td>
