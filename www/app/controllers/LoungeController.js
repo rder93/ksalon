@@ -360,7 +360,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.crearServicio=true;
 			$scope.Servicio={};
 			$scope.Servicio.lounge_id=$.sessionStorage.get('longe_id');
-
+			var fotos_uri = $('body').attr('data-fotos_uri');
 			$http({
 				method: 'GET',
 				url: server_uri+'/services',
@@ -370,19 +370,71 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log('dio error');
 			});
 
-			$scope.registrarServicio=function(){
-				$http({
-					method: 'POST',
-					url: server_uri+'/loungeServices',
-					data:$scope.Servicio
-				}).then(function successCallback(response) {
+			$http({
+				method: 'GET',
+				url: server_uri+'/imagen_defecto2',
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.thumbnail = {
+					dataUrl: fotos_uri+response.data.path
+				};
+					    // this callback will be called asynchronously
+					    // when the response is available
+			}, function errorCallback(response) {
+						console.log('dio error');
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+			});
+			
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
 
+			$scope.registrarServicio=function(){
+				console.log($scope.Servicio);
+				var fd = new FormData();
+				var servicio=$scope.Servicio;
+				for ( var key in servicio ) {
+					fd.append(key, servicio[key]);
+				}
+
+				$http.post(server_uri+'/loungeServices', fd, {
+					withCredentials: true,
+					headers: {'Content-Type': undefined },
+					transformRequest: angular.identity
+				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_servicios_index');
 				}, function errorCallback(response) {
 					Materialize.toast(error, 4000);
 					$state.reload();
 				});
+				// $http({
+				// 	method: 'POST',
+				// 	url: server_uri+'/loungeServices',
+				// 	data:$scope.Servicio
+				// }).then(function successCallback(response) {
+
+				// 	Materialize.toast(response.data.msj, 4000);
+				// 	$state.go('lounges_servicios_index');
+				// }, function errorCallback(response) {
+				// 	Materialize.toast(error, 4000);
+				// 	$state.reload();
+				// });
 			};
 		}
 
