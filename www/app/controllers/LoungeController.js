@@ -313,6 +313,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	if($state.current.name == 'lounges_servicios_index'){
 		if(debug == 'true'){
+			$scope.urlFoto = $('body').attr('data-fotos_uri');
 			$http({
 				method: 'GET',
 				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
@@ -439,21 +440,45 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}
 
 	}
+
+
 	if($state.current.name == 'lounges_servicios_editar'){
 		$scope.Servicio={};
 		$scope.editarServicio=true;
-		
+		var fotos_uri = $('body').attr('data-fotos_uri');
 
 		$http({
 			method: 'GET',
 			url: server_uri+'/loungeServices/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			console.log(response.data);
+			$scope.thumbnail = {
+				dataUrl: fotos_uri+response.data.foto
+			};
 			$scope.Servicio=response.data;
 			$scope.Servicio.service_id = {id: $scope.Servicio.service_id};
 		}, function errorCallback(response) {
 			console.log('dio error');
 		});
+
+		$scope.fileReaderSupported = window.FileReader != null;
+		$scope.photoChanged = function(files){
+			if (files != null) {
+				var file = files[0];
+				if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+					$timeout(function() {
+						var fileReader = new FileReader();
+						fileReader.readAsDataURL(file);
+						fileReader.onload = function(e) {
+							$timeout(function(){
+								$scope.thumbnail.dataUrl = e.target.result;
+							});
+						}
+					});
+				}
+			}
+		};
+
 
 		$http({
 				method: 'GET',
@@ -468,18 +493,36 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 		$scope.actualizarServicio=function () {
 			$scope.Servicio.service_id=$scope.Servicio.service_id.id;
-			$http({
-				method: 'PUT',
-				url: server_uri+'/loungeServices/'+$stateParams.id,
-				data:$scope.Servicio
+			console.log($scope.Servicio);
+			var fd = new FormData();
+			var servicio=$scope.Servicio;
+			for ( var key in servicio ) {
+				fd.append(key, servicio[key]);
+			}
+
+			$http.post(server_uri+'/updateService', fd, {
+				withCredentials: true,
+				headers: {'Content-Type': undefined },
+				transformRequest: angular.identity
 			}).then(function successCallback(response) {
-				console.log(response.data);
 				Materialize.toast(response.data.msj, 4000);
-			  	$state.go('lounges_servicios_index');
+				$state.go('lounges_servicios_index');
 			}, function errorCallback(response) {
 				Materialize.toast(error, 4000);
 				$state.reload();
 			});
+			// $http({
+			// 	method: 'PUT',
+			// 	url: server_uri+'/loungeServices/'+$stateParams.id,
+			// 	data:$scope.Servicio
+			// }).then(function successCallback(response) {
+			// 	console.log(response.data);
+			// 	Materialize.toast(response.data.msj, 4000);
+			//   	$state.go('lounges_servicios_index');
+			// }, function errorCallback(response) {
+			// 	Materialize.toast(error, 4000);
+			// 	$state.reload();
+			// });
 		};
 
 	}
