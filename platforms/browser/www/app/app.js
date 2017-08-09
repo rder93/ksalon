@@ -903,6 +903,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('profesional_servicios_editar',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
+            url: '/profesional/edit/servicios/:id/:id_service',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/profesional_servicios_editar.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_servicios_editar':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
         .state('profesional_combos',{
             onExit: function() 
             { 

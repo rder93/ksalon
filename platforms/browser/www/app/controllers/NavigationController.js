@@ -23,7 +23,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
     });
 	
 	console.log($scope.user.rol_id);
-	if ($scope.user.rol_id == 1) { /*Parte del administrador*/
+	if ($scope.user.rol_id == 0) { /*Parte del administrador*/
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
@@ -61,7 +61,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'home'
 		},		
 		];
-	}else if ($scope.user.rol_id == 2) { /*Parte de grandes salones*/
+	}else if ($scope.user.rol_id == 1) { /*Parte de grandes salones*/
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
@@ -95,7 +95,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		},		
 		];
 	}
-	else if ($scope.user.rol_id == 3) { /*parte de pequeños salones*/
+	else if ($scope.user.rol_id == 2) { /*parte de pequeños salones*/
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
@@ -128,7 +128,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'home'
 		},		
 		];
-	}else if($scope.user.rol_id == 4){  /*parte de profesionales independietes*/
+	}else if($scope.user.rol_id == 3){  /*parte de profesionales independietes*/
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',

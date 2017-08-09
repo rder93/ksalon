@@ -1,10 +1,6 @@
 <div ui-view="navigation"></div>
 
-<div class="fixed-action-btn">
-  <a ui-sref="profesional_combos_crear({id:independent_id})" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
-  </a>
-</div>
+
 
 
   <div id="modalEliminarCombo" class="modal red">
@@ -23,10 +19,11 @@
   <div id="modalVerCombo" class="modal modal-fixed-footer">
     <div class="modal-content">
       <div>
+        <img src="{{ thumbnail + combo.foto }}" alt="" style="width: 100%">
         <h4 class="center-align">{{combo.descripcion}}</h4>
-        <h5 class="center-align">{{combo.precio}}</h5>
+        <h5 class="center-align">Precio: {{combo.precio}} Bs.</h5>
       </div>
-      <div class="container">
+        <div class="container">
           <table class="bordered">
             <tbody>
               <tr ng-repeat="list in listaServicios">
@@ -40,9 +37,50 @@
       <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cerrar</button>
     </div>
   </div>
+
+<div style="width: 70%;margin: auto;">
+    <form id="searchInput" >
+        <div class="input-field" style="margin-top: 0px;">
+            <input type="text" placeholder="Buscar combos" ng-model="search" style="padding: 2%;">
+        </div>
+    </form>
+</div>
           
 
-<div class="row container">
+<h5 style="text-align: center;">Lista de Combos</h5>
+
+<div ng-repeat="combo in combos | filter : search" >
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s12"  style="margin-top: 2%;padding: 0;">
+            <div class="col s12" style="color:black;margin-bottom: 5px;">
+                <div class="col s2" style="padding: 0px;">
+                    <img src="{{ thumbnail + combo.foto }}" alt="" class="circle responsive-img" style="width: 60px;height: 47px;">
+                </div>
+                <div class="col s8">
+                    <p style="font-size: 1.17em;margin:0;font-weight: 600;">{{combo.descripcion}}</p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Cotización: {{combo.precio | number:2 }} Bs.</p>
+                </div>
+                <div class="right" style="margin-right: 15px;">
+                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='combo--{{combo.id}}' id="combo-{{combo.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                    <ul id='combo--{{combo.id}}' class='dropdown-content' for="combo-{{combo.id}}">
+                        <li><a ui-sref="profesional_combos_editar({id:independent_id, id_combo:combo.id})">Editar</a></li>
+                        <li><a ng-click="modalEliminarCombo(combo.id)">Eliminar</a></li>
+                        <li><a ng-click="modalVerCombo(combo.id)">Ver Combo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+</div>
+
+<div class="fixed-action-btn">
+  <a ui-sref="profesional_combos_crear({id:independent_id})" class="btn-floating btn-large red" >
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+
+<!-- <div class="row container">
       <div class="col s12 m12">
         <div>
         <table class="bordered">
@@ -58,7 +96,7 @@
                 <td>
                     <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{combo.id}}'><i class="material-icons">more_vert</i></button>
 
-                    <!-- Dropdown Structure -->
+                   
                     <ul id='{{combo.id}}' class='dropdown-content'>
                       <li><a ui-sref="profesional_combos_editar({id:independent_id, id_combo:combo.id})">Editar</a></li>
                       <li><a ng-click="modalEliminarCombo(combo.id)">Eliminar</a></li>
@@ -70,6 +108,6 @@
           </table>
         </div>
       </div>
-    </div>
+    </div> -->
 
 <div>

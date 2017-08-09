@@ -1,6 +1,6 @@
 <div ui-view="navigation"></div>
 <div class="row" style="margin-bottom: 0px;">
-    <form class="col s12" style="margin-top: 20px;" ng-submit="newService()" enctype="multipart/form-data">
+    <form class="col s12" style="margin-top: 20px;" ng-submit="editService()" enctype="multipart/form-data">
     	<div class="row">
     		<div class="col s12">
     			<img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px;width: 100%;" />
@@ -17,7 +17,7 @@
         </div><br>
     	<div class="row">
 			<div class="input-field col s12">
-				<select ng-options="servicio.nombre for servicio in listaServicios track by servicio.id" ng-model="new_service.id_service">
+				<select id="selectServicio" ng-options="servicio.nombre for servicio in listaServicios track by servicio.id" ng-model="new_service.id_service">
 			 		<option value="" disabled selected>Selecciona un servicio</option>
 				</select>
 		    	<label>Servicios</label>
@@ -26,7 +26,7 @@
 				<label for="precio">Precio</label>
     			<input id="precio" type="text" class="validate" ng-model="new_service.precio">
         	</div>
-	        <div class="input-field col s12">
+        	<div class="input-field col s12">
 	        	<textarea id="textarea1" class="materialize-textarea" ng-model="new_service.descripcion"></textarea>
 	        	<label for="textarea1">Descripción</label>
 	        </div>

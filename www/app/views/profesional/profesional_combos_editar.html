@@ -21,9 +21,32 @@
     </div>
   </div>
 
-    <h4 class="center-align">Editar Combo</h4>
-    <form class="col s12" style="margin-top: 20px;">
+  <div id="modalEliminarServ" class="modal red">
+    <div class="modal-content">
+      <h4>¿Seguro que desea eliminar este servicio?</h4>
+      <input class="hide" type="text" ng-model="detail_id">
+    </div>
+    <div class="modal-footer red">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarDetailCombo(detail_id)">Eliminar</button>
+    </div>
+  </div>
+
+    <h4 class="center-align" style="margin-top: 17%;">Registrar Combo</h4>
+    <form class="col s12">
       <div class="row">
+        <div class="col s12" style="margin-bottom: 20px;">
+              <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px;width: 100%;" />
+                  <div class="file-field">
+                    <div class="btn-floating halfway-fab waves-effect waves-light blue">
+                        <i class="material-icons">camera</i>
+                        <input type="file" name="file" id="file" uploader-model="combo.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate hide" type="text">
+                    </div>
+                  </div>
+            </div>
         <input type="text" name="" ng-model="combo.independent_id" class="hide">
         <div class="input-field col s12">
           <label for="name">Descripcion</label>
@@ -40,7 +63,7 @@
             <tbody>
               <tr ng-repeat="list in listaServicios">
                 <td>{{list.nombre}}</td>
-                <td><a class="btn-floating waves-effect waves-light red" ng-click="eliminarServicioCombo(list.id)"><i class="material-icons">delete</i></a></td>
+                <td><a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServ(list.id)"><i class="material-icons">delete</i></a></td>
               </tr>
             </tbody>
           </table>
@@ -54,5 +77,5 @@
             </div>
           </div>
         </div>
-      </form>
+    </form>
 </div>

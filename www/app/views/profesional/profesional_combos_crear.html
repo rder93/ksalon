@@ -23,9 +23,21 @@
 
 
 
-    <h4 class="center-align">Registrar Combo</h4>
-    <form class="col s12" style="margin-top: 20px;">
-      <div class="row">
+    <h4 class="center-align" style="margin-top: 17%;">Registrar Combo</h4>
+    <form class="col s12">
+        <div class="row">
+            <div class="col s12" style="margin-bottom: 20px;">
+              <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px;width: 100%;" />
+                  <div class="file-field">
+                    <div class="btn-floating halfway-fab waves-effect waves-light blue">
+                        <i class="material-icons">camera</i>
+                        <input type="file" name="file" id="file" uploader-model="combo.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate hide" type="text">
+                    </div>
+                  </div>
+            </div>
         <input type="text" name="" ng-model="combo.independent_id" class="hide">
         <div class="input-field col s12">
           <label for="name">Descripcion</label>
