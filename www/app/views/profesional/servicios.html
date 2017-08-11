@@ -16,7 +16,7 @@
         <div class="col s12"  style="margin-top: 2%;padding: 0;">
             <div class="col s12" style="color:black;margin-bottom: 5px;">
                 <div class="col s2" style="padding: 0px;">
-                    <img src="{{ thumbnail + servicio.foto }}" alt="" class="circle responsive-img" style="width: 60px;height: 47px;">
+                    <img src="{{ thumbnail + servicio.foto }}" alt="" class="materialboxed circle responsive-img" style="width: 60px;height: 47px;">
                 </div>
                 <div class="col s7">
                     <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{servicio.service.nombre}}</p>
@@ -63,6 +63,14 @@
     </div>
 </div>
 
+
+<!-- <div class="tap-target" data-activates="addService">
+    <div class="tap-target-content">
+      <h5>Empieza por aqui!</h5>
+      <p>Dame click y podras agregar un nuevo servicio a tu lista</p>
+    </div>
+</div> -->
+
 <div class="col s12 footer-listuser">
     <div class="row" style="text-align: center;vertical-align: middle;margin-top: 20px;">
         <a ui-sref="profesional_combos({id:usuario_id})" class="waves-effect btn waves-light">
@@ -71,7 +79,7 @@
     </div>
     <div class="col s4">
         <div class="fixed-action-btn" style="bottom: 10px;">
-            <a ui-sref="profesional_servicios_crear({id:usuario_id})" class="btn-floating btn-large red">
+            <a id="addService" ui-sref="profesional_servicios_crear({id:usuario_id})" class="btn-floating btn-large red">
               <i class="large material-icons">add</i>
             </a>
         </div>

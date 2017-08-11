@@ -29,10 +29,25 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 					      stopPropagation: false // Stops event propagation
 					    }
 					);
+					$('.materialboxed').materialbox();
+					$('.tap-target').tapTarget('open');
 			    });
 		    }, function errorCallback(error) {
 		    	Materialize.toast("Problemas de conexión...", 4000);
 		    });
+
+		    if(window.localStorage.getItem("loggedIn") != 1) {
+			// Running for the first time.
+			window.localStorage.setItem("loggedIn", 1);
+			console.log("1st time");
+			}
+			else
+			{
+			//Already run this app before.
+			console.log("running this for more than one time");
+			}
+
+
 
 	    $scope.removeItem = function(id){
 	        $('#modal1').modal('open');
@@ -89,6 +104,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		        	$('.modal').modal();
 		        	$('#modalAdd').modal('open');
 			       	$('select').material_select();
+			       	$('.materialboxed').materialbox();
 			    });
 		    }, function errorCallback(error) {
 		    	Materialize.toast(error, 4000);
@@ -171,6 +187,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		        	$('.modal').modal();
 		        	$('#modalAdd').modal('open');
 			       	$('select').material_select();
+			       	$('.materialboxed').materialbox();
 			    });
 		    }, function errorCallback(error) {
 		    	Materialize.toast(error, 4000);
@@ -263,6 +280,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 					      stopPropagation: false // Stops event propagation
 					    }
 					);
+					$('.materialboxed').materialbox();
 			    });
 		    }, function errorCallback(error) {
 		    	Materialize.toast(error, 4000);
@@ -328,6 +346,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		        $timeout(function(){
 		        	$('.modal').modal();
 			       	$('select').material_select();
+			       	$('.materialboxed').materialbox();
 			    });
 		    }, function errorCallback(error) {
 		    	Materialize.toast("Problemas de conexión...", 4000);
@@ -448,6 +467,9 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.foto
 				};
+				$timeout(function(){
+			       	$('.materialboxed').materialbox();
+			    });
 			}, function errorCallback(response) {
 				console.log('dio error');
 			});

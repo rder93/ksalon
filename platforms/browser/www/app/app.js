@@ -552,6 +552,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('lounges_photos_index',{
+            onExit: function() 
+            { 
+                location.reload(); 
+            },
+            url: '/lounges/photos/:id',
+            views: {
+                '':{
+                    templateUrl: path_views+'/lounges/lounges_photos_index.html',
+                    controller: 'LoungeController'
+                },
+                'navigation@lounges_photos_index':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         
 
         /*----- JONATHAN -----*/

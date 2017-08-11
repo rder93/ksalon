@@ -2,6 +2,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	var server_uri = $('body').attr('data-server_uri'),
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
+	var fotos_uri = $('body').attr('data-fotos_uri');
 	$('.mobile-content').fadeIn(1000);
 	$('.search-input').fadeIn(1000);
 	$('.modal').modal();
@@ -1264,7 +1265,203 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	}
 
+	if($state.current.name == 'lounges_photos_index'){
+		if(debug == 'true'){
 
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
+
+			$http({
+				method: 'GET',
+				url: server_uri+'/loungePhotos/'+$stateParams.id,
+			}).then(function successCallback(response) {
+				$scope.loungefotos=response.data;
+				$scope.thumbnail = fotos_uri;
+				$timeout(function(){
+					$('.modal').modal();
+					$('.dropdown-button').dropdown({
+						inDuration: 300,
+						outDuration: 225,
+				      constrainWidth: false, // Does not change width of dropdown to that of the activator
+				      hover: true, // Activate on hover
+				      gutter: 0, // Spacing from edge
+				      belowOrigin: true, // Displays dropdown below the button
+				      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+				      stopPropagation: false // Stops event propagation
+				  	});
+				  	$('.slider').slider({
+				  		height: 320,
+				  		transition: 800
+				  	});
+				  	$('.materialboxed').materialbox();
+				  	
+				  	// $('.carousel').carousel('next');
+				});
+			}, function errorCallback(response) {
+				console.log('dio error');
+			});
+
+			$scope.modalAgregarFoto=function(){
+				$('#modalFoto').modal('open');
+				$scope.agregarFoto=true;
+				$scope.editarFoto=false;
+				$scope.foto={};
+				$scope.foto.lounge_id = $stateParams.id;
+
+				$http({
+					method: 'GET',
+					url: server_uri+'/imagen_defecto2',
+				}).then(function successCallback(response) {
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.path
+					};
+				    
+				}, function errorCallback(response) {
+					console.log('dio error');
+				});
+			};
+
+			$scope.agregar = function () {
+				var fd = new FormData();
+			  	var foto=$scope.foto;
+			  	console.log(foto);
+			  	for ( var key in foto ) {
+			  		fd.append(key, foto[key]);
+			  	}
+
+			  	$http.post(server_uri+'loungePhotos/', fd, {
+			  		withCredentials: true,
+			  		headers: {'Content-Type': undefined },
+			  		transformRequest: angular.identity
+			  	}).then(function successCallback(response) {
+			  		Materialize.toast(response.data.msj, 4000);
+			  		$state.reload();
+			  	}, function errorCallback(response) {
+			  		Materialize.toast(error, 4000);
+			  		$state.reload();
+			  	});
+			}
+
+			// $scope.agregarFoto = function() {
+			// 	console.log("hola");
+			// 	// var fd = new FormData();
+			//  //  	var foto=$scope.foto;
+			//  //  	console.log(foto);
+			//  //  	for ( var key in foto ) {
+			//  //  		fd.append(key, foto[key]);
+			//  //  	}
+
+			//  //  	$http.post(server_uri+'loungePhotos/', fd, {
+			//  //  		withCredentials: true,
+			//  //  		headers: {'Content-Type': undefined },
+			//  //  		transformRequest: angular.identity
+			//  //  	}).then(function successCallback(response) {
+			//  //  		Materialize.toast(response.data.msj, 4000);
+			//  //  		$state.reload();
+			//  //  	}, function errorCallback(response) {
+			//  //  		Materialize.toast(error, 4000);
+			//  //  		$state.reload();
+			//  //  	});
+			// }
+
+			$scope.editarFoto=function(id){
+				$scope.crearFoto=false;
+				$scope.editarFoto=true;
+				$scope.foto={};
+				$('#modalFoto').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'loungePhotos/'+id+'/edit',
+				}).then(function successCallback(response) {
+					var fotos_uri = $('body').attr('data-fotos_uri');
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+					$scope.cert=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+			};
+
+			$scope.actualizarFoto=function(id){
+				var fd = new FormData();
+				  var foto=$scope.foto;
+				  console.log(foto);
+				  for ( var key in foto ) {
+				  	fd.append(key, foto[key]);
+				  }
+
+				 $http.post(server_uri+'loungePhotos/'+id, fd, {
+				  	withCredentials: true,
+				  	headers: {'Content-Type': undefined },
+				  	transformRequest: angular.identity
+				  }).then(function successCallback(response) {
+				  	Materialize.toast(response.data.msj, 4000);
+				  	$state.reload();
+				  }, function errorCallback(response) {
+				  	Materialize.toast(error, 4000);
+				  	// $state.reload();
+				  });
+			};
+
+			$scope.modalEliminarFoto=function(id){
+				$scope.id_foto=id;
+				$('#modalEliminarFoto').modal('open');
+			};
+
+			$scope.modalVerFoto=function(id){
+				$scope.foto={};
+				$('#modalVerFoto').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'/loungePhotos/'+id+'/edit',
+				}).then(function successCallback(response) {
+					var fotos_uri = $('body').attr('data-fotos_uri');
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+					$scope.foto=response.data;
+				}, function errorCallback(response) {
+					console.log('dio error');
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
+
+			};
+
+			$scope.eliminarFoto=function(id){
+				$http({
+					method: 'DELETE',
+					url: server_uri+'/loungePhotos/'+id,
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.reload();
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					// $state.go('lounges_productos_crear');
+				});
+			};
+
+		}
+	}
 
 
 }])
