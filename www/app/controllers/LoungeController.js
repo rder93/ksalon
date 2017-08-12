@@ -14,7 +14,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	// }).then(function successCallback(response) {
 	// 	$.sessionStorage.set('longe_id', response.data.id);
 	// }, function errorCallback(response) {
-	// 	console.log('dio error');
+	// 	console.log('Problemas de conexión...');
 	// });
 
 	// $scope.Producto=$.sessionStorage.get('user');
@@ -114,7 +114,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					);
 			    });
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalLounge=function(id){
@@ -193,7 +193,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			    }
 
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$scope.actualizarLounge=function () {
@@ -236,7 +236,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					);
 			    });
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalProducto=function(id){
@@ -293,7 +293,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}).then(function successCallback(response) {
 			$scope.Producto=response.data;
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$scope.actualizarProducto=function () {
@@ -335,7 +335,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					);
 			    });
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalServicio=function(id){
@@ -369,7 +369,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.servs=response.data;
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$http({
@@ -383,7 +383,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					    // this callback will be called asynchronously
 					    // when the response is available
 			}, function errorCallback(response) {
-						console.log('dio error');
+						console.log('Problemas de conexión...');
 					    // called asynchronously if an error occurs
 					    // or server returns response with an error status.
 			});
@@ -459,7 +459,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.Servicio=response.data;
 			$scope.Servicio.service_id = {id: $scope.Servicio.service_id};
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$scope.fileReaderSupported = window.FileReader != null;
@@ -487,7 +487,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}).then(function successCallback(response) {
 				$scope.servs=response.data;
 		}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 		});
 
 		
@@ -555,7 +555,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			    });
 				
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalProfesional=function(id){
@@ -593,7 +593,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			    // this callback will be called asynchronously
 			    // when the response is available
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			});
@@ -659,7 +659,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			    // this callback will be called asynchronously
 			    // when the response is available
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			});
@@ -734,7 +734,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					);
 			    });
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalAgregarServicio=function(){
@@ -746,7 +746,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					console.log(response.data);
 					$scope.servicios=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 
 				$scope.profesional_serv={};
@@ -787,7 +787,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					$scope.profesional_serv=response.data;
 					$scope.profesional_serv.service_id = {id: $scope.profesional_serv.service_id};
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 				
 				$http({
@@ -799,7 +799,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					}
 					$scope.servicios=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 
 			
@@ -885,7 +885,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					  });
 					});
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 			});
 
 			$scope.modalAgregarCertificado=function(){
@@ -905,7 +905,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				    // this callback will be called asynchronously
 				    // when the response is available
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				});
@@ -949,7 +949,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					};
 					$scope.cert=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				});
@@ -995,7 +995,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					};
 					$scope.cert=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				});
@@ -1041,7 +1041,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					);
 			    });
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalEliminarCombo=function(id){
@@ -1070,7 +1070,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				}).then(function successCallback(response) {
 					$scope.combo=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 
 				$http({
@@ -1079,7 +1079,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				}).then(function successCallback(response) {
 					$scope.listaServicios=response.data;
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 				$('#modalVerCombo').modal('open');
 			}
@@ -1110,7 +1110,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$scope.servicios=response.data;
 				console.log(response.data);
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.agregarServicio=function() {
@@ -1122,7 +1122,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					console.log(response.data);
 					$scope.listaServicios.push(response.data);
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 				
 				console.log($scope.listaServicios);
@@ -1171,7 +1171,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}).then(function successCallback(response) {
 			$scope.combo=response.data;
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$http({
@@ -1180,7 +1180,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		}).then(function successCallback(response) {
 			$scope.listaServicios=response.data;
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$scope.modalServ=function(){
@@ -1195,7 +1195,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.servicios=response.data;
 			console.log(response.data);
 		}, function errorCallback(response) {
-			console.log('dio error');
+			console.log('Problemas de conexión...');
 		});
 
 		$scope.agregarServicio=function() {
@@ -1313,7 +1313,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				  	// $('.carousel').carousel('next');
 				});
 			}, function errorCallback(response) {
-				console.log('dio error');
+				console.log('Problemas de conexión...');
 			});
 
 			$scope.modalAgregarFoto=function(){
@@ -1332,7 +1332,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					};
 				    
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				});
 			};
 
@@ -1357,29 +1357,9 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			  	});
 			}
 
-			// $scope.agregarFoto = function() {
-			// 	console.log("hola");
-			// 	// var fd = new FormData();
-			//  //  	var foto=$scope.foto;
-			//  //  	console.log(foto);
-			//  //  	for ( var key in foto ) {
-			//  //  		fd.append(key, foto[key]);
-			//  //  	}
-
-			//  //  	$http.post(server_uri+'loungePhotos/', fd, {
-			//  //  		withCredentials: true,
-			//  //  		headers: {'Content-Type': undefined },
-			//  //  		transformRequest: angular.identity
-			//  //  	}).then(function successCallback(response) {
-			//  //  		Materialize.toast(response.data.msj, 4000);
-			//  //  		$state.reload();
-			//  //  	}, function errorCallback(response) {
-			//  //  		Materialize.toast(error, 4000);
-			//  //  		$state.reload();
-			//  //  	});
-			// }
-
 			$scope.editarFoto=function(id){
+				console.log("id: "+id);
+				$('.slider').slider('pause');
 				$scope.crearFoto=false;
 				$scope.editarFoto=true;
 				$scope.foto={};
@@ -1388,13 +1368,13 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					method: 'GET',
 					url: server_uri+'loungePhotos/'+id+'/edit',
 				}).then(function successCallback(response) {
-					var fotos_uri = $('body').attr('data-fotos_uri');
 					$scope.thumbnail = {
 						dataUrl: fotos_uri+response.data.foto
 					};
-					$scope.cert=response.data;
+					$scope.foto=response.data;
+					console.log($scope.foto);
 				}, function errorCallback(response) {
-					console.log('dio error');
+					console.log('Problemas de conexión...');
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				});
@@ -1402,12 +1382,13 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			};
 
 			$scope.actualizarFoto=function(id){
+				console.log("id: "+id);
 				var fd = new FormData();
-				  var foto=$scope.foto;
-				  console.log(foto);
-				  for ( var key in foto ) {
+				var foto=$scope.foto;
+				console.log(foto);
+				for ( var key in foto ) {
 				  	fd.append(key, foto[key]);
-				  }
+				}
 
 				 $http.post(server_uri+'loungePhotos/'+id, fd, {
 				  	withCredentials: true,
@@ -1427,9 +1408,16 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$('#modalEliminarFoto').modal('open');
 			};
 
+			$scope.cerrarModalVerFoto=function(){
+				$('#modalVerFoto').modal('close');
+				$state.reload();
+			};
+
 			$scope.modalVerFoto=function(id){
-				$scope.foto={};
+				
+				$('.slider').slider('pause');
 				$('#modalVerFoto').modal('open');
+				
 				$http({
 					method: 'GET',
 					url: server_uri+'/loungePhotos/'+id+'/edit',
@@ -1438,11 +1426,10 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					$scope.thumbnail = {
 						dataUrl: fotos_uri+response.data.foto
 					};
-					$scope.foto=response.data;
+					console.log($scope.thumbnail);
+					
 				}, function errorCallback(response) {
-					console.log('dio error');
-				    // called asynchronously if an error occurs
-				    // or server returns response with an error status.
+					console.log('Problemas de conexión...');
 				});
 
 			};
