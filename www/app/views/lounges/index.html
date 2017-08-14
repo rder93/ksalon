@@ -25,7 +25,7 @@
         <table class="bordered">
             <thead>
               <tr>
-                <th colspan="2" class="center-align"><h5>Lista de Salones</h5></th>
+                <th colspan="4" class="center-align"><h5>Lista de Salones</h5></th>
               </tr>
             </thead>
 
@@ -50,6 +50,7 @@
                     <ul id='{{Lounge.id}}' class='dropdown-content'>
                       <li><a ui-sref="lounges_editar({id:Lounge.id})">Editar</a></li>
                       <li><a ng-click="modalLounge(Lounge.id)">Eliminar</a></li>
+                      <li><a ui-sref="lounges_photos_index({id_lounge:Lounge.id})">Ver/Agregar fotos</a></li>
                       <li><a ui-sref="lounges_servicios({id:Lounge.id})">Ver Salon</a></li>
                     </ul>
 	                	</div>
