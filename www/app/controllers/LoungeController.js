@@ -34,7 +34,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$scope.registrarLounge=function(){
 				$scope.Lounge.user_id=$.sessionStorage.get('user').id;
-				$scope.Lounge.category_id=$.sessionStorage.get('user').rol_id-1;
+				$scope.Lounge.category_id=$.sessionStorage.get('user').rol_id;
 				console.log($scope.Lounge);
 				$http({
 					method: 'POST',
@@ -42,7 +42,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					data:$scope.Lounge
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
-					$state.go('lounges_index');
+					$scope.id_lounge = response.data.lounge.id;
+					$state.go('lounges_photos_index',{id_lounge:$scope.id_lounge});
 				}, function errorCallback(response) {
 					Materialize.toast(error, 4000);
 					$state.reload();
@@ -74,7 +75,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			      	lng : latLng.lng()
 			      };
 			      $scope.Lounge.latitud=latLng.lat();
-			      $scope.Lounge.altitud=latLng.lng();
+			      $scope.Lounge.longitud=latLng.lng();
 			      console.log($scope.Lounge);
 
 			  });
@@ -1288,7 +1289,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungePhotos/'+$stateParams.id,
+				url: server_uri+'/loungePhotos/'+$stateParams.id_lounge,
 			}).then(function successCallback(response) {
 				$scope.loungefotos=response.data;
 				$scope.thumbnail = fotos_uri;
@@ -1321,7 +1322,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$scope.agregarFoto=true;
 				$scope.editarFoto=false;
 				$scope.foto={};
-				$scope.foto.lounge_id = $stateParams.id;
+				$scope.foto.lounge_id = $stateParams.id_lounge;
+				console.log($scope.foto.lounge_id);
 
 				$http({
 					method: 'GET',

@@ -386,7 +386,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             { 
                  
             },
-            url: '/lounges/servicios/crear',
+            url: '/lounges/nuevoServicio/crear',
             views: {
                 '': { 
                     templateUrl: path_views+'/lounges/lounges_servicios_form.html',
@@ -558,7 +558,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             { 
                  
             },
-            url: '/lounges/photos/:id',
+            url: '/lounges/photos/:id_lounge',
             views: {
                 '':{
                     templateUrl: path_views+'/lounges/lounges_photos_index.html',
