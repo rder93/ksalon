@@ -24,7 +24,12 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
                 $scope.user = $.sessionStorage.get('user');
                 $scope.nonReviews = response.data.nonReview;
                 
-                ownPagination(response.data.transactions);
+                if (response.data.transactions.length > 0) {
+                    $scope.enable = true;
+                    ownPagination(response.data.transactions);
+                }else{
+                    $scope.enable = false;
+                }
             }
 
         }, function errorCallback(response) {

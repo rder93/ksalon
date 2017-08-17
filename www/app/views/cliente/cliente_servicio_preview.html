@@ -3,44 +3,59 @@
 
 <br>
 
-<div class="height-100;" style="50px;">
-		
-	<div class="page-content">		
+<div class="height-100;" >
+	<div class="page-content" style="width: 90%; margin: auto; margin-top: 50px">
+		<div class="slider">
+		    <ul class="slides">
+		     
+		    </ul>
+		  </div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.slider').slider();
+	    });
+	</script>
+<!-- 		
+	<div class="page-content">
 		<div class="page-description" style="padding:0px; ">
 			<h4 style="margin:0px;">Secado de Cabello</h4>
-			<p>Publicado por: {{peluqueria.nombre_usuario}}</p>
+			<p>Publicado por: {{ peluqueria[0].nombre_usuario }}</p>
 		</div>	
 
 		<div>
 			<img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;">
 		</div>
-		<!-- <div>
+		<div>
 			<p style=" margin: auto; text-align: justify; width: 95%;">
 				{{peluqueria.descripcion}}
 			</p>
-		</div> -->
+		</div>
 		
 		<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
 			<p style="font-size:16px; font-weight:bold; ">
-				{{ peluqueria.nombre }}
+				{{ peluqueria[0].nombre_salon }}
 			</p>
 			<p>
-				{{ peluqueria.descripcion }}
+				{{ peluqueria[0].descripcion }}
 			</p>
-			<a ui-sref="cliente_vendedor_perfil({id: peluqueria.id})">Ver Perfil de este {{ peluqueria.nombre_categoria}}!!</a>
+			<a ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})">Ver Perfil de este salon{{ peluqueria.nombre_categoria}}!!</a>
 		</div>
 
 		<div>
-			<h4 style="text-align:center;">Precio: <span>{{servicio.precio | currency}}</span></h4>
+			<h6 style="text-align:center;" ng-repeat="p in peluqueria">
+				servicio: <span>{{ p.nombre_servicio }}</span> -- Precio: <span>{{ p.precio | currency }}</span>
+			</h6>
 		</div>
 			
-	</div>	
+	</div>
 
-
-	<div class="form-categorias-footer">
-		<button class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" ng-click="buscar_categorias();">
+ -->
+	<div class="form-categorias-footer" style="width: 90%; margin: auto;">
+		<a class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" ng-click="goClientePago();" >
 			Reservar
-		</button>
+		</a>
 	</div>
 
 </div>

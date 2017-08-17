@@ -125,6 +125,10 @@
 
 		</div>
 
+		<div ng-if="enable == false">
+			<p>Aun no tiene transacciones</p>
+		</div>
+
 	</div>
 
 	<script>
@@ -137,7 +141,7 @@
 
 
 
-<div class="row"  style="padding:25px 0px 25px; 0px">
+<div class="row"  style="padding:25px 0px 25px 0px;" ng-if="enable == true">
 		<div class="col s12" style="text-align: center;">
 			
 		<button class="waves-effect waves-light btn"  style="padding: 0 1rem;"  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">

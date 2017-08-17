@@ -53,7 +53,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},
 		{
 			'nombre': 'Mis Servicios Realizados',
@@ -91,7 +91,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},		
 		];
 	}
@@ -125,7 +125,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},		
 		];
 	}else if($scope.user.rol_id == 3){  /*parte de profesionales independietes*/
@@ -153,7 +153,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},
 		{
 			'nombre': 'Mis Servicios Realizados',
@@ -191,7 +191,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},
 		{
 			'nombre': 'Mis Servicios Realizados',
@@ -199,7 +199,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'home'
 		},		
 		{
-			'nombre':'Boton ON/OFF',
+			'nombre':'Tickets',
 			'icono' :'border_color',
 			'state' :'tickets'
 		}

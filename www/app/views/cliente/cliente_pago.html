@@ -1,0 +1,81 @@
+
+<div ui-view="navigation"></div>	
+
+<br>
+
+<div class="height-100;" >
+		
+	<br>
+	<br>
+	<br>
+
+
+    <div id="paypal-button"></div>
+
+    <script>
+        paypal.Button.render({
+
+            env: 'sandbox', // Or 'sandbox',
+
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+	            sandbox:    'Aci2LpZ0BSQOQmx0mlX_6RubqE32VgH512TYRvLNbYmkW0_qHVxLruFTYre4yoSOcu6kmdl0TLwFrMJ1'
+	        },
+
+            commit: true, // Show a 'Pay Now' button
+
+            locale: 'es_ES',
+
+            style: {
+                        label: 'buynow',
+                        fundingicons: true, // optional
+                        branding: true, // optional
+                        size:  'small', // small | medium | large | responsive
+                        shape: 'rect',   // pill | rect
+                        color: 'gold'   // gold | blue | silve | black
+                    },
+
+            payment: function(data, actions) {
+
+                // Make a call to the REST api to create the payment
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '0.01', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function(data, actions) {
+                // Execute the payment here
+
+                return actions.payment.execute().then(function(payment) {
+
+                                // The payment is complete!
+                                // You can now show a confirmation message to the customer
+                            });
+           }
+
+        }, '#paypal-button');
+    </script>
+<!-- 
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_cart">
+		<input type="hidden" name="upload" value="1">
+		<input type="hidden" name="business" value="jesustc17-facilitator@gmail.com">
+		<input type="hidden" name="currency_code" value="USD">
+
+
+		<input type="hidden" name="item_name_1" value="REF: servicio ">
+		<input type="hidden" name="amount_1" value="222">
+		<input type="hidden" name="quantity_1" value="1">
+		
+		<input type="submit" class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" value="Paypal prueba" name="submit" alt="Comprar con PayPal" title="Comprar con PayPal">
+    </form>	
+ -->
+</div>
+      
