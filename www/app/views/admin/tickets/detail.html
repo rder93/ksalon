@@ -2,9 +2,6 @@
 
 	<style>
 			.mini-circle {
-				/*background-color: #999;*/
-				/*border: 2px solid #999;*/
-				/*border-radius: 100%;*/
 				color: #999;
 				line-height: 35px;
 				margin: auto;
@@ -13,8 +10,6 @@
 				width: 25px;  
 				text-align: center;   
 				z-index: 2;
-
-
 
 				border-left: 15px solid transparent;
 				border-right: 15px solid transparent;
@@ -89,11 +84,11 @@
 		
 		<div class="ticket-status">
 			<div class="chip" ng-if="!ticket.thread">
-				<img src="./assets/core/images/pending.png">
+				<img src="../../../assets/core/images/pending.png">
 				Pendiente
 			</div>
 			<div class="chip" ng-if="ticket.thread">
-				<img src="./assets/core/images/done.png">
+				<img src="../../../assets/core/images/done.png">
 				Respondido
 			</div>
 			<span class="ticket-status-id">Ticket #{{ticket.id}}</span>
@@ -140,11 +135,37 @@
 					</div>
 				</div>
 
-				<div ng-if="!ticket.thread">
-					<span>
-						Su ticket aun no ha sido respondido
-					</span>
+
+
+
+
+
+				<div class="reply-ticket-wrap" ng-if="!ticket.thread">
+					<form>
+						<div id="ticket-content">
+							<label class="label-custom"> Comentario</label>
+							<textarea id="replyingticket" name="content" id="" cols="30" rows="10" style="min-height: 100px;" maxlength="200"  data-length="160"></textarea>
+						</div>
+
+						<div style="text-align: center;">
+							<div >
+								<input type="hidden" name="user_id"  value="{{user_id}}">
+								<input type="hidden" name="owner_id" value="{{ticket.creator.id}}">
+								<input type="hidden" name="ticket_id" value="{{ticket.id}}">
+								<input type="hidden" name="rol" value="{{user.rol_id}}">
+								<input type="hidden" name="subject"  value="{{ticket.thread.subject}}">
+							</div>	
+
+							<button class="btn" id="btn-send-review" ng-click="sendTicketReply();">
+								<span>Enviar respuesta</span>
+							</button>
+						</div>
+					</form>
 				</div>
+
+
+
+
 			</div>
 
 		</div>

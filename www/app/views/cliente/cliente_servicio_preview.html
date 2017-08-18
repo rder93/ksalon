@@ -52,6 +52,18 @@
 	</div>
 
  -->
+	<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
+			<p style="font-size:16px; font-weight:bold; ">
+				{{ peluqueria[0].nombre_salon }}
+			</p>
+			<p>
+				{{ peluqueria[0].descripcion }}
+			</p>
+			<!-- ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})" -->
+			<a   ng-click="goClienteVendedrPerfil();">Ver Perfil de este salon {{peluqueria.nombre_categoria}}!!</a>
+	</div>
+
+
 	<div class="form-categorias-footer" style="width: 90%; margin: auto;">
 		<a class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" ng-click="goClientePago();" >
 			Reservar

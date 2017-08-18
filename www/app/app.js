@@ -134,22 +134,41 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('chat',{
-            onExit: function() 
-            { 
-                 
+        .state('user_message',{
+            url: '/user_message/:id?transaction_id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
             },
-            url: '/conversation/:id',
+            onExit: function(){
+                $('.mobile-content').fadeOut(1000);
+            },
             views:{
                 '':{
                     templateUrl: path_views+'/user/conversation.html',
                     controller: 'MessagesController'
                 },
-                'navigation@chat':{
-                    templateUrl: path_views+'/template_parts/nav.html'
+                'navigation@user_message':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
                 }
             }
         })
+        // .state('chat',{
+        //     onExit: function() 
+        //     { 
+                 
+        //     },
+        //     url: '/conversation/:id',
+        //     views:{
+        //         '':{
+        //             templateUrl: path_views+'/user/conversation.html',
+        //             controller: 'MessagesController'
+        //         },
+        //         'navigation@chat':{
+        //             templateUrl: path_views+'/template_parts/nav.html'
+        //         }
+        //     }
+        // })
 
         .state('servicios',{
             onExit: function() 
@@ -675,6 +694,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
+            },
+            params: {
+                peluqueria: null,
+                servicios: null
             }
         })
 
@@ -757,6 +780,47 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+
+        .state('admin_tickets',{
+            url: '/admin_tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/tickets/index.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@admin_tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller:  'NavigationController'
+                }
+            }
+        })
+
+
+        .state('admin_ticket_detail',{
+            url: '/admin_ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/tickets/detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@admin_ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller:  'NavigationController'
+                }
+            }
+        })
 
 
         .state('transacciones',{
@@ -1072,11 +1136,37 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+
+
+        .state('panel_pagos',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/pagos',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_pagos':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
 });
 
 
 
-
+app.filter('startFrom', function() {
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
 
 
 

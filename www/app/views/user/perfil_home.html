@@ -8,7 +8,7 @@
         <div class="container"><h4 class="text-black">{{Usuario.name}}</h4></div>
       </div>
       <div class="card-content center-align"  style="font-size: 2em;">
-          <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+          <div class="starrr-user"></div>
         </div>
         <div class="card-action">
          <a ui-sref="perfil_config">Configuración de mi perfil</a>
@@ -28,54 +28,28 @@
             </thead>
 
             <tbody>
-              <tr>
+
+              <tr ng-repeat="(key,rating) in Usuario.ratings | limitTo:3">
                 <td><i class="fa fa-user-circle fa-2x"></i></td>
                 <td>
                   <div class="row">
                     <div class="col s6">
-                      <h6 class="nombre-comentario">Jonathan</h6>
+                      <h6 class="nombre-comentario">{{rating.creator.name}}</h6>
                     </div>
                     <div class="col-s6">
-                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                      <div id="starrr-comment-{{key}}"></div>
                     </div>
                     <div class="col s12">
-                      La peluqueria es muy buena la Recomiendo
+                      {{rating.comentario}}
                     </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td><i class="fa fa-user-circle fa-2x"></i></td>
-                <td>
-                  <div class="row">
-                    <div class="col s6">
-                      <h6 class="nombre-comentario">Jonathan</h6>
-                    </div>
-                    <div class="col-s6">
-                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>
-                    <div class="col s12">
-                      La peluqueria es muy buena la Recomiendo
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><i class="fa fa-user-circle fa-2x"></i></td>
-                <td>
-                  <div class="row">
-                    <div class="col s6">
-                      <h6 class="nombre-comentario">Jonathan</h6>
-                    </div>
-                    <div class="col-s6">
-                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>
-                    <div class="col s12">
-                      La peluqueria es muy buena la Recomiendo
-                    </div>
-                  </div>
-                </td>
-              </tr>
+
+              <div ng-if="Usuario.ratings.length == 0">
+                <p>Aun no ha recibido comentarios.</p>
+              </div>
+
             </tbody>
           </table>
         </div>

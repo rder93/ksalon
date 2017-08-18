@@ -87,6 +87,8 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
         });
 	}
 
+
+
 	if($state.current.name == "cliente_servicio_preview"){
 		console.log('el id de la peluqueria es: '+ $stateParams.id);
 		console.log('LOS PARAMETROS SON:');
@@ -121,7 +123,18 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 				servicios: $stateParams.servicios
 			})
 		}
+
+		$scope.goClienteVendedrPerfil = function(){
+			$state.go('cliente_vendedor_perfil',{
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+			// id: peluqueria[0].id}
 	}
+
+
+
 
 	if($state.current.name == 'cliente_pago'){
 		if(debug == 'true')

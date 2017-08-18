@@ -11,6 +11,8 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
     if ( ($state.current.name == 'transacciones') || ($state.current.name == 'transacciones_sin_calificacion') ){
         $scope.Usuario=$.sessionStorage.get('user');
 
+        console.log($scope.Usuario)
+
         $http({
             method: 'GET',
             url: server_uri+'/transactions',
@@ -18,15 +20,20 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
                 id: $scope.Usuario.id
             }
         }).then(function successCallback(response) {
+            console.log("ok entro en response good")
             console.log(response)
 
             if(response.data.success == true){
                 $scope.user = $.sessionStorage.get('user');
                 $scope.nonReviews = response.data.nonReview;
-                
-                if (response.data.transactions.length > 0) {
-                    $scope.enable = true;
-                    ownPagination(response.data.transactions);
+                    
+                if(response.data.transactions){
+                    if (response.data.transactions.length > 0) {
+                        $scope.enable = true;
+                        ownPagination(response.data.transactions);
+                    }else{
+                        $scope.enable = false;
+                    }
                 }else{
                     $scope.enable = false;
                 }
