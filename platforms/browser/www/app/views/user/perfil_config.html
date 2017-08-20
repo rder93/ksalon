@@ -1,15 +1,15 @@
 <div ui-view="navigation"></div>
 
 <form class="col s12" ng-submit="actualizarUsuario()" enctype="multipart/form-data">
-    <div class="row">
+    <div class="row" style="margin-bottom: 0px;">
       <div class="col s12 m6">
         <div class="card">
           <div class="card-image">
-            <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
+            <img ng-src="{{ thumbnail.dataUrl }}"/>
             <div class="file-field">
               <div class="btn-floating halfway-fab waves-effect waves-light blue">
                 <i class="material-icons">camera</i>
-                <input type="file" name file id="file" uploader-model="Usuario.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+                <input type="file" name file id="file" uploader-model="usuario.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate hide" type="text">
@@ -20,31 +20,36 @@
             <div class="row">
               <div class="input-field col s12">
                 <label for="name">Nombre</label>
-                <input id="name" type="text" class="validate" ng-model="Usuario.name">
+                <input id="name" type="text" class="validate" ng-model="usuario.name">
 
               </div>
               <div class="input-field col s12">
                 <label for="correo">Correo</label>  
-                <input id="correo" type="email" class="validate" ng-model="Usuario.email">
+                <input id="correo" type="email" class="validate" ng-model="usuario.email">
 
               </div>
               <div class="input-field col s12">
                 <div class="col s8" style="padding: 0px;">
                   <label for="dni">CI</label>
-                  <input id="dni" type="text" class="validate" ng-model="Usuario.dni">
+                  <input id="dni" type="text" class="validate" ng-model="usuario.dni">
 
                 </div>
               </div>
               <div class="input-field col s12">
                 <div class="col s8" style="padding: 0px;">
                   <label for="passport">Pasaporte</label>
-                  <input id="passport" type="text" class="validate" ng-model="Usuario.passport">
+                  <input id="passport" type="text" class="validate" ng-model="usuario.passport">
 
                 </div>
               </div>
               <div class="input-field col s12">
                 <label for="paypal">Cuenta PayPal</label>
-                <input id="paypal" type="text" class="validate" ng-model="Usuario.paypal">
+                <input id="paypal" type="text" class="validate" ng-model="usuario.paypal">
+              </div><br>
+              <div class="col s12 center-align">
+                <label style="float: left;font-size: 1rem;">Ubicación</label><br>
+                <label class="title_label">Indique direccion seleccionando en el mapa</label>
+                <div style="height: 300px; width: 100%" id="map"></div>
 
               </div>
               <br>

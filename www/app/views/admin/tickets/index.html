@@ -1,18 +1,16 @@
 <div ui-view="navigation"></div>
-	
 
 	<div>
 		<div style="height:58px;"></div>
 
-			<div class="row" ng-repeat="(key,item) in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}" ng-if="item.user_id == Usuario.id" style="border-bottom:1px solid lightgray;  height:125px; margin:0px!important;">
-				
+			<div class="row" ng-repeat="(key,item) in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}"  style="border-bottom:1px solid lightgray;  height:125px;">
 				<div class="ticket-status"   style="height:37px;">
 					<div class="chip" ng-if="!item.thread">
-						<img src="./assets/core/images/pending.png">
+						<img src="../../../assets/core/images/pending.png">
 						Pendiente
 					</div>
 					<div class="chip" ng-if="item.thread">
-						<img src="./assets/core/images/done.png">
+						<img src="../../../assets/core/images/done.png">
 						Respondido
 					</div>
 					<span ng-if="item.thread" style="color:Gray; float:right;">
@@ -20,12 +18,46 @@
 					</span>
 				</div>
 
-				<a ui-sref="ticket_detail({id:item.id})" class="waves-effect waves-light" style=" display:block;">
+				<a ui-sref="admin_ticket_detail({id:item.id})" class="waves-effect waves-light" style=" display:block;">
 					
-					<div class="row" style="margin:0px!important;">
+					<div class="row" style="margin-bottom:0px!important;">
 
 						<div style="color:#000;  font-weight: 400; height:24px; margin:auto; width:95%;">
-							<p style="font-size:16px; font-weight: bold; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis;">
+							<p style="font-size:16px; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis;">
+								{{item.subject }}
+							</p>
+						</div>
+						<div >
+							<p style="color: gray; font-size:12px; height:36px; margin:auto;   overflow:hidden !important; text-overflow: ellipsis;  width:95%; ">
+								{{(item.content | limitTo: 100) + (item.content.length > 100 ? '...' : '')}}
+							</p>
+						</div>
+
+						<div>
+							<div class="ticket-owner">
+								<span style="color:Gray; float:left; font-size:10px; padding-top: 10px;">
+									{{item.creator.name}}
+								</span>
+							</div>
+						</div>
+
+						<!-- div>
+							<span style="color:Gray; float:right; padding-top: 10px;">
+								Enviado el <i class="material-icons" style="font-size:12px;">query_builder</i>{{item.created_at | date}}
+							</span>
+						</div> -->
+						
+					</div>
+
+
+
+
+
+<!-- 
+					<div class="row">
+						
+						<div style="color:#000;  font-weight: 400; height:24px; margin:auto; width:95%;">
+							<p style="font-size:16px; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis;">
 								{{item.subject }}
 							</p>
 						</div>
@@ -35,13 +67,20 @@
 							</p>
 						</div>
 						<div>
-
-							<span style="color:Gray; float:right; padding-top: 10px;">
-								Enviado el <i class="material-icons" style="font-size:12px;">query_builder</i>{{item.created_at | date}}
-							</span>
+							<div class="ticket-owner">
+								<span style="color:Gray; float:left; font-size:10px; padding-top: 10px;">
+									{{item.creator.name}}
+								</span>
+							</div>
 						</div>
 						
 					</div>
+ -->
+
+
+
+
+
 
 				</a>
 
@@ -51,7 +90,7 @@
 
 
 
-		<div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;"  ng-if="noTickets == true">
+		<div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;">
 			<div class="col s12" style="text-align: center;">
 				
 				<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
@@ -69,11 +108,5 @@
 			</div>
 		</div>
 
-
- 		<div class="sticky-footer">
-			<a ui-sref='ticket_send' class="btn btn-block teal lighten-2 waves-effect waves-light btn-large">				
-				Nuevo Ticket 				
-			</a>
-		</div>
  	</div>
 	

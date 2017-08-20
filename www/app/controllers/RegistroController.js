@@ -44,10 +44,18 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 	};
 
 	// $('.categoria').material_select();
+
+	var user = $.sessionStorage.get('user');
+	if( user ){
+		ruta = '/rols'
+	} else {
+		ruta = '/roles'
+	}
+
 	$('body').removeClass('fondoBody');
 	$http({
 		method: 'GET',
-		url: server_uri+'/categories',
+		url: server_uri+ruta,
 	}).then(function successCallback(response) {
 		console.log(response.data);
 		$scope.categories=response.data;
@@ -92,7 +100,9 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 		  	transformRequest: angular.identity
 		  }).then(function successCallback(response) {
 		  	Materialize.toast(response.data.msj, 4000);
-		  	$state.go('login');
+		  	$.sessionStorage.set('user', response.data.user_data);
+			$.sessionStorage.set('rol', response.data.user_data.rol_id); 
+		  	$state.go('perfil');
 		  }, function errorCallback(response) {
 		  	Materialize.toast(error, 4000);
 		  	$state.reload();

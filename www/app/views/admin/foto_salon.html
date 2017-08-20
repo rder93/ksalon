@@ -1,0 +1,17 @@
+<div ui-view="navigation"></div>
+  
+<div style="height: 20px;"></div>
+
+<h4 style="margin-top: 20%;text-align: center;">Fotos de salón</h4>
+
+<div class="container">
+    
+    <div class="slider">
+        <ul class="slides">
+            <li ng-repeat="salon in salonesfotos">
+                <img src="{{ thumbnail + salon.foto }}" class="materialboxed">
+            </li>
+        </ul>
+    </div>
+</div>
+

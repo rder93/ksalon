@@ -4,6 +4,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 	$scope.server_uri = server_uri;
 	var fotos_uri = $('body').attr('data-fotos_uri');
 
+
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
 			if (!$.sessionStorage.get('user')) {
@@ -18,11 +19,14 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
     			method: 'GET',
     			url: server_uri+'/users/'+$scope.Usuario.id+'/edit',
     		}).then(function successCallback(response) {
-				// console.log(response.data);
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.avatar
 				};
 				$scope.Usuario=response.data;
+
+				$scope.calculateRating();
+				// $scope.putRatingsStars();
+
 			    // this callback will be called asynchronously
 			    // when the response is available
 			}, function errorCallback(response) {
@@ -30,6 +34,42 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			});
+
+
+    		$scope.calculateRating = function(){
+    			var i, rate=0;
+
+                for (i=0; i<$scope.Usuario.ratings.length; i++){
+                    rate+= $scope.Usuario.ratings[i].puntaje;
+                }
+
+
+                if(rate==0){
+                	$('.starrr-user').starrr({
+	                    rating: 0,
+	                    readOnly: true
+	                })
+                }else{
+	                $('.starrr-user').starrr({
+	                    rating: rate/$scope.Usuario.ratings.length,
+	                    readOnly: true
+	                })
+	            }
+
+                // $('#seller-stars').append('<span style="margin-left: 10px;">'+ratings.length+' Calificaciones</span>')
+    		}
+
+    		// $scope.putRatingsStars = function(){
+    		// 	for(var i=0; i<$scope.Usuario.ratings.length;i++){
+    		// 		console.log('#starrr-comment-'+i)
+    		// 		$('#starrr-user-'+i).starrr({
+	     //                rating: $scope.Usuario.ratings[i].puntaje,
+	     //                readOnly: true
+	     //            })
+    		// 	}
+    		// }
+
+
 			
 			if ($scope.Usuario.rol_id==2) {
 				$scope.btnSalones=true;
@@ -44,56 +84,71 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 	}
 
 	if($state.current.name == 'perfil_config'){
-		// if(debug == 'true')
-		// $scope.Usuario={};	
-		// 	console.log('en configuracion del perfil');
-
-		// $scope.cargarImagen = function(id) {
-		// 	navigator.camera.getPicture(successPhoto,errorPhoto,{quality:50});
-		// };
 		
-		// $scope.Usuario=$.sessionStorage.get('user');
+		if(debug == 'true'){
+			$scope.Usuario = $.sessionStorage.get('user');
+		
+			$http.get(server_uri+'/users/'+$scope.Usuario.id+'/edit')
+				.then(function(response){
+					console.log(response.data);
+					$scope.usuario=response.data;
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.avatar
+					};
 
-		// $scope.actualizarUsuario = function() {
-		// 	$http({
-		// 		method: 'PUT',
-		// 		url: server_uri+'/users/'+$scope.Usuario.id,
-		// 		data:$scope.Usuario
-		// 	}).then(function successCallback(response) {
-		// 		console.log(response);
-		// 	    console.log('se obtienen los datos del usuario')
-		// 	}, function errorCallback(response) {
-		// 		console.log('dio error');
-		// 	});
-		// };
+					
 
-		// function successPhoto(url){
-		// 	$("#contenedorFoto").attr("src",url);
-  //   		$("#contenedorFoto").show();
-  //   		$scope.Usuario.foto=url;
-  //   		alert($scope.Usuario);
-		// }
-		// function errorPhoto(){
-		// 	alert("error");
-		// }
-		$scope.Usuario=$.sessionStorage.get('user');
-		var fotos_uri = $('body').attr('data-fotos_uri');
-			$http({
-				method: 'GET',
-				url: server_uri+'/users/'+$scope.Usuario.id+'/edit',
-			}).then(function successCallback(response) {
-				// console.log(response.data);
-				$scope.thumbnail = {
-					dataUrl: fotos_uri+response.data.avatar
-				};
-				$scope.Usuario=response.data;
-			    // this callback will be called asynchronously
-			    // when the response is available
-			}, function errorCallback(response) {
-				console.log('dio error');
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
-			});
+					$timeout(function() {
+						
+						//Aqui pones/creas el mapa en el div con id map
+						map = new google.maps.Map(document.getElementById('map'), {
+							center: {lat: parseFloat($scope.usuario.latitud), lng: parseFloat($scope.usuario.longitud)},
+							zoom: 8
+						});
+
+						$scope.getLatLng($scope.usuario);
+					
+					});
+
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+
+
+		    $scope.getLatLng = function(data) {
+		    	latLng = new google.maps.LatLng(data.latitud,data.longitud);
+		    	placeMarker(latLng);
+		    }
+
+		    function placeMarker(location) {
+		    	var markers = [];
+
+		    	var marker = new google.maps.Marker({
+		    		position: location, 
+		    		map: map
+		    	});
+		    	markers.push(marker);
+
+		    	google.maps.event.addListener(map, "click", function (e, a) {
+					var latLng = e.latLng;
+			    	for (var i = 0; i < markers.length; i++) {
+			        	markers[i].setMap(null); //Remove the marker from the map
+			      	}
+
+			      	placeMarker(latLng);
+
+			      	address = {
+			      		lat : latLng.lat(),
+			      		lng : latLng.lng()
+			      	};
+			      	$scope.usuario.latitud=latLng.lat();
+			      	$scope.usuario.longitud=latLng.lng();
+			      	console.log($scope.usuario);
+			  	});
+
+
+		    }
 
 			$scope.fileReaderSupported = window.FileReader != null;
 			$scope.photoChanged = function(files){
@@ -114,9 +169,8 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 			};
 
 			$scope.actualizarUsuario = function() {
-
 				var fd = new FormData();
-				  var usuario=$scope.Usuario;
+				  var usuario=$scope.usuario;
 				  for ( var key in usuario ) {
 				  	fd.append(key, usuario[key]);
 				  }
@@ -133,8 +187,42 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 				  	$state.reload();
 				  });
 			};
+		}
 
 	}
+
+	// function map(data) {
+	// //Markers, es el array donde estaran guardados los marcadores.
+	// 	var markers = [];
+	// 	//Aqui pones/creas el mapa en el div con id map
+	// 	map = new google.maps.Map(document.getElementById('map'), {
+	// 		center: {lat: parseFloat(data.latitud), lng: parseFloat(data.longitud)},
+	// 		zoom: 8
+	// 	})
+
+	//     google.maps.event.addListener(map, "click", function (e, a) {
+	// 		var latLng = e.latLng;
+	//     	for (var i = 0; i < markers.length; i++) {
+	//         	markers[i].setMap(null); //Remove the marker from the map
+	//       	}
+
+	//       	placeMarker(latLng);
+
+	//       	address = {
+	//       		lat : latLng.lat(),
+	//       		lng : latLng.lng()
+	//       	};
+	//       	$scope.usuario.latitud=latLng.lat();
+	//       	$scope.usuario.longitud=latLng.lng();
+	//       	console.log($scope.new_user);
+	//   	});
+
+	//     //eesta es la funcion que pone el marcador en el mapa
+	    
+
+
+	// }
+
 
 }])
 .directive('uploaderModel', ["$parse", function ($parse) {

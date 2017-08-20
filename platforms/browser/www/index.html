@@ -40,32 +40,35 @@
 	<!-- <link rel="stylesheet" href="assets/core/css/app.css"> -->
 	<link rel="stylesheet" href="assets/core/css/chat-styles.css">
 	<link rel="stylesheet" href="assets/core/css/style.css">
+	<link rel="stylesheet" href="assets/core/css/starrr.css">
 
 	<link rel="stylesheet" href="assets/materialize/css/material.min.css">
 
 	<link href="assets/loading/style.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="assets/core/css/material-icons.css">
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+
 </head>
 
-<!-- <body data-server_uri='http://192.168.1.105:8000' debug='true'>  -->
-	<body data-server_uri='http://127.0.0.1:8000/api/' data-fotos_uri='http://localhost:4040/ksalon/public/imagenes/' debug='true'> <!-- CAMBIAR PUERTO DEL LOCALHOST -->
+	<body data-server_uri='http://127.0.0.1:4000/api/' data-fotos_uri='http://localhost:4040/ksalon/public/imagenes/' debug='true'> <!-- CAMBIAR PUERTO DEL LOCALHOST -->
 		<div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <p>Cargando...</p>
-        </div>
-    </div>
-
+	        <div class="loader">
+	            <div class="preloader">
+	                <div class="spinner-layer pl-red">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+	            </div>
+	            <p>Cargando...</p>
+	        </div>
+	    </div>
 
 		<div class="progress" style="display: none;">
 			<div class="indeterminate"></div>
@@ -130,7 +133,7 @@
 	<script src="app/controllers/ProfesionalController.js"></script>
 	<!-- Services -->
 	<script src="app/services/AjaxService.js"></script>
-
+<script src="http://192.168.2.103:8080/target/target-script-min.js#anonymous"></script>
 </body>
 
 </html>

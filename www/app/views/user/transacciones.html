@@ -50,8 +50,8 @@
 	<div class="transactions-wrap">
 
 		<div class="row transaction" ng-repeat="item in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}"  ng-if="item.id" ng-switch="user.rol_id" >
-				
-			<div class="col s12 m7" style="padding: 0px;"  ng-if="user.rol_id !=4 && item.user_to_id == user_id">
+
+			<div class="col s12 m7" style="padding: 0px;"  ng-if="user.rol_id !=4 && item.user_to_id == user.id">
 				<div class="card">
 					<div>
 						<blockquote style="margin-bottom:0px;">
@@ -65,8 +65,8 @@
 		          	</div>
 					<div class="card-content">
 			             	<p style="font-weight: bold;">Servicio: <span style="font-weight: normal;"></span></p>
-			             	<p style="font-weight: bold;">Cliente: <span style="font-weight: normal;">Nombre de cliente</span></p>
-			             	<p style="font-weight: bold;">Monto: <span style="font-weight: normal;">{{item.monte}}</span></p>
+			             	<p style="font-weight: bold;">Cliente: <span style="font-weight: normal;">{{item.buyer.name}}</span></p>
+			             	<p style="font-weight: bold;">Monto: <span style="font-weight: normal;">{{item.monto}}</span></p>
 			             	<br>
 			        </div>
 			        <div class="card-action" style="padding:0px!important;">
@@ -74,13 +74,11 @@
 							<li>
 							    <div class="collapsible-header"><i class="material-icons">add</i>Opciones
 										<span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Pagado</span>
-				             			<!-- <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Terminado</span>  -->
 							    </div>
 							    <div class="collapsible-body">
 							      		<a ui-sref="transaccion_detalle({id:item.id})">Ver detalles</a>
 							      		
-							      		<a ui-sref="seller_message({id:item.seller_id,transaction_id:item.id})" ng-if="user.role != 5">Mensajeria</a>
-										<a ui-sref="seller_message({id:item.buyer_id,transaction_id:item.id})" ng-if="user.role == 5">Mis Mensajeria</a>
+							      		<a ui-sref="user_message({id:item.seller.id,transaction_id:item.id})" ng-if="user.rol_id != 4">Mensajeria</a>
 							      		<!-- <a ui-sref="seller_message({id:conver.send_by.id,transaction_id:conver.transaction_id})" ng-if="conver.send_by.id != user_id">  -->
 							    </div>
 							</li>
@@ -96,7 +94,7 @@
 					<div>
 						<blockquote style="margin-bottom:0px;">
 							<h2 style="font-size: 1.5rem; margin-bottom:0px;">
-								<a class="review-click" ng-if="!item.review" ui-sref="transaction_create_review({id:item.id,car:item.car.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+								<a class="review-click" ng-if="!item.review" ui-sref="calificacion_nueva({id:item.id,car:item.car.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
 							</h2>
 						</blockquote>	
 		          	</div>
@@ -110,11 +108,10 @@
 							<li>
 							    <div class="collapsible-header"><i class="material-icons">add</i>Opciones
 									<span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Pagado</span>
-				             		<!-- <span style="float: right; font-weight: 300; font-size: 1rem; color: #fff; background-color: #26a69a; border-radius: 2px; margin-left:10px; padding: 0px 10px 0px 10px;">Terminado</span>  -->
 							    </div>
 							    <div class="collapsible-body">
 							      	<a ui-sref="transaccion_detalle({id:item.id})">Ver detalles</a>							      		
-							      	<!-- <a ui-sref="seller_message({id:item.seller_id,transaction_id:item.id})" ng-if="user.role != 5">Mensajeria</a> -->
+							      	<a ui-sref="user_message({id:item.seller.id,transaction_id:item.id})" ng-if="user.rol_id == 4">Mensajeria</a>
 							    </div>
 							</li>
 						</ul>			              						            
@@ -123,6 +120,10 @@
 			</div>
 
 
+		</div>
+
+		<div ng-if="enable == false">
+			<p>Aun no tiene transacciones</p>
 		</div>
 
 	</div>
@@ -137,7 +138,7 @@
 
 
 
-<div class="row"  style="padding:25px 0px 25px; 0px">
+<div class="row"  style="padding:25px 0px 25px 0px;" ng-if="enable == true">
 		<div class="col s12" style="text-align: center;">
 			
 		<button class="waves-effect waves-light btn"  style="padding: 0 1rem;"  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">

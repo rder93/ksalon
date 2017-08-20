@@ -22,6 +22,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
         $state.go('login');
     });
 	
+	console.log("soy administrador")
 	console.log($scope.user.rol_id);
 	if ($scope.user.rol_id == 0) { /*Parte del administrador*/
 		$scope.opciones= [
@@ -41,25 +42,31 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'politicas'
 		},
 		{
-			'nombre':'Mis Salones',
-			'icono' : 'location_city',
-			'state' : 'lounges_index'
+			'nombre': 'Panel de usuarios',
+			'icono' : 'people_outline',
+			'state' : 'panel_usuarios'
 		},
 		{
-			'nombre':'Transacciones',
-			'icono' : 'swap_horiz',
-			'state' : 'transacciones'
+			'nombre': 'Panel de salones',
+			'icono' : 'home',
+			'state' : 'panel_salones'
 		},
 		{
-			'nombre':'Mis Mensajes',
-			'icono' : 'question_answer',
-			'state' : 'home'
+			'nombre':'Panel de servicios y categorias',
+			'icono' : 'store',
+			'state' : 'panel_servicios_categorias'
 		},
 		{
-			'nombre': 'Mis Servicios Realizados',
-			'icono' : 'format_list_numbered',
-			'state' : 'home'
-		},		
+			'nombre':'Panel de pagos',
+			'icono' : 'attach_money',
+			'state' : 'panel_pagos'
+		},
+		{
+			'nombre':'Soporte',
+			'icono' :'border_color',
+			'state' :'admin_tickets'
+		}
+	
 		];
 	}else if ($scope.user.rol_id == 1) { /*Parte de grandes salones*/
 		$scope.opciones= [
@@ -91,8 +98,13 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
-		},		
+			'state' : 'my_messages'
+		},	
+		{
+			'nombre':'Tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}
 		];
 	}
 	else if ($scope.user.rol_id == 2) { /*parte de pequeños salones*/
@@ -125,8 +137,13 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
-		},		
+			'state' : 'my_messages'
+		},	
+		{
+			'nombre':'Tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
+		}	
 		];
 	}else if($scope.user.rol_id == 3){  /*parte de profesionales independietes*/
 		$scope.opciones= [
@@ -153,7 +170,13 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
+		},
+		,		
+		{
+			'nombre':'Tickets',
+			'icono' :'border_color',
+			'state' :'tickets'
 		},
 		{
 			'nombre': 'Mis Servicios Realizados',
@@ -191,7 +214,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		{
 			'nombre':'Mis Mensajes',
 			'icono' : 'question_answer',
-			'state' : 'home'
+			'state' : 'my_messages'
 		},
 		{
 			'nombre': 'Mis Servicios Realizados',
@@ -199,7 +222,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'state' : 'home'
 		},		
 		{
-			'nombre':'Boton ON/OFF',
+			'nombre':'Tickets',
 			'icono' :'border_color',
 			'state' :'tickets'
 		}

@@ -1,0 +1,63 @@
+<div ui-view="navigation"></div>
+
+<div class="" style="height: 10px;"></div>
+
+<h4 style="text-align: center;margin-top: 20%;">Detalle de salón</h4>
+
+<div class="container" ng-show="notieneSalones">
+    <h5 style="text-align: center;">No posee salones</h5>
+</div>
+<div class="container" ng-show="tieneSalones">
+    <div class="row">
+        <div class="col s12" style="margin-bottom: 20px;">
+            <img ng-src="{{ thumbnail.dataUrl }}" class="materialboxed" style="height: 300px;width: 100%;" />
+        </div>
+    </div>
+    <h5 style="text-align: center;">Listado de salones</h5>
+    <div class="responsive-table table-status-sheet">
+        <table class="bordered" id="tablaDetalleSalones">
+            <tbody>
+                <tr ng-repeat="salon in salones | filter : search | orderBy: 'nombre'">
+                    <td><i class="flaticon-barbershop agrandar black-text center"></i></td>
+                    <td>
+                        <div class="row">
+                            <div class="col s12 m12">
+                              <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{salon.nombre}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col s12 m12 center-align">
+
+                            <button class='dropdown-button btn' data-activates='{{salon.id}}' style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></button>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='{{salon.id}}' class='dropdown-content'>
+                              <li><a ui-sref="lounges_servicios({id:salon.id})">Ver Salon</a></li>
+                              <li>
+                                <a ui-sref="foto_salon({id_salon:salon.id})">Ver fotos</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</div>
+<div class="col s12 footer-listuser">
+    <div class="col s8">
+        <form id="searchInput">
+            <div class="input-field center-align" style="margin-top: 0px;">
+                <input type="text" placeholder="Buscar salones..." ng-model="search.nombre" style="padding: 2%;width: 70%;">
+            </div>
+        </form>
+    </div>
+    <!-- <div class="col s4">
+        <div class="fixed-action-btn" style="bottom: 10px;">
+            <a ng-click="modalServicio()" class="btn-floating btn-large red">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </div> -->
+</div>

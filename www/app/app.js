@@ -14,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('home', {
             onExit: function() 
             { 
-                location.reload(); 
+                
             },
             url: '/home',
             views: {
@@ -33,7 +33,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('login', {
             onExit: function() 
             { 
-                location.reload(); 
+                //  
             },
             url: '/login',
             views: {
@@ -47,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('about',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/about',
             views: {
@@ -65,7 +65,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('politicas',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/politicas',
             views: {
@@ -83,7 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('perfil',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/perfil',
             views: {
@@ -101,7 +101,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('perfil_config',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/perfil/config',
             views: {
@@ -119,7 +119,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('my_messages',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/my_messages',
             views:{
@@ -134,27 +134,46 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('chat',{
-            onExit: function() 
-            { 
-                location.reload(); 
+        .state('user_message',{
+            url: '/user_message/:id?transaction_id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
             },
-            url: '/conversation/:id',
+            onExit: function(){
+                $('.mobile-content').fadeOut(1000);
+            },
             views:{
                 '':{
                     templateUrl: path_views+'/user/conversation.html',
                     controller: 'MessagesController'
                 },
-                'navigation@chat':{
-                    templateUrl: path_views+'/template_parts/nav.html'
+                'navigation@user_message':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
                 }
             }
         })
+        // .state('chat',{
+        //     onExit: function() 
+        //     { 
+                 
+        //     },
+        //     url: '/conversation/:id',
+        //     views:{
+        //         '':{
+        //             templateUrl: path_views+'/user/conversation.html',
+        //             controller: 'MessagesController'
+        //         },
+        //         'navigation@chat':{
+        //             templateUrl: path_views+'/template_parts/nav.html'
+        //         }
+        //     }
+        // })
 
         .state('servicios',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/servicios',
             views: {
@@ -172,7 +191,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('servicios_publicaciones',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/servicios/publicaciones',
             views: {
@@ -189,7 +208,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('clientes_transacciones',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/clientes/transacciones',
             views: {
@@ -206,7 +225,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('clientes_servicios_contratados',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/clientes/servicios_contratados',
             views: {
@@ -223,7 +242,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('combos',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/combos',
             views: {
@@ -241,7 +260,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_servicios',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/servicios/:id',
             views:{
@@ -259,7 +278,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges',
             views: {
@@ -276,7 +295,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/crear',
             views: {
@@ -293,7 +312,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/editar/:id',
             views: {
@@ -313,7 +332,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_productos_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/productos',
             views: {
@@ -330,7 +349,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_productos_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/productos/crear',
             views: {
@@ -347,7 +366,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_productos_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/productos/editar/:id',
             views: {
@@ -367,7 +386,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_servicios_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/listaservicios',
             views: {
@@ -384,7 +403,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_servicios_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/nuevoServicio/crear',
             views: {
@@ -401,7 +420,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_servicios_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/servicios/editar/:id',
             views: {
@@ -418,7 +437,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_profesionales_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/listaprofesionales',
             views: {
@@ -435,7 +454,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_profesionales_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/prefesionales/crear',
             views: {
@@ -452,7 +471,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_profesionales_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/profesionales/editar/:id',
             views: {
@@ -469,7 +488,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_servicios_profesionales_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/profesionales/servicios/:id',
             views: {
@@ -486,7 +505,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_certificados_profesionales_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/profesionales/certificados/:id',
             views: {
@@ -503,7 +522,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_combos_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/combos',
             views: {
@@ -521,7 +540,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_combos_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/combos/crear',
             views: {
@@ -538,7 +557,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_combos_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/combos/editar/:id',
             views: {
@@ -556,7 +575,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lounges_photos_index',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/lounges/photos/:id_lounge',
             views: {
@@ -576,7 +595,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('cliente_servicio_categorias',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/cliente_servicio_categorias/:id',
             views: {
@@ -597,7 +616,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/cliente_servicios_publicados/:categoria_id',
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             views: {
                 '':{
@@ -610,7 +629,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
             params: {
-                servicios: 0
+                peluqueria: null,
+                servicios: null
             }
         })
 
@@ -618,7 +638,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('cliente_servicio_preview',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/cliente_servicio_preview/:id',
             views:{
@@ -627,16 +647,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'ClienteController'
                 },
                 'navigation@cliente_servicio_preview':{
-                    templateUrl: path_views+'/template_parts/nav.html',
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }
+            },
+            params: {
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_pago',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_pago',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_pago.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_pago':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                peluqueria: null,
+                servicios: null
             }
         })
 
         .state('cliente_vendedor_perfil',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/cliente_vendedor_perfil/:id',
             views:{
@@ -648,13 +694,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
+            },
+            params: {
+                peluqueria: null,
+                servicios: null
             }
         })
 
         .state('registro', {
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/registro',
             views: {
@@ -669,7 +719,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/tickets',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
-                location.reload(); 
+                 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -691,7 +741,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/ticket_detail/:id',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
-                location.reload(); 
+                 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -713,7 +763,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/ticket_send',
             onEnter: function(){
                 $('.mobile-content').fadeIn(1000);
-                location.reload(); 
+                 
             },
             onExit: function  () {
                 $('.mobile-content').fadeOut(1000);
@@ -731,11 +781,52 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
 
+        .state('admin_tickets',{
+            url: '/admin_tickets',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/tickets/index.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@admin_tickets':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller:  'NavigationController'
+                }
+            }
+        })
+
+
+        .state('admin_ticket_detail',{
+            url: '/admin_ticket_detail/:id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function  () {
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/tickets/detail.html',
+                    controller: 'TicketsController'
+                },
+                'navigation@admin_ticket_detail':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller:  'NavigationController'
+                }
+            }
+        })
+
 
         .state('transacciones',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/transacciones',
             views:{
@@ -753,7 +844,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('transacciones_sin_calificacion',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/transacciones_sin_calificacion',
             views:{
@@ -771,7 +862,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('transaccion_detalle',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/transaccion_detalle/:id',
             views:{
@@ -789,7 +880,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('calificacion_nueva',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/calificacion_nueva/:id',
             views:{
@@ -816,7 +907,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('panel_usuarios',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/admin/panel/usuarios',
             views:{
@@ -831,10 +922,82 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('panel_salones',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/salones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/admin_lista_salones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_salones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios_categorias',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/choose',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/choose_servicios_categorias.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_servicios_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_categorias',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/categorias',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/categorias.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/servicios.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
         .state('add_usuario',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/admin/add/usuario',
             views:{
@@ -852,7 +1015,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('edit_usuario',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/admin/edit/usuario/:id',
             views:{
@@ -867,10 +1030,46 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('panel_gestion',{
+        .state('detalle_salon',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
+            },
+            url: '/admin/detalle/salon/:id_salon',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/detalle_salon.html',
+                    controller: 'AdminController'
+                },
+                'navigation@detalle_salon':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('foto_salon',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/detalle/foto/salon/:id_salon',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/foto_salon.html',
+                    controller: 'AdminController'
+                },
+                'navigation@foto_salon':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_pagos',{
+            onExit: function() 
+            { 
+                 
             },
             url: '/admin/panel/gestion',
             views:{
@@ -878,7 +1077,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/admin/panel_gestion.html',
                     controller: 'AdminController'
                 },
-                'navigation@panel_gestion':{
+                'navigation@panel_pagos':{
                     templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
@@ -888,7 +1087,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_servicios',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/servicios/:id',
             views:{
@@ -906,7 +1105,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_servicios_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/add/servicios/:id',
             views:{
@@ -924,7 +1123,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_servicios_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/edit/servicios/:id/:id_service',
             views:{
@@ -942,7 +1141,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_combos',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/combos/:id',
             views:{
@@ -960,7 +1159,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_combos_crear',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/combos/create/:id',
             views:{
@@ -978,7 +1177,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profesional_combos_editar',{
             onExit: function() 
             { 
-                location.reload(); 
+                 
             },
             url: '/profesional/combos/edit/:id/:id_combo',
             views:{
@@ -1007,49 +1206,36 @@ app.config(function($stateProvider, $urlRouterProvider) {
         //     }
         // })
 
+        // .state('panel_pagos',{
+        //     onExit: function() 
+        //     { 
+                 
+        //     },
+        //     url: '/admin/panel/pagos',
+        //     views:{
+        //         '':{
+        //             templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
+        //             controller: 'ServicioController'
+        //         },
+        //         'navigation@panel_pagos':{
+        //             templateUrl: path_views+'/template_parts/nav.html',
+        //             controller: 'NavigationController'
+        //         }
+        //     }
+        // })
 
         /*End RICARDO*/
-
-        .state('panel_categorias',{
-            onExit: function() 
-            { 
-                location.reload(); 
-            },
-            url: '/admin/panel/categorias',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/categorias.html',
-                    controller: 'CategoriaController'
-                },
-                'navigation@panel_categorias':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-
-        .state('panel_servicios',{
-            onExit: function() 
-            { 
-                location.reload(); 
-            },
-            url: '/admin/panel/servicios',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/servicios.html',
-                    controller: 'ServicioController'
-                },
-                'navigation@panel_servicios':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
 });
 
 
 
-
+app.filter('startFrom', function() {
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
 
 
 

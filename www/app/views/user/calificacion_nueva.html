@@ -29,9 +29,10 @@
 				<p>Puntuacion de servicio</p>
 				<div class="starrr"></div>
 				<input type="hidden" name="puntaje" id="starrrs">
+				
 				<div ng-if="user.rol_id != 4 && user.rol_id != 0">
-					<input type="hidden" name="user_to_id" value="{{transaction.buyer_id}}">
-					<input type="hidden" name="user_id"  value="{{transaction.seller_id}}">
+					<input type="hidden" name="user_to_id" value="{{transaction.buyer.id}}">
+					<input type="hidden" name="user_id"  value="{{transaction.seller.id}}">
 				</div>	
 				<div ng-if="user.rol_id == 4">
 					<input type="hidden" name="user_to_id" value="{{transaction.user_to_id}}">

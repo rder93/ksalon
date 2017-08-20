@@ -77,6 +77,10 @@
 				font-weight: 700;
 				margin: 0px;
 			}
+			.ticket-title{
+				font-size: 18px;
+				font-weight: 700;
+			}
 
 		</style>
 
@@ -85,11 +89,11 @@
 		
 		<div class="ticket-status">
 			<div class="chip" ng-if="!ticket.thread">
-				<img src="../../../assets/core/images/pending.png">
+				<img src="./assets/core/images/pending.png">
 				Pendiente
 			</div>
 			<div class="chip" ng-if="ticket.thread">
-				<img src="../../../assets/core/images/done.png">
+				<img src="./assets/core/images/done.png">
 				Respondido
 			</div>
 			<span class="ticket-status-id">Ticket #{{ticket.id}}</span>

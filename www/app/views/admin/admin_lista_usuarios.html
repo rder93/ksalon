@@ -1,56 +1,121 @@
-
 <div ui-view="navigation"></div>
 
-<div ng-repeat="usuario in usuarios | filter : search">
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s12" style="color:black;margin-bottom: 5px;margin-top: 4%;padding: 0;">
+<div class="" style="height: 10px;"></div>
+    
+<h4 style="text-align: center;margin-top: 20%;">Gestión de usuarios</h4>
+
+<div class="responsive-table table-status-sheet">
+    <table class="bordered">
+        <tbody>
+            <tr ng-repeat="usuario in usuarios | filter : search | orderBy: 'name'">
+                <td colspan="3">
+                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{usuario.name}} <br>
+                        <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 1">Salon grande</p>
+                        <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 2">Salon pequeño</p>
+                        <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 3">Profesional independiente</p>
+                        <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 4">Cliente</p>
+                    </p>
+                </td>
+                <td>
+                    <div class="right" style="margin-right: 15px;">
+                        <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='usuario--{{usuario.id}}' id="usuario-{{usuario.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                        <ul id='usuario--{{usuario.id}}' class='dropdown-content' for="usuario-{{usuario.id}}">
+                            <li>
+                                <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Mensaje</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)">Bloquear</a>
+                                <a href="javascript:void(0)" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)">Desbloquear</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+   <!--  <div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;"  ng-if="siUsuarios == true">
+        <div class="col s12" style="text-align: center;">
+            
+            <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage = currentPage-1">
+                    <span ng-if="currentPage > 0">{{currentPage}}</span>
+            </button>
+    
+            <button class="waves-effect waves-light btn" type='button' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+
+            <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= usuarios.length/pageSize - 1" ng-click="currentPage = currentPage + 1" >
+                <span ng-if="currentPage < usuarios.length/pageSize - 1">{{currentPage+2}}</span>
+            </button>
+
+            
+            <button type='button' class="waves-effect waves-light btn" ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+
+         
+            <button type='button' class="waves-effect waves-light btn" ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+
+            
+             <button type='button' class="waves-effect waves-light btn" ng-disabled='currentPage >= usuarios.length/pageSize - 1' ng-click='currentPage = currentPage + 1'>&raquo;</button>
+            </div>
+
+        </div>
+    </div>
+ -->
+
+<!-- <div class="container">
+    <div ng-repeat="(key,item) in data | filter : q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}">
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col s12" style="color:black;margin-bottom: 5px;margin-top: 4%;padding: 0;">
                 <div class="col s7">
-                     <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{usuario.name}}</p>
-                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 1">Salon grande</p>
-                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 2">Salon pequeño</p>
-                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 3">Profesional independiente</p>
-                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="usuario.rol_id == 4">Cliente</p>
+                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{item.name}}</p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="item.rol_id == 1">Salon grande</p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="item.rol_id == 2">Salon pequeño</p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="item.rol_id == 3">Profesional independiente</p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="item.rol_id == 4">Cliente</p>
                 </div>
-                
                 <div class="right" style="margin-right: 15px;">
-                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='usuario--{{usuario.id}}' id="usuario-{{usuario.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
-                    <ul id='usuario--{{usuario.id}}' class='dropdown-content' for="usuario-{{usuario.id}}">
+                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='item--{{item.id}}' id="item-{{item.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                    <ul id='item--{{item.id}}' class='dropdown-content' for="item-{{item.id}}">
                         <li>
-                            <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
+                            <a ui-sref="edit_item({id:item.id})">Editar</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
+                            <a href="javascript:void(0)" ng-click="askRemove(item.id)">Eliminar</a>
                         </li>
                         <li>
                             <a href="javascript:void(0)">Mensaje</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)">Bloquear</a>
-                            <a href="javascript:void(0)" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)">Desbloquear</a>
+                            <a href="javascript:void(0)" ng-if="item.status == 1" ng-click="askBlock(item.id)">Bloquear</a>
+                            <a href="javascript:void(0)" ng-if="item.status == 0" ng-click="askUnblock(item.id)">Desbloquear</a>
                         </li>
                     </ul>
                 </div>
-                
+            
+            </div>
+        </div><div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+    </div>
+</div> -->
 
-                 <!-- <a class='dropdown-button btn-floating btn' data-beloworigin="true" href='javascript:void(0)' data-activates='dropdown1'><i class="material-icons">arrow_drop_down</i></a> -->
-                <!-- <a id="usuario-{{usuario.id}}" class='dropdown-button btn-floating btn' href='javascript:void(0)' data-activates='dropdown1' style="float: right;"><i class="material-icons">arrow_drop_down</i></a>
-                <ul id='dropdown1' class='dropdown-content' for="usuario-{{usuario.id}}">
-                    <li>
-                        <a ui-sref="edit_usuario({id:usuario.id})">Editar</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" ng-click="askRemove(usuario.id)">Eliminar</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">Mensaje</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" ng-click="askBlock(usuario.id)">{{usuario.status}}{{usuario.name}}</a>
-                    </li>
-                </ul>  -->
+<div class="row footer-listuser">
+    <div class="input-field col s12 " style="margin-top: 10px;padding: 0px;">
+        <div class="col s9">
+            <input type="text" placeholder="Buscar usuario..." ng-model="search" style="padding: 2%;margin-bottom: 10px;">
         </div>
-    </div><div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
+        <div class="col s2" style="text-align: center; margin-left: 4%;">
+            <a ui-sref="add_usuario" class="btn-floating btn-large red">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </div>
 </div>
+
 
 <div id="modal1" class="modal">
     <div class="modal-content">
@@ -58,8 +123,8 @@
         <span style="font-size: 12.5px;">Esta seguro que desea eliminar el usuario?</span>
     </div>
     <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-green btn green">No</button>
-        <button ng-click="remove(deleteUser.user_id)" class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;">Si</button>
+        <button class="modal-action modal-close waves-effect waves-red btn red">No</button>
+        <button ng-click="remove(deleteUser.user_id)" class="modal-action modal-close waves-effect waves-green btn confirm green" style="margin-right: 5px;">Si</button>
     </div>
 </div>
 
@@ -69,8 +134,8 @@
         <span style="font-size: 12.5px;">Esta seguro que desea bloquear al usuario?</span>
     </div>
     <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-green btn green">No</button>
-        <button ng-click="block(blockUser.blockuser_id)" class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;">Si</button>
+        <button class="modal-action modal-close waves-effect waves-red btn red">No</button>
+        <button ng-click="block(blockUser.blockuser_id)" class="modal-action modal-close waves-effect waves-green btn confirm green" style="margin-right: 5px;">Si</button>
     </div>
 </div>
 
@@ -80,25 +145,9 @@
         <span style="font-size: 12.5px;">Esta seguro que desea desbloquear al usuario?</span>
     </div>
     <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-green btn green">No</button>
-        <button ng-click="block(blockUser.blockuser_id)" class="modal-action modal-close waves-effect waves-green btn confirm red" style="margin-right: 5px;">Si</button>
+        <button class="modal-action modal-close waves-effect waves-red btn red">No</button>
+        <button ng-click="block(blockUser.blockuser_id)" class="modal-action modal-close waves-effect waves-green btn confirm green" style="margin-right: 5px;">Si</button>
     </div>
 </div>
 
 
-<div class="col s12 footer-listuser">
-    <div class="col s8">
-        <form id="searchInput">
-              <div class="input-field" style="margin-top: 0px;">
-                <input type="text" placeholder="Buscar..." ng-model="search.name" style="padding: 2%;width: 70%;">
-              </div>
-            </form>
-    </div>
-    <div class="col s4">
-        <div class="fixed-action-btn" style="bottom: 10px;">
-            <a ui-sref="add_usuario" class="btn-floating btn-large red">
-              <i class="large material-icons">add</i>
-            </a>
-        </div>
-    </div>
-</div>

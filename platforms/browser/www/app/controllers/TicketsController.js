@@ -12,9 +12,10 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
 
 
-	if($state.current.name == 'tickets'){
+	if($state.current.name == 'tickets' || $state.current.name == 'admin_tickets'){
+
         console.log('En tickets');
-        $scope.Usuario=$.sessionStorage.get('user');
+        $scope.Usuario = $.sessionStorage.get('user');
 
         $http({
             method: 'GET',
@@ -31,7 +32,10 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
                 response.data.tickets[i].thread.created_at = new Date(response.data.tickets[i].thread.created_at);
             }
 
-            ownPagination(response.data.tickets);
+            if(response.data.tickets.length > 0)
+                $scope.noTickets = true;
+
+                ownPagination(response.data.tickets);
 
 
         }, function errorCallback(response) {
@@ -92,7 +96,7 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 	}
 
 
-	if($state.current.name == 'ticket_detail'){
+	if($state.current.name == 'ticket_detail'  ||  $state.current.name == 'admin_ticket_detail'){
 
         $http({
             method: 'GET',
@@ -140,6 +144,63 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
         start = +start; //parse to int
         return input.slice(start);
     }
+
+
+
+
+    if ($state.current.name == 'admin_ticket_detail'){
+
+        $scope.user = $.sessionStorage.get('user');
+        $scope.user_id = $.sessionStorage.get('user').id;
+
+
+        $scope.sendTicketReply = function(){
+
+            if($('textarea[name="content"]').val().length == 0)
+                Materialize.toast('Escriba respuesta del ticket',4000);
+            else{
+
+                form = $('form');
+
+                f = form;
+                var method = 'post';
+                var debug = f.attr('debug');
+                var action = server_uri + 'tickets';
+                var inputs = f.serialize();
+
+                console.log(''+server_uri + 'ticket');
+
+                    $.ajax({
+                        url: action,
+                        type: method,
+                        dataType: 'json',
+                        data:inputs
+                    })
+                    .done(function(e) {
+           
+                        if (e.success==true) {
+                            $state.go('admin_tickets');
+                            Materialize.toast(e.msj, 4000);    
+                        }else
+                            Materialize.toast(e.msj, 4000);
+                                
+               
+                    })
+                    .fail(function(e) {
+                        if (debug=='true') {
+                            console.log('Entro en fail:');
+                            console.log(e);
+                            console.log(e.responseText);
+                        }
+
+                    }); 
+
+                
+            }
+        }
+
+    }
+
 
 
 
