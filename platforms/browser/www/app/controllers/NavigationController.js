@@ -1,4 +1,4 @@
-app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sessionStorage', function($scope, $state, $rootScope, $sessionStorage){
+app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sessionStorage','$http', function($scope, $state, $rootScope, $sessionStorage,$http){
 	$('.button-collapse').sideNav({
 		  menuWidth: 300,
 		  edge: 'left',
@@ -7,9 +7,20 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		}
 	);
 
-	var fotos_uri = $('body').attr('data-fotos_uri');
+	
 	$scope.user = $.sessionStorage.get('user');
-	$scope.foto_menu= fotos_uri+$scope.user.avatar;
+
+	$http({
+    			method: 'GET',
+    			url: server_uri+'/users/'+$scope.user.id+'/edit',
+    		}).then(function successCallback(response) {
+				var fotos_uri = $('body').attr('data-fotos_uri');
+				$scope.foto_menu= fotos_uri+response['data'].avatar;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
 	// $scope.pagename = 'INICIO';
 	if (!$.sessionStorage.get('user')) {
 		$state.go('login');
@@ -25,6 +36,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	console.log("soy administrador")
 	console.log($scope.user.rol_id);
 	if ($scope.user.rol_id == 0) { /*Parte del administrador*/
+		console.log("no esta entrando en administrador")
 		$scope.opciones= [
 		{
 			'nombre':'Inicio',
@@ -46,7 +58,9 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'icono' : 'people_outline',
 			'state' : 'panel_usuarios'
 		},
+		,
 		{
+<<<<<<< HEAD
 			'nombre': 'Panel de salones',
 			'icono' : 'home',
 			'state' : 'panel_salones'
@@ -55,6 +69,16 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'nombre':'Panel de servicios y categorias',
 			'icono' : 'store',
 			'state' : 'panel_servicios_categorias'
+=======
+			'nombre':'Panel de servicios',
+			'icono' : 'store',
+			'state' : 'panel_servicios'
+		},
+		{
+			'nombre':'Panel de categorias',
+			'icono' : 'assignment',
+			'state' : 'panel_categorias'
+>>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
 		},
 		{
 			'nombre':'Panel de pagos',

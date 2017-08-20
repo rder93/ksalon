@@ -657,6 +657,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+
         .state('cliente_pago',{
             onExit: function() 
             { 
@@ -676,6 +677,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             params: {
                 peluqueria: null,
                 servicios: null
+
             }
         })
 
@@ -1225,9 +1227,64 @@ app.config(function($stateProvider, $urlRouterProvider) {
         // })
 
         /*End RICARDO*/
+
+
+        .state('panel_categorias',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/categorias',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/categorias.html',
+                    controller: 'CategoriaController'
+                },
+                'navigation@panel_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/servicios.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+
+        .state('panel_pagos',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/pagos',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_pagos':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
 });
-
-
 
 app.filter('startFrom', function() {
     return function(input, start) {

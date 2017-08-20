@@ -30,7 +30,10 @@
                 <input id="correo" type="number" class="validate" ng-model="Servicio.precio">
 
               </div>
-
+              <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" ng-model="Servicio.descripcion"></textarea>
+                <label for="textarea1">Descripcion</label>
+              </div>
               <div ng-show="crearServicio">
                 <div class="input-field col s12">
                   <label>Servicios Disponibles</label><br><br>

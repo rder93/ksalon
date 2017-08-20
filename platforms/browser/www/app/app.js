@@ -648,6 +648,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'navigation@cliente_servicio_preview':{
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
+<<<<<<< HEAD
                     controller: 'NavigationController'
                 }
             },
@@ -670,12 +671,39 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'navigation@cliente_pago':{
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
+=======
+>>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
                     controller: 'NavigationController'
                 }
             },
             params: {
                 peluqueria: null,
                 servicios: null
+<<<<<<< HEAD
+=======
+            }
+        })
+
+        .state('cliente_pago',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_pago',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_pago.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_pago':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                peluqueria: null,
+                servicios: null
+>>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
             }
         })
 
@@ -1225,10 +1253,73 @@ app.config(function($stateProvider, $urlRouterProvider) {
         // })
 
         /*End RICARDO*/
+<<<<<<< HEAD
 });
 
 
 
+=======
+
+        .state('panel_categorias',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/categorias',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/categorias.html',
+                    controller: 'CategoriaController'
+                },
+                'navigation@panel_categorias':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+        .state('panel_servicios',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/servicios',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/servicios.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_servicios':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
+
+        .state('panel_pagos',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/pagos',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
+                    controller: 'ServicioController'
+                },
+                'navigation@panel_pagos':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+});
+
+
+
+>>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
 app.filter('startFrom', function() {
     return function(input, start) {
         if (!input || !input.length) { return; }
