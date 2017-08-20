@@ -1,16 +1,18 @@
 <div ui-view="navigation"></div>
+	
 
 	<div>
 		<div style="height:58px;"></div>
 
-			<div class="row" ng-repeat="(key,item) in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}"  style="border-bottom:1px solid lightgray;  height:125px;">
+			<div class="row" ng-repeat="(key,item) in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="item_ro" data-cat_id="{{item.id}}" ng-if="item.user_id == Usuario.id" style="border-bottom:1px solid lightgray;  height:125px; margin:0px!important;">
+				
 				<div class="ticket-status"   style="height:37px;">
 					<div class="chip" ng-if="!item.thread">
-						<img src="../../../assets/core/images/pending.png">
+						<img src="./assets/core/images/pending.png">
 						Pendiente
 					</div>
 					<div class="chip" ng-if="item.thread">
-						<img src="../../../assets/core/images/done.png">
+						<img src="./assets/core/images/done.png">
 						Respondido
 					</div>
 					<span ng-if="item.thread" style="color:Gray; float:right;">
@@ -20,10 +22,10 @@
 
 				<a ui-sref="ticket_detail({id:item.id})" class="waves-effect waves-light" style=" display:block;">
 					
-					<div class="row">
+					<div class="row" style="margin:0px!important;">
 
 						<div style="color:#000;  font-weight: 400; height:24px; margin:auto; width:95%;">
-							<p style="font-size:16px; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis;">
+							<p style="font-size:16px; font-weight: bold; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis;">
 								{{item.subject }}
 							</p>
 						</div>
@@ -49,7 +51,7 @@
 
 
 
-		<div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;">
+		<div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;"  ng-if="noTickets == true">
 			<div class="col s12" style="text-align: center;">
 				
 				<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">

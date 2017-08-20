@@ -1,4 +1,4 @@
-app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sessionStorage', function($scope, $state, $rootScope, $sessionStorage){
+app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sessionStorage','$http', function($scope, $state, $rootScope, $sessionStorage,$http){
 	$('.button-collapse').sideNav({
 		  menuWidth: 300,
 		  edge: 'left',
@@ -7,9 +7,20 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		}
 	);
 
-	var fotos_uri = $('body').attr('data-fotos_uri');
+	
 	$scope.user = $.sessionStorage.get('user');
-	$scope.foto_menu= fotos_uri+$scope.user.avatar;
+
+	$http({
+    			method: 'GET',
+    			url: server_uri+'/users/'+$scope.user.id+'/edit',
+    		}).then(function successCallback(response) {
+				var fotos_uri = $('body').attr('data-fotos_uri');
+				$scope.foto_menu= fotos_uri+response['data'].avatar;
+			}, function errorCallback(response) {
+				console.log('dio error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
 	// $scope.pagename = 'INICIO';
 	if (!$.sessionStorage.get('user')) {
 		$state.go('login');

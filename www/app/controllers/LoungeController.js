@@ -97,7 +97,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		if(debug == 'true'){
 			$http({
 				method: 'GET',
-				url: server_uri+'/lounges',
+				url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
 			}).then(function successCallback(response) {
 				$scope.Lounges=response.data;
 				$timeout(function(){
@@ -151,7 +151,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			var markers = [];
 
-			  var myLatLng = {lat: parseInt($scope.Lounge.latitud), lng: parseInt($scope.Lounge.altitud)};
+			  var myLatLng = {lat: parseInt($scope.Lounge.latitud), lng: parseInt($scope.Lounge.longitud)};
 
 			  var map = new google.maps.Map(document.getElementById('map'), {
 			  	zoom: 8,
@@ -265,19 +265,57 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.crearProducto=true;
 			$scope.Producto={};
 			$scope.Producto.lounge_id=$.sessionStorage.get('longe_id');
+			$http({
+				method: 'GET',
+				url: server_uri+'/imagen_defecto2',
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				$scope.thumbnail = {
+					dataUrl: fotos_uri+response.data.path
+				};
+					    // this callback will be called asynchronously
+					    // when the response is available
+			}, function errorCallback(response) {
+						console.log('Problemas de conexión...');
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+			});
+			
+			$scope.fileReaderSupported = window.FileReader != null;
+			$scope.photoChanged = function(files){
+				if (files != null) {
+					var file = files[0];
+					if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+						$timeout(function() {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file);
+							fileReader.onload = function(e) {
+								$timeout(function(){
+									$scope.thumbnail.dataUrl = e.target.result;
+								});
+							}
+						});
+					}
+				}
+			};
 
 			$scope.registrarProducto=function(){
-				console.log($scope.Producto);
-				$http({
-					method: 'POST',
-					url: server_uri+'/products',
-					data:$scope.Producto
+				var fd = new FormData();
+				var producto=$scope.Producto;
+				for ( var key in producto ) {
+					fd.append(key, producto[key]);
+				}
+
+				$http.post(server_uri+'/products', fd, {
+					withCredentials: true,
+					headers: {'Content-Type': undefined },
+					transformRequest: angular.identity
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.go('lounges_productos_index');
 				}, function errorCallback(response) {
 					Materialize.toast(error, 4000);
-					$state.go('lounges_productos_crear');
+					$state.reload();
 				});
 			};
 		}
@@ -293,18 +331,56 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			url: server_uri+'/products/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			$scope.Producto=response.data;
+			$scope.thumbnail = {
+				dataUrl: fotos_uri+response.data.foto
+			};
 		}, function errorCallback(response) {
 			console.log('Problemas de conexión...');
 		});
 
+		$scope.fileReaderSupported = window.FileReader != null;
+		$scope.photoChanged = function(files){
+			if (files != null) {
+				var file = files[0];
+				if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+					$timeout(function() {
+						var fileReader = new FileReader();
+						fileReader.readAsDataURL(file);
+						fileReader.onload = function(e) {
+							$timeout(function(){
+								$scope.thumbnail.dataUrl = e.target.result;
+							});
+						}
+					});
+				}
+			}
+		};
+
 		$scope.actualizarProducto=function () {
-			$http({
-				method: 'PUT',
-				url: server_uri+'/products/'+$stateParams.id,
-				data:$scope.Producto
+			// $http({
+			// 	method: 'PUT',
+			// 	url: server_uri+'/products/'+$stateParams.id,
+			// 	data:$scope.Producto
+			// }).then(function successCallback(response) {
+			// 	Materialize.toast(response.data.msj, 4000);
+			//   	$state.go('lounges_productos_index');
+			// }, function errorCallback(response) {
+			// 	Materialize.toast(error, 4000);
+			// 	$state.reload();
+			// });
+			var fd = new FormData();
+			var producto=$scope.Producto;
+			for ( var key in producto ) {
+				fd.append(key, producto[key]);
+			}
+
+			$http.post(server_uri+'/updateProduct', fd, {
+				withCredentials: true,
+				headers: {'Content-Type': undefined },
+				transformRequest: angular.identity
 			}).then(function successCallback(response) {
 				Materialize.toast(response.data.msj, 4000);
-			  	$state.go('lounges_productos_index');
+				$state.go('lounges_productos_index');
 			}, function errorCallback(response) {
 				Materialize.toast(error, 4000);
 				$state.reload();
@@ -1293,6 +1369,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.loungefotos=response.data;
 				$scope.thumbnail = fotos_uri;
+				console.log($scope.thumbnail);
+				console.log($scope.loungefotos);
 				$timeout(function(){
 					$('.modal').modal();
 					$('.dropdown-button').dropdown({

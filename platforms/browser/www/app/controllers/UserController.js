@@ -4,6 +4,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 	$scope.server_uri = server_uri;
 	var fotos_uri = $('body').attr('data-fotos_uri');
 
+
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
 			if (!$.sessionStorage.get('user')) {
@@ -18,11 +19,14 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
     			method: 'GET',
     			url: server_uri+'/users/'+$scope.Usuario.id+'/edit',
     		}).then(function successCallback(response) {
-				// console.log(response.data);
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.avatar
 				};
 				$scope.Usuario=response.data;
+
+				$scope.calculateRating();
+				// $scope.putRatingsStars();
+
 			    // this callback will be called asynchronously
 			    // when the response is available
 			}, function errorCallback(response) {
@@ -30,6 +34,42 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			});
+
+
+    		$scope.calculateRating = function(){
+    			var i, rate=0;
+
+                for (i=0; i<$scope.Usuario.ratings.length; i++){
+                    rate+= $scope.Usuario.ratings[i].puntaje;
+                }
+
+
+                if(rate==0){
+                	$('.starrr-user').starrr({
+	                    rating: 0,
+	                    readOnly: true
+	                })
+                }else{
+	                $('.starrr-user').starrr({
+	                    rating: rate/$scope.Usuario.ratings.length,
+	                    readOnly: true
+	                })
+	            }
+
+                // $('#seller-stars').append('<span style="margin-left: 10px;">'+ratings.length+' Calificaciones</span>')
+    		}
+
+    		// $scope.putRatingsStars = function(){
+    		// 	for(var i=0; i<$scope.Usuario.ratings.length;i++){
+    		// 		console.log('#starrr-comment-'+i)
+    		// 		$('#starrr-user-'+i).starrr({
+	     //                rating: $scope.Usuario.ratings[i].puntaje,
+	     //                readOnly: true
+	     //            })
+    		// 	}
+    		// }
+
+
 			
 			if ($scope.Usuario.rol_id==2) {
 				$scope.btnSalones=true;
