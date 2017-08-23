@@ -556,19 +556,6 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			});
 		};
 
-		// $scope.eliminarDetailCombo=function(id){
-		// 	$http({
-		// 		method: 'DELETE',
-		// 		url: server_uri+'/detailProfessionalCombo/'+id,
-		// 	}).then(function successCallback(response) {
-		// 		Materialize.toast(response.data.msj, 4000);
-		// 		$state.reload();
-		// 	}, function errorCallback(response) {
-		// 		Materialize.toast(error, 4000);
-		// 		// $state.go('lounges_productos_crear');
-		// 	});
-		// };
-
 		$scope.actualizarCombo=function(id){
 
 			console.log($scope.combo);
@@ -600,6 +587,44 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			});
 
 		}
+	}
+
+	if ($state.current.name == 'profesional_transactions') {
+
+		$scope.transactions = [];
+
+		$scope.user = $.sessionStorage.get('user');
+
+		$http({
+            method: 'GET',
+            url: server_uri+'transactions',
+            params: {
+                id: $scope.user.id
+            }
+        }).then(function successCallback(response) {
+
+        	console.log(response.data.transactions);
+    
+        	$scope.transactions = response.data.transactions;
+
+        	$timeout(function(){
+				$('.dropdown-button').dropdown({
+				      inDuration: 300,
+				      outDuration: 225,
+				      constrainWidth: false, // Does not change width of dropdown to that of the activator
+				      hover: true, // Activate on hover
+				      gutter: 0, // Spacing from edge
+				      belowOrigin: true, // Displays dropdown below the button
+				      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+				      stopPropagation: false // Stops event propagation
+				    }
+				);
+		    });
+
+        }, function errorCallback(response) {
+                console.log('dio error');
+        });
+
 	}
 
 }])

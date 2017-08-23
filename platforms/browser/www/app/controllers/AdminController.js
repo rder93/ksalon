@@ -712,13 +712,42 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 		
 	}
 
-    // function ocultarModal() {
-    //     $('#modal1').modal('close');
-    //     $('#modal1').css({
-    //         display: 'none',
-    //         top: '0'
-    //     });
-    // }
+	if ($state.current.name == 'panel_pagos_transacciones') {
+
+		$scope.transactions = [];
+
+		$scope.user = $.sessionStorage.get('user');
+
+		$http({
+            method: 'GET',
+            url: server_uri+'transactions',
+            params: {
+                id: $scope.user.id
+            }
+        }).then(function successCallback(response) {
+
+        	console.log(response);
+    
+        	$scope.transactions = response.transactions;
+
+        	$timeout(function(){
+				$('.dropdown-button').dropdown({
+				      inDuration: 300,
+				      outDuration: 225,
+				      constrainWidth: false, // Does not change width of dropdown to that of the activator
+				      hover: true, // Activate on hover
+				      gutter: 0, // Spacing from edge
+				      belowOrigin: true, // Displays dropdown below the button
+				      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+				      stopPropagation: false // Stops event propagation
+				    }
+				);
+		    });
+
+        }, function errorCallback(response) {
+                console.log('dio error');
+        });
+	}
 
 }]);
 

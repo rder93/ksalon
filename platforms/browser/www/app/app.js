@@ -648,7 +648,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'navigation@cliente_servicio_preview':{
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
-<<<<<<< HEAD
                     controller: 'NavigationController'
                 }
             },
@@ -658,31 +657,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('cliente_pago',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/cliente_pago',
-            views:{
-                '':{
-                    templateUrl: path_views+'/cliente/cliente_pago.html',
-                    controller: 'ClienteController'
-                },
-                'navigation@cliente_pago':{
-                    templateUrl: path_views+'/template_parts/nav-cliente.html',
-=======
->>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
-                    controller: 'NavigationController'
-                }
-            },
-            params: {
-                peluqueria: null,
-                servicios: null
-<<<<<<< HEAD
-=======
-            }
-        })
 
         .state('cliente_pago',{
             onExit: function() 
@@ -703,7 +677,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             params: {
                 peluqueria: null,
                 servicios: null
->>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
+
             }
         })
 
@@ -1112,6 +1086,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('panel_pagos_transacciones',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/gestion/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion_transacciones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_pagos_transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
         .state('profesional_servicios',{
             onExit: function() 
             { 
@@ -1220,6 +1212,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         
+        .state('profesional_transactions',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/profesional/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/profesional_transactions.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_transactions':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
         //     views:{
@@ -1253,73 +1262,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
         // })
 
         /*End RICARDO*/
-<<<<<<< HEAD
+
 });
 
-
-
-=======
-
-        .state('panel_categorias',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/categorias',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/categorias.html',
-                    controller: 'CategoriaController'
-                },
-                'navigation@panel_categorias':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-
-        .state('panel_servicios',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/servicios',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/servicios.html',
-                    controller: 'ServicioController'
-                },
-                'navigation@panel_servicios':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-
-
-
-        .state('panel_pagos',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/pagos',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
-                    controller: 'ServicioController'
-                },
-                'navigation@panel_pagos':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-});
-
-
-
->>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
 app.filter('startFrom', function() {
     return function(input, start) {
         if (!input || !input.length) { return; }
