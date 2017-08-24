@@ -27,7 +27,7 @@
 		<div>
 			<div class="review-stars">
 				<p>Puntuacion de servicio</p>
-				<div class="starrr"></div>
+				<div class="starrr" style="font-size: 1.5em;"></div>
 				<input type="hidden" name="puntaje" id="starrrs">
 				
 				<div ng-if="user.rol_id != 4 && user.rol_id != 0">
@@ -50,15 +50,18 @@
 
 				</script>
 			</div>
-
-			<div class="review-experience">
-				<label for="">Comentarios sobre tu experiencia</label>
-				<textarea id="calificacion-comentario" name="comentario" id="" cols="30" rows="10" style="min-height: 130px;" maxlength="160" data-length="160"></textarea>
+			
+			<div class="container">
+				<div class="review-experience">
+					<label for="">Comentarios sobre tu experiencia</label>
+					<textarea id="calificacion-comentario" name="comentario" id="" cols="30" rows="10" style="min-height: 130px;" maxlength="160" data-length="160"></textarea>
+				</div>
+				
+				<div class="sticky-footer" style="text-align: center;">
+					<button class="btn" id="btn-send-review"  ng-click="enviar_calificacion();"><span>Enviar</span></button>
+				</div>
 			</div>
 			
-			<div class="sticky-footer" style="text-align: center;">
-				<button class="btn" id="btn-send-review"  ng-click="enviar_calificacion();"><span>Enviar</span></button>
-			</div>
 			
 		
 		</div>

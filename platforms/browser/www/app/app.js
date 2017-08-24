@@ -657,6 +657,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+<<<<<<< HEAD
 
         .state('cliente_pago',{
             onExit: function() 
@@ -681,6 +682,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
             }
         })
+=======
+>>>>>>> origin/master
 
         .state('cliente_pago_efectivo',{
             onExit: function() 
@@ -1112,6 +1115,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('panel_pagos_transacciones',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/gestion/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_gestion_transacciones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_pagos_transacciones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
         .state('profesional_servicios',{
             onExit: function() 
             { 
@@ -1220,6 +1241,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         
+        .state('profesional_transactions',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/profesional/transacciones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/profesional/profesional_transactions.html',
+                    controller: 'ProfesionalController'
+                },
+                'navigation@profesional_transactions':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
         // .state('transacciones',{
         //     url: '/admin/panel/transacciones',
         //     views:{

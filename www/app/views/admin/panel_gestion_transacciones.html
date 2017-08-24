@@ -1,0 +1,43 @@
+<div ui-view="navigation"></div>
+<div style="height: 10px;"></div>
+
+<h4 style="text-align: center;margin-top: 20%;">Gestion de transacciones</h4>
+
+<div class="responsive-table table-status-sheet">
+    <table class="bordered">
+        <tbody>
+            <tr ng-repeat="transaction in transactions | filter : search">
+                <td colspan="3">
+                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">Cliente: <span style="margin:0;font-weight: 400;">{{transaction.cliente.name}}</span>
+                    </p>
+                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">Vendedor: <span style="margin:0;font-weight: 400;">{{transaction.vendedor.name}}</span>
+                    </p>
+                    <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Monto: {{transaction.monto}}</p>
+                </td>
+                <td>
+                	<div class="right" style="margin-right: 15px;">
+                        <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='transaction--{{transaction.id}}' id="transaction-{{transaction.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                        <ul id='transaction--{{transaction.id}}' class='dropdown-content' for="transaction-{{transaction.id}}">
+                        	<li>
+                                <a ui-sref="javascript:void(0)">Detalles</a>
+                            </li>
+                            <li>
+                                <a ui-sref="javascript:void(0)">Pagar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col s12 footer-listuser">
+    <div class="col s8">
+        <form id="searchInput">
+            <div class="input-field center-align" style="margin-top: 0px;">
+                <input type="text" placeholder="Buscar transacciones..." ng-model="search" style="padding: 2%;width: 70%;">
+            </div>
+        </form>
+    </div>
+</div>
