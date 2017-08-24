@@ -38,6 +38,12 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 	if($state.current.name == 'cliente_servicios_publicados'){
 
+		$scope.goBack = function() {
+        	$state.go('cliente_servicio_categorias',{
+				id: $stateParams.categoria_id
+			})
+		}
+
 		// console.log('el id pasado es: '+$stateParams.categoria_id);
 		// console.log('Servicios: '+$stateParams.servicios);
 		// console.log($stateParams);
@@ -90,9 +96,11 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 
 	if($state.current.name == "cliente_servicio_preview"){
-		console.log('el id de la peluqueria es: '+ $stateParams.id);
+		console.log('el id de la categoria es: '+ $stateParams.categoria_id);
 		console.log('LOS PARAMETROS SON:');
 		console.log($stateParams);
+
+		$scope.total = 0;
 
 		$scope.peluqueria = $stateParams.peluqueria;
 		console.log('EL ARRAY EN DETALLES DE LOS SERVICIOS ES: ');
@@ -102,14 +110,15 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 		for (var i = 0; i < $scope.peluqueria.length; i++) {
 			console.log('CICLO: '+ i);
-			$scope.contentServicios += '<li><img ng-src="'+$scope.peluqueria[i].foto+'"><div class="caption center-align"><h3>'+$scope.peluqueria[i].nombre_servicio+'</h3><h5 class="light grey-text text-lighten-3">'+$scope.peluqueria[i].descripcion+'</h5></div></li>';
+			$scope.contentServicios += '<li><img ng-src="'+$scope.peluqueria[i].foto+'"><div class="caption center-align"><h3>'+$scope.peluqueria[i].nombre_servicio+'</h3><h5 class="light grey-text text-lighten-3">'+$scope.peluqueria[i].descripcion_servicio+'</h5><h5 class="light grey-text text-lighten-3">Precio: $'+$scope.peluqueria[i].precio+'</h5></div></li>';
+			$scope.total += $scope.peluqueria[i].precio;
 		}
 
 		$('.slides').append($scope.contentServicios);
 
 		$scope.goBack = function() {
         	$state.go('cliente_servicios_publicados',{
-				categoria_id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
 				peluqueria: $stateParams.peluqueria,
 				servicios: $stateParams.servicios
 			})
@@ -124,13 +133,18 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			})
 		}
 
-		$scope.goClienteVendedrPerfil = function(){
+		$scope.goClienteVendedorPerfil = function(){
 			$state.go('cliente_vendedor_perfil',{
+				id: $stateParams.peluqueria[0].lounge_id,
+				categoria_id: $stateParams.categoria_id,
 				peluqueria: $stateParams.peluqueria,
 				servicios: $stateParams.servicios
+
 			})
 		}
 			// id: peluqueria[0].id}
+
+      	$('.slider').slider();
 	}
 
 
@@ -143,69 +157,60 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 		console.log('ESTOY EN LA VISTA DE PAGOS');
 		console.log($stateParams);
 
+		$scope.goBack = function() {
+        	$state.go('cliente_servicio_preview',{
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
 	}
 
 	if($state.current.name == 'cliente_vendedor_perfil'){
+		console.log('ESTOY EN EL PERFIL DEL VENDEDOR');
+		console.log($stateParams);
 
-		$scope.peluqueria = 
-			{
-				
-				id: 1,
-				nombre: "Ricky's Styles",
-				descripcion: "En Ricky's Styles nos orgullecemos de brindar el mejor servicio para su cabello, reserve con nosotros y mismo!",
-				estrellas: 4,
-				rol_id: 1,
-				user_id: 1,
-				tipo: {
-					id: 1,
-					nombre: 'Gran Salon'
-				},
-				duenio: {
-					id: 1,
-					nombre: 'Ricardo E'
+		$scope.goBack = function() {
+        	$state.go('cliente_servicio_preview',{
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
 
-				},
-				comentarios:
-					[
-						{
-							id: 1,
-							comentario: 'Buen trato, no es la excelendia, pero cumplen',
-							estrellas: 3,
-							user_id: 8,
-							user_to_id: 1,
-							envia:{
-								id: 8,
-								nombre: 'Carolina Gutierrez'
-							},
-							recibe: {
-								id: 1,
-								nombre: 'Ricardo R'
-							}
-						},
-						{
-							id: 2,
-							comentario: 'Buenisimo, muy atentos, recomendados!!',
-							estrellas: 5,
-							user_id: 15,
-							user_to_id: 1,
-							envia:{
-								id: 15,
-								nombre: 'Luz Mary R.'
-							},
-							recibe: {
-								id: 1,
-								nombre: 'Ricardo R'
-							}
-						}
-					]
-				
-			};
-				
+	    /*ruta = '';
+	    switch($scope.categoria_id) {
+			case '3':
+	    		ruta = 'buscar_independents_services';
+	    		break;
+	    	default:
+	    		ruta = 'buscar_lounges_services';
+	    		break;
+	    }*/
+
+        $http({
+            method: 'GET',
+            url: server_uri+'all_lounge/'+$stateParams.id
+        }).then(function successCallback(response) {
+        	console.log('TODO SALIO BIEN AL BUSCAR LOUNGES SERVICES');
+        	console.log(response.data);
+            $scope.peluqueria = response.data.lounge;
+            $scope.servicios = response.data.services;
+            $scope.fotos = response.data.photos;
+            $scope.comentarios = response.data.comments;
+
+        }, function errorCallback(error) {
+        	console.log('PASO UN ERROR');
+        });
+
+/*
 			$('.starrr').starrr({
                 rating: $scope.peluqueria.estrellas,
                 readOnly: true,
                 max: $scope.peluqueria.estrellas
             })
+*/
 	}
 
 	if($state.current.name == 'cliente_vendedor_opciones'){
@@ -331,7 +336,7 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
             google.maps.event.addListener(marker, 'click', function() {
             	console.log('DENTRO DEL EVENTO DEL MAPA');
             	$state.go('cliente_servicio_preview',{
-					id: categoria_id,
+					categoria_id: categoria_id,
 					peluqueria: peluqueria,
 					servicios: servicios
 				})

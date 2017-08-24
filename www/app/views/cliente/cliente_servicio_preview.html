@@ -1,22 +1,34 @@
 
+
+
 <div ui-view="navigation"></div>	
 
 <br>
-
 <div class="height-100;" >
 	<div class="page-content" style="width: 90%; margin: auto; margin-top: 50px">
 		<div class="slider">
 		    <ul class="slides">
-		     
+		      <!-- <li ng-repeat="p in peluqueria" >
+		        <img ng-src="p.foto">
+		        <div class="caption center-align">
+		          <h3>{{ p.nombre_servicio }}</h3>
+		          <h5 class="light grey-text text-lighten-3">
+					{{ p.descripcion }}
+					{{ p.descripcion }}
+		          </h5>
+		      </li> -->
 		    </ul>
 		  </div>
 	</div>
+<!-- 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.slider').slider();
+    });
+</script>	
+ -->
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('.slider').slider();
-	    });
-	</script>
+	
 <!-- 		
 	<div class="page-content">
 		<div class="page-description" style="padding:0px; ">
@@ -53,14 +65,18 @@
 
  -->
 	<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
-			<p style="font-size:16px; font-weight:bold; ">
-				{{ peluqueria[0].nombre_salon }}
-			</p>
-			<p>
-				{{ peluqueria[0].descripcion }}
-			</p>
-			<!-- ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})" -->
-			<a   ng-click="goClienteVendedrPerfil();">Ver Perfil de este salon {{peluqueria.nombre_categoria}}!!</a>
+		<p style="font-size:16px; font-weight:bold; ">
+			Total a pagar: $ {{ total }}
+		</p>
+
+		<p style="font-size:16px; font-weight:bold; ">
+			{{ peluqueria[0].nombre_salon }}
+		</p>
+		<p>
+			{{ peluqueria[0].descripcion_salon }}
+		</p>
+		<!-- ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})" -->
+		<a   ng-click="goClienteVendedorPerfil();">Ver perfil de este salon {{peluqueria.nombre_categoria}}!!</a>
 	</div>
 
 

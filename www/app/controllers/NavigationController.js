@@ -67,7 +67,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'nombre':'Panel de servicios y categorias',
 			'icono' : 'store',
 			'state' : 'panel_servicios_categorias'
-		{,
+		},
 		{	'nombre':'Panel de pagos',
 			'icono' : 'attach_money',
 			'state' : 'panel_pagos'

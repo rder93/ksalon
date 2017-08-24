@@ -58,9 +58,7 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'icono' : 'people_outline',
 			'state' : 'panel_usuarios'
 		},
-		,
 		{
-<<<<<<< HEAD
 			'nombre': 'Panel de salones',
 			'icono' : 'home',
 			'state' : 'panel_salones'
@@ -69,19 +67,8 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 			'nombre':'Panel de servicios y categorias',
 			'icono' : 'store',
 			'state' : 'panel_servicios_categorias'
-=======
-			'nombre':'Panel de servicios',
-			'icono' : 'store',
-			'state' : 'panel_servicios'
 		},
-		{
-			'nombre':'Panel de categorias',
-			'icono' : 'assignment',
-			'state' : 'panel_categorias'
->>>>>>> fd365fc09edb615da03dde3426cf82fc19babf1b
-		},
-		{
-			'nombre':'Panel de pagos',
+		{	'nombre':'Panel de pagos',
 			'icono' : 'attach_money',
 			'state' : 'panel_pagos'
 		},

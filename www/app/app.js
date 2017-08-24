@@ -624,7 +624,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'ClienteController'
                 },
                 'navigation@cliente_servicios_publicados':{
-                    templateUrl: path_views+'/template_parts/nav.html',
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }
             },
@@ -640,7 +640,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             { 
                  
             },
-            url: '/cliente_servicio_preview/:id',
+            url: '/cliente_servicio_preview/:categoria_id',
             views:{
                 '':{
                     templateUrl: path_views+'/cliente/cliente_servicio_preview.html',
@@ -675,6 +675,31 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
             params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+
+            }
+        })
+
+        .state('cliente_pago_efectivo',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_pago_efectivo',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_pago_efectivo.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_pago':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
                 peluqueria: null,
                 servicios: null
 
@@ -693,11 +718,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'ClienteController'
                 },
                 'navigation@cliente_vendedor_perfil':{
-                    templateUrl: path_views+'/template_parts/nav.html',
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }
             },
             params: {
+                categoria_id: null,
                 peluqueria: null,
                 servicios: null
             }
@@ -1228,62 +1254,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         /*End RICARDO*/
 
-
-        .state('panel_categorias',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/categorias',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/categorias.html',
-                    controller: 'CategoriaController'
-                },
-                'navigation@panel_categorias':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-
-        .state('panel_servicios',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/servicios',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/servicios.html',
-                    controller: 'ServicioController'
-                },
-                'navigation@panel_servicios':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
-
-
-
-        .state('panel_pagos',{
-            onExit: function() 
-            { 
-                 
-            },
-            url: '/admin/panel/pagos',
-            views:{
-                '':{
-                    templateUrl: path_views+'/admin/panel_pagos_transacciones_comisiones.html',
-                    controller: 'ServicioController'
-                },
-                'navigation@panel_pagos':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
-            }
-        })
 });
 
 app.filter('startFrom', function() {
