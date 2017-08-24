@@ -76,7 +76,10 @@
 			{{ peluqueria[0].descripcion_salon }}
 		</p>
 		<!-- ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})" -->
-		<a   ng-click="goClienteVendedorPerfil();">Ver perfil de este salon {{peluqueria.nombre_categoria}}!!</a>
+
+		<a ng-if="estado == false" ng-click="goClienteVendedorPerfil();">Ver perfil de este salon!!</a>
+		
+		<a ng-if="estado == true" ng-click="goClienteIndependientePerfil();">Ver perfil de este independiente!!</a>
 	</div>
 
 

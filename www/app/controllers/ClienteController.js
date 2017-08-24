@@ -100,6 +100,34 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 		console.log('LOS PARAMETROS SON:');
 		console.log($stateParams);
 
+	    $scope.estado = false;
+	    if ($stateParams.categoria_id == '3') {
+	    	console.log('ES UN INDEPENDIENTE');
+	    	$scope.estado = true;
+
+	    	$scope.goClienteIndependientePerfil = function(){
+	    		$state.go('cliente_independiente_perfil',{
+	    			id: $stateParams.peluqueria[0].user_id,
+	    			categoria_id: $stateParams.categoria_id,
+	    			peluqueria: $stateParams.peluqueria,
+	    			servicios: $stateParams.servicios
+
+	    		})
+	    	}
+	    }else {
+	    	console.log('ES UN SALON');
+
+	    	$scope.goClienteVendedorPerfil = function(){
+	    		$state.go('cliente_vendedor_perfil',{
+	    			id: $stateParams.peluqueria[0].lounge_id,
+	    			categoria_id: $stateParams.categoria_id,
+	    			peluqueria: $stateParams.peluqueria,
+	    			servicios: $stateParams.servicios
+
+	    		})
+	    	}
+	    }
+
 		$scope.total = 0;
 
 		$scope.peluqueria = $stateParams.peluqueria;
@@ -133,15 +161,7 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			})
 		}
 
-		$scope.goClienteVendedorPerfil = function(){
-			$state.go('cliente_vendedor_perfil',{
-				id: $stateParams.peluqueria[0].lounge_id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-
-			})
-		}
+		
 			// id: peluqueria[0].id}
 
       	$('.slider').slider();
@@ -212,6 +232,33 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
             })
 */
 	}
+
+		if($state.current.name == 'cliente_independiente_perfil'){
+			console.log('ESTOY EN EL PERFIL DEL INDEPENDIENTE');
+			console.log($stateParams);
+
+			$scope.goBack = function() {
+	        	$state.go('cliente_servicio_preview',{
+					categoria_id: $stateParams.categoria_id,
+					peluqueria: $stateParams.peluqueria,
+					servicios: $stateParams.servicios
+				})
+			}
+
+	        $http({
+	            method: 'GET',
+	            url: server_uri+'all_independent/'+$stateParams.id
+	        }).then(function successCallback(response) {
+	        	console.log('TODO SALIO BIEN AL BUSCAR TODA LA INFO DEL INDEPENDIENTE');
+	        	console.log(response.data);
+	            $scope.peluqueria = response.data.independent;
+	            $scope.servicios = response.data.services;
+	            $scope.comentarios = response.data.comments;
+	            $scope.peluqueria.avatar = $('body').attr('data-fotos_uri') + $scope.peluqueria.avatar;
+	        }, function errorCallback(error) {
+	        	console.log('PASO UN ERROR');
+	        });
+		}
 
 	if($state.current.name == 'cliente_vendedor_opciones'){
 		$scope.peluqueria = {

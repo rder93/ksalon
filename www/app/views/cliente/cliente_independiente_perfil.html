@@ -1,0 +1,81 @@
+<div ui-view="navigation"></div>	
+
+<br>
+
+<div class="height-100;" style="50px;">
+	<div class="page-content">		
+		<div class="page-description" style="padding:0px; ">
+			<div class="starrr" style="text-align:center;"></div>	
+		</div>	
+
+		<div>
+			<!-- <img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;"> -->
+			<img ng-src="peluqueria.avatar" alt="" style="height:30vh; width:100%;">
+					
+		</div>
+
+		
+		<div style=" text-align: justify;">
+			<h4  class="center">{{ peluqueria.name }}</h4>
+<!--
+			<p style="display:inline-block; font-size:12px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">
+				{{ peluqueria.descripcion }}
+			</p>
+-->
+
+<!-- servicios -->
+			<p ng-if="servicios.length == 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:13px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Este independiente no tiene servicios.</p>
+						
+			<p ng-if="servicios.length > 0" style="display:inline-block; border-bottom: 0px solid gray; font-size:16px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Servicios del profesional independiente</p>
+
+			<div ng-repeat="servicio in servicios" style="width: 90%; margin: auto;">
+				<div class="col s12 m8 offset-m2 l6 offset-l3">
+                  	<div class="card-panel grey lighten-5 z-depth-1  last-comment" style="margin:0px 0px 15px 0px; padding:14px;">
+                      	<div class="row valign-wrapper">
+                          	<div class="col s10">
+                              	<span class="black-text">
+                                  	{{ servicio.nombre }}
+                              	</span>
+                          	</div>
+                      	</div>
+                  	</div>
+	            </div>
+			</div>
+
+<!-- comentarios -->
+			<p ng-if="comentarios.length == 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:13px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Este independiente no tiene comentarios.</p>
+						
+			<p ng-if="comentarios.length > 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:16px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Comentarios de clientes</p>
+
+			<div ng-repeat="comentario in comentarios">
+				<div class="col s12 m8 offset-m2 l6 offset-l3">
+                  	<div class="card-panel grey lighten-5 z-depth-1  last-comment" style="margin:0px 0px 15px 0px; padding:14px;">
+                      	<div class="row valign-wrapper">
+                          	<div class="col s2">
+                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+                          	</div>
+                          	<div class="col s10">
+                              	<span class="black-text">
+                                  	{{ comentario.comentario }}
+                              	</span>
+                          	</div>
+                      	</div>
+                  	</div>
+	            </div>
+			</div>
+
+		</div>
+			
+	</div>	
+<!-- 	
+	<div class="form-categorias-footer" style="width: 90%; margin: auto;">
+		<a ui-sref="cliente_vendedor_opciones({id:peluqueria.id})" class="btn btn-block teal lighten-2 waves-effect waves-light btn-large">
+			Ver todos sus servicios
+		</a>
+	</div>
+ -->
+
+	
+
+</div>
+     

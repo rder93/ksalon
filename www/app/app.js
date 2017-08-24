@@ -729,6 +729,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('cliente_independiente_perfil',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_independiente_perfil/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_independiente_perfil.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_independiente_perfil':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
         .state('registro', {
             onExit: function() 
             { 
