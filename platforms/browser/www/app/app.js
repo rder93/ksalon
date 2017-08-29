@@ -729,6 +729,121 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('cliente_vendedor_opciones',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_opciones/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_opciones.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_opciones':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_vendedor_profesionales',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_profesionales/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_profesionales.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_profesionales':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_vendedor_combos',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_combos/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_combos.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_combos':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_vendedor_servicios',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_servicios/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_servicios.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_servicios':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_vendedor_productos',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_productos/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_productos.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_productos':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
         .state('cliente_independiente_perfil',{
             onExit: function() 
             { 
@@ -741,6 +856,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'ClienteController'
                 },
                 'navigation@cliente_independiente_perfil':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params: {
+                categoria_id: null,
+                peluqueria: null,
+                servicios: null
+            }
+        })
+
+        .state('cliente_profesionales_salon',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_profesionales_salon/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_profesionales_salon.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_profesionales_salon':{
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }

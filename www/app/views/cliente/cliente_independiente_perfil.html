@@ -8,20 +8,20 @@
 			<div class="starrr" style="text-align:center;"></div>	
 		</div>	
 
-		<div>
+		<!-- <div> -->
 			<!-- <img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;"> -->
-			<img ng-src="peluqueria.avatar" alt="" style="height:30vh; width:100%;">
-					
+			<!-- <img ng-src="peluqueria.avatar" alt="" style="height:30vh; width:100%;"> -->
+		<!-- </div> -->
+
+		<div class="page-content" style="width: 90%; margin: auto; margin-top: 50px">
+			<div class="slider">
+			    <ul class="slides">
+			    </ul>
+			  </div>
 		</div>
 
-		
 		<div style=" text-align: justify;">
 			<h4  class="center">{{ peluqueria.name }}</h4>
-<!--
-			<p style="display:inline-block; font-size:12px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">
-				{{ peluqueria.descripcion }}
-			</p>
--->
 
 <!-- servicios -->
 			<p ng-if="servicios.length == 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:13px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Este independiente no tiene servicios.</p>

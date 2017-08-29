@@ -199,15 +199,23 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			})
 		}
 
-	    /*ruta = '';
-	    switch($scope.categoria_id) {
-			case '3':
-	    		ruta = 'buscar_independents_services';
-	    		break;
-	    	default:
-	    		ruta = 'buscar_lounges_services';
-	    		break;
-	    }*/
+		$scope.goProfesionales = function() {
+        	$state.go('cliente_profesionales_salon',{
+				id: $stateParams.peluqueria[0].lounge_id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$scope.goClienteVendedorOpciones = function(){
+        	$state.go('cliente_vendedor_opciones',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
 
         $http({
             method: 'GET',
@@ -219,6 +227,15 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
             $scope.servicios = response.data.services;
             $scope.fotos = response.data.photos;
             $scope.comentarios = response.data.comments;
+
+            contentServicios = ''
+			uri_server_foto = $('body').attr('data-fotos_uri');
+    		for (var i = 0; i < $scope.fotos.length; i++) {
+    			contentServicios += '<li><img ng-src="'+ uri_server_foto + $scope.fotos[i].foto +'"></li>';
+    		}
+
+    		$('.slides').append(contentServicios);
+          	$('.slider').slider();
 
         }, function errorCallback(error) {
         	console.log('PASO UN ERROR');
@@ -233,123 +250,215 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 */
 	}
 
-		if($state.current.name == 'cliente_independiente_perfil'){
-			console.log('ESTOY EN EL PERFIL DEL INDEPENDIENTE');
-			console.log($stateParams);
+	if($state.current.name == 'cliente_independiente_perfil'){
+		console.log('ESTOY EN EL PERFIL DEL INDEPENDIENTE');
+		console.log($stateParams);
 
-			$scope.goBack = function() {
-	        	$state.go('cliente_servicio_preview',{
-					categoria_id: $stateParams.categoria_id,
-					peluqueria: $stateParams.peluqueria,
-					servicios: $stateParams.servicios
-				})
-			}
-
-	        $http({
-	            method: 'GET',
-	            url: server_uri+'all_independent/'+$stateParams.id
-	        }).then(function successCallback(response) {
-	        	console.log('TODO SALIO BIEN AL BUSCAR TODA LA INFO DEL INDEPENDIENTE');
-	        	console.log(response.data);
-	            $scope.peluqueria = response.data.independent;
-	            $scope.servicios = response.data.services;
-	            $scope.comentarios = response.data.comments;
-	            $scope.peluqueria.avatar = $('body').attr('data-fotos_uri') + $scope.peluqueria.avatar;
-	        }, function errorCallback(error) {
-	        	console.log('PASO UN ERROR');
-	        });
+		$scope.goBack = function() {
+        	$state.go('cliente_servicio_preview',{
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
 		}
+
+        $http({
+            method: 'GET',
+            url: server_uri+'all_independent/'+$stateParams.id
+        }).then(function successCallback(response) {
+        	console.log('TODO SALIO BIEN AL BUSCAR TODA LA INFO DEL INDEPENDIENTE');
+        	console.log(response.data);
+            $scope.peluqueria = response.data.independent;
+            $scope.servicios = response.data.services;
+            $scope.comentarios = response.data.comments;
+            $scope.peluqueria.avatar = $('body').attr('data-fotos_uri') + $scope.peluqueria.avatar;
+
+        	contentServicios = '<li><img ng-src="'+$scope.peluqueria.avatar+'"><div class="caption center-align"></div></li>';
+        	$('.slides').append(contentServicios);
+  			$('.slider').slider();
+        }, function errorCallback(error) {
+        	console.log('PASO UN ERROR');
+        });
+	}
+
+
+	if($state.current.name == 'cliente_profesionales_salon'){
+		console.log('ESTE ES EL PERFIL DE LOS PROFESIONALES DE UN SALON');
+		console.log($stateParams);
+
+	}
 
 	if($state.current.name == 'cliente_vendedor_opciones'){
-		$scope.peluqueria = {
-				id: 1,
-				nombre: "Ricky's Styles",
-				descripcion: "En Ricky's Styles nos orgullecemos de brindar el mejor servicio para su cabello, reserve con nosotros y mismo!",
-				rol_id: 1,
-				user_id: 1,
-				tipo: {
-					id: 1,
-					nombre: 'Gran Salon'
-				},
-				duenio: {
-					id: 1,
-					nombre: 'Ricardo E'
+		console.log('LOS PARAMETROS RECIBIDOS SON: ');
+		console.log($stateParams);
 
-				}
+		$scope.goBack = function() {
+        	$state.go('cliente_vendedor_perfil',{
+    			id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+/*		
+		$scope.goClienteVendedorOpciones = function(){
+	    	$state.go('cliente_vendedor_opciones',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+*/
+		$scope.goClienteVendedorProfesionales = function(){
+	    	$state.go('cliente_vendedor_profesionales',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
 		}
 
-		console.log($scope);
+		$scope.goClienteVendedorCombos = function(){
+	    	$state.go('cliente_vendedor_combos',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$scope.goClienteVendedorServicios = function(){
+	    	$state.go('cliente_vendedor_servicios',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$scope.goClienteVendedorProductos = function(){
+	    	$state.go('cliente_vendedor_productos',{
+				id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+		
 			
 	}
 
 
 	if($state.current.name == 'cliente_vendedor_profesionales'){
-		$scope.profesionales = [
-									{
-										id: 1,
-										nombre: 'Maria Sandoval'
-									},
-									{
-										id: 2,
-										nombre: 'Sofia Nuñez'
-									},
-									{
-										id: 3,
-										nombre: 'Guadalupe Gutierrez'
-									},
-									{
-										id: 1,
-										nombre: 'Maria2 Sandoval'
-									},
-									{
-										id: 2,
-										nombre: 'Sofia2 Nuñez'
-									},
-									{
-										id: 3,
-										nombre: 'Guadalupe2 Gutierrez'
-									},
-									{
-										id: 1,
-										nombre: 'Maria3 Sandoval'
-									},
-									{
-										id: 2,
-										nombre: 'Sofia3 Nuñez'
-									},
-									{
-										id: 3,
-										nombre: 'Guadalupe3 Gutierrez'
-									}
-								]
+		$scope.urlFoto = $('body').attr('data-fotos_uri');
+		$scope.profesionales
+		
+		console.log($scope.urlFoto);
+		$http({
+			method: 'GET',
+			url: server_uri+'/professionals/'+$stateParams.id,
+		}).then(function successCallback(response) {
+			$scope.profesionales=response.data;
+	
+		}, function errorCallback(response) {
+			console.log('Problemas de conexión...');
+		});
 
+		$scope.goBack = function() {
+        	$state.go('cliente_vendedor_opciones',{
+    			id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
 	}
 
 
 
 	if($state.current.name == 'cliente_vendedor_productos'){
-		$scope.productos = [
-								{
-									id:1,
-									nombre: 'Shampoo Retro',
-									descripcion: 'Nuevo shampoo exportado de Estados Unidos especialmente para el cabello rizado'
-								},
-								{
-									id:2,
-									nombre: 'Acondicionador Lounge Large',
-									descripcion: 'Acondicionador '
-								},
-								{
-									id:3,
-									nombre: 'Pantene X5',
-									descripcion: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi laboriosam, adipisci eum corporis nam dignissimos, alias ut error enim maiores vel pariatur incidunt cum ex. Quae assumenda esse voluptate officiis.'
-								},
-								{
-									id:4,
-									nombre: 'Jabon facial especial',
-									descripcion: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat adipisci animi voluptates, ab et, rerum molestias fugit laudantium iste nostrum cupiditate. Dolore harum sit quibusdam earum neque dignissimos praesentium expedita?'
-								}
-							]
+		$scope.goBack = function() {
+        	$state.go('cliente_vendedor_opciones',{
+    			id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$http({
+			method: 'GET',
+			url: server_uri+'/products/'+$stateParams.id,
+		}).then(function successCallback(response) {
+			$scope.Productos=response.data;
+		}, function errorCallback(response) {
+			console.log('Problemas de conexión...');
+		});
+	}
+
+	if($state.current.name == 'cliente_vendedor_combos'){
+		$scope.goBack = function() {
+        	$state.go('cliente_vendedor_opciones',{
+    			id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$http({
+			method: 'GET',
+			url: server_uri+'/loungeCombos/'+$stateParams.id,
+		}).then(function successCallback(response) {
+			$scope.combos=response.data;
+		}, function errorCallback(response) {
+			console.log('Problemas de conexión...');
+		});
+
+		$scope.modalVerCombo=function(id){
+			$scope.combo={};
+			$scope.listaServicios=[];
+			$http({
+				method: 'GET',
+				url: server_uri+'/loungeCombos/'+id+'/edit',
+			}).then(function successCallback(response) {
+				$scope.combo=response.data;
+			}, function errorCallback(response) {
+				console.log('Problemas de conexión...');
+			});
+
+			$http({
+				method: 'GET',
+				url: server_uri+'/detailLoungeCombo/'+id,
+			}).then(function successCallback(response) {
+				$scope.listaServicios=response.data;
+			}, function errorCallback(response) {
+				console.log('Problemas de conexión...');
+			});
+			$('#modalVerCombo').modal('open');
+		}
+	}
+
+	if($state.current.name == 'cliente_vendedor_servicios'){
+		$scope.goBack = function() {
+        	$state.go('cliente_vendedor_opciones',{
+    			id: $stateParams.id,
+				categoria_id: $stateParams.categoria_id,
+				peluqueria: $stateParams.peluqueria,
+				servicios: $stateParams.servicios
+			})
+		}
+
+		$scope.urlFoto = $('body').attr('data-fotos_uri');
+		$http({
+			method: 'GET',
+			url: server_uri+'/loungeServices/'+$stateParams.id,
+		}).then(function successCallback(response) {
+			$scope.Servicios=response.data;
+		}, function errorCallback(response) {
+			console.log('Problemas de conexión...');
+		});
 	}
 
 
