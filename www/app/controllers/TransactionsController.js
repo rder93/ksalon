@@ -61,6 +61,21 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
                 $scope.user_id      = $.sessionStorage.get('user').id;
                 $scope.transaction  = response.data.t;
                 $scope.transaction.created_at = new Date($scope.transaction.created_at);
+                // $scope.detalleFactura = response.data.t.detalleFactura;
+                $scope.detalleFacturaServicio=[];
+                $scope.detalleFacturaCombo=[];
+                console.log(response.data.t.detalleFactura);
+                angular.forEach(response.data.t.detalleFactura, function(value, key){
+                    // console.log(value);
+                    if (value.tipo=="combo") {
+                        $scope.detalleFacturaCombo.push(value);
+                    }else{
+                        $scope.detalleFacturaServicio.push(value);
+                    }
+                });
+                console.log($scope.detalleFacturaCombo);
+                console.log($scope.detalleFacturaServicio);
+                // console.log($scope.detalleFactura);
             }
 
         }, function errorCallback(response) {

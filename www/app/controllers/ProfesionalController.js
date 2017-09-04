@@ -1,6 +1,5 @@
 app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$rootScope', '$stateParams', '$sessionStorage', '$http', function($scope, $timeout, $state, $rootScope, $stateParams, $sessionStorage, $http){
 	$('.search-input').fadeIn(1000);
-
 	$scope.usuario_id = $stateParams.id;
 
 	var server_uri = $('body').attr('data-server_uri');
@@ -8,11 +7,33 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 	debug = $('body').attr('debug');
 
 	$scope.server_uri = server_uri;
+	$scope.Producto={};
+	$scope.carrito=[];
+	$scope.factura={};
+
+	function contarFactura(object){
+		$scope.factura.total=0;
+		$scope.factura.comision=0;
+		$scope.factura.valor=0;
+		angular.forEach(object, function(value, key){
+					// $scope.factura.total+=object.precio;
+					$scope.factura.total+=value.precio;
+				});
+		$scope.factura.comision=$scope.factura.total*0.025;
+		$scope.factura.valor=$scope.factura.total-($scope.factura.total*0.025);
+		// console.log($scope.factura);
+	}
 
 	if ($state.current.name == 'profesional_servicios') {
-
+		$scope.carrito=$.sessionStorage.get('carrito');
+		if (!$scope.carrito) {
+			$scope.carrito=[];
+		}
+		$scope.factura.user_to_id=$stateParams.id;
+		$scope.factura.user_id=$.sessionStorage.get('user').id;
 		$http.get(server_uri+'independent/'+$stateParams.id+'/services')
 		    .then(function successCallback(response) {
+		    	$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 		    	console.log(response.data);
 		        $scope.servicios = response.data;
 		        $scope.thumbnail = fotos_uri;
@@ -47,7 +68,59 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			console.log("running this for more than one time");
 			}
 
+			// console.log('coñooooo');
+			$scope.agregarCarrito=function(object){
+				object.tipo='servicio';
+				console.log(object);
+				ob={'id':object.id, 'descripcion': object.service_id, 'precio':object.precio, 'tipo': 'servicio'};
+				// console.log(ob);
+				$scope.carrito.push(ob);
+				$('#carrito'+object.id).addClass('disabled');
+				// console.log($scope.carrito);
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+			
+			$scope.modalCarrito=function(object){
+				$('#modalCarrito').modal('open');
+			};
 
+			$scope.modalPagar=function(){
+				$('#modalPagar').modal('open');	
+			};
+
+			$scope.eliminarServicioCarrito=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.carrito.length - 1; i >= 0; i--) {
+					if ($scope.carrito[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.carrito.splice(indice,1);
+				console.log(id);
+				$('#carrito'+id).removeClass('disabled');
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+
+			$scope.pagoEfectivo=function(){
+				var o=[];
+				o.push($scope.factura);
+				o.push($scope.carrito);
+				$http({
+					method: 'POST',
+					url: server_uri+'/transactions',
+					data:o
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('perfil');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
 
 	    $scope.removeItem = function(id){
 	        $('#modal1').modal('open');
@@ -261,12 +334,20 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 	if ($state.current.name == 'profesional_combos') {
 
 		$scope.independent_id = $stateParams.id;
+		$scope.carrito=$.sessionStorage.get('carrito');
+		if (!$scope.carrito) {
+			$scope.carrito=[];
+		}
+		$scope.factura.user_to_id=$stateParams.id;
+		$scope.factura.user_id=$.sessionStorage.get('user').id;
 
 		$http.get(server_uri+'professionalCombos/'+$stateParams.id)
 		    .then(function successCallback(response) {
 		    	console.log(response.data);
 		    	$scope.combos = response.data;
 		    	$scope.thumbnail = fotos_uri;
+		    	$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+
 		        $timeout(function(){
 		        	$('.modal').modal();
 					$('.dropdown-button').dropdown({
@@ -326,6 +407,61 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			});
 			$('#modalVerCombo').modal('open');
 		}
+
+		$scope.agregarCarrito=function(object){
+				object.tipo='servicio';
+				// console.log(object);
+				ob={'id':object.id, 'descripcion': object.descripcion, 'precio':object.precio, 'tipo': 'combo'};
+				console.log(ob);
+				$scope.carrito.push(ob);
+				$('#carrito'+object.id).addClass('disabled');
+				// console.log($scope.carrito);
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+			
+			$scope.modalCarrito=function(object){
+				$('#modalCarrito').modal('open');
+			};
+
+			$scope.modalPagar=function(){
+				$('#modalPagar').modal('open');	
+			};
+
+			$scope.eliminarServicioCarrito=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.carrito.length - 1; i >= 0; i--) {
+					if ($scope.carrito[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.carrito.splice(indice,1);
+				// console.log(id);
+				$('#carrito'+id).removeClass('disabled');
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+
+			$scope.pagoEfectivo=function(){
+				var o=[];
+				o.push($scope.factura);
+				o.push($scope.carrito);
+				$http({
+					method: 'POST',
+					url: server_uri+'/transactions',
+					data:o
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('perfil');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
+
+
 
 	}
 

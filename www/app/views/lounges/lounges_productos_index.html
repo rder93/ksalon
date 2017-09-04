@@ -1,6 +1,6 @@
 <div ui-view="navigation"></div>
 
-<div class="fixed-action-btn">
+<div ng-hide="cliente_salon" class="fixed-action-btn">
   <a ui-sref="lounges_productos_crear" class="btn-floating btn-large blue" >
     <i class="large material-icons">add</i>
   </a>
@@ -17,12 +17,41 @@
       <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="eliminarProducto(id_producto)">Eliminar</button>
     </div>
   </div>
+
+  <div id="modalVerProducto" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <div class="row">
+        <img class="col s12" ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
+        <div class="input-field col s12">
+          <label for="name">Nombre</label>
+          <br>
+          <br>
+          <h4>{{prod.nombre}}</h4>
+        </div>
+        <div class="input-field col s12">
+          <label for="name">precio</label>
+          <br>
+          <br>
+          <h4>{{prod.precio}}</h4>
+        </div>
+        <div class="input-field col s12">
+          <label for="name">descripcion</label>
+          <br>
+          <br>
+          <h4>{{prod.descripcion}}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cerrar</button>
+    </div>
+  </div>
           
 
 <div class="row">
       <div class="col s12 m12">
         <div>
-        <table class="bordered">
+        <table class=" js-basic-example dataTable">
             <thead>
               <tr>
                 <th colspan="2" class="center-align"><h5>Lista de Productos</h5></th>
@@ -30,7 +59,7 @@
             </thead>
 
             <tbody>
-              <tr ng-repeat="Producto in Productos">
+              <tr ng-repeat="Producto in Productos | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <td style="width: 100px"><img style="width: 80px" ng-src="{{urlFoto+Producto.foto}}" alt="" class="circle"></td>
                 <td>
                   <div class="row">
@@ -51,13 +80,33 @@
 
                   <!-- Dropdown Structure -->
                   <ul id='{{Producto.id}}' class='dropdown-content left-align'>
-                    <li><a ui-sref="lounges_productos_editar({id:{{Producto.id}}})">Editar</a></li>
-                    <li><a ng-click="modalProducto(Producto.id)">Eliminar</li>
+                    <li ng-hide="cliente_salon"><a ui-sref="lounges_productos_editar({id:{{Producto.id}}})">Editar</a></li>
+                    <li ng-hide="cliente_salon"><a ng-click="modalProducto(Producto.id)">Eliminar</a></li>
+                    <li><a ng-click="modalVerProducto(Producto.id)">Ver Producto</a></li>
                   </ul>
                 </td>
               </tr>
             </tbody>
           </table>
+
+          <div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;" ng-if="mostrar">
+            <div class="col s12" style="text-align: center;">
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                <span ng-if="currentPage > 0">{{currentPage}}</span>
+              </button>
+
+              <span class="waves-effect waves-light btn">
+                {{currentPage+1}}/{{numberOfPages()}}
+              </span>
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+                <span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

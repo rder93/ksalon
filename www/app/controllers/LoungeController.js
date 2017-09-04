@@ -7,6 +7,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	$('.search-input').fadeIn(1000);
 	$('.modal').modal();
 	$scope.Producto={};
+	$scope.carrito=[];
+	$scope.factura={}
 	// $http({
 	// 	method: 'GET',
 	// 	url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
@@ -19,6 +21,46 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	// $scope.Producto=$.sessionStorage.get('user');
 	
+	function contarFactura(object){
+		$scope.factura.total=0;
+		$scope.factura.comision=0;
+		$scope.factura.valor=0;
+		angular.forEach(object, function(value, key){
+					// $scope.factura.total+=object.precio;
+					$scope.factura.total+=value.precio;
+				});
+		$scope.factura.comision=$scope.factura.total*0.025;
+		$scope.factura.valor=$scope.factura.total-($scope.factura.total*0.025);
+		// console.log($scope.factura);
+	}
+
+	function filter(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+
+	function ownPagination(data){
+        $scope.currentPage = 0;
+        $scope.pageSize = 3;
+        $scope.q = '';
+        $scope.data = data;
+		$scope.mostrar=false;
+		if ($scope.data.length>0) {
+			$scope.mostrar=true;
+		}
+
+        $scope.getData = function () {
+            if ($scope.data.length > 0) {
+               	return filter($scope.data, $scope.q);
+            }
+        }
+                    
+        $scope.numberOfPages=function(){
+            return Math.ceil(($scope.getData().length/$scope.pageSize));                
+        }
+    }
+
 
 	if($state.current.name == 'lounges_servicios'){
 		if(debug == 'true'){
@@ -100,6 +142,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
 			}).then(function successCallback(response) {
 				$scope.Lounges=response.data;
+				ownPagination(response.data);
+				$.sessionStorage.set('cliente_salon', false);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -222,6 +266,9 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				url: server_uri+'/products/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.Productos=response.data;
+				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+				$scope.urlFoto = $('body').attr('data-fotos_uri');
+				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -244,6 +291,24 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$scope.id_producto= id;
 				$('#modalproducto').modal('open');
 			};
+
+
+			$scope.modalVerProducto=function(id){
+				$scope.id_producto= id;
+				$('#modalVerProducto').modal('open');
+				$http({
+					method: 'GET',
+					url: server_uri+'/products/'+id+'/edit',
+				}).then(function successCallback(response) {
+					$scope.prod=response.data;
+					$scope.thumbnail = {
+						dataUrl: fotos_uri+response.data.foto
+					};
+				}, function errorCallback(response) {
+					console.log('Problemas de conexión...');
+				});
+			};
+
 			$scope.eliminarProducto=function(id){
 				$http({
 					method: 'DELETE',
@@ -391,12 +456,26 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	if($state.current.name == 'lounges_servicios_index'){
 		if(debug == 'true'){
+			$scope.carrito=$.sessionStorage.get('carrito');
 			$scope.urlFoto = $('body').attr('data-fotos_uri');
+			$http({
+				method: 'GET',
+				url: server_uri+'/lounges/'+$.sessionStorage.get('longe_id')+'/edit',
+			}).then(function successCallback(response) {
+				$scope.factura.user_to_id=response.data.lounge.user_id;
+				$scope.factura.user_id=$.sessionStorage.get('user').id;
+				// console.log($scope.factura);
+			}, function errorCallback(response) {
+				console.log('Problemas de conexión...');
+			});
+
 			$http({
 				method: 'GET',
 				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.Servicios=response.data;
+				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -431,6 +510,60 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					// $state.go('lounges_productos_crear');
 				});
 			}
+
+			$scope.agregarCarrito=function(object){
+				object.tipo='servicio';
+				// console.log(object);
+				ob={'id':object.id, 'descripcion': object.nombre, 'precio':object.precio, 'tipo': 'servicio'};
+				console.log(ob);
+				$scope.carrito.push(ob);
+				$('#carrito'+object.id).addClass('disabled');
+				// console.log($scope.carrito);
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+			
+			$scope.modalCarrito=function(object){
+				$('#modalCarrito').modal('open');
+			};
+
+			$scope.modalPagar=function(){
+				$('#modalPagar').modal('open');	
+			};
+
+			$scope.eliminarServicioCarrito=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.carrito.length - 1; i >= 0; i--) {
+					if ($scope.carrito[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.carrito.splice(indice,1);
+				// console.log(id);
+				$('#carrito'+id).removeClass('disabled');
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+
+			$scope.pagoEfectivo=function(){
+				var o=[];
+				o.push($scope.factura);
+				o.push($scope.carrito);
+				$http({
+					method: 'POST',
+					url: server_uri+'/transactions',
+					data:o
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('perfil');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
+
 		}
 	}
 
@@ -615,6 +748,9 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				url: server_uri+'/professionals/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.profesionales=response.data;
+				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+				ownPagination(response.data);
+				// console.log('estoy aqui',$scope.cliente_salon);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -796,6 +932,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				url: server_uri+'/professionalServices/'+$stateParams.id,
 			}).then(function successCallback(response) {
 				$scope.profesional_servicios=response.data;
+				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -948,6 +1085,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					url: server_uri+'/certificates/'+$stateParams.id,
 				}).then(function successCallback(response) {
 					$scope.certificates=response.data;
+					$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+					ownPagination(response.data);
 					$timeout(function(){
 						$('.modal').modal();
 						$('.dropdown-button').dropdown({
@@ -1097,12 +1236,26 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	if($state.current.name == 'lounges_combos_index'){
 		if(debug == 'true'){
-			console.log('hola desde el index');
+			// console.log('hola desde el index');
+			// $scope.carrito=[];
+			$scope.carrito=$.sessionStorage.get('carrito');
+			$http({
+				method: 'GET',
+				url: server_uri+'/lounges/'+$.sessionStorage.get('longe_id')+'/edit',
+			}).then(function successCallback(response) {
+				$scope.factura.user_to_id=response.data.lounge.user_id;
+				$scope.factura.user_id=$.sessionStorage.get('user').id;
+				// console.log($scope.factura);
+			}, function errorCallback(response) {
+				console.log('Problemas de conexión...');
+			});
 			$http({
 				method: 'GET',
 				url: server_uri+'/loungeCombos/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.combos=response.data;
+				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();
 			       	$('.dropdown-button').dropdown({
@@ -1160,6 +1313,57 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				});
 				$('#modalVerCombo').modal('open');
 			}
+
+			$scope.agregarCarrito=function(object){
+				object.tipo='combo';
+				// console.log(object);
+				$scope.carrito.push(object);
+				$('#carrito'+object.id).addClass('disabled');
+				// console.log($scope.carrito);
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+
+			$scope.modalCarrito=function(object){
+				$('#modalCarrito').modal('open');
+			};
+
+			$scope.modalPagar=function(){
+				$('#modalPagar').modal('open');	
+			};
+
+			$scope.eliminarServicioCarrito=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.carrito.length - 1; i >= 0; i--) {
+					if ($scope.carrito[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.carrito.splice(indice,1);
+				// console.log(id);
+				$('#carrito'+id).removeClass('disabled');
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
+
+			$scope.pagoEfectivo=function(){
+				var o=[];
+				o.push($scope.factura);
+				o.push($scope.carrito);
+				$http({
+					method: 'POST',
+					url: server_uri+'/transactions',
+					data:o
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('perfil');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
 		}
 	}
 
@@ -1234,6 +1438,8 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					// $state.go('lounges_productos_crear');
 				});
 			};
+
+
 		}
 
 	}

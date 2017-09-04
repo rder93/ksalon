@@ -1,170 +1,234 @@
-app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessionStorage', '$http', function($scope, $state, $stateParams, $sessionStorage, $http){
+app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessionStorage', '$http','$timeout', function($scope, $state, $stateParams, $sessionStorage, $http, $timeout){
 
 	var server_uri = $('body').attr('data-server_uri'),
 	debug = $('body').attr('debug');
-
+	$scope.factura={};
 	$scope.server_uri = server_uri;
-
+	$('.modal').modal();
+	function contarFactura(object){
+		$scope.factura.total=0;
+		$scope.factura.comision=0;
+		$scope.factura.valor=0;
+		angular.forEach(object, function(value, key){
+					// $scope.factura.total+=object.precio;
+					$scope.factura.total+=value.precio;
+				});
+		$scope.factura.comision=$scope.factura.total*0.025;
+		$scope.factura.valor=$scope.factura.total-($scope.factura.total*0.025);
+		// console.log($scope.factura);
+	}
 
 	if($state.current.name == 'cliente_servicio_categorias'){
-		if(debug == 'true')
+		if(debug == 'true'){
 			console.log('en categorias siendo cliente');
+		
 
-		// console.log('la categoria seleccionada es: '+$stateParams.id);
+			// console.log('la categoria seleccionada es: '+$stateParams.id);
 
-		$http.get(server_uri+'services')
-		    .then(function successCallback(response) {
-		        $scope.servicios = response.data;
-		        console.log($scope.servicios);		        
-		    }, function errorCallback(error) {
-		    	console.log('error al obtener las categorias')
-		    });
+			$http.get(server_uri+'services')
+			.then(function successCallback(response) {
+				$scope.servicios = response.data;
+				console.log($scope.servicios);		        
+			}, function errorCallback(error) {
+				console.log('error al obtener las categorias')
+			});
 
 
-		$scope.buscar_categorias = function(){
-			var form = $('form');
-			var inputs = form.serializeArray();
+			$scope.buscar_categorias = function(){
+				var form = $('form');
+				var inputs = form.serializeArray();
 
-			console.log("ido");
-			console.log(inputs);
+				// console.log("ido");
+				// console.log(inputs);
+				$.sessionStorage.set('servicios', inputs);
+				console.log($.sessionStorage.get('servicios'));
+				$state.go('cliente_servicios_publicados',{
+					categoria_id: $stateParams.id,
+					// servicios: inputs
+				})
 
-			$state.go('cliente_servicios_publicados',{
-				categoria_id: $stateParams.id,
-				servicios: inputs
-			})
-
+			}
 		}
 	}
 
 	if($state.current.name == 'cliente_servicios_publicados'){
+		if(debug == 'true'){
 
-		$scope.goBack = function() {
-        	$state.go('cliente_servicio_categorias',{
-				id: $stateParams.categoria_id
-			})
+			$scope.goBack = function() {
+				$state.go('cliente_servicio_categorias',{
+					id: $stateParams.categoria_id
+				})
+			}
+
+			$scope.goPreview=function(categoria_id, peluqueria, servicios){
+				console.log(peluqueria);
+				// console.log(servicios);
+				$.sessionStorage.set('peluqueria', peluqueria);
+				// $.sessionStorage.set('servicios', servicios);
+				$state.go('cliente_servicio_preview');
+			}
+
+			// console.log('el id pasado es: '+$stateParams.categoria_id);
+			// console.log('Servicios: '+$stateParams.servicios);
+			// console.log($stateParams);
+			$scope.categoria_id = $stateParams.categoria_id;
+			// categoria_id = $stateParams.categoria_id;
+			// console.log($stateParams.servicios);
+
+			var markers = [];
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: 8.284305, lng: -62.754250 },
+				zoom: 12,
+				gestureHandling: 'cooperative'
+			});
+
+			ruta = '';
+			switch($scope.categoria_id) {
+				case '3':
+				ruta = 'buscar_independents_services';
+				break;
+				default:
+				ruta = 'buscar_lounges_services';
+				break;
+			}
+
+			// console.log('la ruta es: '+ ruta);
+
+			$scope.servicios = $.sessionStorage.get('servicios');
+
+			console.log('LOS SERVICIOS SON');
+
+			console.log($.sessionStorage.get('servicios'));
+			// console.log($stateParams);
+			var services = [];
+			for (var i = 0; i < $scope.servicios.length ; i++) {
+				services += 'servicios[]='+$scope.servicios[i].value+'&';
+			}
+
+			$http({
+				method: 'GET',
+				url: server_uri+ruta+"?"+services
+			}).then(function successCallback(response) {
+				console.log('TODO SALIO BIEN AL BUSCAR LOUNGES SERVICES');
+				console.log(response.data);
+				$scope.peluquerias = response.data;
+				getLatLng($scope.peluquerias, $stateParams.servicios, $stateParams.categoria_id);
+			}, function errorCallback(error) {
+				console.log('PASO UN ERROR');
+			});
+
 		}
-
-		// console.log('el id pasado es: '+$stateParams.categoria_id);
-		// console.log('Servicios: '+$stateParams.servicios);
-		// console.log($stateParams);
-		$scope.categoria_id = $stateParams.categoria_id;
-		// categoria_id = $stateParams.categoria_id;
-		console.log($stateParams.servicios);
-
-		var markers = [];
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 8.284305, lng: -62.754250 },
-          zoom: 12,
-          gestureHandling: 'cooperative'
-        });
-
-        ruta = '';
-        switch($scope.categoria_id) {
-    		case '3':
-        		ruta = 'buscar_independents_services';
-        		break;
-        	default:
-        		ruta = 'buscar_lounges_services';
-        		break;
-        }
-
-        console.log('la ruta es: '+ ruta);
-
-        $scope.servicios = $stateParams.servicios;
-
-        console.log('LOS SERVICIOS SON');
-        console.log($stateParams.servicios);
-        console.log($stateParams);
-        var services = [];
-        for (var i = 0; i < $stateParams.servicios.length ; i++) {
-        	services += 'servicios[]='+$stateParams.servicios[i].value+'&';
-        }
-
-        $http({
-            method: 'GET',
-            url: server_uri+ruta+"?"+services
-        }).then(function successCallback(response) {
-        	console.log('TODO SALIO BIEN AL BUSCAR LOUNGES SERVICES');
-        	console.log(response.data);
-            $scope.peluquerias = response.data;
-			getLatLng($scope.peluquerias, $stateParams.servicios, $stateParams.categoria_id);
-        }, function errorCallback(error) {
-        	console.log('PASO UN ERROR');
-        });
+		
 	}
 
 
 
 	if($state.current.name == "cliente_servicio_preview"){
-		console.log('el id de la categoria es: '+ $stateParams.categoria_id);
-		console.log('LOS PARAMETROS SON:');
-		console.log($stateParams);
+		if(debug == 'true'){
+			$scope.carrito=[];
+			$.sessionStorage.set('cliente_salon', true);
+			// console.log($.sessionStorage.get('peluqueria'));
+			$scope.pel= $.sessionStorage.get('peluqueria');
+			// console.log(pel);
+			console.log($scope.pel[0]);
+			$scope.urlFoto = $('body').attr('data-fotos_uri');	
+			$scope.perfil={};
+			// 
+			$timeout(function(){
+				$('.slider').slider({
+					height: 400,
+					transition: 800
+				});
+			});
+			$scope.servs=[];
+			angular.forEach($.sessionStorage.get('peluqueria'), function(value, key){
+				// console.log(value);
+				$scope.servs.push({'id':value.id ,'descripcion': value.nombre_servicio, 'precio':value.precio, 'tipo': 'servicio','foto':value.foto, 'descripcion_servicio':value.descripcion_servicio});
+				// serv.push={}
+			});
+			$http({
+				method: 'GET',
+				url: server_uri+'/users/'+$scope.pel[0].id_usuario,
+			}).then(function successCallback(response) {
+				// console.log('estoy aqui');
+				$scope.usuario=response.data.user_data;
+				if ($.sessionStorage.get('user_to_id')!=$scope.usuario.id) {
+					console.log('el usuario es diferente')
+					$scope.factura={};
+					$scope.carrito=[];
+				}else
+				// console.log('el usuario es el mismo');
+				// console.log($.sessionStorage.get('user_to_id'));
+				$.sessionStorage.set('user_to_id', $scope.usuario.id);
+				$scope.factura.user_to_id=$scope.usuario.id;
+				$scope.factura.user_id=$.sessionStorage.get('user').id;
+				if($scope.usuario.rol_id==1 || $scope.usuario.rol_id==2)
+					$scope.estado=false;
+				else
+					$scope.estado=true;
+			}, function errorCallback(response) {
+				console.log('Problemas de conexión...');
+			});
 
-	    $scope.estado = false;
-	    if ($stateParams.categoria_id == '3') {
-	    	console.log('ES UN INDEPENDIENTE');
-	    	$scope.estado = true;
+			$scope.agregarCarrito=function(object){
+				// console.log('estoy haciendo click aqui')
+				// console.log(object.id);
+				object.tipo='servicio';
+				// console.log(object);
+				ob={'id':object.id,'descripcion': object.descripcion, 'precio':object.precio, 'tipo': 'servicio'};
+				console.log(ob);
+				$scope.carrito.push(ob);
+				$('#carrito'+object.id).addClass('hide');
+				// console.log($scope.carrito);
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+				console.log($.sessionStorage.get('carrito'));
+			};
+			
+			$scope.modalCarrito=function(){
+				console.log('hola desde el carrito');
+				$timeout(function(){
+					$('#modalCarrito').modal('open');
+				});
+			};
 
-	    	$scope.goClienteIndependientePerfil = function(){
-	    		$state.go('cliente_independiente_perfil',{
-	    			id: $stateParams.peluqueria[0].user_id,
-	    			categoria_id: $stateParams.categoria_id,
-	    			peluqueria: $stateParams.peluqueria,
-	    			servicios: $stateParams.servicios
+			$scope.modalPagar=function(){
+				$('#modalPagar').modal('open');	
+			};
 
-	    		})
-	    	}
-	    }else {
-	    	console.log('ES UN SALON');
+			$scope.eliminarServicioCarrito=function(id){
+				// console.log(id);
+				var indice=0;
+				for (var i = $scope.carrito.length - 1; i >= 0; i--) {
+					if ($scope.carrito[i].id==id) {
+						indice=i;
+					}
+				}
+				// console.log(indice);
+				$scope.carrito.splice(indice,1);
+				console.log(id);
+				$('#carrito'+id).removeClass('hide');
+				contarFactura($scope.carrito);
+				$.sessionStorage.set('carrito', $scope.carrito);
+			};
 
-	    	$scope.goClienteVendedorPerfil = function(){
-	    		$state.go('cliente_vendedor_perfil',{
-	    			id: $stateParams.peluqueria[0].lounge_id,
-	    			categoria_id: $stateParams.categoria_id,
-	    			peluqueria: $stateParams.peluqueria,
-	    			servicios: $stateParams.servicios
-
-	    		})
-	    	}
-	    }
-
-		$scope.total = 0;
-
-		$scope.peluqueria = $stateParams.peluqueria;
-		console.log('EL ARRAY EN DETALLES DE LOS SERVICIOS ES: ');
-		console.log($scope.peluqueria);
-
-		$scope.contentServicios = '';
-
-		for (var i = 0; i < $scope.peluqueria.length; i++) {
-			console.log('CICLO: '+ i);
-			$scope.contentServicios += '<li><img ng-src="'+$scope.peluqueria[i].foto+'"><div class="caption center-align"><h3>'+$scope.peluqueria[i].nombre_servicio+'</h3><h5 class="light grey-text text-lighten-3">'+$scope.peluqueria[i].descripcion_servicio+'</h5><h5 class="light grey-text text-lighten-3">Precio: $'+$scope.peluqueria[i].precio+'</h5></div></li>';
-			$scope.total += $scope.peluqueria[i].precio;
+			$scope.pagoEfectivo=function(){
+				var o=[];
+				o.push($scope.factura);
+				o.push($scope.carrito);
+				$http({
+					method: 'POST',
+					url: server_uri+'/transactions',
+					data:o
+				}).then(function successCallback(response) {
+					Materialize.toast(response.data.msj, 4000);
+					$state.go('perfil');
+				}, function errorCallback(response) {
+					Materialize.toast(error, 4000);
+					$state.reload();
+				});
+			};
 		}
-
-		$('.slides').append($scope.contentServicios);
-
-		$scope.goBack = function() {
-        	$state.go('cliente_servicios_publicados',{
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		$scope.peluqueria = $stateParams.peluqueria;
-
-		$scope.goClientePago = function() {
-        	$state.go('cliente_pago',{
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		
-			// id: peluqueria[0].id}
-
-      	$('.slider').slider();
 	}
 
 
@@ -199,23 +263,15 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			})
 		}
 
-		$scope.goProfesionales = function() {
-        	$state.go('cliente_profesionales_salon',{
-				id: $stateParams.peluqueria[0].lounge_id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		$scope.goClienteVendedorOpciones = function(){
-        	$state.go('cliente_vendedor_opciones',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
+	    /*ruta = '';
+	    switch($scope.categoria_id) {
+			case '3':
+	    		ruta = 'buscar_independents_services';
+	    		break;
+	    	default:
+	    		ruta = 'buscar_lounges_services';
+	    		break;
+	    }*/
 
         $http({
             method: 'GET',
@@ -227,15 +283,11 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
             $scope.servicios = response.data.services;
             $scope.fotos = response.data.photos;
             $scope.comentarios = response.data.comments;
-
-            contentServicios = ''
-			uri_server_foto = $('body').attr('data-fotos_uri');
-    		for (var i = 0; i < $scope.fotos.length; i++) {
-    			contentServicios += '<li><img ng-src="'+ uri_server_foto + $scope.fotos[i].foto +'"></li>';
-    		}
-
-    		$('.slides').append(contentServicios);
-          	$('.slider').slider();
+            $scope.url=$('body').attr('data-fotos_uri');
+            $.sessionStorage.set('cliente_salon', true);
+            $timeout(function(){
+				$('.slider').slider();		
+			 });
 
         }, function errorCallback(error) {
         	console.log('PASO UN ERROR');
@@ -251,102 +303,9 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 	}
 
 	if($state.current.name == 'cliente_independiente_perfil'){
-		console.log('ESTOY EN EL PERFIL DEL INDEPENDIENTE');
-		console.log($stateParams);
-
-		$scope.goBack = function() {
-        	$state.go('cliente_servicio_preview',{
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
+		if(debug == 'true'){
+			console.log('hola');
 		}
-
-        $http({
-            method: 'GET',
-            url: server_uri+'all_independent/'+$stateParams.id
-        }).then(function successCallback(response) {
-        	console.log('TODO SALIO BIEN AL BUSCAR TODA LA INFO DEL INDEPENDIENTE');
-        	console.log(response.data);
-            $scope.peluqueria = response.data.independent;
-            $scope.servicios = response.data.services;
-            $scope.comentarios = response.data.comments;
-            $scope.peluqueria.avatar = $('body').attr('data-fotos_uri') + $scope.peluqueria.avatar;
-
-        	contentServicios = '<li><img ng-src="'+$scope.peluqueria.avatar+'"><div class="caption center-align"></div></li>';
-        	$('.slides').append(contentServicios);
-  			$('.slider').slider();
-        }, function errorCallback(error) {
-        	console.log('PASO UN ERROR');
-        });
-	}
-
-
-	if($state.current.name == 'cliente_profesionales_salon'){
-		console.log('ESTE ES EL PERFIL DE LOS PROFESIONALES DE UN SALON');
-		console.log($stateParams);
-
-	}
-
-	if($state.current.name == 'cliente_vendedor_opciones'){
-		console.log('LOS PARAMETROS RECIBIDOS SON: ');
-		console.log($stateParams);
-
-		$scope.goBack = function() {
-        	$state.go('cliente_vendedor_perfil',{
-    			id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-/*		
-		$scope.goClienteVendedorOpciones = function(){
-	    	$state.go('cliente_vendedor_opciones',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-*/
-		$scope.goClienteVendedorProfesionales = function(){
-	    	$state.go('cliente_vendedor_profesionales',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		$scope.goClienteVendedorCombos = function(){
-	    	$state.go('cliente_vendedor_combos',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		$scope.goClienteVendedorServicios = function(){
-	    	$state.go('cliente_vendedor_servicios',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-
-		$scope.goClienteVendedorProductos = function(){
-	    	$state.go('cliente_vendedor_productos',{
-				id: $stateParams.id,
-				categoria_id: $stateParams.categoria_id,
-				peluqueria: $stateParams.peluqueria,
-				servicios: $stateParams.servicios
-			})
-		}
-		
-			
 	}
 
 

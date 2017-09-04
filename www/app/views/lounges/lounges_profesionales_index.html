@@ -1,6 +1,6 @@
 <div ui-view="navigation"></div>
 
-<div class="fixed-action-btn">
+<div ng-hide="cliente_salon" class="fixed-action-btn">
   <a ui-sref="lounges_profesionales_crear" class="btn-floating btn-large blue" >
     <i class="large material-icons">add</i>
   </a>
@@ -28,7 +28,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="profesional in profesionales" class="collection-item avatar">
+						<tr ng-repeat="profesional in profesionales | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="collection-item avatar">
 							<td style="width: 100px"><img style="width: 80px" ng-src="{{urlFoto+profesional.foto}}" alt="" class="circle"></td>
 							<td><span class="left-align">Nombre</span><p>{{profesional.nombre}}</p></td>
 							<td>
@@ -36,15 +36,39 @@
 
 								<!-- Dropdown Structure -->
 								<ul id='{{profesional.id}}' class='dropdown-content'>
-									<li><a ui-sref="lounges_profesionales_editar({id:profesional.id})">Editar</a></li>
-									<li><a ng-click="modalProfesional(profesional.id)">Eliminar</a></li>
-									<li><a ui-sref="lounges_servicios_profesionales_index({id:profesional.id})" >Agregar Servicios</a></li>
-									<li><a ui-sref="lounges_certificados_profesionales_index({id:profesional.id})">Agregar Certificados</li>
+									<div ng-hide="cliente_salon">
+										<li><a ui-sref="lounges_profesionales_editar({id:profesional.id})">Editar</a></li>
+										<li><a ng-click="modalProfesional(profesional.id)">Eliminar</a></li>
+										<li><a ui-sref="lounges_servicios_profesionales_index({id:profesional.id})" >Agregar Servicios</a></li>
+										<li><a ui-sref="lounges_certificados_profesionales_index({id:profesional.id})">Agregar Certificados</li>
+									</div>
+									<div ng-show="cliente_salon">
+										<li><a ui-sref="lounges_servicios_profesionales_index({id:profesional.id})" >Ver Servicios</a></li>
+										<li><a ui-sref="lounges_certificados_profesionales_index({id:profesional.id})">Ver Certificados</li>
+									</div>
 								</ul>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+
+				<div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;" ng-if="mostrar">
+					<div class="col s12" style="text-align: center;">
+
+						<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+							<span ng-if="currentPage > 0">{{currentPage}}</span>
+						</button>
+
+						<span class="waves-effect waves-light btn">
+							{{currentPage+1}}/{{numberOfPages()}}
+						</span>
+
+						<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+							<span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+						</button>
+
+					</div>
+				</div>
 				<!-- <ul class="collection with-header">
 					<li class="collection-header"></li>
 					<li ng-repeat="profesional in profesionales" class="collection-item avatar">

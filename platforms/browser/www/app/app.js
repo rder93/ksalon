@@ -640,7 +640,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             { 
                  
             },
-            url: '/cliente_servicio_preview/:categoria_id',
+            url: '/cliente_servicio_preview',
             views:{
                 '':{
                     templateUrl: path_views+'/cliente/cliente_servicio_preview.html',

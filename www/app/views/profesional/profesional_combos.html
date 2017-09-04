@@ -1,6 +1,50 @@
 <div ui-view="navigation"></div>
 
+<div ng-if="cliente_salon" class="fixed-action-btn">
+  <a ng-click="modalCarrito()" class="btn-floating btn-large orange" >
+    <i class="material-icons">shopping_cart</i>
+  </a>
+</div>
 
+<div id="modalPagar" class="modal">
+    <div class="modal-content">
+      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
+      <br>
+      <button class="btn btn-large btn-block">Paypal</button>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    </div>
+  </div>
+
+  <div id="modalCarrito" class="modal">
+    <div class="modal-content">
+      <table>
+        <thead>
+          <tr>
+            <th class="center-align">Nombre</th>
+            <th class="center-align">Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="car in carrito">
+            <td class="center-align">{{car.descripcion}}</td>
+            <td class="center-align">{{car.precio}}</td>
+            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td class="center-align">Total: </td>
+          <td class="center-align">{{factura.total}}</td>
+        </tfoot>
+      </table>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="modalPagar()">Pagar</button>
+    </div>
+  </div>
 
 
   <div id="modalEliminarCombo" class="modal red">
@@ -60,7 +104,7 @@
                     <p style="font-size: 1.17em;margin:0;font-weight: 600;">{{combo.descripcion}}</p>
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Cotización: {{combo.precio | number:2 }} Bs.</p>
                 </div>
-                <div class="right" style="margin-right: 15px;">
+                <div class="right" style="margin-right: 15px;" ng-hide="cliente_salon">
                     <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='combo--{{combo.id}}' id="combo-{{combo.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
                     <ul id='combo--{{combo.id}}' class='dropdown-content' for="combo-{{combo.id}}">
                         <li><a ui-sref="profesional_combos_editar({id:independent_id, id_combo:combo.id})">Editar</a></li>
@@ -68,13 +112,22 @@
                         <li><a ng-click="modalVerCombo(combo.id)">Ver Combo</a></li>
                     </ul>
                 </div>
+                <br>
+                <div class="col s12 m12" class="center" style="margin-right: 15px;" ng-show="cliente_salon">
+                    <div class="col s6 m6">
+                      <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' ng-click="modalVerCombo(combo.id)"><i class="material-icons">list</i></button>
+                    </div>
+                    <div class="col s6 m6">
+                      <button  id="carrito{{combo.id}}" class='dropdown-button btn-floating waves-effect blue secondary-content left-align' ng-click="agregarCarrito(combo)"><i class="material-icons">add_shopping_cart</i></button>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>
     <div class="divider" style="margin: 1.5%;background-color: #228e7f !important;"></div>
 </div>
 
-<div class="fixed-action-btn">
+<div class="fixed-action-btn" ng-hide="cliente_salon">
   <a ui-sref="profesional_combos_crear({id:independent_id})" class="btn-floating btn-large red" >
     <i class="large material-icons">add</i>
   </a>

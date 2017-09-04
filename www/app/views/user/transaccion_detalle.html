@@ -94,7 +94,7 @@
 			    </p>
 			    <p class="p-factura">
 			    	<i class="material-icons">keyboard_arrow_right</i>
-			    	Monto: <span style="font-size:14px; font-weight: normal;">{{transaction.monto | currency}}</span>
+			    	Monto: <span style="font-size:14px; font-weight: normal;">{{transaction.total | currency}}</span>
 			    </p>
 			    <p class="p-factura">
 			    	<i class="material-icons">keyboard_arrow_right</i>
@@ -118,8 +118,38 @@
 			<blockquote style="margin-bottom:0px;">
 				<p class="blockquote-title">Servicios y/o Productos</p>
 			</blockquote>
-			<div style="height:20px; margin:0 auto; width:85%;">
-				<p>Lista de servicios o productos que el cliente recibio</p>
+			<div style=" margin:0 auto; width:85%;">
+				<p>Lista de servicios que el cliente recibio</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Descripcion</th>
+							<th>Precio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dFacturaS in detalleFacturaServicio">
+							<td>{{dFacturaS.descripcion}}</td>
+							<td>${{dFacturaS.precio}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<p>Lista de combos que el cliente recibio</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Descripcion</th>
+							<th>Precio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dFacturaC in detalleFacturaCombo">
+							<td>{{dFacturaC.descripcion}}</td>
+							<td>${{dFacturaC.precio}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 

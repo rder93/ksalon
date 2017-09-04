@@ -1,93 +1,86 @@
+<div ui-view="navigation"></div>
+<br><br><br><br>
+<div id="modalPagar" class="modal">
+    <div class="modal-content">
+      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
+      <br>
+      <button class="btn btn-large btn-block">Paypal</button>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    </div>
+  </div>
 
+  <div id="modalCarrito" class="modal">
+    <div class="modal-content">
+      <table>
+        <thead>
+          <tr>
+            <th class="center-align">Nombre</th>
+            <th class="center-align">Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="car in carrito">
+          	<td>{{car.id}}</td>
+            <td class="center-align">{{car.descripcion}}</td>
+            <td class="center-align">{{car.precio}}</td>
+            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td class="center-align">Total: </td>
+          <td class="center-align">{{factura.total}}</td>
+        </tfoot>
+      </table>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="modalPagar()">Pagar</button>
+    </div>
+  </div>
 
-
-<div ui-view="navigation"></div>	
-
-<br>
-<div class="height-100;" >
-	<div class="page-content" style="width: 90%; margin: auto; margin-top: 50px">
-		<div class="slider">
-		    <ul class="slides">
-		      <!-- <li ng-repeat="p in peluqueria" >
-		        <img ng-src="p.foto">
-		        <div class="caption center-align">
-		          <h3>{{ p.nombre_servicio }}</h3>
-		          <h5 class="light grey-text text-lighten-3">
-					{{ p.descripcion }}
-					{{ p.descripcion }}
-		          </h5>
-		      </li> -->
-		    </ul>
-		  </div>
+<div class="container">
+	<div class="slider">
+		<ul style="background-color: rgb(233,233,233); " class="slides">
+			<li ng-repeat="serv in servs">
+				<div class="card medium">
+					<div class="card-image waves-effect waves-block waves-light">
+						<img ng-src="{{ urlFoto+serv.foto }}" class="activator">
+					</div>
+					<div class="card-content">
+						<span class="card-title activator grey-text text-darken-4">{{serv.descripcion+' : $'+serv.precio}}<i class="material-icons right">more_vert</i></span>
+						<a id="carrito{{serv.id}}" ng-click="agregarCarrito(serv)"><h6>Añadir al carrito</h6></a>
+					</div>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4">{{serv.descripcion}}<i class="material-icons right">close</i></span>
+						<h5>Precio : {{serv.precio}}</h5>
+						<p>{{serv.descripcion_servicio}}</p>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
-<!-- 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.slider').slider();
-    });
-</script>	
- -->
-
-	
-<!-- 		
-	<div class="page-content">
-		<div class="page-description" style="padding:0px; ">
-			<h4 style="margin:0px;">Secado de Cabello</h4>
-			<p>Publicado por: {{ peluqueria[0].nombre_usuario }}</p>
-		</div>	
-
-		<div>
-			<img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;">
+	<div class="col s12 m8 offset-m2 l6 offset-l3">
+		<div class="card-panel grey lighten-5 z-depth-1">
+			<div class="row valign-wrapper">
+				<div class="col s2">
+					<img ng-src="{{ urlFoto+usuario.avatar}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+				</div>
+				<div class="col s10">
+					<h4>{{usuario.name}}</h4>
+					<span class="black-text">
+						{{pel[0].descripcion_salon}}
+					</span>
+				</div>
+			</div>
 		</div>
-		<div>
-			<p style=" margin: auto; text-align: justify; width: 95%;">
-				{{peluqueria.descripcion}}
-			</p>
-		</div>
-		
-		<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
-			<p style="font-size:16px; font-weight:bold; ">
-				{{ peluqueria[0].nombre_salon }}
-			</p>
-			<p>
-				{{ peluqueria[0].descripcion }}
-			</p>
-			<a ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})">Ver Perfil de este salon{{ peluqueria.nombre_categoria}}!!</a>
-		</div>
-
-		<div>
-			<h6 style="text-align:center;" ng-repeat="p in peluqueria">
-				servicio: <span>{{ p.nombre_servicio }}</span> -- Precio: <span>{{ p.precio | currency }}</span>
-			</h6>
-		</div>
-			
 	</div>
+	<a ui-sref="lounges_servicios({id:pel[0].lounge_id})" ng-if="estado == false" class="btn btn-block btn-large">Ver perfil de este salon!!</a>
 
- -->
-	<div style=" margin: auto; margin-top:15px; text-align: justify; width: 95%;">
-		<p style="font-size:16px; font-weight:bold; ">
-			Total a pagar: $ {{ total }}
-		</p>
+	<a ui-sref="profesional_servicios({id:pel[0].user_id})" ng-if="estado == true" class="btn btn-block btn-large" ng-click="goClienteIndependientePerfil();">Ver perfil de este independiente!!</a>
+	<br>
+	<a class="btn btn-block btn-large" ng-click="modalCarrito()">Ver Carrito</a>
 
-		<p style="font-size:16px; font-weight:bold; ">
-			{{ peluqueria[0].nombre_salon }}
-		</p>
-		<p>
-			{{ peluqueria[0].descripcion_salon }}
-		</p>
-		<!-- ui-sref="cliente_vendedor_perfil({id: peluqueria[0].id})" -->
-
-		<a ng-if="estado == false" ng-click="goClienteVendedorPerfil();">Ver perfil de este salon!!</a>
-		
-		<a ng-if="estado == true" ng-click="goClienteIndependientePerfil();">Ver perfil de este independiente!!</a>
-	</div>
-
-
-	<div class="form-categorias-footer" style="width: 90%; margin: auto;">
-		<a class="btn btn-block teal lighten-2 waves-effect waves-light btn-large" ng-click="goClientePago();" >
-			Reservar
-		</a>
-	</div>
-
-</div>
-      
+</div> 

@@ -61,7 +61,7 @@
             </thead>
 
             <tbody>
-              <tr ng-repeat="profesional_servicio in profesional_servicios">
+              <tr ng-repeat="profesional_servicio in profesional_servicios | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <td>
                   <div class="row">
                     <div class="center-align">
@@ -85,6 +85,25 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;" ng-if="mostrar">
+            <div class="col s12" style="text-align: center;">
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                <span ng-if="currentPage > 0">{{currentPage}}</span>
+              </button>
+
+              <span class="waves-effect waves-light btn">
+                {{currentPage+1}}/{{numberOfPages()}}
+              </span>
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+                <span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

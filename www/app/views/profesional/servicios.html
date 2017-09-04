@@ -1,5 +1,45 @@
 <div ui-view="navigation"></div>
 
+<div id="modalPagar" class="modal">
+    <div class="modal-content">
+      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
+      <br>
+      <button class="btn btn-large btn-block">Paypal</button>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    </div>
+  </div>
+
+<div id="modalCarrito" class="modal">
+    <div class="modal-content">
+      <table>
+        <thead>
+          <tr>
+            <th class="center-align">Nombre</th>
+            <th class="center-align">Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="car in carrito">
+            <td class="center-align">{{car.descripcion}}</td>
+            <td class="center-align">{{car.precio}}</td>
+            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td class="center-align">Total: </td>
+          <td class="center-align">{{factura.total}}</td>
+        </tfoot>
+      </table>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="modalPagar()">Pagar</button>
+    </div>
+  </div>
+
 <div style="width: 70%;margin: auto;">
     <form id="searchInput" >
         <div class="input-field" style="margin-top: 0px;">
@@ -22,12 +62,15 @@
                     <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{servicio.service.nombre}}</p>
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Cotización: {{servicio.precio | number:2 }} Bs.</p>
                 </div>
-                <div class="right" style="margin-right: 15px;">
+                <div ng-hide="cliente_salon" class="right" style="margin-right: 15px;">
                     <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='servicio--{{servicio.id}}' id="servicio-{{servicio.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
                     <ul id='servicio--{{servicio.id}}' class='dropdown-content' for="servicio-{{servicio.id}}">
                         <li><a ui-sref="profesional_servicios_editar({id:usuario_id, id_service:servicio.id})">Editar</a></li>
                         <li><a href="javascript:void(0)" ng-click="removeItem(servicio.id,'/service');">Eliminar</a></li>
                     </ul>
+                </div>
+                <div ng-show="cliente_salon" class="right" style="margin-right: 15px;">
+                    <button id="carrito{{servicio.id}}" class='dropdown-button btn-floating waves-effect waves-light secondary-content left-align' ng-click="agregarCarrito(servicio)"><i class="material-icons">add_shopping_cart</i></button>
                 </div>
             </div>
         </div>
@@ -77,10 +120,17 @@
             Lista de combos
         </a>
     </div>
-    <div class="col s4">
+    <div class="col s4" ng-hide="cliente_salon">
         <div class="fixed-action-btn" style="bottom: 10px;">
             <a id="addService" ui-sref="profesional_servicios_crear({id:usuario_id})" class="btn-floating btn-large red">
               <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </div>
+    <div class="col s4" ng-if="cliente_salon">
+        <div class="fixed-action-btn" style="bottom: 10px;">
+            <a ng-click="modalCarrito()" class="btn-floating btn-large orange" >
+                <i class="material-icons">shopping_cart</i>
             </a>
         </div>
     </div>

@@ -1,10 +1,56 @@
 <div ui-view="navigation"></div>
 
-<div class="fixed-action-btn">
+<div ng-hide="cliente_salon" class="fixed-action-btn">
   <a ui-sref="lounges_combos_crear" class="btn-floating btn-large blue" >
     <i class="large material-icons">add</i>
   </a>
 </div>
+
+<div ng-if="cliente_salon" class="fixed-action-btn">
+  <a ng-click="modalCarrito()" class="btn-floating btn-large orange" >
+    <i class="material-icons">shopping_cart</i>
+  </a>
+</div>
+
+<div id="modalPagar" class="modal">
+    <div class="modal-content">
+      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
+      <br>
+      <button class="btn btn-large btn-block">Paypal</button>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    </div>
+  </div>
+
+  <div id="modalCarrito" class="modal">
+    <div class="modal-content">
+      <table>
+        <thead>
+          <tr>
+            <th class="center-align">Nombre</th>
+            <th class="center-align">Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="car in carrito">
+            <td class="center-align">{{car.descripcion}}</td>
+            <td class="center-align">{{car.precio}}</td>
+            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td class="center-align">Total: </td>
+          <td class="center-align">{{factura.total}}</td>
+        </tfoot>
+      </table>
+    </div>
+    <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="modalPagar()">Pagar</button>
+    </div>
+  </div>
 
 
   <div id="modalEliminarCombo" class="modal red">
@@ -53,9 +99,19 @@
             </thead>
 
             <tbody>
-              <tr ng-repeat="combo in combos">
+              <tr ng-repeat="combo in combos | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <td>{{combo.descripcion}}</td>
-                <td>
+                <td ng-show="cliente_salon">
+                  <div class="col s12 m12">
+                    <div class="col s6 m6">
+                      <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' ng-click="modalVerCombo(combo.id)"><i class="material-icons">list</i></button>
+                    </div>
+                    <div class="col s6 m6">
+                      <button  id="carrito{{combo.id}}" class='dropdown-button btn-floating waves-effect blue secondary-content left-align' ng-click="agregarCarrito(combo)"><i class="material-icons">add_shopping_cart</i></button>
+                    </div>
+                  </div>
+                </td>
+                <td ng-hide="cliente_salon">
                     <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{combo.id}}'><i class="material-icons">more_vert</i></button>
 
                     <!-- Dropdown Structure -->
@@ -68,6 +124,25 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="row"  style="margin-bottom:65px; padding:25px 0px 25px 0px;" ng-if="mostrar">
+            <div class="col s12" style="text-align: center;">
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                <span ng-if="currentPage > 0">{{currentPage}}</span>
+              </button>
+
+              <span class="waves-effect waves-light btn">
+                {{currentPage+1}}/{{numberOfPages()}}
+              </span>
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+                <span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

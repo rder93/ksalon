@@ -1,94 +1,105 @@
-<div ui-view="navigation"></div>	
+<div ui-view="navigation"></div>
 
-<br>
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card">
+      <div class="card-image">
+      	<div class="slider">
+      		<ul class="slides">
+      			<li ng-repeat="foto in fotos">
+      				<img ng-src="{{url+foto.foto}}"> <!-- random image -->
+      			</li>
+      		</ul>
+      	</div>
+        <div class="container center-align"><h4 class="text-black">{{peluqueria.nombre}}</h4></div>
+      </div>
+      <div class="card-content center-align"  style="font-size: 2em;">
+          <div class="starrr-user"></div>
+        </div>
+        <div class="card-action center-align">
+         <a ui-sref="lounges_servicios({id:peluqueria.id})">Propiedades del salon</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="height-100;" style="50px;">
-	<div class="page-content">		
-		<div class="page-description" style="padding:0px; ">
-			<div class="starrr" style="text-align:center;"></div>	
-		</div>	
-<!-- 
-		<div>
-			<img src="../../../assets/core/images/hair_salon.jpg" alt="" style="height:30vh; width:100%;">
-		</div>
- -->
- 		<div class="page-content" style="width: 90%; margin: auto; margin-top: 50px">
- 			<div class="slider">
- 			    <ul class="slides">
- 			    </ul>
- 			  </div>
- 		</div>
-		
-		<div style=" text-align: justify;">
-			<h4  class="center">{{ peluqueria.nombre }}</h4>
+<div class="row">
+      <div class="col s12 m12">
+        <div class="card-panel">
+        <table class="bordered">
+            <thead>
+              <tr>
+                <th class="center-align"><h4>Ultimos Comentarios</h4></th>
+              </tr>
+            </thead>
 
-			<p style="display:inline-block; font-size:12px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">
-				{{ peluqueria.descripcion }}
-			</p>
+            <tbody>
+              <tr ng-if="comentarios.length == 0">
+               <td>Aun no hay comentarios</td>
+             </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-<!-- 
-			<div style="width: 90%; margin: auto;">
-				<p>
-					<a ng-click="goProfesionales();">Profesionales del salon.</a>
-				</p>
-			</div>
- -->
+<div>
 
-<!-- servicios -->
-<!-- 
-			<p ng-if="servicios.length == 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:13px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">No tiene comentarios.</p>
-						
-			<p ng-if="servicios.length > 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:16px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Servicios del salon</p>
+    <!-- <div class="col s12">
+      <span style="color:white;font-size: 1.16em;"><ins>Ultimos comentarios de los usuarios trabajadores</ins></span>
+            
+      <ul class="collection">
+        <li class="collection-item avatar">
+          <i class="material-icons circle green">insert_chart</i>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>
+          </p>
+          <div class="row" style="font-size:1.55em;">
+            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+          </div>
 
-			<div ng-repeat="servicio in servicios" style="width: 90%; margin: auto;">
-				<div class="col s12 m8 offset-m2 l6 offset-l3">
-                  	<div class="card-panel grey lighten-5 z-depth-1  last-comment" style="margin:0px 0px 15px 0px; padding:14px;">
-                      	<div class="row valign-wrapper">
-                          	<div class="col s10">
-                              	<span class="black-text">
-                                  	{{ servicio.nombre }}
-                              	</span>
-                          	</div>
-                      	</div>
-                  	</div>
-	            </div>
-			</div>
- -->
+        </li>
+        <li class="collection-item avatar">
+          <i class="material-icons circle green">insert_chart</i>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br></p>
+          <div class="row" style="font-size:1.55em;">
+            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+          </div>
+        </li>
+        <li class="collection-item avatar">
+          <i class="material-icons circle green">insert_chart</i>
+                
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br></p>
+          <div class="row" style="font-size:1.55em;">
+              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+          </div>
+        </li>
+      </ul>
 
-<!-- comentarios -->
-			<p ng-if="comentarios.length == 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:13px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">No tiene comentarios.</p>
-						
-			<p ng-if="comentarios.length > 0" style="display:inline-block; border-bottom: 1px solid gray; font-size:16px; font-weight:bold; margin: 15px 0px 25px 25px; padding: 5px 25px 0px 25px;">Ultimos Comentarios de clientes</p>
+  </div>
+</div> -->
 
-			<div ng-repeat="comentario in comentarios">
-				<div class="col s12 m8 offset-m2 l6 offset-l3">
-                  	<div class="card-panel grey lighten-5 z-depth-1  last-comment" style="margin:0px 0px 15px 0px; padding:14px;">
-                      	<div class="row valign-wrapper">
-                          	<div class="col s2">
-                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
-                          	</div>
-                          	<div class="col s10">
-                              	<span class="black-text">
-                                  	{{ comentario.comentario }}
-                              	</span>
-                          	</div>
-                      	</div>
-                  	</div>
-	            </div>
-			</div>
 
-		</div>
-			
-	</div>	
-	
-	<div class="form-categorias-footer" style="width: 90%; margin: auto;">
-		<a ng-click="goClienteVendedorOpciones();" class="btn btn-block teal lighten-2 waves-effect waves-light btn-large">
-			Ver todos sus servicios
-		</a>
-	</div>
-	
 
-	
-
+<div ng-show="btnClientes">
+  <div class="col s7 offset-s2">
+    <a ui-sref="home" class="waves-effect waves-light btn btn-evolutrans btn-block" style="width:100%;position: relative;bottom: 4%; font-size: 1.2rem;">
+      Buscar servicios
+    </a>
+  </div>
 </div>
-     
+
+<div ng-show="btnSalones">
+  <div class="col s7 offset-s2">
+    <a ui-sref="lounges_servicios" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
+      Mis Servicios
+    </a>
+  </div>
+</div>
+
+<div ng-show="btnProfesional">
+  <div class="col s7 offset-s2">
+    <a ui-sref="profesional_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
+      Mis Servicios
+    </a>
+  </div>
+</div>
