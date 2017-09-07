@@ -4,10 +4,12 @@ app.controller('MainController', ['$scope', '$state', '$http', function($scope, 
 
 	$scope.server_uri = server_uri;
 
+	if ($.sessionStorage.get('user')==null) {
+        $state.go('login');
+    }
 
 	if($state.current.name == 'home'){
 		if(debug == 'true'){
-			console.log('en home');
 			$http.get(server_uri+'categories')
 		    .then(function successCallback(response) {
 		        $scope.categories = response.data;

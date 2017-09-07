@@ -647,7 +647,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: 'ClienteController'
                 },
                 'navigation@cliente_servicio_preview':{
-                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    templateUrl: path_views+'/template_parts/nav.html',
                     controller: 'NavigationController'
                 }
             },
@@ -1085,7 +1085,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
 
+        .state('admin_user_chats',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/user/messages/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/user_messages.html',
+                    controller: 'MessagesController'
+                }
+            }
+        })
 
+        .state('admin_user_chat',{
+            url: '/admin/user/chat/:id?seller_id?transaction_id',
+            onEnter: function(){
+                $('.mobile-content').fadeIn(1000);
+            },
+            onExit: function(){
+                $('.mobile-content').fadeOut(1000);
+            },
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/user_chat.html',
+                    controller: 'MessagesController'
+                }
+            }
+        })
 
 
 

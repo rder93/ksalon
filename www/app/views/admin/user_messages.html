@@ -1,4 +1,4 @@
-<!-- <div ui-view="navigation"></div>	 -->
+<div ui-view="navigation"></div>	
 
 	<div id="chatbox">
 
@@ -6,19 +6,19 @@
 	        
 			<div id="topmenu" style=" font-size: 18px; font-weight: 700; position:relative;">
 				<div style="align-items: center; display: flex; height:60px; left:0px; margin-left:10px; padding: 10px; position: absolute; top:0px;" >
-					<a action="action" onclick="window.history.go(-1); return false;"  style="color:#000; font-size: 24px!important; font-weight: bold; padding:0px;" value="">
+					<a action="action" onclick="window.history.go(-1); return false;"  style="color:#000; font-weight: bold; padding:0px;" value="">
 						<i class="fa fa-chevron-left"></i>
 					<a/>
 				</div>
-				
-			       Mis mensajes
+			
+			    {{user.name}}
+			    			
 			</div>
 
 	        <div id="friends">
 	        	<div class="friend" ng-repeat="(key, conver) in conversations | orderBy: '-last_message.created_at'">
 	        		
-
-		            <a ui-sref="user_message({id:conver.send_by.id,transaction_id:conver.transaction_id})" ng-if="conver.send_by.id != user_id">	
+		            <a ui-sref="admin_user_chat({id:conver.receive_by.id,seller_id:conver.send_by.id,transaction_id:conver.transaction_id})" ng-if="conver.send_by.id != user_id">
 		            	<img src="{{fotos_uri+conver.send_by.avatar}}" ng-if="conver.send_by.id != user_id && conver.send_by.avatar"/>
 		            	<img src="./assets/core/images/no_avatar.jpg" ng-if="conver.send_by.id != user_id && !conver.send_by.avatar"/>
 
@@ -32,11 +32,10 @@
 
 			                <span>{{conver.lastMessage.message | limitTo:20}}</span>
 		                </p>
-		                <!-- <div class="status available"></div> -->
 		            </a>
 
-		            <a ui-sref="user_message({id:conver.receive_by.id,transaction_id:conver.transaction_id})" ng-if="conver.receive_by.id != user_id">
-						<img src="{{fotos_uri+conver.send_by.avatar}}" ng-if="conver.send_by.id != user_id && conver.send_by.avatar"/>
+		            <a ui-sref="admin_user_chat({id:conver.send_by.id, seller_id:conver.receive_by.id,  transaction_id:conver.transaction_id})" ng-if="conver.receive_by.id != user_id">
+		            	<img src="{{fotos_uri+conver.send_by.avatar}}" ng-if="conver.send_by.id != user_id && conver.send_by.avatar"/>
 		            	<img src="./assets/core/images/no_avatar.jpg" ng-if="conver.send_by.id != user_id && !conver.send_by.avatar"/>
 
 		            	<img src="{{fotos_uri+conver.receive_by.avatar}}" ng-if="conver.receive_by.id != user_id && conver.receive_by.avatar"/>
@@ -49,7 +48,6 @@
 
 			                <span>{{conver.lastMessage.message | limitTo:20}}</span>
 		                </p>
-		                <!-- <div class="status available"></div> -->
 		            </a>
 
 	            </div>

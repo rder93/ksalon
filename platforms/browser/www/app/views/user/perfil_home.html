@@ -4,7 +4,7 @@
   <div class="col s12 m12">
     <div class="card">
       <div class="card-image">
-        <img ng-src="{{ thumbnail.dataUrl }}" class="perfil" />
+        <img ng-src="{{ thumbnail.dataUrl }}" class="perfil" style="border-radius: 50%; margin: auto; width: 50%;"/>
         <div class="container center-align"><h4 class="text-black">{{Usuario.name}}</h4></div>
       </div>
       <div class="card-content center-align"  style="font-size: 2em;">
@@ -17,79 +17,36 @@
     </div>
   </div>
 
-<div class="row">
-      <div class="col s12 m12">
-        <div class="card-panel">
-        <table class="bordered">
-            <thead>
-              <tr>
-                <th colspan="2" class="center-align"><h4>Ultimos Comentarios</h4></th>
-              </tr>
-            </thead>
 
-            <tbody>
 
-              <tr ng-repeat="(key,rating) in Usuario.ratings | limitTo:3">
-                <td><i class="fa fa-user-circle fa-2x"></i></td>
-                <td>
-                  <div class="row">
-                    <div class="col s6">
-                      <h6 class="nombre-comentario">{{rating.creator.name}}</h6>
-                    </div>
-                    <div class="col-s6">
-                      <div id="starrr-comment-{{key}}"></div>
-                    </div>
-                    <div class="col s12">
-                      {{rating.comentario}}
-                    </div>
-                  </div>
-                </td>
-              </tr>
+  <div id="user-last-ratings">
+      <div>
+        <h4>ÚLTIMAS CALIFICACIONES</h4>
 
-              <div ng-if="Usuario.ratings.length == 0">
-                <p>Aun no ha recibido comentarios.</p>
+        <div class="col s12 m8 offset-m2 l6 offset-l3" ng-repeat="(key,rating) in Usuario.ratings | limitTo:3">
+          <div class="card-panel grey lighten-5 z-depth-1  last-comment">
+            <div class="row valign-wrapper">
+              <div class="col s2">
+                <img src="{{fotos_uri+rating.creator.avatar}}" alt="" class="circle responsive-img">
+                <p>{{}}</p>
               </div>
-
-            </tbody>
-          </table>
+              <div class="col s10">
+                <p style="font-weight:bold; margin:0px;">{{rating.creator.name}}</p>
+                <span class="black-text">
+                    {{rating.comentario}}
+                </span>
+                      <!-- <div id="stars-comment-'+thisRatings[i].id+'"></div>' -->
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
-    </div>
-
-<div>
-
-    <!-- <div class="col s12">
-      <span style="color:white;font-size: 1.16em;"><ins>Ultimos comentarios de los usuarios trabajadores</ins></span>
-            
-      <ul class="collection">
-        <li class="collection-item avatar">
-          <i class="material-icons circle green">insert_chart</i>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>
-          </p>
-          <div class="row" style="font-size:1.55em;">
-            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-          </div>
-
-        </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle green">insert_chart</i>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br></p>
-          <div class="row" style="font-size:1.55em;">
-            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-          </div>
-        </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle green">insert_chart</i>
-                
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br></p>
-          <div class="row" style="font-size:1.55em;">
-              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-          </div>
-        </li>
-      </ul>
-
+      <p ng-if="Usuario.ratings.length == 0" style="text-align:center;">Aún no ha recibido comentarios.</p>
   </div>
-</div> -->
+
+ 
+
 
 <div ng-show="btnClientes">
   <div class="col s7 offset-s2">

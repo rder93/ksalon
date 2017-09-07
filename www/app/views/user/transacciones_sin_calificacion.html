@@ -39,7 +39,7 @@
 	<div>
 		<div style="height:58px;"></div>
 		<div ng-if="nonReviews>0">
-			<a ui-sref="#" class="btn btn-floating pulse transacciones-sin-calificacion"   style="  width:100%;"> 	{{nonReviews}} Transacciones sin calificar
+			<a ui-sref="#" class="btn-floating pulse transacciones-sin-calificacion"   style="  text-align: center; width:100%;"> 	{{nonReviews}} Transacciones sin calificar
 			</a>
 		</div>
 
@@ -54,7 +54,9 @@
 							<blockquote style="margin-bottom:0px;">
 								<h2 style="font-size: 1.5rem; margin-bottom:0px;">
 									<!-- Servicio de {{item.car.category.service.name}} -->									
-									<a class="review-click" ui-sref="calificacion_nueva({id:item.id,car:item.car.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+									<a class="review-click" ui-sref="calificacion_nueva({id:item.id,car:item.car.id})">
+										Calificar <span class="fa fa-star"></span>
+									</a>
 								</h2>
 							</blockquote>	
 		          		</div>
@@ -98,7 +100,9 @@
 								<h2 style="font-size: 1.5rem; margin-bottom:0px;">
 									<!-- Servicio de {{item.car.category.service.name}} -->
 
-									<a class="review-click" ui-sref="calificacion_nueva({id:item.id,car:item.car.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+									<a class="review-click" ui-sref="calificacion_nueva({id:item.id,car:item.car.id})">
+										Calificar <span class="fa fa-star"></span>
+									</a>
 								</h2>
 							</blockquote>	
 		          		</div>

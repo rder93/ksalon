@@ -1,108 +1,60 @@
+<style>
+  .user-menu{
+    width: 90%!important;
+  }
+</style>
+
 <nav class="right">
-    <div class="nav-wrapper teal lighten-2">
-      <a href="#!" class="brand-logo center" style="bottom: 2px;"><img src="../../../assets/core/images/logosalon2.png" class="logo-menu redondear"></a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse right"><i class="material-icons">menu</i></a>
-      <a href="#" class="button-collapse left" onclick="window.history.go(-1); return false;"><i class="material-icons">keyboard_backspace</i></a>
+  
+    <div class="nav-wrapper pink accent-3">
+    <!-- <div class="nav-wrapper teal lighten-2"> -->
+
+      <a href="#!" class="brand-logo center" style="bottom: 2px;">
+        {{page_title}}
+
+        <!-- <img src="./assets/core/images/logosalon2.png" class="logo-menu redondear"> -->
+      </a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse right">
+        <i class="fa fa-bars"></i>
+      </a>
+
+      <a href="#" class="button-collapse left" onclick="window.history.go(-1); return false;" ng-if="!noBtnBack">
+        <i class="fa fa-chevron-left"></i>
+      </a>
+
       <ul class="hide-on-med-and-down">
-        <a href="#" data-activates="mobile-demo" class="right"><i class="material-icons">menu</i></a>
-      <a href="#" class="left"><i class="material-icons">keyboard_backspace</i></a>
+        <a href="#" data-activates="mobile-demo" class="right">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="#" class="left">
+          <i class="fa fa-chevron-left"></i>
+        </a>
       </ul>
-      <ul class="side-nav text-center right " id="mobile-demo">
+
+
+
+
+
+
+      <ul class="side-nav text-center right user-menu" id="mobile-demo">
       	<br>
       	<li>
       		<div class="center"><img ng-src="{{ foto_menu }}" class="perfil-menu redondear" /></div>
       	</li>
         <li ng-repeat="opcion in opciones">
-          <a ui-sref={{opcion.state}} style="padding: 0 20px;">{{opcion.nombre}}<i class="material-icons">{{opcion.icono}}</i></a>
+          <a ui-sref={{opcion.state}} style="padding: 0 20px;">{{opcion.nombre}}
+            <!-- <i class="material-icons">{{opcion.icono}}</i> -->
+            <i class="fa {{opcion.icono}}" aria-hidden="true"></i>
+          </a>
         </li>
-        <!-- <li>
-        	<a ui-sref="home">Inicio<i class="material-icons">home</i></a>
-    	</li>
-        <li>
-        	<a ui-sref="Perfil">Mi Perfil<i class="material-icons">account_box</i></a>
-    	</li>
-        <li>
-        	<a ui-sref="my_messages">Mis Mensajes <i class="material-icons">question_answer</i></a>
-    	</li>
-        <li>
-        	<a ui-sref="#">Notificaciones <i><span class="new badge teal lighten-2">4</span></i></a>
-    	</li>
-        <li>
-        	<a ui-sref="about">Sobre Nosotros <i class="material-icons">info_outline</i></a>
-        </li>
-        <li>
-        	<a ui-sref="politicas">Politicas de Uso <i class="material-icons">account_balance</i></a>
-        </li> -->
 
-        <!-- <li id="" class="">
-          <a ui-sref="panel_servicios_categorias">Servicios y categorias<i class="material-icons">exit_to_app</i></a>
-        </li> -->
-
-       <!--  <li id="" class="">
-          <a ui-sref="panel_categorias">Categorias<i class="material-icons">exit_to_app</i></a>
-        </li>
-        <li id="" class="">
-          <a ui-sref="panel_servicios">Servicios<i class="material-icons">exit_to_app</i></a>
-        </li> -->
 
         <li id="btn-logout" class="logouth">
-        	<a href="#" style="padding: 0 20px;">Cerrar Sesion <i class="material-icons">exit_to_app</i></a>
+        	<a href="#" style="padding: 0 20px;">Cerrar Sesion 
+            <!-- <i class="material-icons">exit_to_app</i> -->
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </a>
         </li>
       </ul>
     </div>
 </nav>
-
-<!-- <ul id="slide-out" class="side-nav">
-		
-	<li class="card" style="margin: 0;">
-		<div class="card-image">
-		  <img src="assets/core/images/tehribo.png" alt="">
-		  <span class="card-title">{{ user.name }}</span>
-		</div>
-	</li> 
-	
-	<li class="active"><a ui-sref="home">Inicio</a></li>
-	<li><a ui-sref="Perfil">Mi Perfilaa</a></li>
-	<li class="active"><a ui-sref="my_messages">Mis Mensajes</a></li>
-	<li><a ui-sref="#">Notificaciones</a></li>
-	<li class="active"><a ui-sref="about">Sobre Nosotros</a></li>
-	<li class="active"><a ui-sref="politicas">Politicas de Uso</a></li>
-	<li id="btn-logout" class="logouth active"><a href="#">Cerrar Sesion</a></li>
-	
-</ul>
-
-  <div class="fixed-action-btn toolbar fixed-action-btn-tvia">
-    <a class="btn-floating btn-large">
-      <i class="glyph-icon flaticon-more"></i>
-    </a>
-
-    <ul>
-		<li class="waves-effect waves-light">
-			<a ui-sref="home" class="flaticon-home">
-			</a>
-			<span>Inicio</span>
-		</li>
-
-		<li class="waves-effect waves-light">
-			<a href="#" data-activates="slide-out" class="button-collapse user_nav flaticon-menu-2">
-			</a>
-			<span>Navegacion</span>
-		</li>
-
-
-		<li class="waves-effect waves-light">
-			<a ui-sref="my_messages" class="flaticon-users-1">
-			</a>
-			<span>Mensajes</span>
-		</li>
-
-		<li class="waves-effect waves-light">
-			<a ui-sref="home" class="flaticon-settings-4">
-
-			</a>
-			<span>Configuracion</span>
-		</li>
-
-    </ul>
-  </div> -->
-

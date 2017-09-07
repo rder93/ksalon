@@ -1,13 +1,12 @@
-<div ui-view="navigation"></div>	
+<!-- <div ui-view="navigation"></div>	 -->
 
 <div id="chatbox">
 
  <div id="chatview" class="p1">     
      <div id="profile" style="height: 15vh;">
-   <div onclick="window.history.go(-1); return false;" id="btn-back-wrap" style="align-items: center; display: flex; height:60px; left:0px; margin-left:10px; padding: 10px; position: absolute; top:0px;" >
-    <!--<i class="material-icons" style="height: 0px; line-height: 40px;">keyboard_backspace</i>-->
-    <span style="height: 0px; line-height: 40px; font-size:40px; ">←</span>
-   </div>
+        <div onclick="window.history.go(-1); return false;" id="btn-back-wrap" style="align-items: center; display: flex;  height:15vh!important; left:0px; line-height:15vh!important; margin-left:10px; padding: 0px!important; position: absolute; top:0px;" >
+          <i class="fa fa-chevron-left"></i>
+        </div>
          <div id="img-perfil-wrap">
             <div>
               	<p class="animate" style="margin-top:0px!important;">{{user_to.name}}</p>

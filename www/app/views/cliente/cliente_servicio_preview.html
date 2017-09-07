@@ -41,17 +41,37 @@
     </div>
   </div>
 
-<div class="container">
+<div>
+
+<!-- 	<div class="slider">
+	    <ul class="slides">
+	      	<li ng-repeat="serv in servs">
+	        	<img src="{{ urlFoto+serv.foto }}" class="responsive-img">
+	        	<div class="caption center-align">
+	          		<h3>This is our big Tagline!</h3>
+	          		<h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+	        	</div>
+	        	<div>
+	        		<h4>OK</h4>
+	        	</div>
+	      	</li>
+	    </ul>
+	</div> -->
+
 	<div class="slider">
 		<ul style="background-color: rgb(233,233,233); " class="slides">
 			<li ng-repeat="serv in servs">
 				<div class="card medium">
 					<div class="card-image waves-effect waves-block waves-light">
-						<img ng-src="{{ urlFoto+serv.foto }}" class="activator">
+						<img ng-src="{{ urlFoto+serv.foto }}" class="activator responsive-img">
 					</div>
 					<div class="card-content">
 						<span class="card-title activator grey-text text-darken-4">{{serv.descripcion+' : $'+serv.precio}}<i class="material-icons right">more_vert</i></span>
-						<a id="carrito{{serv.id}}" ng-click="agregarCarrito(serv)"><h6>Añadir al carrito</h6></a>
+						<a id="carrito{{serv.id}}" ng-click="agregarCarrito(serv)">
+							Añadir al carrito
+							<img src="./assets/core/images/add_cart.png" class="circle" style="border-radius: 50%;background: #fff; height: 64px; width: 64px;">
+						</a>
+						
 					</div>
 					<div class="card-reveal">
 						<span class="card-title grey-text text-darken-4">{{serv.descripcion}}<i class="material-icons right">close</i></span>
@@ -62,6 +82,10 @@
 			</li>
 		</ul>
 	</div>
+
+
+
+
 	<div class="col s12 m8 offset-m2 l6 offset-l3">
 		<div class="card-panel grey lighten-5 z-depth-1">
 			<div class="row valign-wrapper">
@@ -77,9 +101,12 @@
 			</div>
 		</div>
 	</div>
-	<a ui-sref="lounges_servicios({id:pel[0].lounge_id})" ng-if="estado == false" class="btn btn-block btn-large">Ver perfil de este salon!!</a>
 
-	<a ui-sref="profesional_servicios({id:pel[0].user_id})" ng-if="estado == true" class="btn btn-block btn-large" ng-click="goClienteIndependientePerfil();">Ver perfil de este independiente!!</a>
+
+	<a ui-sref="lounges_servicios({id:pel[0].lounge_id})" ng-if="estado == false" class="btn btn-block btn-large">Ver perfil de este salon!!</a>
+	
+<!-- ng-click="goClienteIndependientePerfil(); -->
+	<a ui-sref="profesional_servicios({id:pel[0].user_id})" ng-if="estado == true" class="btn btn-block btn-large" ">Ver perfil de este independiente!!</a>
 	<br>
 	<a class="btn btn-block btn-large" ng-click="modalCarrito()">Ver Carrito</a>
 

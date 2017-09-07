@@ -3,15 +3,26 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 		debug = $('body').attr('debug');
 	$scope.server_uri = server_uri;
 	var fotos_uri = $('body').attr('data-fotos_uri');
+	$scope.fotos_uri = fotos_uri;
+
+
+	if (!$.sessionStorage.get('user')) {
+    	 $state.go('login');
+    	 return false;
+    }
 
 
 	if($state.current.name == 'perfil'){
 		if(debug == 'true'){
 			if (!$.sessionStorage.get('user')) {
-				console.log("no ha iniciado sesion");
+				// console.log("no ha iniciado sesion");
     	 		$state.go('login');
     	 		return false;
     		}
+
+    		$scope.noBtnBack = true;
+
+
 
     		$scope.Usuario=$.sessionStorage.get('user');
     		var fotos_uri = $('body').attr('data-fotos_uri');
@@ -22,6 +33,10 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.avatar
 				};
+
+				// console.log("respuesta del server");
+				// console.log(response.data)
+
 				$scope.Usuario=response.data;
 
 				$scope.calculateRating();
@@ -31,8 +46,6 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 			    // when the response is available
 			}, function errorCallback(response) {
 				console.log('dio error');
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
 			});
 
 
@@ -90,7 +103,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 		
 			$http.get(server_uri+'/users/'+$scope.Usuario.id+'/edit')
 				.then(function(response){
-					console.log(response.data);
+					// console.log(response.data);
 					$scope.usuario=response.data;
 					$scope.thumbnail = {
 						dataUrl: fotos_uri+response.data.avatar
@@ -142,9 +155,8 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 			      		lat : latLng.lat(),
 			      		lng : latLng.lng()
 			      	};
-			      	$scope.usuario.latitud=latLng.lat();
-			      	$scope.usuario.longitud=latLng.lng();
-			      	console.log($scope.usuario);
+			      	$scope.usuario.latitud  = latLng.lat();
+			      	$scope.usuario.longitud = latLng.lng();
 			  	});
 
 

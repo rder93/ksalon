@@ -62,10 +62,14 @@
 			<blockquote style="margin-bottom:0px;">
 				<!-- CHECK SI LA TRANSACCION ESTA TERMINADA Y PAGADA -->
 				<div style="height:10px; margin:0 auto; width:85%;" ng-if="user.rol_id != 4 && transaction.user_to_id == user_id && !transaction.seller_review">
-					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">
+						Calificar <span class="fa fa-star"></span>
+					</a>
 				</div>
 				<div style="height:10px; margin:0 auto; width:85%;" ng-if="user.rol_id == 4 && transaction.user_id == user_id && !transaction.buyer_review">
-					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">Calificar <i class="material-icons" style="color: #D77E34; width: initial;">grade</i></a>
+					<a class="review-click" ui-sref="calificacion_nueva({id:transaction.id})">
+						Calificar <span class="fa fa-star"></span>
+					</a>
 				</div>
 				
 				<p style="font-size: 1.5rem; margin-bottom:0px;">Servicio</p>

@@ -1,4 +1,4 @@
-app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stateParams','$http', function($scope, $state, $sessionStorage, $stateParams, $http){
+app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stateParams','$http','$filter', function($scope, $state, $sessionStorage, $stateParams, $http, $filter){
 	var server_uri = $('body').attr('data-server_uri'),
         debug = $('body').attr('debug');
     $scope.server_uri = server_uri;
@@ -123,13 +123,13 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
 	function ownPagination(data){
         $scope.currentPage = 0;
-        $scope.pageSize = 4;
+        $scope.pageSize = 1;
         $scope.q = '';
         $scope.data = data;
 
         $scope.getData = function () {
             if ($scope.data.length > 0) {
-               	return filter($scope.data, $scope.q);
+               	return $filter('startFrom')($scope.data, $scope.q)
             }
         }
                     
@@ -140,6 +140,7 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
 
     function filter(input, start) {
+        console.log("mieeer");
         if (!input || !input.length) { return; }
         start = +start; //parse to int
         return input.slice(start);
@@ -205,3 +206,12 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
 
 }])
+
+
+app.filter('startFrom', function() {
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});

@@ -1,0 +1,21 @@
+<div ui-view="navigation"></div>	
+
+<div id="chatbox">
+
+ <div id="chatview" class="p1" style=" height: 100vh;">     
+     <div id="profile" style="height: 15vh;">
+       <div onclick="window.history.go(-1); return false;" id="btn-back-wrap" style="align-items: center; display: flex; height:15vh!important; left:0px; line-height:15vh!important; margin-left:10px; padding: 0px!important; position: absolute; top:0px;" >
+          <i class="fa fa-chevron-left"></i>
+       </div>
+        <div id="img-perfil-wrap">
+            <div>
+              	<p class="animate" style="margin-top:0px!important;">{{user_to.name}}</p>
+            </div>     
+        </div>
+     </div>
+
+     <div id="chat-messages" style=" height: 84vh;">
+     </div>
+ </div>
+
+</div>

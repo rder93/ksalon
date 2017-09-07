@@ -130,7 +130,7 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			// console.log($.sessionStorage.get('peluqueria'));
 			$scope.pel= $.sessionStorage.get('peluqueria');
 			// console.log(pel);
-			console.log($scope.pel[0]);
+			// console.log($scope.pel[0]);
 			$scope.urlFoto = $('body').attr('data-fotos_uri');	
 			$scope.perfil={};
 			// 
@@ -146,11 +146,16 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 				$scope.servs.push({'id':value.id ,'descripcion': value.nombre_servicio, 'precio':value.precio, 'tipo': 'servicio','foto':value.foto, 'descripcion_servicio':value.descripcion_servicio});
 				// serv.push={}
 			});
+			
 			$http({
 				method: 'GET',
 				url: server_uri+'/users/'+$scope.pel[0].id_usuario,
 			}).then(function successCallback(response) {
 				// console.log('estoy aqui');
+
+				console.log("Respuesta del ajax");
+				console.log(response.data);
+
 				$scope.usuario=response.data.user_data;
 				if ($.sessionStorage.get('user_to_id')!=$scope.usuario.id) {
 					console.log('el usuario es diferente')
@@ -186,7 +191,6 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			};
 			
 			$scope.modalCarrito=function(){
-				console.log('hola desde el carrito');
 				$timeout(function(){
 					$('#modalCarrito').modal('open');
 				});
@@ -442,19 +446,23 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
             var marker = new google.maps.Marker({
                 position: location, 
-                map: map,
-                title: ''+peluqueria[0].nombre_salon
+                map: map
+                // title: ''+peluqueria[0].nombre_salon
             });
             markers.push(marker);
 
             console.log('ANTES DE ENTRAR AL EVENTO DEL MAPA');
             google.maps.event.addListener(marker, 'click', function() {
-            	console.log('DENTRO DEL EVENTO DEL MAPA');
-            	$state.go('cliente_servicio_preview',{
-					categoria_id: categoria_id,
-					peluqueria: peluqueria,
-					servicios: servicios
-				})
+
+            	$.sessionStorage.set('peluqueria', peluqueria);
+				$state.go('cliente_servicio_preview');
+
+
+    //         	$state.go('cliente_servicio_preview',{
+				// 	categoria_id: categoria_id,
+				// 	peluqueria: peluqueria,
+				// 	servicios: servicios
+				// })
 
              });
         }

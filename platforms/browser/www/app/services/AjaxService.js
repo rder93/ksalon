@@ -21,18 +21,18 @@ app.service('ajaxService', ['$state', function($state){
 			})
 			.done(function(e) {
 				if (debug=='true') {
-					console.log('Response (success): ');
-					console.log(e);
-					console.log('Data send: ');
-					console.log(sform.serialize());
+					// console.log('Response (success): ');
+					// console.log(e);
+					// console.log('Data send: ');
+					// console.log(sform.serialize());
 				}
  				
  				if (e.status && e.message) {
  					Materialize.toast(e.message, 4000);
- 				 	console.log($.sessionStorage);
+ 				 	// console.log($.sessionStorage);
 				  	if (e.auth_user.rol_id == 0) {
 				  		$state.go('panel_usuarios');
-				  		console.log('SOY ADMIN');
+				  		// console.log('SOY ADMIN');
 				  	}else{
 				  		$state.go(sform.attr('redirect'));
 				  	}
