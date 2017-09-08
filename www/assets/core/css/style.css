@@ -10,6 +10,15 @@ body{
   background-color: rgb(250,250,250);
 }
 
+#form-register{
+  background-color: rgb(250,250,250);
+}
+
+#form-register-card{
+  float: none;
+  margin: auto;
+}
+
 #tablaDetalleSalones tbody{
   display:block;
   height:270px;
@@ -32,6 +41,27 @@ table {
     width:100%;
 }*/
 
+.ksalon-btn{
+    background: #ea2858;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    outline: none;
+    padding: .7em 0;
+    transition: 0.5s all;
+    width: 75%;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    
+}
+
 .footer{
   bottom: 0px;
 }
@@ -41,6 +71,13 @@ table {
   position: fixed;
   width: 100%;
 }
+
+.btn-sticky-footer{
+  bottom: 0px;
+  position: fixed;
+  width: 100%;
+}
+
 
 
 .fondoBody { 

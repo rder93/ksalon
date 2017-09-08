@@ -4,7 +4,109 @@
     
 <h4 style="text-align: center;margin-top: 20%;">Gestión de usuarios</h4>
 
-<div class="responsive-table table-status-sheet" style="padding-bottom: 50px;">
+
+
+<style type="text/css">
+    .fa{
+        font-size: 18px;
+    }
+
+    .list-user-thumb{
+        display: inline-block;
+        margin-bottom: 5px;
+        vertical-align: bottom;
+        width: 15%;
+    }
+    .list-user-thumb > div{
+        /*display: flex;*/
+    }
+    .list-user-name{
+        display: inline-block;
+        text-align: center;
+        vertical-align: bottom;
+        width: 70%;
+    }
+    .list-user-name > div{
+        padding: 5px 0px;
+    }
+
+    .list-user-blocked{
+        display: inline-block;
+        vertical-align: top;
+        width: 10%;
+    }
+
+    .list-user-options{
+        display: inline-block;
+        width: 30%;
+    }
+
+    .list-user{
+        border-top: 2px solid lightgray;
+        padding-bottom: 70px;
+    }
+    .list-user > div{
+        border: 1px solid lightgray;
+    }
+
+    .user-name-span{
+        font-weight: bold;
+    }
+    .user-type-span{
+        font-size: 1em;
+        font-style: italic;
+        font-weight: initial;
+        margin: 0;
+    }
+</style>
+
+
+<div class="row list-user">
+    <div id="user-{{usuario.id}}" ng-repeat="usuario in usuarios | filter : search | orderBy: 'name'">
+        <div>
+            <div class="list-user-thumb">
+                <div>
+                    <img src="./assets/core/images/done.png" class="circle responsive-img"></img>
+                </div>
+            </div>
+
+            <div class="list-user-name">
+                <div>
+                    <div >
+                        <span class="user-name-span">{{usuario.name}}</span>
+                    </div>
+                    <div>
+                        <span class="user-type-span" ng-if="usuario.rol_id == 1">Salon grande</span>
+                        <span class="user-type-span" ng-if="usuario.rol_id == 2">Salon pequeño</span>
+                        <span class="user-type-span" ng-if="usuario.rol_id == 3">Profesional independiente</span>
+                        <span class="user-type-span" ng-if="usuario.rol_id == 4">Cliente</span>
+                    </div>
+                </div>
+                <div >
+                    <div class="list-user-options">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" ui-sref="edit_usuario({id:usuario.id})"></i>
+                    </div>
+                    <div class="list-user-options">
+                        <i class="fa fa-trash-o" aria-hidden="true" ng-click="askRemove(usuario.id)"></i>
+                    </div>
+                    <div class="list-user-options">
+                        <i class="fa fa-envelope-o" aria-hidden="true" ui-sref="admin_user_chats({id:usuario.id})"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-user-blocked">
+                <i class="fa fa-lock" aria-hidden="true" id="chk_{{item.id}}" style="color: red;" ng-if="usuario.status == 0" ng-click="askUnblock(usuario.id)"></i>
+                <i class="fa fa-unlock" aria-hidden="true" id="chk_{{item.id}}" style="color: green;" ng-if="usuario.status == 1" ng-click="askBlock(usuario.id)"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 
+<div class="responsive-table table-status-sheet">
     <table class="bordered">
         <tbody>
             <tr ng-repeat="usuario in usuarios | filter : search | orderBy: 'name'">
@@ -40,6 +142,9 @@
         </tbody>
     </table>
 </div>
+ -->
+
+
 
 
 <div class="row footer-listuser">

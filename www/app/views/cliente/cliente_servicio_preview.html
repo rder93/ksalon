@@ -16,6 +16,7 @@
       <table>
         <thead>
           <tr>
+          	<th class="center-align">Descripción</th>
             <th class="center-align">Nombre</th>
             <th class="center-align">Precio</th>
             <th></th>
@@ -26,7 +27,11 @@
           	<td>{{car.id}}</td>
             <td class="center-align">{{car.descripcion}}</td>
             <td class="center-align">{{car.precio}}</td>
-            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+            <td>
+            	<button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)">
+            		<i class="fa fa-times" aria-hidden="true" style="color:#000!important;"></i> 
+            	</button>
+            </td>
           </tr>
         </tbody>
         <tfoot>

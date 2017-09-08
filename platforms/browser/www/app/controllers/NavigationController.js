@@ -10,6 +10,9 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	
 	$scope.user = $.sessionStorage.get('user');
 
+	console.log("session")
+	console.log($scope.user)
+
 	if($scope.user){
 		$http({
 			method: 'GET',

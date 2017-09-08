@@ -14,7 +14,7 @@
 
 <br>
 
-<div class="height-100;" style="50px;">
+<div class="height-100;">
 		
 	<div class="page-content">		
 		<div class="page-description center">
@@ -28,10 +28,10 @@
 			      	<!-- Disabled Switch -->
 					<div class="switch">
 						<label>
-			      			<input type="checkbox" name="servicio" value="{{servicio.id}}"/ style="position: inherit;">							
+			      			<input id="service-{{servicio.id}}" type="checkbox" name="servicio" value="{{servicio.id}}"/ style="position: inherit;">							
 			      			<!-- <input type="checkbox" data-name="{{servicio.nombre}}" name="servicio" value="{{servicio.id}}"/ style="position: inherit;">							 -->
 							<span class="lever"></span>
-					      	<label for="test6" class="nombre-servicio">{{servicio.nombre}}</label>
+					      	<label for="service-{{servicio.id}}" class="nombre-servicio">{{servicio.nombre}}</label>
 					    </label>
 				  	</div>
 

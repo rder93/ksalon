@@ -37,10 +37,10 @@
 
 
       <ul class="side-nav text-center right user-menu" id="mobile-demo">
-      	<br>
-      	<li>
-      		<div class="center"><img ng-src="{{ foto_menu }}" class="perfil-menu redondear" /></div>
-      	</li>
+        <br>
+        <li>
+          <div class="center"><img ng-src="{{ foto_menu }}" class="perfil-menu redondear" /></div>
+        </li>
         <li ng-repeat="opcion in opciones">
           <a ui-sref={{opcion.state}} style="padding: 0 20px;">{{opcion.nombre}}
             <!-- <i class="material-icons">{{opcion.icono}}</i> -->
@@ -50,7 +50,7 @@
 
 
         <li id="btn-logout" class="logouth">
-        	<a href="#" style="padding: 0 20px;">Cerrar Sesion 
+          <a href="#" style="padding: 0 20px;">Cerrar Sesion 
             <!-- <i class="material-icons">exit_to_app</i> -->
             <i class="fa fa-sign-out" aria-hidden="true"></i>
           </a>

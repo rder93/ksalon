@@ -1,6 +1,13 @@
 <div ui-view="navigation"></div>
 
-<div ng-hide="cliente_salon" class="fixed-action-btn">
+<style type="text/css">
+  /*No borrar*/
+  #btn-add-loungeclient{
+    display: none;
+  }
+</style>
+
+<div ng-hide="cliente_salon" id="btn-add-loungeclient" contenteditable="" class="fixed-action-btn">
   <a ui-sref="lounges_servicios_crear" class="btn-floating btn-large blue" >
     <i class="large material-icons">add</i>
   </a>

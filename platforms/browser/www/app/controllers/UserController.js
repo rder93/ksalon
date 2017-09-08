@@ -22,8 +22,6 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 
     		$scope.noBtnBack = true;
 
-
-
     		$scope.Usuario=$.sessionStorage.get('user');
     		var fotos_uri = $('body').attr('data-fotos_uri');
     		$http({
@@ -33,9 +31,6 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.avatar
 				};
-
-				// console.log("respuesta del server");
-				// console.log(response.data)
 
 				$scope.Usuario=response.data;
 

@@ -244,7 +244,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$http.get(server_uri+"users/")
 			.then(function(response){
-				console.log(response);
+			
 				$scope.usuarios = response.data;
 				if($scope.usuarios.length > 0){
 					$scope.siUsuarios = true;
@@ -294,16 +294,21 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 		}
 
 		$scope.edit = function (id) {
-			alert("editar");
+			// alert("editar");
 		}
 
 		$scope.remove = function (id) {
-			console.log('eliminar '+id);
+			$('#user-'+id).fadeOut("slow");
+			
 			$http.delete(server_uri+"users/"+id)
 				.then(function(response){
-					console.log(response.data);
 					Materialize.toast(response.data.msj, 4000);
-					$state.reload();
+					
+					if(response.data.success == true ){						
+						$('#user-'+id).remove();
+					}else{
+						$('#user-'+id).fadeIn("slow");
+					}
 				})
 				.catch(function(error){
 					console.log(error);
@@ -314,9 +319,14 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 			console.log('Bloquear: '+id);
 			$http.post(server_uri+"change_status/"+id)
 				.then(function(response){
-					console.log(response.data);
+
 					Materialize.toast(response.data.msj, 4000);
-					$state.reload();
+
+					$scope.usuarios = response.data.users;
+					if($scope.usuarios.length > 0){
+						$scope.siUsuarios = true;
+					}
+	
 				})
 				.catch(function(error){
 					console.log(error);

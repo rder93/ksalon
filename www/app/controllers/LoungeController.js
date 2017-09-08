@@ -267,6 +267,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.Productos=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+				
+				if($scope.cliente_salon == null){
+					$('#btn-add-loungeclient').css('display', 'block');
+				}
+
 				$scope.urlFoto = $('body').attr('data-fotos_uri');
 				ownPagination(response.data);
 				$timeout(function(){
@@ -475,6 +480,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.Servicios=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+
+				if($scope.cliente_salon == null){
+					$('#btn-add-loungeclient').css('display', 'block');
+				}
+
 				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();
@@ -742,6 +752,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.urlFoto = $('body').attr('data-fotos_uri');
 			$scope.profesionales
 			
+			console.log("aqui")
 			console.log($scope.urlFoto);
 			$http({
 				method: 'GET',
@@ -749,6 +760,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.profesionales=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+
+				if($scope.cliente_salon == null){
+					$('#btn-add-loungeclient').css('display', 'block');
+				}
+
 				ownPagination(response.data);
 				// console.log('estoy aqui',$scope.cliente_salon);
 				$timeout(function(){
@@ -1086,6 +1102,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				}).then(function successCallback(response) {
 					$scope.certificates=response.data;
 					$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+
+					if($scope.cliente_salon == null){
+						$('#btn-add-loungeclient').css('display', 'block');
+					}
+				
 					ownPagination(response.data);
 					$timeout(function(){
 						$('.modal').modal();
@@ -1255,6 +1276,11 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}).then(function successCallback(response) {
 				$scope.combos=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
+
+				if($scope.cliente_salon == null){
+					$('#btn-add-loungeclient').css('display', 'block');
+				}
+
 				ownPagination(response.data);
 				$timeout(function(){
 					$('.modal').modal();

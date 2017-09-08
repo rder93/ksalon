@@ -19,7 +19,7 @@
 
 
 
-  <div id="user-last-ratings">
+  <div id="user-last-ratings" style="padding-bottom: 50px;">
       <div>
         <h4>ÚLTIMAS CALIFICACIONES</h4>
 
@@ -48,7 +48,7 @@
  
 
 
-<div ng-show="btnClientes">
+<div ng-show="btnClientes" class="btn-sticky-footer">
   <div class="col s7 offset-s2">
     <a ui-sref="home" class="waves-effect waves-light btn btn-evolutrans btn-block" style="width:100%;position: relative;bottom: 4%; font-size: 1.2rem;">
       Buscar servicios
@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<div ng-show="btnSalones">
+<div ng-show="btnSalones" class="btn-sticky-footer">
   <div class="col s7 offset-s2">
     <a ui-sref="lounges_servicios" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
       Mis Servicios
@@ -64,7 +64,7 @@
   </div>
 </div>
 
-<div ng-show="btnProfesional">
+<div ng-show="btnProfesional" class="btn-sticky-footer">
   <div class="col s7 offset-s2">
     <a ui-sref="profesional_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
       Mis Servicios

@@ -20,10 +20,6 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 
 	if($state.current.name == 'cliente_servicio_categorias'){
 		if(debug == 'true'){
-			console.log('en categorias siendo cliente');
-		
-
-			// console.log('la categoria seleccionada es: '+$stateParams.id);
 
 			$http.get(server_uri+'services')
 			.then(function successCallback(response) {
@@ -38,10 +34,8 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 				var form = $('form');
 				var inputs = form.serializeArray();
 
-				// console.log("ido");
-				// console.log(inputs);
 				$.sessionStorage.set('servicios', inputs);
-				console.log($.sessionStorage.get('servicios'));
+
 				$state.go('cliente_servicios_publicados',{
 					categoria_id: $stateParams.id,
 					// servicios: inputs
@@ -61,26 +55,33 @@ app.controller('ClienteController', ['$scope', '$state','$stateParams', '$sessio
 			}
 
 			$scope.goPreview=function(categoria_id, peluqueria, servicios){
-				console.log(peluqueria);
-				// console.log(servicios);
+
 				$.sessionStorage.set('peluqueria', peluqueria);
 				// $.sessionStorage.set('servicios', servicios);
 				$state.go('cliente_servicio_preview');
 			}
 
-			// console.log('el id pasado es: '+$stateParams.categoria_id);
-			// console.log('Servicios: '+$stateParams.servicios);
-			// console.log($stateParams);
 			$scope.categoria_id = $stateParams.categoria_id;
 			// categoria_id = $stateParams.categoria_id;
-			// console.log($stateParams.servicios);
 
-			var markers = [];
-			map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 8.284305, lng: -62.754250 },
-				zoom: 12,
-				gestureHandling: 'cooperative'
-			});
+			var actualLatLng = new google.maps.LatLng($.sessionStorage.get('user').latitud, $.sessionStorage.get('user').longitud);
+
+			console.log($.sessionStorage.get('user'))
+
+	        var markers = [];
+	        map = new google.maps.Map(document.getElementById('map'), {
+	          center: {lat: actualLatLng.lat(), lng: actualLatLng.lng()},
+	          zoom: 12,
+	          gestureHandling: 'cooperative'
+	        });
+
+
+			// var markers = [];
+			// map = new google.maps.Map(document.getElementById('map'), {
+			// 	center: {lat: 8.284305, lng: -62.754250 },
+			// 	zoom: 12,
+			// 	gestureHandling: 'cooperative'
+			// });
 
 			ruta = '';
 			switch($scope.categoria_id) {

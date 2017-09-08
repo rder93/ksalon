@@ -1,147 +1,120 @@
 <div class="mobile-content">
-   <nav>
-    <div class="nav-wrapper teal lighten-2">
-      <a href="#!" class="brand-logo">Registrar Usuario</a>
-      <a href="#" onclick="window.history.go(-1); return false;"><i class="material-icons">keyboard_backspace</i></a>
+  
+<!--   <nav class="right">
+    <div class="nav-wrapper pink accent-3">
+      <a href="#!" class="brand-logo center" style="bottom: 2px;">
+        Registro
+      </a>
+
+      <a href="#" class="button-collapse left" onclick="window.history.go(-1); return false;">
+        <i class="fa fa-chevron-left"></i>
+      </a>
+    </div>
   </nav>
-  <!-- <div class="row">
-    <form class="col s12" style="margin-top: 20px;" ng-submit="registrarUsuario()" enctype="multipart/form-data">
-      <div class="card-image">
-          <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
-          <div class="file-field right-align">
-            <div class="btn-floating waves-effect waves-light blue">
-              <i class="material-icons">camera</i>
-              <input type="file" name file id="file" uploader-model="Usuario.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate hide" type="text">
-            </div>
-          </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <label for="name">Nombre</label>
-          <input id="name" type="text" class="validate" ng-model="Usuario.name">
+ -->
 
-        </div>
-        <div class="input-field col s12">
-          <label for="correo">Correo</label>  
-          <input id="correo" type="email" class="validate" ng-model="Usuario.email">
-
-        </div>
-        <div class="input-field col s12">
-          <div class="col s8" style="padding: 0px;">
-            <label for="dni">CI</label>
-            <input id="dni" type="text" class="validate" ng-model="Usuario.dni">
-
-          </div>
-        </div>
-        <div class="input-field col s12">
-          <div class="col s8" style="padding: 0px;">
-            <label for="passport">Pasaporte</label>
-            <input id="passport" type="text" class="validate" ng-model="Usuario.passport">
-
-          </div>
-        </div>
-        <div class="input-field col s12">
-          <label for="paypal">Cuenta PayPal</label>
-          <input id="paypal" type="text" class="validate" ng-model="Usuario.paypal">
-
-        </div>
-        <div class="input-field col s12">
-          <label for="password">Contraseña</label>
-          <input id="password" type="password" class="validate" ng-model="Usuario.password">
-
-        </div>
-        <div class="input-field col s12">
-          <label>Categoria</label><br><br>
-          <select ng-model="Usuario.categoria" class="browser-default">
-            <option value="" disabled selected>Seleccione una categoria</option>
-            <option ng-repeat="category in categories" value="{{category.id}}">{{category.nombre}}</option>
-          </select>
-        </div>
-        <br>
-        <div class="input-field col s12">
-          <div class="center-align">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
-        </div>
-
-      </form> -->
+  <nav>
+    <div class="nav-wrapper pink accent-3">
+      <a href="#!" class="brand-logo">Registro</a>
+      <a href="#" class="button-collapse left" onclick="window.history.go(-1); return false;"><i class="fa fa-chevron-left"></i></a>
+  </nav>
 
     </div>
   </div>
-  <form class="col s12" style="margin-top: 20px;" ng-submit="registrarUsuario()" enctype="multipart/form-data">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card">
-          <div class="card-image">
-            <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
-            <div class="file-field">
-              <div class="btn-floating halfway-fab waves-effect waves-light blue">
-                <i class="material-icons">camera</i>
-                <input type="file" name file id="file" uploader-model="Usuario.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate hide" type="text">
+
+  <div style="margin: auto;">
+    <form class="col s12" id="form-register" ng-submit="registrarUsuario()" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col s12 m6" id="form-register-card">
+          <div class="card">
+            <div class="card-image">
+              <img ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
+              <div class="file-field">
+                <div class="btn-floating halfway-fab waves-effect waves-light blue">
+                  <i class="material-icons">camera</i>
+                  <input type="file" name file id="file" uploader-model="Usuario.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate hide" type="text">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-content">
-            <div class="row">
-              <div class="input-field col s12">
-                <label for="name">Nombre</label>
-                <input id="name" type="text" class="validate" ng-model="Usuario.name">
-
-              </div>
-              <div class="input-field col s12">
-                <label for="correo">Correo</label>  
-                <input id="correo" type="email" class="validate" ng-model="Usuario.email">
-
-              </div>
-              <div class="input-field col s12">
-                <div class="col s8" style="padding: 0px;">
-                  <label for="dni">CI</label>
-                  <input id="dni" type="text" class="validate" ng-model="Usuario.dni">
+            <div class="card-content">
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="name">Nombre</label>
+                  <input id="name" type="text" class="validate" ng-model="Usuario.name">
 
                 </div>
-              </div>
-              <div class="input-field col s12">
-                <div class="col s8" style="padding: 0px;">
-                  <label for="passport">Pasaporte</label>
-                  <input id="passport" type="text" class="validate" ng-model="Usuario.passport">
+                <div class="input-field col s12">
+                  <label for="correo">Correo</label>  
+                  <input id="correo" type="email" class="validate" ng-model="Usuario.email">
 
                 </div>
-              </div>
-              <div class="input-field col s12">
-                <label for="paypal">Cuenta PayPal</label>
-                <input id="paypal" type="text" class="validate" ng-model="Usuario.paypal">
 
-              </div>
-              <div class="input-field col s12">
-                <label for="password">Contraseña</label>
-                <input id="password" type="password" class="validate" ng-model="Usuario.password">
 
-              </div>
-              <div class="input-field col s12">
-                <label>Categoria</label><br><br>
-                <select ng-model="Usuario.categoria" class="browser-default">
-                  <option value="" disabled selected>Seleccione una categoria</option>
-                  <option ng-repeat="category in categories" value="{{category.nivel}}">{{category.nombre}}</option>
-                </select>
-              </div>
-              <br>
-              <div class="input-field col s12">
-                <div class="center-align">
-                  <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
-                    <i class="material-icons right">send</i>
-                  </button>
+                <!-- <div class="input-field col s12">
+                  <div class="col s8" style="padding: 0px;">
+                    <label for="dni">CI</label>
+                    <input id="dni" type="text" class="validate" ng-model="Usuario.dni">
+                  </div>
                 </div>
+
+                <div class="input-field col s12">
+                  <div class="col s8" style="padding: 0px;">
+                    <label for="passport">Pasaporte</label>
+                    <input id="passport" type="text" class="validate" ng-model="Usuario.passport">
+                  </div>
+                </div> -->
+
+
+                <div class="input-field col s12">
+                  <label for="paypal">Cuenta PayPal</label>
+                  <input id="paypal" type="email" class="validate" ng-model="Usuario.paypal">
+                </div>
+
+                <div class="input-field col s12">
+                  <label for="password">Contraseña</label>
+                  <input id="password" type="password" class="validate" ng-model="Usuario.password">
+                </div>
+
+                <div class="input-field col s12">
+                  <label>Quiero ser un: </label><br><br>
+                  <select ng-model="Usuario.categoria" class="browser-default">
+                    <option value="" disabled selected>Seleccione un tipo de usuario</option>
+                    <option ng-repeat="category in categories" value="{{category.nivel}}">{{category.nombre}}</option>
+                  </select>
+                </div>
+
+
+                <div class="input-field col s12">                  
+                  <label style="font-size:14px!important;">Indique su dirección:</label>
+                  <div style="height:300px; margin-top: 40px;">
+                    <div id="map" style="height:300px; width:100%;"> </div>
+                  </div>
+                  <input type="hidden" name="latitud" ng-model="Usuario.latitud">
+                  <input type="hidden" name="longitud" ng-model="Usuario.longitud">
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="input-field col s12">
+                  <div class="center-align">
+                    <button class="ksalon-btn waves-effect waves-light" type="submit" name="action">
+                      Registrar
+                    </button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
