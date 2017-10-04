@@ -2,7 +2,8 @@
 
 <div class="fixed-action-btn">
   <button ng-click="modalAgregarFoto()" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="large fa fa-plus" aria-hidden="true"></i>
   </button>
 </div>
 
@@ -26,7 +27,8 @@
                 <img class="col s12 materialboxed" src="{{ thumbnail.dataUrl }}" style="width: 100%" />
                 <div class="file-field">
                     <div class="btn-floating halfway-fab waves-effect waves-light blue">
-                        <i class="material-icons">camera</i>
+                        <!-- <i class="material-icons">camera</i> -->
+                        <i class="fa fa-camera" aria-hidden="true"></i>
                         <input type="file" name file id="file" uploader-model="foto.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
 
                     </div>
@@ -77,14 +79,23 @@
                 
                 <div class="col s12">
                     <div class="col 4">
-                        <a ng-click="modalVerFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light deep-orange darken-3" style="position:absolute;top: 250px;right: 35%"><i class="material-icons">search</i></a>
+                        <a ng-click="modalVerFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light deep-orange darken-3" style="position:absolute;top: 250px;right: 35%">
+                          <!-- <i class="material-icons">search</i> -->
+                          <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <div class="col 4">
-                        <a ng-click="editarFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light yellow darken-4" style="position:absolute;top: 250px;right: 20%;"><i class="material-icons">mode_edit</i></a>
+                        <a ng-click="editarFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light yellow darken-4" style="position:absolute;top: 250px;right: 20%;">
+                          <!-- <i class="material-icons">mode_edit</i> -->
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
                 
                     </div>
                     <div class="col 4">
-                        <a ng-click="modalEliminarFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light red" style="position:absolute;top: 250px;right: 5%;"><i class="material-icons">delete</i></a>
+                        <a ng-click="modalEliminarFoto(lounge.id)" class="btn-floating btn-medium waves-effect waves-light red" style="position:absolute;top: 250px;right: 5%;">
+                          <!-- <i class="material-icons">delete</i> -->
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
                 

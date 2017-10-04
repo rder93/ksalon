@@ -2,7 +2,8 @@
 
 <div class="fixed-action-btn">
   <a ui-sref="lounges_crear" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="large fa fa-plus" aria-hidden="true"></i>
   </a>
 </div>
 
@@ -44,7 +45,10 @@
 	               		<a class="btn-floating waves-effect waves-light red" ng-click="modalLounge(Lounge.id)"><i class="material-icons">delete</i></a>
 	               		<a ui-sref="lounges_servicios({id:Lounge.id})" class="btn-floating waves-effect waves-light green" ui-sref="lounges_Lounges_editar"><i class="material-icons">visibility</i></a> -->
 
-                    <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{Lounge.id}}'><i class="material-icons">more_vert</i></button>
+                    <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{Lounge.id}}'>
+                      <!-- <i class="material-icons">more_vert</i> -->
+                      <i class="fa fa-ellipsis-v right" aria-hidden="true"></i>
+                    </button>
 
                     <!-- Dropdown Structure -->
                     <ul id='{{Lounge.id}}' class='dropdown-content'>

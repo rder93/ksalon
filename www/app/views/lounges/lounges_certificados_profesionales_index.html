@@ -3,13 +3,14 @@
 <style type="text/css">
   /*No borrar*/
   #btn-add-loungeclient{
-    display: none;
+    display: block;
   }
 </style>
 
 <div ng-hide="cliente_salon" id="btn-add-loungeclient" class="fixed-action-btn">
   <button ng-click="modalAgregarCertificado()" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="large fa fa-plus" aria-hidden="true"></i>
   </button>
 </div>
 
@@ -33,7 +34,8 @@
       		<img class="col s12" ng-src="{{ thumbnail.dataUrl }}" style="height: 250px" />
       		<div class="file-field">
       			<div class="btn-floating halfway-fab waves-effect waves-light blue">
-      				<i class="material-icons">camera</i>
+      				<!-- <i class="material-icons">camera</i> -->
+              <i class="fa fa-camera" aria-hidden="true"></i>
       				<input type="file" name file id="file" uploader-model="cert.foto" onchange="angular.element(this).scope().photoChanged(this.files)">
       			</div>
       			<div class="file-path-wrapper">
@@ -41,7 +43,7 @@
       			</div>
       		</div>
       		<div class="input-field col s12">
-                <label for="name">Nombre</label>
+                <label for="name">Título</label>
                 <input id="name" type="text" class="validate" ng-model="cert.nombre">
              </div>
       	</div>
@@ -96,7 +98,10 @@
                 <td>
                   <div class="row">
                     <div class="col s10">
-                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{certificate.id}}'><i class="material-icons">more_vert</i></button>
+                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{certificate.id}}'>
+                        <!-- <i class="material-icons">more_vert</i> -->
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                      </button>
 
                       <!-- Dropdown Structure -->
                       <ul id='{{certificate.id}}' class='dropdown-content'>

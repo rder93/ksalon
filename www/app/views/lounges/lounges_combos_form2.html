@@ -6,7 +6,8 @@
     <br>
     <div class="fixed-action-btn">
     <a ng-click="modalServ()" class="btn-floating btn-large blue" >
-        <i class="large material-icons">add</i>
+        <!-- <i class="large material-icons">add</i> -->
+        <i class="large fa fa-plus" aria-hidden="true"></i>
       </a>
     </div>
 
@@ -59,7 +60,12 @@
             <tbody>
               <tr ng-repeat="list in listaServicios">
                 <td>{{list.nombre}}</td>
-                <td><a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServ(list.id)"><i class="material-icons">delete</i></a></td>
+                <td>
+                  <a class="btn-floating waves-effect waves-light red" ng-click="modalEliminarServ(list.id)">
+                    <!-- <i class="material-icons">delete</i> -->
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -68,7 +74,8 @@
           <div class="input-field col s12">
             <div class="center-align">
             <button ng-click="actualizarCombo(combo.id)" class="btn waves-effect waves-light" type="submit" name="action">Editar
-                <i class="material-icons right">send</i>
+                <!-- <i class="material-icons right">send</i> -->
+                <i class="fa fa-paper-plane-o right" aria-hidden="true"></i>
               </button>
             </div>
           </div>

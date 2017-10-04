@@ -6,7 +6,7 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 			
 			$http({
 				method: 'GET',
-				url: server_uri+'/imagen_defecto',
+				url: server_uri+'imagen_defecto',
 			}).then(function successCallback(response) {
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.path
@@ -38,9 +38,9 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 
 			var user = $.sessionStorage.get('user');
 			if( user ){
-				ruta = '/rols'
+				ruta = 'rols'
 			} else {
-				ruta = '/roles'
+				ruta = 'roles'
 			}
 
 
@@ -110,7 +110,7 @@ app.controller('RegistroController', ['$scope', '$state', '$http','$timeout', fu
 			  	}
 
 
-			  	$http.post(server_uri+'/users', fd, {
+			  	$http.post(server_uri+'users', fd, {
 			  		withCredentials: true,
 			  		headers: {'Content-Type': undefined },
 			  		transformRequest: angular.identity

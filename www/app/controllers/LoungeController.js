@@ -63,10 +63,10 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 
 	if($state.current.name == 'lounges_servicios'){
-		if(debug == 'true'){
+		// if(debug == 'true'){
 			$.sessionStorage.set('longe_id', $stateParams.id);
 
-		}
+		// }
 	}
 
 	if($state.current.name == 'lounges_crear'){
@@ -80,7 +80,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log($scope.Lounge);
 				$http({
 					method: 'POST',
-					url: server_uri+'/lounges',
+					url: server_uri+'lounges',
 					data:$scope.Lounge
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
@@ -139,7 +139,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		if(debug == 'true'){
 			$http({
 				method: 'GET',
-				url: server_uri+'/lounges/'+$.sessionStorage.get('user').id,
+				url: server_uri+'lounges/'+$.sessionStorage.get('user').id,
 			}).then(function successCallback(response) {
 				$scope.Lounges=response.data;
 				ownPagination(response.data);
@@ -170,7 +170,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarLounge=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/lounges/'+id,
+					url: server_uri+'lounges/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -189,7 +189,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		$scope.crearLounge=false;
 		$http({
 			method: 'GET',
-			url: server_uri+'/lounges/'+$stateParams.id+'/edit',
+			url: server_uri+'lounges/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			$scope.Lounge=response.data.lounge;
 
@@ -245,7 +245,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			console.log($scope.Lounge);
 			$http({
 				method: 'PUT',
-				url: server_uri+'/lounges/'+$stateParams.id,
+				url: server_uri+'lounges/'+$stateParams.id,
 				data:$scope.Lounge
 			}).then(function successCallback(response) {
 				Materialize.toast(response.data.msj, 4000);
@@ -263,12 +263,12 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		if(debug == 'true'){
 			$http({
 				method: 'GET',
-				url: server_uri+'/products/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'products/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.Productos=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 				
-				if($scope.cliente_salon == null){
+				if($scope.cliente_salon == null && $.sessionStorage.get('user').rol_id == 1){
 					$('#btn-add-loungeclient').css('display', 'block');
 				}
 
@@ -303,7 +303,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$('#modalVerProducto').modal('open');
 				$http({
 					method: 'GET',
-					url: server_uri+'/products/'+id+'/edit',
+					url: server_uri+'products/'+id+'/edit',
 				}).then(function successCallback(response) {
 					$scope.prod=response.data;
 					$scope.thumbnail = {
@@ -317,7 +317,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarProducto=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/products/'+id,
+					url: server_uri+'products/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -337,7 +337,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.Producto.lounge_id=$.sessionStorage.get('longe_id');
 			$http({
 				method: 'GET',
-				url: server_uri+'/imagen_defecto2',
+				url: server_uri+'imagen_defecto2',
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.thumbnail = {
@@ -376,7 +376,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					fd.append(key, producto[key]);
 				}
 
-				$http.post(server_uri+'/products', fd, {
+				$http.post(server_uri+'products', fd, {
 					withCredentials: true,
 					headers: {'Content-Type': undefined },
 					transformRequest: angular.identity
@@ -398,7 +398,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		$scope.crearProducto=false;
 		$http({
 			method: 'GET',
-			url: server_uri+'/products/'+$stateParams.id+'/edit',
+			url: server_uri+'products/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			$scope.Producto=response.data;
 			$scope.thumbnail = {
@@ -444,7 +444,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				fd.append(key, producto[key]);
 			}
 
-			$http.post(server_uri+'/updateProduct', fd, {
+			$http.post(server_uri+'updateProduct', fd, {
 				withCredentials: true,
 				headers: {'Content-Type': undefined },
 				transformRequest: angular.identity
@@ -461,11 +461,17 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 	if($state.current.name == 'lounges_servicios_index'){
 		if(debug == 'true'){
-			$scope.carrito=$.sessionStorage.get('carrito');
+
+			$scope.carrito = $.sessionStorage.get('carrito');
 			$scope.urlFoto = $('body').attr('data-fotos_uri');
+
+			if($scope.carrito == null){
+				$scope.carrito = [];
+			}
+
 			$http({
 				method: 'GET',
-				url: server_uri+'/lounges/'+$.sessionStorage.get('longe_id')+'/edit',
+				url: server_uri+'lounges/'+$.sessionStorage.get('longe_id')+'/edit',
 			}).then(function successCallback(response) {
 				$scope.factura.user_to_id=response.data.lounge.user_id;
 				$scope.factura.user_id=$.sessionStorage.get('user').id;
@@ -474,14 +480,15 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log('Problemas de conexión...');
 			});
 
+
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'loungeServices/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.Servicios=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 
-				if($scope.cliente_salon == null){
+				if($scope.cliente_salon == null && $.sessionStorage.get('user').rol_id == 1){
 					$('#btn-add-loungeclient').css('display', 'block');
 				}
 
@@ -511,7 +518,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarServicio=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/loungeServices/'+id,
+					url: server_uri+'loungeServices/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -561,18 +568,109 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				var o=[];
 				o.push($scope.factura);
 				o.push($scope.carrito);
-				$http({
-					method: 'POST',
-					url: server_uri+'/transactions',
-					data:o
-				}).then(function successCallback(response) {
-					Materialize.toast(response.data.msj, 4000);
-					$state.go('perfil');
-				}, function errorCallback(response) {
-					Materialize.toast(error, 4000);
-					$state.reload();
-				});
+
+
+				var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				o.push( JSON.stringify(transaction_services) );
+				o.push( JSON.stringify(transaction_combos) );
+
+				if($scope.carrito.length > 0){
+					$http({
+						method: 'POST',
+						url: server_uri+'transactions',
+						data:o
+					}).then(function successCallback(response) {
+						Materialize.toast(response.data.msj, 4000);
+						$state.go('perfil');
+					}, function errorCallback(response) {
+						Materialize.toast(error, 4000);
+						$state.reload();
+					});
+				}
 			};
+
+
+
+			$scope.payPaypal = function(){
+
+	            const url = server_uri+'checkout-paypal';
+	            var     win = window.open( url, "_blank", "enableViewportScale=yes,toolbar=no");
+
+	            var user_id    = $scope.factura.user_id;
+	            var user_to_id = $scope.factura.user_to_id;
+	            var total      = $scope.factura.total;
+	            var comision   = $scope.factura.comision;
+	            var valor      = $scope.factura.valor;
+
+
+	            var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				var servicios = encodeURIComponent( angular.toJson(transaction_services) );
+				var combos = encodeURIComponent( angular.toJson(transaction_combos) );
+
+
+	            var transaction_divisa = 'USD';
+
+
+	            win.addEventListener( "loadstop", function(event) {
+
+	                win.executeScript({ code:  
+
+	                    'document.getElementById("user_id").value = "'+user_id+'";'+
+	                    'document.getElementById("user_to_id").value = "'+user_to_id+'";'+
+	                    'document.getElementById("total").value = "'+total+'";'+
+	                    'document.getElementById("comision").value = "'+comision+'";'+
+	                    'document.getElementById("valor").value = "'+valor+'";'+
+
+	                    'document.getElementById("servicios").value = "'+servicios+'";'+
+	                    'document.getElementById("combos").value = "'+combos+'";'+
+
+	                    'document.getElementById("transaction_divisa").value = "'+transaction_divisa+'";'
+
+	                });
+
+	                const url_thanks = server_uri+'checkout-paypal/thanks';
+	                const url_cancel = server_uri+'checkout-paypal/cancel';
+
+
+	                if (event.url == url_thanks) {
+	                    win.close();
+	                    Materialize.toast('Transaccion realizada exitosamente',4000);
+
+	                    $state.go('transaction_success',{
+	                        factura: $scope.carrito,
+	                        carrito: $scope.carrito
+	                    });
+	                }
+
+
+	                if (event.url == url_cancel) {
+	                    win.close();
+	                    Materialize.toast('Ocurrio un error al realizar la transaccion',4000);
+	                }
+
+	            });
+
+	        }
+
 
 		}
 	}
@@ -585,7 +683,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			var fotos_uri = $('body').attr('data-fotos_uri');
 			$http({
 				method: 'GET',
-				url: server_uri+'/services',
+				url: server_uri+'services',
 			}).then(function successCallback(response) {
 				$scope.servs=response.data;
 			}, function errorCallback(response) {
@@ -594,7 +692,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/imagen_defecto2',
+				url: server_uri+'imagen_defecto2',
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.thumbnail = {
@@ -634,7 +732,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					fd.append(key, servicio[key]);
 				}
 
-				$http.post(server_uri+'/loungeServices', fd, {
+				$http.post(server_uri+'loungeServices', fd, {
 					withCredentials: true,
 					headers: {'Content-Type': undefined },
 					transformRequest: angular.identity
@@ -670,7 +768,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/loungeServices/'+$stateParams.id+'/edit',
+			url: server_uri+'loungeServices/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			console.log(response.data);
 			$scope.thumbnail = {
@@ -703,7 +801,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 		$http({
 				method: 'GET',
-				url: server_uri+'/services',
+				url: server_uri+'services',
 		}).then(function successCallback(response) {
 				$scope.servs=response.data;
 		}, function errorCallback(response) {
@@ -721,7 +819,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				fd.append(key, servicio[key]);
 			}
 
-			$http.post(server_uri+'/updateService', fd, {
+			$http.post(server_uri+'updateService', fd, {
 				withCredentials: true,
 				headers: {'Content-Type': undefined },
 				transformRequest: angular.identity
@@ -751,17 +849,19 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 	if($state.current.name == 'lounges_profesionales_index'){
 			$scope.urlFoto = $('body').attr('data-fotos_uri');
 			$scope.profesionales
-			
-			console.log("aqui")
-			console.log($scope.urlFoto);
+
 			$http({
 				method: 'GET',
-				url: server_uri+'/professionals/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'professionals/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
+				console.log("response serve");
+				console.log(response.data)
+
+
 				$scope.profesionales=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 
-				if($scope.cliente_salon == null){
+				if($scope.cliente_salon == null && $.sessionStorage.get('user').rol_id == 1){
 					$('#btn-add-loungeclient').css('display', 'block');
 				}
 
@@ -780,7 +880,9 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 					      stopPropagation: false // Stops event propagation
 					    }
 					);
-			        console.log($scope.usuarios);
+			        console.log($scope.profesionales[0]);
+			        console.log($scope.profesionales[1]);
+			        console.log($scope.profesionales[1].length)
 			    });
 				
 			}, function errorCallback(response) {
@@ -794,7 +896,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarProfesional=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/professionals/'+id,
+					url: server_uri+'professionals/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -814,7 +916,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			var fotos_uri = $('body').attr('data-fotos_uri');
 			$http({
 				method: 'GET',
-				url: server_uri+'/imagen_defecto',
+				url: server_uri+'imagen_defecto',
 			}).then(function successCallback(response) {
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.path
@@ -854,7 +956,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				  }
 
 				 console.log(fd);
-				  $http.post(server_uri+'/professionals', fd, {
+				  $http.post(server_uri+'professionals', fd, {
 				  	withCredentials: true,
 				  	headers: {'Content-Type': undefined },
 				  	transformRequest: angular.identity
@@ -878,7 +980,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			var fotos_uri = $('body').attr('data-fotos_uri');
 			$http({
 				method: 'GET',
-				url: server_uri+'/professionals/'+$stateParams.id+'/edit',
+				url: server_uri+'professionals/'+$stateParams.id+'/edit',
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.thumbnail = {
@@ -919,7 +1021,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				  	fd.append(key, profesional[key]);
 				  }
 
-				 $http.post(server_uri+'/updateProfessional', fd, {
+				 $http.post(server_uri+'updateProfessional', fd, {
 				  	withCredentials: true,
 				  	headers: {'Content-Type': undefined },
 				  	transformRequest: angular.identity
@@ -945,7 +1047,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/professionalServices/'+$stateParams.id,
+				url: server_uri+'professionalServices/'+$stateParams.id,
 			}).then(function successCallback(response) {
 				$scope.profesional_servicios=response.data;
 				ownPagination(response.data);
@@ -971,7 +1073,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log('profesional'+$stateParams.id);
 				$http({
 					method: 'GET',
-					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+					url: server_uri+'loungeServices/'+$.sessionStorage.get('longe_id'),
 				}).then(function successCallback(response) {
 					console.log(response.data);
 					$scope.servicios=response.data;
@@ -990,7 +1092,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 				$http({
 					method: 'POST',
-					url: server_uri+'/professionalServices',
+					url: server_uri+'professionalServices',
 					data:$scope.profesional_serv
 				}).then(function successCallback(response) {
 					console.log(response);
@@ -1012,7 +1114,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 				$http({
 					method: 'GET',
-					url: server_uri+'/professionalServices/'+id+'/edit',
+					url: server_uri+'professionalServices/'+id+'/edit',
 				}).then(function successCallback(response) {
 					$scope.profesional_serv=response.data;
 					$scope.profesional_serv.service_id = {id: $scope.profesional_serv.service_id};
@@ -1022,7 +1124,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				
 				$http({
 					method: 'GET',
-					url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+					url: server_uri+'loungeServices/'+$.sessionStorage.get('longe_id'),
 				}).then(function successCallback(response) {
 					for (var i = response.data.length - 1; i >= 0; i--) {
 						response.data[i].id=response.data[i].service_id;
@@ -1041,7 +1143,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log($scope.profesional_serv.service_id);
 				$http({
 					method: 'PUT',
-					url: server_uri+'/professionalServices/'+id,
+					url: server_uri+'professionalServices/'+id,
 					data:$scope.profesional_serv
 				}).then(function successCallback(response) {
 					console.log(response);
@@ -1061,7 +1163,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarServicio=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/professionalServices/'+id,
+					url: server_uri+'professionalServices/'+id,
 				}).then(function successCallback(response) {
 					console.log(response);
 					Materialize.toast(response.data.msj, 4000);
@@ -1098,12 +1200,12 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 					method: 'GET',
-					url: server_uri+'/certificates/'+$stateParams.id,
+					url: server_uri+'certificates/'+$stateParams.id,
 				}).then(function successCallback(response) {
 					$scope.certificates=response.data;
 					$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 
-					if($scope.cliente_salon == null){
+					if($scope.cliente_salon == null && $.sessionStorage.get('user').rol_id == 1){
 						$('#btn-add-loungeclient').css('display', 'block');
 					}
 				
@@ -1134,7 +1236,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				var fotos_uri = $('body').attr('data-fotos_uri');
 				$http({
 					method: 'GET',
-					url: server_uri+'/imagen_defecto2',
+					url: server_uri+'imagen_defecto2',
 				}).then(function successCallback(response) {
 					$scope.thumbnail = {
 						dataUrl: fotos_uri+response.data.path
@@ -1158,7 +1260,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				  	fd.append(key, cert[key]);
 				  }
 
-				  $http.post(server_uri+'/certificates', fd, {
+				  $http.post(server_uri+'certificates', fd, {
 				  	withCredentials: true,
 				  	headers: {'Content-Type': undefined },
 				  	transformRequest: angular.identity
@@ -1178,7 +1280,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$('#modalCertificado').modal('open');
 				$http({
 					method: 'GET',
-					url: server_uri+'/certificates/'+id+'/edit',
+					url: server_uri+'certificates/'+id+'/edit',
 				}).then(function successCallback(response) {
 					var fotos_uri = $('body').attr('data-fotos_uri');
 					$scope.thumbnail = {
@@ -1201,7 +1303,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				  	fd.append(key, cert[key]);
 				  }
 
-				 $http.post(server_uri+'/updateCertificate', fd, {
+				 $http.post(server_uri+'updateCertificate', fd, {
 				  	withCredentials: true,
 				  	headers: {'Content-Type': undefined },
 				  	transformRequest: angular.identity
@@ -1224,7 +1326,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$('#modalVerCertificado').modal('open');
 				$http({
 					method: 'GET',
-					url: server_uri+'/certificates/'+id+'/edit',
+					url: server_uri+'certificates/'+id+'/edit',
 				}).then(function successCallback(response) {
 					var fotos_uri = $('body').attr('data-fotos_uri');
 					$scope.thumbnail = {
@@ -1242,7 +1344,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarServicio=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/certificates/'+id,
+					url: server_uri+'certificates/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -1260,9 +1362,14 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			// console.log('hola desde el index');
 			// $scope.carrito=[];
 			$scope.carrito=$.sessionStorage.get('carrito');
+
+			if($scope.carrito == null){
+				$scope.carrito = [];
+			}
+			
 			$http({
 				method: 'GET',
-				url: server_uri+'/lounges/'+$.sessionStorage.get('longe_id')+'/edit',
+				url: server_uri+'lounges/'+$.sessionStorage.get('longe_id')+'/edit',
 			}).then(function successCallback(response) {
 				$scope.factura.user_to_id=response.data.lounge.user_id;
 				$scope.factura.user_id=$.sessionStorage.get('user').id;
@@ -1272,12 +1379,12 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			});
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungeCombos/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'loungeCombos/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.combos=response.data;
 				$scope.cliente_salon= $.sessionStorage.get('cliente_salon');
 
-				if($scope.cliente_salon == null){
+				if($scope.cliente_salon == null && $.sessionStorage.get('user').rol_id == 1){
 					$('#btn-add-loungeclient').css('display', 'block');
 				}
 
@@ -1307,7 +1414,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarCombo=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/loungeCombos/'+id,
+					url: server_uri+'loungeCombos/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -1322,7 +1429,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				$scope.listaServicios=[];
 				$http({
 					method: 'GET',
-					url: server_uri+'/loungeCombos/'+id+'/edit',
+					url: server_uri+'loungeCombos/'+id+'/edit',
 				}).then(function successCallback(response) {
 					$scope.combo=response.data;
 				}, function errorCallback(response) {
@@ -1331,7 +1438,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 				$http({
 					method: 'GET',
-					url: server_uri+'/detailLoungeCombo/'+id,
+					url: server_uri+'detailLoungeCombo/'+id,
 				}).then(function successCallback(response) {
 					$scope.listaServicios=response.data;
 				}, function errorCallback(response) {
@@ -1342,6 +1449,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$scope.agregarCarrito=function(object){
 				object.tipo='combo';
+				object.type=0;
 				// console.log(object);
 				$scope.carrito.push(object);
 				$('#carrito'+object.id).addClass('disabled');
@@ -1378,18 +1486,108 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				var o=[];
 				o.push($scope.factura);
 				o.push($scope.carrito);
-				$http({
-					method: 'POST',
-					url: server_uri+'/transactions',
-					data:o
-				}).then(function successCallback(response) {
-					Materialize.toast(response.data.msj, 4000);
-					$state.go('perfil');
-				}, function errorCallback(response) {
-					Materialize.toast(error, 4000);
-					$state.reload();
-				});
+
+				var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				o.push( JSON.stringify(transaction_services) );
+				o.push( JSON.stringify(transaction_combos) );
+
+
+				if($scope.carrito.length > 0){
+					$http({
+						method: 'POST',
+						url: server_uri+'transactions',
+						data:o
+					}).then(function successCallback(response) {
+						Materialize.toast(response.data.msj, 4000);
+						$state.go('perfil');
+					}, function errorCallback(response) {
+						Materialize.toast(error, 4000);
+						$state.reload();
+					});
+				}
 			};
+
+
+			$scope.payPaypal = function(){
+
+	            const url = server_uri+'checkout-paypal';
+	            var     win = window.open( url, "_blank", "enableViewportScale=yes,toolbar=no");
+
+	            var user_id    = $scope.factura.user_id;
+	            var user_to_id = $scope.factura.user_to_id;
+	            var total      = $scope.factura.total;
+	            var comision   = $scope.factura.comision;
+	            var valor      = $scope.factura.valor;
+
+
+	            var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				var servicios = encodeURIComponent( angular.toJson(transaction_services) );
+				var combos = encodeURIComponent( angular.toJson(transaction_combos) );
+
+
+	            var transaction_divisa = 'USD';
+
+
+	            win.addEventListener( "loadstop", function(event) {
+
+	                win.executeScript({ code:  
+
+	                    'document.getElementById("user_id").value = "'+user_id+'";'+
+	                    'document.getElementById("user_to_id").value = "'+user_to_id+'";'+
+	                    'document.getElementById("total").value = "'+total+'";'+
+	                    'document.getElementById("comision").value = "'+comision+'";'+
+	                    'document.getElementById("valor").value = "'+valor+'";'+
+
+	                    'document.getElementById("servicios").value = "'+servicios+'";'+
+	                    'document.getElementById("combos").value = "'+combos+'";'+
+
+	                    'document.getElementById("transaction_divisa").value = "'+transaction_divisa+'";'
+
+	                });
+
+	                const url_thanks = server_uri+'checkout-paypal/thanks';
+	                const url_cancel = server_uri+'checkout-paypal/cancel';
+
+
+	                if (event.url == url_thanks) {
+	                    win.close();
+	                    Materialize.toast('Transaccion realizada exitosamente',4000);
+
+	                    $state.go('transaction_success',{
+	                        factura: $scope.carrito,
+	                        carrito: $scope.carrito
+	                    });
+	                }
+
+
+	                if (event.url == url_cancel) {
+	                    win.close();
+	                    Materialize.toast('Ocurrio un error al realizar la transaccion',4000);
+	                }
+
+	            });
+
+	        }
+	        
 		}
 	}
 
@@ -1412,7 +1610,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+				url: server_uri+'loungeServices/'+$.sessionStorage.get('longe_id'),
 			}).then(function successCallback(response) {
 				$scope.servicios=response.data;
 				console.log(response.data);
@@ -1424,7 +1622,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				console.log($scope.serv.lounge_service_id);
 				$http({
 					method: 'GET',
-					url: server_uri+'/verServicioProfesional/'+$scope.serv.lounge_service_id,
+					url: server_uri+'verServicioProfesional/'+$scope.serv.lounge_service_id,
 				}).then(function successCallback(response) {
 					console.log(response.data);
 					$scope.listaServicios.push(response.data);
@@ -1454,7 +1652,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				miCombo.push($scope.listaServicios);
 				$http({
 					method: 'POST',
-					url: server_uri+'/loungeCombos',
+					url: server_uri+'loungeCombos',
 					data:miCombo
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
@@ -1476,7 +1674,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		$scope.listaServicios=[];
 		$http({
 			method: 'GET',
-			url: server_uri+'/loungeCombos/'+$stateParams.id+'/edit',
+			url: server_uri+'loungeCombos/'+$stateParams.id+'/edit',
 		}).then(function successCallback(response) {
 			$scope.combo=response.data;
 		}, function errorCallback(response) {
@@ -1485,7 +1683,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/detailLoungeCombo/'+$stateParams.id,
+			url: server_uri+'detailLoungeCombo/'+$stateParams.id,
 		}).then(function successCallback(response) {
 			$scope.listaServicios=response.data;
 		}, function errorCallback(response) {
@@ -1499,7 +1697,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/loungeServices/'+$.sessionStorage.get('longe_id'),
+			url: server_uri+'loungeServices/'+$.sessionStorage.get('longe_id'),
 		}).then(function successCallback(response) {
 			$scope.servicios=response.data;
 			console.log(response.data);
@@ -1515,7 +1713,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			}
 			$http({
 				method: 'POST',
-				url: server_uri+'/detailLoungeCombo',
+				url: server_uri+'detailLoungeCombo',
 				data:detalleCombo
 			}).then(function successCallback(response) {
 				Materialize.toast(response.data.msj, 4000);
@@ -1534,7 +1732,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		$scope.eliminarDetailCombo=function(id){
 			$http({
 					method: 'DELETE',
-					url: server_uri+'/detailLoungeCombo/'+id,
+					url: server_uri+'detailLoungeCombo/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -1547,7 +1745,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 		$scope.actualizarCombo=function(id){
 			$http({
 				method: 'PUT',
-				url: server_uri+'/loungeCombos/'+id,
+				url: server_uri+'loungeCombos/'+id,
 				data:$scope.combo
 			}).then(function successCallback(response) {
 				Materialize.toast(response.data.msj, 4000);
@@ -1597,7 +1795,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/loungePhotos/'+$stateParams.id_lounge,
+				url: server_uri+'loungePhotos/'+$stateParams.id_lounge,
 			}).then(function successCallback(response) {
 				$scope.loungefotos=response.data;
 				$scope.thumbnail = fotos_uri;
@@ -1637,7 +1835,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 
 				$http({
 					method: 'GET',
-					url: server_uri+'/imagen_defecto2',
+					url: server_uri+'imagen_defecto2',
 				}).then(function successCallback(response) {
 					$scope.thumbnail = {
 						dataUrl: fotos_uri+response.data.path
@@ -1732,7 +1930,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 				
 				$http({
 					method: 'GET',
-					url: server_uri+'/loungePhotos/'+id+'/edit',
+					url: server_uri+'loungePhotos/'+id+'/edit',
 				}).then(function successCallback(response) {
 					var fotos_uri = $('body').attr('data-fotos_uri');
 					$scope.thumbnail = {
@@ -1749,7 +1947,7 @@ app.controller('LoungeController', ['$scope', '$state', '$http','$stateParams','
 			$scope.eliminarFoto=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/loungePhotos/'+id,
+					url: server_uri+'loungePhotos/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();

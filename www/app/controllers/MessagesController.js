@@ -12,7 +12,7 @@ app.controller('MessagesController', ['$scope', '$state',  '$rootScope', '$state
 	if ($state.current.name == 'my_messages'){
 		
 		$.ajax({
-				url: server_uri+'/user/'+$.sessionStorage.get('user').id+'/messages',
+				url: server_uri+'user/'+$.sessionStorage.get('user').id+'/messages',
 				type: 'get',
 				dataType: 'json',
 				data: {},
@@ -127,7 +127,7 @@ app.controller('MessagesController', ['$scope', '$state',  '$rootScope', '$state
 
     if($state.current.name == 'user_message'){
              
-            var url = '/user/'+$.sessionStorage.get('user').id+'/seller/'+$stateParams.id+'/messages/'+$stateParams.transaction_id;
+            var url = 'user/'+$.sessionStorage.get('user').id+'/seller/'+$stateParams.id+'/messages/'+$stateParams.transaction_id;
 
             $.ajax({
                 url: server_uri+url,
@@ -341,7 +341,7 @@ app.controller('MessagesController', ['$scope', '$state',  '$rootScope', '$state
     if ($state.current.name == 'admin_user_chats'){
         
         $.ajax({
-                url: server_uri+'/user/'+$stateParams.id+'/messages',
+                url: server_uri+'user/'+$stateParams.id+'/messages',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -448,7 +448,7 @@ app.controller('MessagesController', ['$scope', '$state',  '$rootScope', '$state
 
      if($state.current.name == 'admin_user_chat'){
              
-            var url = '/user/'+$stateParams.id+'/seller/'+$stateParams.seller_id+'/messages/'+$stateParams.transaction_id;
+            var url = 'user/'+$stateParams.id+'/seller/'+$stateParams.seller_id+'/messages/'+$stateParams.transaction_id;
 
             $.ajax({
                 url: server_uri+url,

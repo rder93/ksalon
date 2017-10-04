@@ -19,7 +19,7 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
         $http({
             method: 'GET',
-            url: server_uri+'/tickets',
+            url: server_uri+'tickets',
             params: {
                 id: $scope.Usuario.id
             }
@@ -66,12 +66,12 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 	                $('.spinloader').remove();
 	                f = form;
 	                var method = 'POST';
-	                var action = ''+server_uri + '/ticket';
+	                var action = ''+server_uri + 'ticket';
 	                var inputs = f.serialize();
 
 
 	                $.ajax({
-	                        url: server_uri+'/tickets',
+	                        url: server_uri+'tickets',
 	                        type: method,
 	                        dataType: 'json',
 	                        data:inputs
@@ -100,7 +100,7 @@ app.controller('TicketsController', ['$scope', '$state','$sessionStorage','$stat
 
         $http({
             method: 'GET',
-            url: server_uri+'/tickets/'+$stateParams.id
+            url: server_uri+'tickets/'+$stateParams.id
         }).then(function successCallback(response) {
             console.log(response);
             

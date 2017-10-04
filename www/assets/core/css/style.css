@@ -10,6 +10,10 @@ body{
   background-color: rgb(250,250,250);
 }
 
+::-webkit-scrollbar{
+  color: transparent !important; 
+}
+
 #form-register{
   background-color: rgb(250,250,250);
 }
@@ -377,4 +381,116 @@ margin-left: 20px;
 .divcompleto{
   height: 100%;
   width: 100%;
+}
+
+
+
+
+/*----- Evolutrans css -----*/
+.list-left-img{
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: center;
+    vertical-align: bottom;
+    width: 20%;
+}
+.list-left-img > div{
+        /*display: flex;*/
+}
+.list-center{
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: bottom;
+    width: 75%;
+}
+.list-center > div{
+    padding: 5px 0px;
+}
+
+.list-right-icon{ 
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+}
+  
+.list-center-1{
+  display: inline-block;
+    width: 90%;
+}
+
+.list-center-3{
+    display: inline-block;
+    width: 30%;
+}
+
+.list-evolu{
+    border-top: 2px solid lightgray;
+    padding-bottom: 70px;
+}
+.list-evolu > div{
+    border: 1px solid lightgray;
+}
+.list-top-before{
+    padding: 25px 0px;
+    text-align: center;
+}
+.list-top-before > label{
+  font-size: 24px!important;
+  font-weight: bold;
+}
+
+
+
+.center-top-span{
+    font-weight: bold;
+}
+.center-type-span{
+    font-size: 1em;
+    font-style: italic;
+    font-weight: initial;
+    margin: 0;
+}
+
+
+.payments-btn-wrap{
+  padding: 0px 25px;
+}
+.payments-btn-wrap > button{
+  font-weight: bold;
+  margin: auto;
+  width: 75%;
+}
+
+  
+.btn-payout{
+  background-color: #2eb82e;
+  color: #fff;
+}
+
+.btn-debt{
+  background-color: #ff3333;
+  color: #fff;
+}
+
+.btn-insufficient{
+  background-color: lightgray;
+  color: #fff;
+}
+
+.payments-title{
+  background: #f50057!important;
+  color: #fff;
+  padding:5px 16px;
+}
+
+.payments-title > h4{
+  margin: 0px!important;
+  text-align: center;
+}
+.payment-option{
+  border: 1px solid lightgray; 
+  box-shadow: 5px 5px 5px #888888; 
+  text-align: center;
 }

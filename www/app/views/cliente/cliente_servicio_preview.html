@@ -1,101 +1,224 @@
 <div ui-view="navigation"></div>
-<br><br><br><br>
-<div id="modalPagar" class="modal">
-    <div class="modal-content">
-      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
-      <br>
-      <button class="btn btn-large btn-block">Paypal</button>
-    </div>
-    <div class="modal-footer teal">
-      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
-    </div>
-  </div>
 
-  <div id="modalCarrito" class="modal">
-    <div class="modal-content">
-      <table>
-        <thead>
-          <tr>
-          	<th class="center-align">Descripción</th>
-            <th class="center-align">Nombre</th>
-            <th class="center-align">Precio</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="car in carrito">
-          	<td>{{car.id}}</td>
-            <td class="center-align">{{car.descripcion}}</td>
-            <td class="center-align">{{car.precio}}</td>
-            <td>
-            	<button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)">
-            		<i class="fa fa-times" aria-hidden="true" style="color:#000!important;"></i> 
-            	</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <td class="center-align">Total: </td>
-          <td class="center-align">{{factura.total}}</td>
-        </tfoot>
-      </table>
-    </div>
-    <div class="modal-footer teal">
-      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text" ng-click="modalPagar()">Pagar</button>
-    </div>
-  </div>
+<style type="text/css">
+	a{
+		color: #000;
+	}
+	h4{
+		margin: 0px!important;
+	}
+	.card-panel{
+		margin: 0px!important;
+		padding: 5px!important;
+	}
+/*	.slider,.slides{
+		height: 100vh!important;
+	}
+	.card.medium{
+		height: auto!important;
+		min-height: 100vh;
+		overflow-y: auto;
+	}*/
+	.slider,.slides,.card.medium{
+		height: auto!important;
+	}
+
+	.sticky-booking-footer{
+		background: #fff;
+		border-top: 1px solid lightgray;
+		bottom: 0px;
+		padding: 15px 5px;
+		position: fixed;
+		width: 100%;
+		z-index: 99999;
+	}
+</style>
+
+
+	<div id="modalPagar" class="modal">
+		<div class="payments-title">
+			<h4>Métodos de pago</h4>
+		</div>
+    	<div class="modal-content">
+
+    		<div ng-if="carrito.length>0">
+	      		<div class="row payment-option" ng-click="pagoEfectivo();">
+					<img src="./assets/core/images/icons/cash.png" alt="" class="circle responsive-img" style="max-width: 64px;">
+					<span>Efectivo</span>
+				</div>
+				
+				<div class="row payment-option" ng-click="payPaypal();">
+					<img src="./assets/core/images/icons/paypal-logo.png" alt="" class="circle responsive-img" style="max-width: 64px;">
+					<span>Paypal</span>
+				</div>
+			</div>
+
+    	</div>
+    	<div class="modal-footer pink accent-3">
+      		<button class="modal-action modal-close btn-flat white-text">Cancelar</button>
+    	</div>
+  	</div>
+
+
+  	<div id="modalConfirmCash" class="modal">
+		<div class="payments-title">
+			<h4>Confirmar reserva</h4>
+		</div>
+    	<div class="modal-content" style="min-height: 220px;">
+
+    		<div ng-if="carrito.length>0">
+	      		<span>¿Seguro de proceder a realizar la siguiente reserva?</span>
+			</div>
+
+    	</div>
+    	<div class="modal-footer pink accent-3">
+    		<button class="modal-action btn-flat white-text" ng-click="confirmPayCash();">Ok</button>
+      		<button class="modal-action modal-close btn-flat white-text">Cancelar</button>
+    	</div>
+  	</div>
+
+
+
+
+
+	<div id="modalCarrito" class="modal">
+
+	    <div class="modal-content">
+		    <table>
+		        <thead>
+		          	<tr>
+		          		<th class="center-align">Descripción</th>
+		            	<th class="center-align">Nombre</th>
+		            	<th class="center-align">Precio</th>
+		            	<th></th>
+		          	</tr>
+		        </thead>
+		        <tbody>
+		          	<tr ng-repeat="car in carrito">
+		          		<td>{{car.id}}</td>
+		            	<td class="center-align">{{car.descripcion}}</td>
+		            	<td class="center-align">{{car.precio}}</td>
+		            	<td>
+		            		<button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)">
+		            			<i class="fa fa-times" aria-hidden="true" style="color:#000!important;"></i> 
+		            		</button>
+		            	</td>
+		          	</tr>
+		        </tbody>
+		        <tfoot>
+		          	<td class="center-align">Total: </td>
+		          	<td class="center-align">{{factura.total}}</td>
+		        </tfoot>
+		    </table>
+	    </div>
+
+	    <div class="modal-footer pink accent-3">
+	      <button class="modal-action modal-close btn-flat white-text">Cancelar</button>
+	      <button class="modal-action modal-close btn-flat white-text" ng-click="modalPagar()" ng-if="carrito.length>0">Pagar</button>
+	    </div>
+	</div>
 
 <div>
 
-<!-- 	<div class="slider">
-	    <ul class="slides">
-	      	<li ng-repeat="serv in servs">
-	        	<img src="{{ urlFoto+serv.foto }}" class="responsive-img">
-	        	<div class="caption center-align">
-	          		<h3>This is our big Tagline!</h3>
-	          		<h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-	        	</div>
-	        	<div>
-	        		<h4>OK</h4>
-	        	</div>
-	      	</li>
-	    </ul>
-	</div> -->
+
+
+
+
 
 	<div class="slider">
 		<ul style="background-color: rgb(233,233,233); " class="slides">
 			<li ng-repeat="serv in servs">
-				<div class="card medium">
+				<div class="card medium" style="margin-top: 0px!important;">
+					<h4>{{serv.descripcion}}</h4>
+					<p>Publicado por: {{publishBy[0].nombre_salon}}</p>
 					<div class="card-image waves-effect waves-block waves-light">
-						<img ng-src="{{ urlFoto+serv.foto }}" class="activator responsive-img">
+						<img ng-src="{{ urlFoto+serv.foto }}" class="activator responsive-img" style="max-height: 300px;">
 					</div>
 					<div class="card-content">
-						<span class="card-title activator grey-text text-darken-4">{{serv.descripcion+' : $'+serv.precio}}<i class="material-icons right">more_vert</i></span>
-						<a id="carrito{{serv.id}}" ng-click="agregarCarrito(serv)">
+						<span class="card-title activator grey-text text-darken-4 right">{{serv.precio | currency}}
+							<!-- <i class="fa fa-ellipsis-v right" aria-hidden="true"></i> -->
+						</span>
+
+
+						<!-- <a id="carrito{{serv.id}}" ng-click="agregarCarrito(serv)">
 							Añadir al carrito
 							<img src="./assets/core/images/add_cart.png" class="circle" style="border-radius: 50%;background: #fff; height: 64px; width: 64px;">
 						</a>
-						
+						 -->
+						 <div>
+						 	<p>
+						 		{{serv.descripcion_servicio}}
+						 	</p>
+						 </div>
 					</div>
-					<div class="card-reveal">
-						<span class="card-title grey-text text-darken-4">{{serv.descripcion}}<i class="material-icons right">close</i></span>
+
+
+					<!-- <div class="card-reveal">
+						<span class="card-title grey-text text-darken-4">{{serv.descripcion}}
+						<i class="fa fa-times right" aria-hidden="true"></i>
 						<h5>Precio : {{serv.precio}}</h5>
 						<p>{{serv.descripcion_servicio}}</p>
+					</div> -->
+
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+						<div class="card-panel z-depth-1">
+							<div class="row valign-wrapper">
+								<div class="col s2">
+									<img ng-src="{{ urlFoto+usuario.avatar}}" alt="" class="circle responsive-img">
+								</div>
+								<div class="col s10">
+									<p style="font-weight: bold;">{{usuario.name}}</p>
+									<span class="black-text">
+										{{pel[0].descripcion_salon}}
+									</span>
+								</div>
+							</div>
+						</div>
+
+
+
+						<!-- <div>
+							<a href="" style="font-size: 20px;">Ir al perfil del {{ (estado == false) ? 'Salon' : 'Profesional Independiente' }}</a>
+						</div>
+
+						<div>
+							<a href="" style="font-size: 20px;">Contratar <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+						</div> -->
+					</div>
+
+					<div class="row">
+						<div>
+							<a ui-sref="cliente_vendedor_perfil({id:pel[0].lounge_id})" style="font-size: 20px;" ng-if="estado == false">Ir al perfil del {{ (estado == false) ? 'Salon' : 'Profesional Independiente' }}</a>
+
+							<a ui-sref="cliente_vendedor_perfil({id:pel[0].user_id})" style="font-size: 20px;" ng-if="estado == true">Ir al perfil del {{ (estado == false) ? 'Salon' : 'Profesional Independiente' }}</a>
+						</div>
+
+						<div>
+							<a ng-click="bookThis(serv);" style="font-size: 20px;">Contratar <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+						</div>
 					</div>
 				</div>
 			</li>
 		</ul>
 	</div>
 
+<!-- 	<div class="sticky-booking-footer">
+		<div>
+			<a href="">Ir al perfil del {{ (estado == false) ? 'Salon' : 'Profesional Independiente' }}</a>
+		</div>
+
+		<div>
+			<a href="">Contratar <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+		</div>
+
+	</div> -->
 
 
-
-	<div class="col s12 m8 offset-m2 l6 offset-l3">
+	<!-- <div class="col s12 m8 offset-m2 l6 offset-l3">
 		<div class="card-panel grey lighten-5 z-depth-1">
 			<div class="row valign-wrapper">
 				<div class="col s2">
-					<img ng-src="{{ urlFoto+usuario.avatar}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+					<img ng-src="{{ urlFoto+usuario.avatar}}" alt="" class="circle responsive-img">
 				</div>
 				<div class="col s10">
 					<h4>{{usuario.name}}</h4>
@@ -105,14 +228,15 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
-	<a ui-sref="lounges_servicios({id:pel[0].lounge_id})" ng-if="estado == false" class="btn btn-block btn-large">Ver perfil de este salon!!</a>
+<!-- 	<a ui-sref="lounges_servicios({id:pel[0].lounge_id})" ng-if="estado == false" class="btn btn-block btn-large">Ver perfil de este salon!!</a>
 	
-<!-- ng-click="goClienteIndependientePerfil(); -->
+
 	<a ui-sref="profesional_servicios({id:pel[0].user_id})" ng-if="estado == true" class="btn btn-block btn-large" ">Ver perfil de este independiente!!</a>
 	<br>
 	<a class="btn btn-block btn-large" ng-click="modalCarrito()">Ver Carrito</a>
-
+ -->
+ <!-- ng-click="goClienteIndependientePerfil(); -->
 </div> 

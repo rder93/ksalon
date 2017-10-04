@@ -646,10 +646,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/cliente/cliente_servicio_preview.html',
                     controller: 'ClienteController'
                 },
-                'navigation@cliente_servicio_preview':{
-                    templateUrl: path_views+'/template_parts/nav.html',
-                    controller: 'NavigationController'
-                }
+                // 'navigation@cliente_servicio_preview':{
+                //     templateUrl: path_views+'/template_parts/nav.html',
+                //     controller: 'NavigationController'
+                // }
             },
             params: {
                 peluqueria: null,
@@ -767,13 +767,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }
-            },
-            params: {
-                categoria_id: null,
-                peluqueria: null,
-                servicios: null
             }
         })
+
+        .state('cliente_vendedor_profesional',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/cliente_vendedor_profesional/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_profesional_show.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_profesional':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
 
         .state('cliente_vendedor_combos',{
             onExit: function() 
@@ -836,11 +850,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: path_views+'/template_parts/nav-cliente.html',
                     controller: 'NavigationController'
                 }
+            }
+        })
+
+        .state('cliente_vendedor_producto',{
+            onExit: function() 
+            { 
+                 
             },
-            params: {
-                categoria_id: null,
-                peluqueria: null,
-                servicios: null
+            url: '/cliente_vendedor_producto/:id',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/cliente_vendedor_producto_show.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@cliente_vendedor_producto':{
+                    templateUrl: path_views+'/template_parts/nav-cliente.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params:{
+                product: null
             }
         })
 
@@ -1114,6 +1144,109 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+
+
+        .state('cliente_payments_methods',{
+            url: '/cliente_payments_methods',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/payments_methods.html',
+                    controller: 'ClienteController'
+                },
+                'navigation@payments':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params:{
+                carrito: null,
+                factura: null
+            }
+        })
+
+
+
+        .state('transaction_success',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/transaction_success',
+            views:{
+                '':{
+                    templateUrl: path_views+'/cliente/success_payment.html',
+                    controller: 'PaymentsController'
+                }
+            },
+            params:{
+                factura: null,
+                carrito: null,
+                servicios: [],
+                combos: []
+            }
+        })
+
+
+
+
+
+
+        .state('payments',{
+            url: '/payments',
+            views:{
+                '':{
+                    templateUrl: path_views+'/user/payments/index.html',
+                    controller: 'PaymentsController'
+                },
+                'navigation@payments':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params:{
+                data: null
+            }
+        })
+
+        .state('admin_payments',{
+            url: '/admin_payments',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/payments/index.html',
+                    controller: 'PaymentsController'
+                },
+                'navigation@admin_payments':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            },
+            params:{
+                data: null
+            }
+        })
+
+
+
+        .state('panel_comisiones',{
+            onExit: function() 
+            { 
+                 
+            },
+            url: '/admin/panel/comisiones',
+            views:{
+                '':{
+                    templateUrl: path_views+'/admin/panel_comisiones.html',
+                    controller: 'AdminController'
+                },
+                'navigation@panel_comisiones':{
+                    templateUrl: path_views+'/template_parts/nav.html',
+                    controller: 'NavigationController'
+                }
+            }
+        })
+
+
 
 
 

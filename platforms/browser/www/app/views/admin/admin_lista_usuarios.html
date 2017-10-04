@@ -66,7 +66,8 @@
         <div>
             <div class="list-user-thumb">
                 <div>
-                    <img src="./assets/core/images/done.png" class="circle responsive-img"></img>
+                    <img ng-if="usuario.avatar" src="{{fotos_uri+usuario.avatar}}" class="circle responsive-img">
+                    <img ng-if="!usuario.avatar" src="./assets/core/images/no_avatar.jpg" class="circle responsive-img"></img>
                 </div>
             </div>
 
@@ -154,7 +155,8 @@
         </div>
         <div class="col s2" style="text-align: center; margin-left: 4%;">
             <a ui-sref="add_usuario" class="btn-floating btn-large red">
-                <i class="large material-icons">add</i>
+                <!-- <i class="large material-icons">add</i> -->
+                <i class="large fa fa-plus" aria-hidden="true"></i>
             </a>
         </div>
     </div>

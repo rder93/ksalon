@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     background: rgba(255, 255, 255, 0.85);
     width: 82%;
     color: #000;
-    border-radius: 30px;
+    border-radius: 0px;
     font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px;
@@ -81,7 +81,8 @@ span.icon2 {
 }
 .sub-main-w3 input[type="submit"] {
     color: white;
-    background: #ea2858;
+    /*background: #ea2858;*/
+    background: #000;
     border: none;
     padding: .7em 0;
     outline: none;

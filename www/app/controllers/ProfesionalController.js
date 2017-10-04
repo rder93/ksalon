@@ -72,7 +72,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			$scope.agregarCarrito=function(object){
 				object.tipo='servicio';
 				console.log(object);
-				ob={'id':object.id, 'descripcion': object.service_id, 'precio':object.precio, 'tipo': 'servicio'};
+				ob={'id':object.id, 'descripcion': object.service_id, 'precio':object.precio, 'tipo': 'servicio', 'type': 1};
 				// console.log(ob);
 				$scope.carrito.push(ob);
 				$('#carrito'+object.id).addClass('disabled');
@@ -109,18 +109,109 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 				var o=[];
 				o.push($scope.factura);
 				o.push($scope.carrito);
-				$http({
-					method: 'POST',
-					url: server_uri+'/transactions',
-					data:o
-				}).then(function successCallback(response) {
-					Materialize.toast(response.data.msj, 4000);
-					$state.go('perfil');
-				}, function errorCallback(response) {
-					Materialize.toast(error, 4000);
-					$state.reload();
-				});
+
+				var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				o.push( JSON.stringify(transaction_services) );
+				o.push( JSON.stringify(transaction_combos) );
+
+
+				if($scope.carrito.length > 0){
+					$http({
+						method: 'POST',
+						url: server_uri+'transactions',
+						data:o
+					}).then(function successCallback(response) {
+						Materialize.toast(response.data.msj, 4000);
+						$state.go('perfil');
+					}, function errorCallback(response) {
+						Materialize.toast(error, 4000);
+						$state.reload();
+					});
+				}
 			};
+
+
+			$scope.payPaypal = function(){
+
+	            const url = server_uri+'checkout-paypal';
+	            var     win = window.open( url, "_blank", "enableViewportScale=yes,toolbar=no");
+
+	            var user_id    = $scope.factura.user_id;
+	            var user_to_id = $scope.factura.user_to_id;
+	            var total      = $scope.factura.total;
+	            var comision   = $scope.factura.comision;
+	            var valor      = $scope.factura.valor;
+
+
+	            var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				var servicios = encodeURIComponent( angular.toJson(transaction_services) );
+				var combos = encodeURIComponent( angular.toJson(transaction_combos) );
+
+
+	            var transaction_divisa = 'USD';
+
+
+	            win.addEventListener( "loadstop", function(event) {
+
+	                win.executeScript({ code:  
+
+	                    'document.getElementById("user_id").value = "'+user_id+'";'+
+	                    'document.getElementById("user_to_id").value = "'+user_to_id+'";'+
+	                    'document.getElementById("total").value = "'+total+'";'+
+	                    'document.getElementById("comision").value = "'+comision+'";'+
+	                    'document.getElementById("valor").value = "'+valor+'";'+
+
+	                    'document.getElementById("servicios").value = "'+servicios+'";'+
+	                    'document.getElementById("combos").value = "'+combos+'";'+
+
+	                    'document.getElementById("transaction_divisa").value = "'+transaction_divisa+'";'
+
+	                });
+
+	                const url_thanks = server_uri+'checkout-paypal/thanks';
+	                const url_cancel = server_uri+'checkout-paypal/cancel';
+
+
+	                if (event.url == url_thanks) {
+	                    win.close();
+	                    Materialize.toast('Transaccion realizada exitosamente',4000);
+
+	                    $state.go('transaction_success',{
+	                        factura: $scope.carrito,
+	                        carrito: $scope.carrito
+	                    });
+	                }
+
+
+	                if (event.url == url_cancel) {
+	                    win.close();
+	                    Materialize.toast('Ocurrio un error al realizar la transaccion',4000);
+	                }
+
+	            });
+
+	        }
+
+
 
 	    $scope.removeItem = function(id){
 	        $('#modal1').modal('open');
@@ -185,7 +276,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/imagen_defecto2',
+			url: server_uri+'imagen_defecto2',
 		}).then(function successCallback(response) {
 			console.log(response.data);
 			$scope.thumbnail = {
@@ -374,7 +465,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			$scope.eliminarCombo=function(id){
 				$http({
 					method: 'DELETE',
-					url: server_uri+'/professionalCombos/'+id,
+					url: server_uri+'professionalCombos/'+id,
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
 					$state.reload();
@@ -389,7 +480,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			$scope.listaServicios=[];
 			$http({
 				method: 'GET',
-				url: server_uri+'/professionalCombos/'+id+'/edit',
+				url: server_uri+'professionalCombos/'+id+'/edit',
 			}).then(function successCallback(response) {
 				$scope.combo=response.data;
 				$scope.thumbnail = fotos_uri;
@@ -399,7 +490,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 			$http({
 				method: 'GET',
-				url: server_uri+'/detailProfessionalCombo/'+id,
+				url: server_uri+'detailProfessionalCombo/'+id,
 			}).then(function successCallback(response) {
 				$scope.listaServicios=response.data;
 			}, function errorCallback(response) {
@@ -411,7 +502,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		$scope.agregarCarrito=function(object){
 				object.tipo='servicio';
 				// console.log(object);
-				ob={'id':object.id, 'descripcion': object.descripcion, 'precio':object.precio, 'tipo': 'combo'};
+				ob={'id':object.id, 'descripcion': object.descripcion, 'precio':object.precio, 'tipo': 'combo', 'type': 0};
 				console.log(ob);
 				$scope.carrito.push(ob);
 				$('#carrito'+object.id).addClass('disabled');
@@ -436,9 +527,8 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 						indice=i;
 					}
 				}
-				// console.log(indice);
+
 				$scope.carrito.splice(indice,1);
-				// console.log(id);
 				$('#carrito'+id).removeClass('disabled');
 				contarFactura($scope.carrito);
 				$.sessionStorage.set('carrito', $scope.carrito);
@@ -448,9 +538,24 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 				var o=[];
 				o.push($scope.factura);
 				o.push($scope.carrito);
+
+				var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				o.push( JSON.stringify(transaction_services) );
+				o.push( JSON.stringify(transaction_combos) );
+
+
 				$http({
 					method: 'POST',
-					url: server_uri+'/transactions',
+					url: server_uri+'transactions',
 					data:o
 				}).then(function successCallback(response) {
 					Materialize.toast(response.data.msj, 4000);
@@ -461,6 +566,77 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 				});
 			};
 
+
+			$scope.payPaypal = function(){
+
+	            const url = server_uri+'checkout-paypal';
+	            var     win = window.open( url, "_blank", "enableViewportScale=yes,toolbar=no");
+
+	            var user_id    = $scope.factura.user_id;
+	            var user_to_id = $scope.factura.user_to_id;
+	            var total      = $scope.factura.total;
+	            var comision   = $scope.factura.comision;
+	            var valor      = $scope.factura.valor;
+
+
+	            var transaction_services = [], transaction_combos = [];
+
+				for(var i=0; i < $scope.carrito.length > 0; i++){
+
+					if($scope.carrito[i].type == 1){
+						transaction_services.push($scope.carrito[i]);
+					}else{
+						transaction_combos.push($scope.carrito[i]);
+					}
+				}
+
+				var servicios = encodeURIComponent( angular.toJson(transaction_services) );
+				var combos = encodeURIComponent( angular.toJson(transaction_combos) );
+
+
+	            var transaction_divisa = 'USD';
+
+
+	            win.addEventListener( "loadstop", function(event) {
+
+	                win.executeScript({ code:  
+
+	                    'document.getElementById("user_id").value = "'+user_id+'";'+
+	                    'document.getElementById("user_to_id").value = "'+user_to_id+'";'+
+	                    'document.getElementById("total").value = "'+total+'";'+
+	                    'document.getElementById("comision").value = "'+comision+'";'+
+	                    'document.getElementById("valor").value = "'+valor+'";'+
+
+	                    'document.getElementById("servicios").value = "'+servicios+'";'+
+	                    'document.getElementById("combos").value = "'+combos+'";'+
+
+	                    'document.getElementById("transaction_divisa").value = "'+transaction_divisa+'";'
+
+	                });
+
+	                const url_thanks = server_uri+'checkout-paypal/thanks';
+	                const url_cancel = server_uri+'checkout-paypal/cancel';
+
+
+	                if (event.url == url_thanks) {
+	                    win.close();
+	                    Materialize.toast('Transaccion realizada exitosamente',4000);
+
+	                    $state.go('transaction_success',{
+	                        factura: $scope.carrito,
+	                        carrito: $scope.carrito
+	                    });
+	                }
+
+
+	                if (event.url == url_cancel) {
+	                    win.close();
+	                    Materialize.toast('Ocurrio un error al realizar la transaccion',4000);
+	                }
+
+	            });
+
+	        }
 
 
 	}
@@ -490,7 +666,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/imagen_defecto2',
+			url: server_uri+'imagen_defecto2',
 		}).then(function successCallback(response) {
 			console.log(response.data);
 			$scope.thumbnail = {
@@ -520,7 +696,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 		$scope.modalServ=function(){
 			$scope.serv={}
-			console.log('hola')
+
 			$scope.crearServicio=true;
 			$('#modalServ').modal('open');
 		}
@@ -529,7 +705,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			console.log($scope.serv.independent_service.id);
 			$http({
 				method: 'GET',
-				url: server_uri+'/verServicioIndependiente/'+$scope.serv.independent_service.id,
+				url: server_uri+'verServicioIndependiente/'+$scope.serv.independent_service.id,
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.listaServicios.push(response.data);
@@ -597,7 +773,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 		console.log($stateParams.id_combo)
 		$http({
 			method: 'GET',
-			url: server_uri+'/professionalCombos/'+$stateParams.id_combo+'/edit',
+			url: server_uri+'professionalCombos/'+$stateParams.id_combo+'/edit',
 			}).then(function successCallback(response) {
 				$scope.combo=response.data;
 				$scope.thumbnail = {
@@ -612,7 +788,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/detailProfessionalCombo/'+$stateParams.id_combo,
+			url: server_uri+'detailProfessionalCombo/'+$stateParams.id_combo,
 		}).then(function successCallback(response) {
 			$scope.listaServicios=response.data;
 		}, function errorCallback(response) {
@@ -663,7 +839,7 @@ app.controller('ProfesionalController', ['$scope', '$timeout', '$state',  '$root
 			}
 			$http({
 				method: 'POST',
-				url: server_uri+'/detailProfessionalCombo',
+				url: server_uri+'detailProfessionalCombo',
 				data:detalleCombo
 			}).then(function successCallback(response) {
 				Materialize.toast(response.data.msj, 4000);

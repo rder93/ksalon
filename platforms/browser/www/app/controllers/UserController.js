@@ -26,7 +26,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
     		var fotos_uri = $('body').attr('data-fotos_uri');
     		$http({
     			method: 'GET',
-    			url: server_uri+'/users/'+$scope.Usuario.id+'/edit',
+    			url: server_uri+'users/'+$scope.Usuario.id+'/edit',
     		}).then(function successCallback(response) {
 				$scope.thumbnail = {
 					dataUrl: fotos_uri+response.data.avatar
@@ -79,7 +79,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 
 
 			
-			if ($scope.Usuario.rol_id==2) {
+			if ($scope.Usuario.rol_id==1 || $scope.Usuario.rol_id==2) {
 				$scope.btnSalones=true;
 			}else if ($scope.Usuario.rol_id==4) {
 				$scope.btnClientes=true;
@@ -96,7 +96,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 		if(debug == 'true'){
 			$scope.Usuario = $.sessionStorage.get('user');
 		
-			$http.get(server_uri+'/users/'+$scope.Usuario.id+'/edit')
+			$http.get(server_uri+'users/'+$scope.Usuario.id+'/edit')
 				.then(function(response){
 					// console.log(response.data);
 					$scope.usuario=response.data;
@@ -182,7 +182,7 @@ app.controller('UserController', ['$scope', '$state', '$http','$timeout', functi
 				  	fd.append(key, usuario[key]);
 				  }
 
-				 $http.post(server_uri+'/updateUser', fd, {
+				 $http.post(server_uri+'updateUser', fd, {
 				  	withCredentials: true,
 				  	headers: {'Content-Type': undefined },
 				  	transformRequest: angular.identity

@@ -205,12 +205,12 @@ body {
 	display:block;	
 }
 #chat-messages div.message{
-	padding:0 0 30px 58px;
+	padding:0 0 30px 8px;
 	clear:both;
 	margin-bottom:45px;
 }
 #chat-messages div.message.right{
-	  padding: 0 58px 3px 0;
+	  padding: 0 8px 3px 0;
 	  margin-right: -19px;
 	  margin-left: 19px;
 }

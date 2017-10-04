@@ -1,0 +1,49 @@
+<div ui-view="navigation"></div>
+
+
+	<div ng-if="user.rol_id == 0 ">
+
+		<div class="row list-evolu" >
+			
+			<div class="row" ng-repeat="(key,item) in data" class="item_ro" data-cat_id="{{item.id}}" style="border-bottom:1px solid lightgray;  height:125px;">
+				<div>
+		            <div class="list-left-img">
+		                <div>
+		                    <img ng-if="item.status == 0" src="./img/icons/status_pending.png" class="circle responsive-img"></img>
+		                    <img ng-if="item.status == 1" src="./img/icons/status_done.png" class="circle responsive-img"></img>
+		                </div>
+		            </div>
+
+		            <div class="list-center">
+		                <div>
+		                    <div >
+		                        <span class="center-top-span">Usuario: {{item.user.name}}</span>
+		                    </div>
+		                    <div>
+		                        <span class="center-type-span">
+		                        	Monto: {{item.amount}}
+		                    	</span>
+		                    </div>
+		                </div>
+		                <div >
+		                    <div class="list-center-1">
+		                        <span>Fecha: {{item.created_at || date}}</span>
+		                    </div>
+		                </div>
+		            </div>
+
+		        </div>
+				
+			</div>
+
+			
+			<div ng-if="!data">
+				<h4>Aun no ha recibido una peticion de pago.</h4>
+				
+			</div>
+
+
+		</div>
+
+
+	</div>

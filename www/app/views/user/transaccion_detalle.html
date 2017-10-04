@@ -72,7 +72,15 @@
 					</a>
 				</div>
 				
-				<p style="font-size: 1.5rem; margin-bottom:0px;">Servicio</p>
+				<p class="p-factura">Servicio
+					<span style="font-size:14px; font-weight: normal;" ng-if="transaction.detalleFactura.length == 1">
+                        {{transaction.detalleFactura[0].descripcion}}
+                    </span>
+                    <span style="font-size:14px; font-weight: normal;" ng-if="transaction.detalleFactura.length > 1">
+                        {{transaction.detalleFactura[0].descripcion}}...
+                    </span>
+				</p>
+
 				<p class="p-factura">Prestado por: 
 					<span style="font-size:14px; font-weight: normal;">{{transaction.seller.name}}</span>
 				</p>
@@ -88,20 +96,24 @@
 			</blockquote>
 			<div style="margin:0 auto; width:85%;">
 				<p class="p-factura">
-					<i class="material-icons">keyboard_arrow_right</i>
+					<!-- <i class="material-icons">keyboard_arrow_right</i> -->
+					<i class="fa fa-chevron-right" aria-hidden="true"></i>
 					Numero Identificador: <span style="font-size:14px; font-weight: normal;">{{transaction.id}}</span>
 				</p>
 				<!-- <p style="font-size:16px; margin: 0px;">Servicio: <span style="font-size:14px; font-weight: normal;">{{}}</span></p> -->
 			    <p class="p-factura">
-			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	<!-- <i class="material-icons">keyboard_arrow_right</i> -->
+			    	<i class="fa fa-chevron-right" aria-hidden="true"></i>
 			    	Recibido por: <span style="font-size:14px; font-weight: normal;">{{transaction.buyer.name}}</span>
 			    </p>
 			    <p class="p-factura">
-			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	<!-- <i class="material-icons">keyboard_arrow_right</i> -->
+			    	<i class="fa fa-chevron-right" aria-hidden="true"></i>
 			    	Monto: <span style="font-size:14px; font-weight: normal;">{{transaction.total | currency}}</span>
 			    </p>
 			    <p class="p-factura">
-			    	<i class="material-icons">keyboard_arrow_right</i>
+			    	<!-- <i class="material-icons">keyboard_arrow_right</i> -->
+			    	<i class="fa fa-chevron-right" aria-hidden="true"></i>
 			    	Fecha: <span style="font-size:14px; font-weight: normal;">{{transaction.created_at | date}}</span>
 			    </p>
 			</div>
@@ -122,53 +134,59 @@
 			<blockquote style="margin-bottom:0px;">
 				<p class="blockquote-title">Servicios y/o Productos</p>
 			</blockquote>
+
 			<div style=" margin:0 auto; width:85%;">
-				<p>Lista de servicios que el cliente recibio</p>
-				<table>
-					<thead>
-						<tr>
-							<th>Descripcion</th>
-							<th>Precio</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="dFacturaS in detalleFacturaServicio">
-							<td>{{dFacturaS.descripcion}}</td>
-							<td>${{dFacturaS.precio}}</td>
-						</tr>
-					</tbody>
-				</table>
+				<div ng-if="transaction.servicios">
+					<p>Lista de servicios que el cliente recibio</p>
+					<table>
+						<thead>
+							<tr>
+								<th>Descripcion</th>
+								<th>Precio</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="dFacturaS in detalleFacturaServicio">
+								<td>{{dFacturaS.descripcion}}</td>
+								<td>${{dFacturaS.precio}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<br>
-				<p>Lista de combos que el cliente recibio</p>
-				<table>
-					<thead>
-						<tr>
-							<th>Descripcion</th>
-							<th>Precio</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="dFacturaC in detalleFacturaCombo">
-							<td>{{dFacturaC.descripcion}}</td>
-							<td>${{dFacturaC.precio}}</td>
-						</tr>
-					</tbody>
-				</table>
+				<div ng-if="transaction.combos">
+					<p>Lista de combos que el cliente recibio</p>
+					<table>
+						<thead>
+							<tr>
+								<th>Descripcion</th>
+								<th>Precio</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="dFacturaC in detalleFacturaCombo">
+								<td>{{dFacturaC.descripcion}}</td>
+								<td>${{dFacturaC.precio}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
+
 
 
 		<div style="margin-top:50px;" ng-if="user.rol_id != 4 && transaction.user_to_id == user_id">
 			<div>
 				<blockquote style="margin-bottom:0px;">
-					<p clquote="blockout-title">Calificacion del Cliente</p>
+					<p class="blockquote-title">Calificacion del Cliente</p>
 				</blockquote>
 				<div ng-if="transaction.buyer_review">
 					<div class="col s12 m8 offset-m2 l6 offset-l3">
 	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
 	                      	<div class="row valign-wrapper">
 	                          	<div class="col s2">
-	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                              	<img src="./assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
 	                          	</div>
 	                          	<div class="col s10">
 	                          		<p class="review-autor">{{transaction.buyer_review.user.name}}</p>
@@ -202,7 +220,7 @@
 	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
 	                      	<div class="row valign-wrapper">
 	                          	<div class="col s2">
-	                              	<img src="../../../assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                              	<img src="./assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
 	                          	</div>
 	                          	<div class="col s10">
 	                          		<p class="review-autor">{{transaction.seller_review.user.name}}</p>
@@ -296,10 +314,85 @@
 	              	</script>
 				</div>
 				<div ng-if="!transaction.seller_review">
-					<p style="text-align:center;">El vendedor aun no ha calificado esta transaccion</p>
+					<p style="text-align:center;">El vendedor aún no ha calificado esta transaccion</p>
 				</div>
 			</div>
 		</div>
 
+
+
+
+
+		<div style="margin-top:50px;" ng-if="user.rol_id == 0">
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p class="blockquote-title">Calificación del Cliente</p>
+				</blockquote>
+				<div ng-if="transaction.buyer_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="./assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.buyer_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.buyer_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment-2"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment-2').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.buyer_review">
+					<p style="text-align:center;">El cliente aún no ha calificado esta transaccion</p>
+				</div>
+			</div>
+
+			<div>
+				<blockquote style="margin-bottom:0px;">
+					<p class="blockquote-title">Calificación del prestador del servicio</p>
+				</blockquote>
+				<div ng-if="transaction.seller_review">
+					<div class="col s12 m8 offset-m2 l6 offset-l3">
+	                  	<div class="card-panel grey lighten-5 z-depth-1" style="padding: 2px 1px!important;">
+	                      	<div class="row valign-wrapper">
+	                          	<div class="col s2">
+	                              	<img src="./assets/core/images/no_avatar.jpg" alt="" class="circle responsive-img"> 
+	                          	</div>
+	                          	<div class="col s10">
+	                          		<p class="review-autor">{{transaction.seller_review.user.name}}</p>
+	                              	<span class="black-text">
+	                                  	{{transaction.seller_review.comentario}}
+	                              	</span>
+	                              	<div id="stars-comment-1"></div>
+	                          	</div>
+	                      	</div>
+	                  	</div>
+	                </div>
+
+	              	<script>
+						$('#stars-comment-1').starrr({
+		                    rating: 4,
+		                    readOnly: true
+		                })
+	              	</script>
+				</div>
+				<div ng-if="!transaction.seller_review">
+					<p style="text-align:center;">El prestador del servicio aún no ha calificado esta transaccion</p>
+				</div>
+			</div>
+
+			
+		</div>
 	
 	</div>

@@ -3,13 +3,20 @@
 <br>
 
 <style>
-	/*.ksalonaso{
-		background: url(../../../assets/core/images/fondoksalonazo-1.png)  fixed center center repeat; 
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-	}*/
+
+	body {
+	    /*background: url(./assets/core/images/login1.jpg)no-repeat center top;*/
+	    background: url(./assets/core/images/fondoksalonazo-1.png)no-repeat center top;
+	    background-size: cover;
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    -ms-background-size: cover;
+	    background-attachment: fixed;
+	    background-position: center;
+	    text-align: center;
+		font-family: 'Open Sans', sans-serif;
+	}
 
 	.opciones-vendedor-foto{
 	  	border-radius: 8px;
@@ -44,9 +51,48 @@
 	}
 
 
+
+	.user-search-btn{
+		background: #000;
+    	color: #fff;
+    	padding: 20px 10px;
+    	width: 85%;
+	}
+
+	.user-search-btn > a{
+		color: #fff;
+    	font-size: 18px;
+    	font-weight: bold;
+	}
+
+	@media only screen and (max-width: 1024px) {
+		.opciones-vendedor{
+			margin-top: 200px!important;	
+		}
+		.user-search-btn{
+			padding: 35px 10px!important;
+		}
+		.user-search-btn > a{
+			font-size: 32px!important;
+		}
+    }
+
+
+    @media only screen and (max-width: 425px) {
+    	.opciones-vendedor{
+			margin-top: 100px!important;	
+		}
+		.user-search-btn{
+			padding: 20px 10px!important;
+		}
+		.user-search-btn > a{
+			font-size: 22px!important;
+		}
+    }
+
 </style>
 
-<div class="ksalonaso height-100;" style="50px;">
+<div class="ksalonaso height-100;">
 <!--
 	<div class="opciones-vendedor">
 		
@@ -69,28 +115,24 @@
 -->
 
 	<div class="opciones-vendedor">
-		<div class="input-field input-color col s12 white-text container">
-			<a ng-click="goClienteVendedorProfesionales()" class="waves-effect btn-block waves-light btn-large amber darken-2">
-				<i class="flaticon-skyline agrandar black-text right"></i>
-				<span class="left">PROFESIONALES</span>
+		<div class="row user-search-btn">
+			<a ui-sref="cliente_vendedor_profesionales({id:pel[0].lounge_id})" class="waves-effect btn-block waves-light btn-large black">
+				PROFESIONALES
 			</a>
 		</div>
-		<div class="input-field input-color col s12 white-text container">
-			<a ng-click="goClienteVendedorCombos()" class="waves-effect btn-block waves-light btn-large pink">
-				<i class="flaticon-barbershop agrandar black-text right"></i>
-				<span class="left">COMBOS</span>
+		<div class="row user-search-btn">
+			<a ng-click="goClienteVendedorCombos()" class="waves-effect btn-block waves-light btn-large black">
+				COMBOS
 			</a>
 		</div>
-		<div class="input-field input-color col s12 white-text container">
-			<a ng-click="goClienteVendedorServicios()" class="waves-effect btn-block waves-light btn-large light-blue">
-				<i class="flaticon-hairdresser-with-comb-and-scissors agrandar black-text right"></i>
-				<span class="left">SERVICIOS</span>
+		<div class="row user-search-btn">
+			<a ng-click="goClienteVendedorServicios()" class="waves-effect btn-block waves-light btn-large black">
+				SERVICIOS
 			</a>
 		</div>
-		<div class="input-field input-color col s12 white-text container">
-			<a ng-click="goClienteVendedorProductos()" class="waves-effect btn-block waves-light btn-large amber darken-2">
-				<i class="flaticon-skyline agrandar black-text right"></i>
-				<span class="left">PRODUCTOS</span>
+		<div class="row user-search-btn">
+			<a ui-sref="cliente_vendedor_productos({id:pel[0].lounge_id})" class="waves-effect btn-block waves-light btn-large black">
+				PRODUCTOS
 			</a>
 		</div>
 	</div>

@@ -2,7 +2,8 @@
 
 <div class="fixed-action-btn">
   <button ng-click="modalAgregarServicio()" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="large fa fa-plus" aria-hidden="true"></i>
   </button>
 </div>
 
@@ -72,7 +73,10 @@
                 <td>
                   <div class="row">
                     <div class="col s10">
-                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{profesional_servicio.id}}'><i class="material-icons">more_vert</i></button>
+                      <button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{profesional_servicio.id}}'>
+                        <!-- <i class="material-icons">more_vert</i> -->
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                      </button>
 
                       <!-- Dropdown Structure -->
                       <ul id='{{profesional_servicio.id}}' class='dropdown-content'>

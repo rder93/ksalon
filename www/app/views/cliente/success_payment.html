@@ -1,0 +1,135 @@
+<style>
+	h4{
+		text-align: center;
+	}
+	.info-item{
+		display: inline-block;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.sticky-footer{
+		background: #fff;
+		bottom: 0px;
+		position: fixed;
+		width: 100%;
+	}
+	.transaction-info{
+		margin: auto;
+		margin-top: 25px;
+		width: 85%;
+	}
+	.transaction-info > div{
+		margin-top: 25px;
+	}
+
+</style>
+
+
+	<div>
+	
+		<div class="row">
+			<div class="s12 col">
+				<h4>Transacción exitosa</h4>
+			</div>
+
+			<div class="s12 col" style="text-align: center;">
+				<img src="./assets/core/images/icons/check.png" alt="">
+			</div>
+		</div>
+
+		<div class="row" ng-if="factura">
+				
+			<div class="transaction-info" >
+				<h4 style="text-align:center;">Datos de la reservación</h4>
+
+
+				<div>
+					<div ng-if="servicios.length > 0">
+						<p>Lista de servicios</p>
+						<table>
+							<thead>
+								<tr>
+									<th>Descripcion</th>
+									<th>Precio</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="servicio in servicios">
+									<td>{{servicio.descripcion}}</td>
+									<td>{{servicio.precio | currency}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br>
+					<div ng-if="combos.lenght > 0">
+						<p>Lista de combos</p>
+						<table>
+							<thead>
+								<tr>
+									<th>Descripcion</th>
+									<th>Precio</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="combo in combos">
+									<td>{{combo.descripcion}}</td>
+									<td>{{combo.precio | currency}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+<!-- 
+				<div class="row" ng-if="servicios.lenght > 0">
+					<div class="s12 col">
+						<p class="info-item">
+							Servicios: 
+						</p>
+						<div>
+							<div ng-repeat="servicio in servicios">
+								<p>{{servicio.descripcion}}</p>
+								<p>${{servicio.precio}}</p>
+							</div>
+							
+						</div>
+						
+					</div>
+
+				</div>
+
+
+				<div class="row" ng-if="combos.lenght > 0">
+					<div class="s12 col">
+						<p class="info-item">
+							Combos: 
+						</p>
+						<div>
+							<div ng-repeat="combo in combos">
+								<span>{{factura.car.title}}</span>
+							</div>
+							
+						</div>
+						
+					</div>
+
+				</div> -->
+
+
+			</div>
+
+
+		</div>
+
+
+
+
+		<div class="btn-sticky-footer">
+			<div>
+				<a ui-sref="perfil" class="waves-effect waves-light btn btn-evolutrans btn-block">Ok</a>
+			</div>
+		</div>
+
+	</div>

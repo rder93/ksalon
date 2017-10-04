@@ -3,19 +3,20 @@
 <style type="text/css">
 	/*No borrar*/
 	#btn-add-loungeclient{
-		display: none;
+		display: block;
 	}
 </style>
 	
 <div ng-hide="cliente_salon" id="btn-add-loungeclient" class="fixed-action-btn">
   <a ui-sref="lounges_profesionales_crear" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="fa fa-plus" aria-hidden="true"></i>
   </a>
 </div>
 
 <div id="modalprofesional" class="modal red">
     <div class="modal-content">
-      <h4>¿Seguro que desea eliminar este producto?</h4>
+      <h4>¿Seguro que desea eliminar este profesional?</h4>
       <input class="hidden" type="text" ng-model="id_profesional">
     </div>
     <div class="modal-footer red">
@@ -35,11 +36,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="profesional in profesionales | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" class="collection-item avatar">
+												  
+						<tr ng-repeat="profesional in profesionales" class="collection-item avatar">
 							<td style="width: 100px"><img style="width: 80px" ng-src="{{urlFoto+profesional.foto}}" alt="" class="circle"></td>
 							<td><span class="left-align">Nombre</span><p>{{profesional.nombre}}</p></td>
 							<td>
-								<button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{profesional.id}}'><i class="material-icons">more_vert</i></button>
+								<button class='dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{profesional.id}}'>
+									<!-- <i class="material-icons">more_vert</i> -->
+									<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+								</button>
 
 								<!-- Dropdown Structure -->
 								<ul id='{{profesional.id}}' class='dropdown-content'>

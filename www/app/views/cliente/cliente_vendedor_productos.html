@@ -1,9 +1,193 @@
 <div ui-view="navigation"></div>
 
-<div class="row">
-      <div class="col s12 m12">
+  <style type="text/css">
+    body {
+      background: url(./assets/core/images/fondoksalonazo-1.png)no-repeat center top;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      -ms-background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+    }
+  </style>
+
+  <div id="modalVerProducto" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <div class="row">
+        <img class="col s12" ng-src="{{ thumbnail.dataUrl }}" style="height: auto; min-height: 95vh;" />
+        <div class="input-field col s12">
+          <label for="name">Nombre</label>
+          <h4>{{prod.nombre}}</h4>
+        </div>
+        <div class="input-field col s12">
+          <label for="name">precio</label>
+          <h4>{{prod.precio}}</h4>
+        </div>
+        <div class="input-field col s12">
+          <label for="name">descripcion</label>
+          <h4>{{prod.descripcion}}</h4>
+        </div>
+      </div>
+    </div>
+   <!--  <div class="modal-footer teal">
+      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cerrar</button>
+    </div> -->
+  </div>
+  
+  <div>
+    <br>
+  </div>       
+
+  <div class="row product-list">
+
+
+
+  <style type="text/css">
+    .product-item{
+      border-bottom: 1px solid lightgray;
+      display: inline-block;
+      height: auto;
+      padding: 15px;
+      vertical-align: top;
+    }
+    .product-list{
+      background: #fff;
+      height: auto;
+      margin-bottom: 0px!important;
+      margin-top: 4vh;
+      min-height: 90vh;
+      padding: 25px;
+      text-align: center;
+      width: 90%;
+    }
+    @media only screen and (max-width: 1024px) {
+      .product-list{
+        padding: 50px 100px;
+      }
+      .product-item{
+        min-height: 450px;
+        width: 100%
+      }
+      .product-name > p{
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 15px;
+      } 
+
+      .product-price{
+        text-align: right;
+      }
+      .product-price > p{
+        color: rgb(9, 26, 251);
+        font-size: 26px;
+        font-weight: bold;
+      }
+      .product-view{
+        text-align: center;
+      }
+      .product-view > button{
+        color: white;
+        background: #ea2858;
+        background: #000;
+        border: none;
+        padding: .7em 0;
+        outline: none;
+        width: 75%;
+        font-size: 1em;
+        cursor: pointer;
+        letter-spacing: 1px;
+        font-weight: bold;
+        font-family: 'Open Sans', sans-serif;
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        border-radius: 30px;
+      }
+
+
+
+
+      .product-view > span{
+        color: red;
+        font-size: 26px;
+        font-weight: bold;
+      }
+      .product-view > span > i{
+        color: #000;
+      }
+
+    }
+
+    @media only screen and (max-width: 768px) {
+      .product-item{
+        width: 100%
+      }
+    }
+
+    @media only screen and (max-width: 425px) {
+      .product-list{
+        padding: 30px 15px;
+      }
+      .product-item{
+        padding: 5px;
+        width: 100%
+      }
+
+    }
+
+    @media only screen and (max-width: 385px) {
+      .product-item{
+        width: 100%
+      }
+    }
+
+    @media only screen and (max-width: 325px) {
+      .product-item{
+        width: 100%
+      }
+    }
+
+  </style>
+
+
+
+    <div class="product-item" ng-repeat="Producto in Productos | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
+      <div style="padding: 25px; text-align: center;">
+        <img style="max-width: 100%;" ng-src="{{urlFoto+Producto.foto}}" alt="" class="responsive-img">
+      </div>
+
+      <div class="product-name">
+        <p>{{Producto.nombre}}</p>
+      </div>
+
+      <div class="product-price">
+        <p>{{Producto.precio | currency}}</p>
+      </div>
+
+      <div class="product-view">
+        <!-- <button ng-click="modalVerProducto(Producto, Producto.id)">Ver producto</button> -->
+        <button ui-sref="cliente_vendedor_producto({id:Producto.id, product: Producto})">Ver producto</button>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+      <!-- <div class="col s12 m12">
         <div>
-        <table class="bordered">
+        <table class=" js-basic-example dataTable">
             <thead>
               <tr>
                 <th colspan="2" class="center-align"><h5>Lista de Productos</h5></th>
@@ -11,7 +195,7 @@
             </thead>
 
             <tbody>
-              <tr ng-repeat="Producto in Productos">
+              <tr ng-repeat="Producto in Productos | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <td style="width: 100px"><img style="width: 80px" ng-src="{{urlFoto+Producto.foto}}" alt="" class="circle"></td>
                 <td>
                   <div class="row">
@@ -23,12 +207,44 @@
                     </div>
                   </div>
                 </td>
+                <td>
+                  <button class='dropdown-button btn-floating waves-effect waves-light secondary-content left-align' data-activates='{{Producto.id}}'>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+
+                  <ul id='{{Producto.id}}' class='dropdown-content left-align'>
+                    <li><a ng-click="modalVerProducto(Producto, Producto.id)">Ver Producto</a></li>
+                  </ul>
+                </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
+
+
+
+
+
+
+
+          <div class="row"  style="margin-top:25px;" ng-if="mostrar">
+            <div class="col s12" style="text-align: center;">
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                <span ng-if="currentPage > 0">{{currentPage}}</span>
+              </button>
+
+              <span class="waves-effect waves-light btn">
+                {{currentPage+1}}/{{numberOfPages()}}
+              </span>
+
+              <button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+                <span ng-if="currentPage < getData().length/pageSize - 1">{{currentPage+2}}</span>
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-
-<div>
 

@@ -7,6 +7,8 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 	var fotos_uri = $('body').attr('data-fotos_uri');
 
 	$scope.server_uri = server_uri;
+	$scope.fotos_uri = fotos_uri;	
+	$scope.user = $.sessionStorage.get('user');
 
 
 	if ($state.current.name == 'panel_salones') {
@@ -17,7 +19,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$scope.salones = [];
 
-		$http.get(server_uri+"showSalones/")
+		$http.get(server_uri+"lounges")
 			.then(function(response){
 				console.log(response);
 				$scope.salones = response.data;
@@ -74,7 +76,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$http({
 				method: 'GET',
-				url: server_uri+'/loungePhotos/'+$stateParams.id_lounge,
+				url: server_uri+'loungePhotos/'+$stateParams.id_lounge,
 			}).then(function successCallback(response) {
 				$scope.loungefotos=response.data;
 				$scope.thumbnail = fotos_uri;
@@ -114,7 +116,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/users/'+$stateParams.id_salon,
+			url: server_uri+'users/'+$stateParams.id_salon,
 		}).then(function successCallback(response) {
 			console.log(response);
 			$scope.usuario=response.data.user_data;
@@ -146,7 +148,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/lounges/'+$stateParams.id_salon,
+			url: server_uri+'lounges/'+$stateParams.id_salon,
 		}).then(function successCallback(response) {
 			$scope.salones=response.data;
 			if($scope.salones.length > 0){
@@ -204,7 +206,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		$http({
 			method: 'GET',
-			url: server_uri+'/loungePhotos/'+$stateParams.id_salon,
+			url: server_uri+'loungePhotos/'+$stateParams.id_salon,
 		}).then(function successCallback(response) {
 			$scope.salonesfotos=response.data;
 			$scope.thumbnail = fotos_uri;
@@ -360,6 +362,124 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
 
 		
 	}
+
+
+
+
+
+	if ($state.current.name == 'panel_comisiones') {
+
+		$scope.currentPage = 0;
+		$scope.pageSize = 4; // Esta la cantidad de registros que deseamos mostrar por página
+		$scope.pages = [];
+
+		$scope.usuarios = [];
+
+		$http.get(server_uri+"users/")
+			.then(function(response){
+			
+				$scope.usuarios = response.data;
+				if($scope.usuarios.length > 0){
+					$scope.siUsuarios = true;
+				}
+               
+				$timeout(function(){
+					$('.modal').modal({ending_top: '50%'});
+			       	$('.dropdown-button').dropdown({
+					      inDuration: 300,
+					      outDuration: 225,
+					      constrainWidth: false, // Does not change width of dropdown to that of the activator
+					      hover: true, // Activate on hover
+					      gutter: 0, // Spacing from edge
+					      belowOrigin: true, // Displays dropdown below the button
+					      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+					      stopPropagation: false // Stops event propagation
+					    }
+					);
+					$scope.configPages();
+			        
+			    });
+				
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+
+
+
+
+		$scope.editComision = function (user) {
+			$('#modal-comision').modal('open');
+			$('#user_comision_edit').val(user.comision);
+
+			$scope.confirmEditComision = function(){
+
+				var url = 'users/'+user.id+'/comision';
+
+		        $.ajax({
+		            url: server_uri+url,
+		            type: 'POST',
+		            data: {
+		            	comision: $('#user_comision_edit').val()
+		            },
+		        })
+		        .done(function(response) {
+
+		            Materialize.toast(response.msj,4000);
+		            
+		            if(response.status == 200){
+		            	$scope.usuarios = response.users;
+		            	$scope.$apply();
+		            }
+		        })
+		        .fail(function(r) {
+		            Materialize.toast('Imposible actualizar comision en este momento',4000);
+		        })
+		        .always(function() {
+		            console.log("complete");
+		        });
+
+
+
+			}
+
+		}
+
+
+
+
+
+		$scope.configPages = function() {
+		   $scope.pages.length = 0;
+		   var ini = $scope.currentPage - 3;
+		   var fin = $scope.currentPage + 4;
+		   if (ini < 1) {
+		      ini = 1;
+		      if (Math.ceil($scope.usuarios.length / $scope.pageSize) > 4) fin = 4;
+		      else fin = Math.ceil($scope.usuarios.length / $scope.pageSize);
+		   } else {
+		      if (ini >= Math.ceil($scope.usuarios.length / $scope.pageSize) - 4) {
+		         ini = Math.ceil($scope.usuarios.length / $scope.pageSize) - 4;
+		         fin = Math.ceil($scope.usuarios.length / $scope.pageSize);
+		      }
+		   }
+		   if (ini < 1) ini = 1;
+		   for (var i = ini; i <= fin; i++) {
+		      $scope.pages.push({ no: i });
+		   }
+		   if ($scope.currentPage >= $scope.pages.length)
+		      $scope.currentPage = $scope.pages.length - 1;
+		};
+		$scope.setPage = function(index) {
+		   $scope.currentPage = index - 1;
+		};
+
+		
+	}
+
+
+
+
 
 
 	if ($state.current.name == 'add_usuario') {
@@ -736,9 +856,13 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
             }
         }).then(function successCallback(response) {
 
+        	console.log("estoy en transacciones")
         	console.log(response);
     
-        	$scope.transactions = response.transactions;
+        	$scope.transactions = response.data;
+
+        	console.log("voy a imprimir las transacciones")
+        	console.log($scope.transactions)
 
         	$timeout(function(){
 				$('.dropdown-button').dropdown({
@@ -757,6 +881,7 @@ app.controller('AdminController', ['$scope', '$timeout', '$state',  '$rootScope'
         }, function errorCallback(response) {
                 console.log('dio error');
         });
+
 	}
 
 }]);

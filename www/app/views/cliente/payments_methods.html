@@ -1,0 +1,300 @@
+<div ui-view="navigation"></div>
+	
+	<style>
+		body {
+		    /*background: url(./assets/core/images/login1.jpg)no-repeat center top;*/
+		    background: url(./assets/core/images/fondoksalonazo-1.png)no-repeat center top;
+		    background-size: cover;
+		    -webkit-background-size: cover;
+		    -moz-background-size: cover;
+		    -o-background-size: cover;
+		    -ms-background-size: cover;
+		    background-attachment: fixed;
+		    background-position: center;
+		    text-align: center;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+
+		.switch label input[type=checkbox]:checked+#checkbox-cash{
+    		background-color: green!important;
+		}
+
+		.amount-to-pay{
+		    /*bottom: 100px;*/
+		    /*left: 0px;*/
+		    /*margin: auto;*/
+		    margin-top: 100px;
+		    /*position: absolute;*/
+		    width: 100%;
+		}
+		.amount-to-pay > h4, .amount-to-pay > p{
+			font-size: 36px;
+			font-weight: bold;
+			margin: 0px;
+		}
+
+		.btn-pay-now{
+			background: #000;
+		    border-radius: 25px;
+		    color: goldenrod;
+		    font-size: 32px;
+		    font-weight: bold;
+		    margin-top: 25px;
+		    padding: 25px;
+		}
+
+		.choose-method{
+			margin-bottom: : 50px;
+			text-align: center;    	
+		}
+
+		.payment_methods{
+			background: #fff;
+			height: 90vh;
+			margin: auto;
+			margin-top: 4vh;
+			padding: 25px;
+			width: 90%;
+		}
+
+		.payment-options{
+		    /*border: 1px solid lightgray;*/
+		    margin: auto;
+		    margin-top: 25px;
+		    width: 95%;
+		}
+		.payment-option{
+			border: none!important;
+		}
+		.payment-option > img{
+			border: none!important;
+			float: right;
+			margin-left: 10px;
+			max-width: 128px;
+			vertical-align:middle
+		}
+		.payment-option > span{
+			float: left;
+		    line-height: 128px;
+		    font-size: 22px;
+		    font-weight: bold;
+		    margin-right: 15px;
+		    padding-left: 25px;
+		}
+
+		.payment-switch{
+			float: left;
+		}
+
+
+		@media only screen and (max-width: 1024px) {
+		    .choose-method{
+		    	font-size: 36px;
+		    	margin-bottom: 75px;
+		    }
+		    .payment-option > span{
+			    line-height: 128px;
+			    font-size: 36px;
+			}
+			.payment-switch{
+				line-height: 128px;
+			}
+		}
+
+		@media only screen and (max-width: 768px) {
+		    .choose-method{
+		    	font-size: 36px;
+		    	margin-bottom: 75px;
+		    }
+		    .payment-option > span{
+			    line-height: 128px;
+			    font-size: 36px;
+			}
+
+			.payment-switch{
+				line-height: 128px;
+			}
+		}
+
+		@media only screen and (max-width: 425px) {
+		    .choose-method{
+		    	font-size: 24px;
+		    	margin-bottom: 5px;
+		    }
+		    .payment-option > img{
+			    max-width: 85px;
+			}
+		    .payment-option > span{
+			    line-height: 85px;
+			    font-size: 22px;
+			    padding-left: 5px;
+			}
+
+			.payment-switch{
+				line-height: 85px;
+			}
+
+			.amount-to-pay > h4, .amount-to-pay > p{
+				font-size: 24px;
+				font-weight: bold;
+				margin: 0px;
+			}
+		}
+
+		@media only screen and (max-width: 385px) {
+		    .choose-method{
+		    	font-size: 18px;
+		    	margin-bottom: 5px;
+		    }
+		    .payment-option > img{
+			    max-width: 64px;
+			}
+		    .payment-option > span{
+			    line-height: 64px;
+			    font-size: 18px;
+			    padding-left: 5px;
+			}
+
+			.payment-switch{
+				line-height: 64px;
+			}
+			.amount-to-pay{
+			    margin-top: 25px;
+			}
+			.amount-to-pay > h4, .amount-to-pay > p{
+				font-size: 18px;
+				font-weight: bold;
+				margin: 0px;
+			}
+			.btn-pay-now{
+			    font-size: 18px;
+			    margin-top: 10px;
+			    padding: 18px;
+			} 
+		}
+
+		@media only screen and (max-width: 325px) {
+		    .choose-method{
+		    	font-size: 16px;
+		    	margin-bottom: 5px;
+		    }
+		    .payment-option > img{
+			    max-width: 64px;
+			}
+		    .payment-option > span{
+			    line-height: 64px;
+			    font-size: 16px;
+			    padding-left: 5px;
+			}
+			.payment-switch{
+				line-height: 64px;
+			}
+			.amount-to-pay{
+			    margin-top: 10px;
+			}
+			.amount-to-pay > h4, .amount-to-pay > p{
+				font-size: 16px;
+				font-weight: bold;
+				margin: 0px;
+			}
+			.btn-pay-now{
+			    font-size: 16px;
+			    margin-top: 10px;
+			    padding: 15px;
+			} 
+		}
+
+	</style>
+
+
+	<div>
+		<br>
+	</div>
+	<div class="payment_methods">
+	
+		<div class="payment-options">
+			<h4 class="choose-method">ELIGE UN MÉTODO DE PAGO</h4>
+
+			<div class="row payment-option">
+				<img src="./assets/core/images/icons/paypal-logo.png" alt="" class="payment-img circle responsive-img">
+				
+				<div class="switch payment-switch">
+				    <label>
+				      	<input type="checkbox" name="payment_method" value="1">
+				      	<span class="lever"></span>
+				    </label>
+				</div>
+
+				<span>Paypal</span>
+			</div>
+
+			<div class="row payment-option">
+				<img src="./assets/core/images/icons/cash.png" alt="" class="payment-img circle responsive-img">
+				
+				<div class="switch payment-switch">
+				    <label>
+				      	
+				      	<input type="checkbox" name="payment_method" value="2">
+				      	<span class="lever" id="checkbox-cash"></span>
+				      	
+				    </label>
+				</div>
+
+				<span>Efectivo</span>	
+			</div>
+			
+		</div>
+
+
+		<div class="row amount-to-pay">
+			<h4>{{ factura.total | currency}}</h4>
+			<p>Monto a pagar</p>
+
+			<div>
+				<button class="btn-pay-now" ng-click="toPay();">Pagar ahora</button>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
+<!-- 	<div class="modal-confirm">
+		<div class="modal-confirm-container">
+	  		<div class="modal-confirm-title" >Atención!</div>
+
+	  		<div class="modal-confirm-content">
+	    		¿Seguro de realizar el pago mediante este metodo?
+	  		</div>
+
+	  		<div class="modal-confirm-footer">
+	    		<button id="btn-cancel-update" class="modal-confirm-btn" ng-click="modalOff();">Cancelar</button>
+	    		<button id="btn-confirm-update" class="modal-confirm-btn" ng-click="confirmPayment()">OK</button>
+	  		</div>
+		</div>
+	</div> -->
+
+	<div id="modalConfirmCash" class="modal">
+		<div class="payments-title">
+			<h4>Confirmar reserva</h4>
+		</div>
+    	<div class="modal-content" style="min-height: 220px;">
+
+    		<div ng-if="carrito.length>0">
+	      		<span>¿Seguro de proceder a realizar la siguiente reserva?</span>
+			</div>
+
+    	</div>
+    	<div class="modal-footer pink accent-3">
+    		<button class="modal-action btn-flat white-text" ng-click="confirmPayCash();">Ok</button>
+      		<button class="modal-action modal-close btn-flat white-text">Cancelar</button>
+    	</div>
+  	</div>
+	
+</div>
+
+
+	

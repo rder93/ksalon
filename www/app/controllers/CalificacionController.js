@@ -14,7 +14,7 @@ app.controller('CalificacionController', function($scope, $state, $sessionStorag
 
         $http({
             method: 'GET',
-            url: server_uri+'/transactions/'+$stateParams.id
+            url: server_uri+'transactions/'+$stateParams.id
         }).then(function successCallback(response) {
             console.log(response);
 

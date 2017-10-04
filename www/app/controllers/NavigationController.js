@@ -10,13 +10,10 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 	
 	$scope.user = $.sessionStorage.get('user');
 
-	console.log("session")
-	console.log($scope.user)
-
 	if($scope.user){
 		$http({
 			method: 'GET',
-			url: server_uri+'/users/'+$scope.user.id+'/edit',
+			url: server_uri+'users/'+$scope.user.id+'/edit',
 		}).then(function successCallback(response) {
 			var fotos_uri = $('body').attr('data-fotos_uri');
 			$scope.foto_menu= fotos_uri+response['data'].avatar;
@@ -34,12 +31,13 @@ app.controller('NavigationController', ['$scope', '$state', '$rootScope', '$sess
 		$('#btn-logout').click(function(event) {
 			console.log("finalizando sesion")
 	        $.sessionStorage.set('user', null);
+	        $.sessionStorage.set('carrito', null);
+	        $.sessionStorage.set('cliente_salon', null);
 	        $state.go('login');
 	    });
 		
 
 		if ($scope.user.rol_id == 0) { /*Parte del administrador*/
-			console.log("no esta entrando en administrador")
 			$scope.opciones= [
 			{
 				'nombre':'Inicio',

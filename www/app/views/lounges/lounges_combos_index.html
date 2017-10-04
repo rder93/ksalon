@@ -9,24 +9,37 @@
 
 <div ng-hide="cliente_salon" id="btn-add-loungeclient" class="fixed-action-btn">
   <a ui-sref="lounges_combos_crear" class="btn-floating btn-large blue" >
-    <i class="large material-icons">add</i>
+    <!-- <i class="large material-icons">add</i> -->
+    <i class="large fa fa-plus" aria-hidden="true"></i>
   </a>
 </div>
 
 <div ng-if="cliente_salon" class="fixed-action-btn">
   <a ng-click="modalCarrito()" class="btn-floating btn-large orange" >
-    <i class="material-icons">shopping_cart</i>
+    <!-- <i class="material-icons">shopping_cart</i> -->
+    <i class="fa fa-cart-plus" aria-hidden="true"></i>
   </a>
 </div>
 
 <div id="modalPagar" class="modal">
-    <div class="modal-content">
-      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
-      <br>
-      <button class="btn btn-large btn-block">Paypal</button>
+    <div class="payments-title">
+      <h4>Métodos de pago</h4>
     </div>
-    <div class="modal-footer teal">
-      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    <div class="modal-content">
+      <div ng-if="carrito.length>0">
+          <div class="row payment-option" ng-click="pagoEfectivo();">
+            <img src="./assets/core/images/icons/cash.png" alt="" class="circle responsive-img" style="max-width: 64px;">
+            <span>Efectivo</span>
+          </div>
+          
+          <div class="row payment-option" ng-click="payPaypal();">
+            <img src="./assets/core/images/icons/paypal-logo.png" alt="" class="circle responsive-img" style="max-width: 64px;">
+            <span>Paypal</span>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer pink accent-3">
+      <button class="modal-action modal-close btn-flat white-text">Cancelar</button>
     </div>
   </div>
 
@@ -44,7 +57,12 @@
           <tr ng-repeat="car in carrito">
             <td class="center-align">{{car.descripcion}}</td>
             <td class="center-align">{{car.precio}}</td>
-            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+            <td>
+              <button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)">
+                <!-- <i class="material-icons">delete</i> -->
+                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -111,15 +129,24 @@
                 <td ng-show="cliente_salon">
                   <div class="col s12 m12">
                     <div class="col s6 m6">
-                      <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' ng-click="modalVerCombo(combo.id)"><i class="material-icons">list</i></button>
+                      <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' ng-click="modalVerCombo(combo.id)">
+                        <!-- <i class="material-icons">list</i> -->
+                        <i class="fa fa-list-ul" aria-hidden="true"></i>
+                      </button>
                     </div>
                     <div class="col s6 m6">
-                      <button  id="carrito{{combo.id}}" class='dropdown-button btn-floating waves-effect blue secondary-content left-align' ng-click="agregarCarrito(combo)"><i class="material-icons">add_shopping_cart</i></button>
+                      <button  id="carrito{{combo.id}}" class='dropdown-button btn-floating waves-effect blue secondary-content left-align' ng-click="agregarCarrito(combo)">
+                        <!-- <i class="material-icons">add_shopping_cart</i> -->
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </button>
                     </div>
                   </div>
                 </td>
                 <td ng-hide="cliente_salon">
-                    <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{combo.id}}'><i class="material-icons">more_vert</i></button>
+                    <button class='center-align dropdown-button btn-floating waves-effect waves-light secondary-content' data-activates='{{combo.id}}'>
+                      <!-- <i class="material-icons">more_vert</i> -->
+                      <i class="fa fa-ellipsis-v right" aria-hidden="true"></i>
+                    </button>
 
                     <!-- Dropdown Structure -->
                     <ul id='{{combo.id}}' class='dropdown-content'>

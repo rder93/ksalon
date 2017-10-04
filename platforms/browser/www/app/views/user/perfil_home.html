@@ -58,7 +58,7 @@
 
 <div ng-show="btnSalones" class="btn-sticky-footer">
   <div class="col s7 offset-s2">
-    <a ui-sref="lounges_servicios" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
+    <a ui-sref="lounges_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
       Mis Servicios
     </a>
   </div>
@@ -66,7 +66,7 @@
 
 <div ng-show="btnProfesional" class="btn-sticky-footer">
   <div class="col s7 offset-s2">
-    <a ui-sref="profesional_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans btn" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
+    <a ui-sref="profesional_servicios({id:Usuario.id})" class="waves-effect waves-light btn btn-evolutrans" style="width:100%;position: fixed;bottom: 0px; font-size: 1.2rem;height: 40px;">
       Mis Servicios
     </a>
   </div>

@@ -4,22 +4,26 @@
     
 <h4 style="text-align: center;margin-top: 20%;">Gestión de salones</h4>
 
-<div class="responsive-table table-status-sheet">
+<div class="responsive-table table-status-sheet" style="padding-bottom: 75px;">
     <table class="bordered">
         <tbody>
-            <tr ng-repeat="salon in salones | filter : search | orderBy: 'name'">
+            <tr ng-repeat="salon in salones | filter : search | orderBy: 'nombre'">
                 <td colspan="3">
-                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{salon.name}} <br>
+                    <p style="font-size: 1.2em;margin:0;font-weight: 600;">{{salon.nombre}} <br>
                         <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="salon.rol_id == 1">Salon grande</p>
                         <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;" ng-if="salon.rol_id == 2">Salon pequeño</p>
                     </p>
                 </td>
                 <td>
                     <div class="right" style="margin-right: 15px;">
-                        <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='salon--{{salon.id}}' id="salon-{{salon.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                        <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='salon--{{salon.id}}' id="salon-{{salon.id}}" style="background-color: #4db6ac;padding: 0 10px;">
+                            <!-- <i class="material-icons">more_vert</i> -->
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
                         <ul id='salon--{{salon.id}}' class='dropdown-content' for="salon-{{salon.id}}">
                             <li>
-                                <a ui-sref="detalle_salon({id_salon:salon.id})">Detalle</a>
+                                <a ui-sref="lounges_servicios({id:salon.id})">Ver</a>
+                                <!-- <a ui-sref="detalle_salon({id_salon:salon.id})">Detalle</a> -->
                             </li>
                             
                         </ul>

@@ -1,0 +1,98 @@
+<div ui-view="navigation"></div>
+
+
+	<div ng-if="user.rol_id != 0 && user.rol_id != 4">
+
+		<div class="list-top-before">
+			<label>Saldo: $ {{user.balance}}</label>
+			<div class="payments-btn-wrap">
+				<!-- <button  ng-click="askPayout();" class="btn btn-block btn-payout" ng-if="user.balance >= 10">Cobrar</button> -->
+				<button ng-click="payDebt();" class="btn btn-block btn-debt" ng-if="user.balance < 0">Pagar deuda</button>
+				<!-- <button class="btn btn-block btn-insufficient" ng-if="user.balance >= 0 && user.balance < 10">Saldo insuficiente</button> -->
+			</div>
+
+		</div>
+
+
+		<div class="row list-evolu" >
+			
+			<div class="row" ng-repeat="(key,item) in data" class="item_ro" data-cat_id="{{item.id}}" style="border-bottom:1px solid lightgray;  height:125px;">
+				<div>
+		            <div class="list-left-img">
+		                <div>
+		                    <img ng-if="item.type == 0" src="./assets/core/images/icons/cash-debt.png" class="circle responsive-img"></img>
+		                    <img ng-if="item.type == 1" src="./assets/core/images/icons/cash-out.png" class="circle responsive-img"></img>
+		                </div>
+		            </div>
+
+		            <div class="list-center" style="text-align: left!important;">
+		                <div>
+		                    <div >
+		                        <span class="center-top-span">Monto: {{item.amount}}</span>
+		                    </div>
+		                    <div>
+		                        <span class="center-type-span" ng-if="item.status == 0">
+		                        	Deuda Pagada
+		                    	</span>
+		                        <span class="center-type-span" ng-if="item.status == 1">
+		                        	pago Recibido
+		                    	</span>
+		                    </div>
+		                </div>
+		                <div >
+		                    <div class="list-center-1">
+		                        <!-- <i class="fa fa-pencil-square-o" aria-hidden="true" ui-sref="edit_usuario({id:usuario.id})"></i> -->
+		                        <span>Fecha: {{item.created_at || date}}</span>
+		                    </div>
+		                </div>
+		            </div>
+
+		        </div>
+				
+			</div>
+
+			
+			<div ng-if="!data">
+				<h4>Aun no ha recibido un pago.</h4>
+				
+			</div>
+
+
+		</div>
+
+
+
+		<div class="row pagination-buttons"  style="padding:25px 0px 25px; 0px" ng-if="data">
+			<div class="col s12" style="text-align: center;">
+				
+					<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+						<
+					</button>
+
+					<span class="waves-effect waves-light btn" style="padding: 0 1rem;">
+						{{currentPage+1}}/{{numberOfPages()}}
+					</span>
+
+					<button class="waves-effect waves-light btn" style="padding: 0 1rem;" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+						>
+					</button>
+
+			</div>
+		</div>
+		
+		<div class="modal-confirm">
+			<div class="modal-confirm-container">
+		  		<div class="modal-confirm-title">Atención!</div>
+
+		  		<div class="modal-confirm-content">
+		    		¿Seguro que desea pagar la deuda en este momento?
+		  		</div>
+
+		  		<div class="modal-confirm-footer">
+		    		<button id="btn-cancel-save" class="modal-confirm-btn" ng-click="modalOff();">Cancelar</button>
+		    		<button id="btn-confirm-save" class="modal-confirm-btn" ng-click="confirmModal();">OK</button>
+		  		</div>
+			</div>
+		</div>
+	</div>
+

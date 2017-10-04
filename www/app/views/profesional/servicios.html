@@ -1,13 +1,16 @@
 <div ui-view="navigation"></div>
 
 <div id="modalPagar" class="modal">
-    <div class="modal-content">
-      <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
-      <br>
-      <button class="btn btn-large btn-block">Paypal</button>
+    <div class="payments-title">
+        <h4>Métodos de pago</h4>
     </div>
-    <div class="modal-footer teal">
-      <button class="modal-action modal-close waves-effect waves-green btn-flat white-text">Cancelar</button>
+    <div class="modal-content">
+        <button class="btn btn-large btn-block" ng-click="pagoEfectivo()">Efectivo</button>
+        <br>
+        <button class="btn btn-large btn-block">Paypal</button>
+    </div>
+    <div class="modal-footer accent-3">
+        <button class="modal-action modal-close btn-flat white-text">Cancelar</button>
     </div>
   </div>
 
@@ -25,7 +28,12 @@
           <tr ng-repeat="car in carrito">
             <td class="center-align">{{car.descripcion}}</td>
             <td class="center-align">{{car.precio}}</td>
-            <td><button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)"><i class="material-icons">delete</i></button></td>
+            <td>
+                <button class='dropdown-button btn-floating waves-effect red secondary-content left-align' ng-click="eliminarServicioCarrito(car.id)">
+                    <!-- <i class="material-icons">delete</i> -->
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -63,14 +71,20 @@
                     <p style="font-size: 1em;margin:0;font-weight: initial;font-style: italic;">Cotización: {{servicio.precio | number:2 }} Bs.</p>
                 </div>
                 <div ng-hide="cliente_salon" class="right" style="margin-right: 15px;">
-                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='servicio--{{servicio.id}}' id="servicio-{{servicio.id}}" style="background-color: #4db6ac;padding: 0 10px;"><i class="material-icons">more_vert</i></a>
+                    <a class='dropdown-button btn' data-beloworigin="true" href='javascript:void(0)' data-activates='servicio--{{servicio.id}}' id="servicio-{{servicio.id}}" style="background-color: #4db6ac;padding: 0 10px;">
+                        <!-- <i class="material-icons">more_vert</i> -->
+                        <i class="fa fa-ellipsis-v right" aria-hidden="true"></i>
+                    </a>
                     <ul id='servicio--{{servicio.id}}' class='dropdown-content' for="servicio-{{servicio.id}}">
                         <li><a ui-sref="profesional_servicios_editar({id:usuario_id, id_service:servicio.id})">Editar</a></li>
                         <li><a href="javascript:void(0)" ng-click="removeItem(servicio.id,'/service');">Eliminar</a></li>
                     </ul>
                 </div>
                 <div ng-show="cliente_salon" class="right" style="margin-right: 15px;">
-                    <button id="carrito{{servicio.id}}" class='dropdown-button btn-floating waves-effect waves-light secondary-content left-align' ng-click="agregarCarrito(servicio)"><i class="material-icons">add_shopping_cart</i></button>
+                    <button id="carrito{{servicio.id}}" class='dropdown-button btn-floating waves-effect waves-light secondary-content left-align' ng-click="agregarCarrito(servicio)">
+                        <!-- <i class="material-icons">add_shopping_cart</i> -->
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -123,14 +137,16 @@
     <div class="col s4" ng-hide="cliente_salon">
         <div class="fixed-action-btn" style="bottom: 10px;">
             <a id="addService" ui-sref="profesional_servicios_crear({id:usuario_id})" class="btn-floating btn-large red">
-              <i class="large material-icons">add</i>
+              <!-- <i class="large material-icons">add</i> -->
+              <i class="large fa fa-plus" aria-hidden="true"></i>
             </a>
         </div>
     </div>
     <div class="col s4" ng-if="cliente_salon">
         <div class="fixed-action-btn" style="bottom: 10px;">
             <a ng-click="modalCarrito()" class="btn-floating btn-large orange" >
-                <i class="material-icons">shopping_cart</i>
+                <!-- <i class="material-icons">shopping_cart</i> -->
+                <i class="fa fa-cart-plus" aria-hidden="true"></i>
             </a>
         </div>
     </div>

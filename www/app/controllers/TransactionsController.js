@@ -15,7 +15,7 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
 
         $http({
             method: 'GET',
-            url: server_uri+'/transactions',
+            url: server_uri+'transactions',
             params: {
                 id: $scope.Usuario.id
             }
@@ -52,7 +52,7 @@ app.controller('TransactionsController', function($scope, $state, $sessionStorag
 
         $http({
             method: 'GET',
-            url: server_uri+'/transactions/'+$stateParams.id
+            url: server_uri+'transactions/'+$stateParams.id
         }).then(function successCallback(response) {
             console.log(response);
 

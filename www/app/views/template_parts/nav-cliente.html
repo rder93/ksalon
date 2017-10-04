@@ -2,11 +2,41 @@
   .user-menu{
     width: 90%!important;
   }
+  @media only screen and (max-width: 1024px) {
+      .menu-option-item{
+
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .menu-option-item{ 
+        font-size: 32px!important;
+        margin-bottom: 10px;
+      }
+    }
+
+    @media only screen and (max-width: 425px) {
+      .menu-option-item{
+        
+      }
+    }
+
+    @media only screen and (max-width: 385px) {
+      .menu-option-item{
+        
+      }
+    }
+
+    @media only screen and (max-width: 325px) {
+      .menu-option-item{
+        
+      }
+    }
 </style>
 
 <nav class="right">
   
-    <div class="nav-wrapper pink accent-3">
+    <div class="nav-wrapper black">
     <!-- <div class="nav-wrapper teal lighten-2"> -->
 
       <a href="#!" class="brand-logo center" style="bottom: 2px;">
@@ -39,7 +69,7 @@
           <div class="center"><img ng-src="{{ foto_menu }}" class="perfil-menu redondear" /></div>
         </li>
         <li ng-repeat="opcion in opciones">
-          <a ui-sref={{opcion.state}} style="padding: 0 20px;">{{opcion.nombre}}
+          <a ui-sref={{opcion.state}} class="menu-option-item" style="padding: 0 20px;">{{opcion.nombre}}
             <!-- <i class="material-icons">{{opcion.icono}}</i> -->
             <i class="fa {{opcion.icono}}" aria-hidden="true"></i>
           </a>
@@ -47,7 +77,7 @@
 
 
         <li id="btn-logout" class="logouth">
-          <a href="#" style="padding: 0 20px;">Cerrar Sesion 
+          <a href="#" class="menu-option-item" style="padding: 0 20px;">Cerrar Sesion 
             <!-- <i class="material-icons">exit_to_app</i> -->
             <i class="fa fa-sign-out" aria-hidden="true"></i>
           </a>
